@@ -1,18 +1,19 @@
 import { config } from 'dotenv'
+import { injectable } from 'tsyringe'
 
-import logger from '../logger'
+import { Logger } from '../logger'
 config()
 
+@injectable()
 export default class ConfigService {
+  constructor(private logger: Logger) {}
+
   getEnv<T>(env: string): T | undefined {
     if (process.env[env]) {
       return process.env[env] as unknown as T
     }
 
-    logger.warn(
-      `the enviroment variable "${env}" is undefined`,
-      ConfigService.name
-    )
+    this.logger.warn(`the enviroment variable "${env}" is undefined`)
 
     return undefined
   }
