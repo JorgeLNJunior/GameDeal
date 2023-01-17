@@ -1,18 +1,26 @@
-import http from 'http'
+import 'reflect-metadata'
 
-import logger from './logger'
+import http from 'http'
+import { container, injectable } from 'tsyringe'
+
+import { DatabaseService } from './database/database.service'
+import { Logger } from './logger'
 import ConfigService from './services/config.service'
 
+@injectable()
 export default class Main {
   private port: number
-  private configService: ConfigService
 
-  constructor() {
-    this.configService = new ConfigService()
+  constructor(
+    private dbService: DatabaseService,
+    private logger: Logger,
+    private configService: ConfigService
+  ) {
     this.port = this.configService.getEnv<number>('PORT') || 3000
   }
 
-  startServer() {
+  async startServer() {
+    await this.dbService.connect()
     const server = http.createServer((req, res) => {
       res.setHeader('Content-Type', 'application/json')
 
@@ -37,22 +45,22 @@ export default class Main {
           })
         )
       } catch (error) {
-        logger.error(JSON.stringify(error), 'Internal error')
+        this.logger.error(error, 'Internal error')
         res.writeHead(500)
         return res.end(JSON.stringify({ message: 'Internal error' }))
       }
     })
 
     server.listen(this.port, undefined, () => {
-      logger.info(`server listening at port ${this.port}`, 'Server')
+      this.logger.info(`server listening at port ${this.port}`)
     })
 
     // graceful shutdown
     process.on('SIGINT', () => {
-      logger.info('closing the server...', 'Server')
+      this.logger.info('closing the server...')
       server.close((err) => process.exit(err ? 1 : 0))
     })
   }
 }
 
-new Main().startServer()
+container.resolve(Main).startServer()
