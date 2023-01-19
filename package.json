@@ -9,6 +9,7 @@
     "start": "ts-node src/main.ts | pino-pretty",
     "start:dev": "tsnd --respawn --transpile-only src/main.ts | pino-pretty",
     "start:prod": "pm2-runtime start ecosystem.config.js --env production",
+    "lint": "eslint src .",
     "test": "jest",
     "test:cov": "jest --coverage",
     "prepare": "husky install",
