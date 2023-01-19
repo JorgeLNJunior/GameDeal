@@ -4,7 +4,7 @@ import { createPool } from 'mysql2'
 import * as path from 'path'
 import { singleton } from 'tsyringe'
 
-import { Logger } from '../logger'
+import { Logger } from '../infra/logger'
 import ConfigService from '../services/config.service'
 import { Database } from './interfaces/database.interface'
 
@@ -17,7 +17,7 @@ export class DatabaseService {
   /**
    * Connect to the database and run all pending migrations.
    *
-   * ```ts
+   * ```
    * await new DatabaseService().connect()
    * ```
    */
@@ -37,10 +37,20 @@ export class DatabaseService {
   }
 
   /**
+   * Disconnect from the database.
+   *```
+   * await db.disconnect()
+   * ```
+   */
+  async disconnect(): Promise<void> {
+    return this.client.destroy()
+  }
+
+  /**
    * Get the database client instance.
    * You MUST call `.connect()` method before get the client.
    *
-   * ```ts
+   * ```
    * const db = new DatabaseService()
    * await db.connect()
    * const client = db.getClient()
@@ -53,7 +63,7 @@ export class DatabaseService {
   /**
    * Execute all pending migrations.
    *
-   * ```ts
+   * ```
    * await this.migrate()
    * ```
    */
@@ -80,7 +90,7 @@ export class DatabaseService {
     })
 
     if (error) {
-      this.logger.fatal(error, 'the database migrations failed with: ')
+      this.logger.fatal(error, 'database migration failed')
       process.exit(1)
     }
   }

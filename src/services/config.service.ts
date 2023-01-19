@@ -1,7 +1,7 @@
 import { config } from 'dotenv'
 import { injectable } from 'tsyringe'
 
-import { Logger } from '../logger'
+import { Logger } from '../infra/logger'
 config()
 
 @injectable()
