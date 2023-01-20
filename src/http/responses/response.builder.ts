@@ -1,0 +1,100 @@
+import { HttpResponse } from '../interfaces/http.interface'
+
+export class ResponseBuilder {
+  /**
+   * Build a HTTP 200 response.
+   *
+   * ```
+   * return ResponseBuilder.ok(data)
+   * ```
+   *
+   * @param data The data to be returned.
+   * @returns A `HttpResponse`.
+   */
+  static ok(data?: unknown): HttpResponse {
+    return { statusCode: 200, body: data }
+  }
+
+  /**
+   * Build a HTTP 201 response.
+   *
+   * ```
+   * return ResponseBuilder.created(data)
+   * ```
+   *
+   * @param data The data to be returned.
+   * @returns A `HttpResponse`.
+   */
+  static created(data?: unknown): HttpResponse {
+    return { statusCode: 200, body: data }
+  }
+
+  /**
+   * Build a HTTP 400 response.
+   *
+   * ```
+   * return ResponseBuilder.badRequest(data)
+   * ```
+   *
+   * @param data The data to be returned.
+   * @returns A `HttpResponse`.
+   */
+  static badRequest(data?: unknown): HttpResponse {
+    return { statusCode: 400, body: data }
+  }
+
+  /**
+   * Build a HTTP 401 response.
+   *
+   * ```
+   * return ResponseBuilder.ok(data)
+   * ```
+   *
+   * @param data The data to be returned.
+   * @returns A `HttpResponse`.
+   */
+  static unauthorized(data?: unknown): HttpResponse {
+    return { statusCode: 401, body: data }
+  }
+
+  /**
+   * Build a HTTP 403 response.
+   *
+   * ```
+   * return ResponseBuilder.forbidden(data)
+   * ```
+   *
+   * @param data The data to be returned.
+   * @returns A `HttpResponse`.
+   */
+  static forbidden(data?: unknown): HttpResponse {
+    return { statusCode: 403, body: data }
+  }
+
+  /**
+   * Build a HTTP 404 response.
+   *
+   * ```
+   * return ResponseBuilder.notFound(data)
+   * ```
+   *
+   * @param data The data to be returned.
+   * @returns A `HttpResponse`.
+   */
+  static notFound(data?: unknown): HttpResponse {
+    return { statusCode: 404, body: data }
+  }
+
+  /**
+   * Build a HTTP 500 response.
+   *
+   * ```
+   * return ResponseBuilder.internalError()
+   * ```
+   *
+   * @returns A `HttpResponse`.
+   */
+  static internalError(): HttpResponse {
+    return { statusCode: 500, body: { error: 'internal server error' } }
+  }
+}

@@ -3,7 +3,8 @@ import { singleton } from 'tsyringe'
 
 import { Logger } from '../infra/logger'
 import ConfigService from '../services/config.service'
-import { BaseController } from './controllers/interfaces/baseController.interface'
+import { adaptRoute } from './adapters/route.adapter'
+import { BaseController } from './interfaces/baseController.interface'
 
 @singleton()
 export class Server {
@@ -72,8 +73,9 @@ export class Server {
     controllers.forEach((controller) => {
       this.fastify.route({
         url: controller.url,
-        method: controller.method,
-        handler: controller.handler
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        method: controller.method as any,
+        handler: adaptRoute(controller)
       })
     })
   }
