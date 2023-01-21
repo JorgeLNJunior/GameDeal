@@ -26,6 +26,9 @@
   },
   "homepage": "https://github.com/JorgeLNJunior/game-price-alert#readme",
   "dependencies": {
+    "@fastify/compress": "^6.2.0",
+    "@fastify/cors": "^8.2.0",
+    "@fastify/helmet": "^10.1.0",
     "dotenv": "^16.0.3",
     "fastify": "^4.11.0",
     "kysely": "^0.23.4",

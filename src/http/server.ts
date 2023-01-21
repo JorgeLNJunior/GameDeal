@@ -22,6 +22,7 @@ export class Server {
    * ```
    */
   public async listen(): Promise<void> {
+    await this.registerPlugins()
     return this.fastify.listen(
       {
         host: this.config.getEnv<string>('HOST') || '0.0.0.0',
@@ -78,5 +79,19 @@ export class Server {
         handler: adaptRoute(controller)
       })
     })
+  }
+
+  /**
+   * Register fastify plugins.
+   *
+   * ```
+   * await server.registerPlugins()
+   * ```
+   */
+  private async registerPlugins(): Promise<void> {
+    this.logger.info('registering all plugins')
+    await this.fastify.register(import('@fastify/compress'))
+    await this.fastify.register(import('@fastify/cors'))
+    await this.fastify.register(import('@fastify/helmet'))
   }
 }
