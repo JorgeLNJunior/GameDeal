@@ -1,11 +1,11 @@
-import { ColumnType, Generated } from 'kysely'
+import { ColumnType } from 'kysely'
 
 export interface Game {
-  id: Generated<string>
+  id: ColumnType<string, string, never>
   title: string
   steam_url: string
-  nuuvem_url: string
-  green_man_gaming_url: string
+  nuuvem_url: string | null
+  green_man_gaming_url: string | null
   created_at: ColumnType<Date, never, never>
   updated_at: ColumnType<Date, never, never>
 }
