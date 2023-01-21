@@ -39,8 +39,14 @@ export class ResponseBuilder {
    * @param data The data to be returned.
    * @returns A `HttpResponse`.
    */
-  static badRequest(data?: unknown): HttpResponse {
-    return { statusCode: 400, body: data }
+  static badRequest(errors?: unknown): HttpResponse {
+    return {
+      statusCode: 400,
+      body: {
+        error: 'Bad Request',
+        messages: errors
+      }
+    }
   }
 
   /**
@@ -53,8 +59,14 @@ export class ResponseBuilder {
    * @param data The data to be returned.
    * @returns A `HttpResponse`.
    */
-  static unauthorized(data?: unknown): HttpResponse {
-    return { statusCode: 401, body: data }
+  static unauthorized(error?: unknown): HttpResponse {
+    return {
+      statusCode: 401,
+      body: {
+        error: 'Unauthorized',
+        message: error
+      }
+    }
   }
 
   /**
@@ -67,8 +79,14 @@ export class ResponseBuilder {
    * @param data The data to be returned.
    * @returns A `HttpResponse`.
    */
-  static forbidden(data?: unknown): HttpResponse {
-    return { statusCode: 403, body: data }
+  static forbidden(error?: unknown): HttpResponse {
+    return {
+      statusCode: 403,
+      body: {
+        error: 'Forbidden',
+        message: error
+      }
+    }
   }
 
   /**
@@ -82,7 +100,13 @@ export class ResponseBuilder {
    * @returns A `HttpResponse`.
    */
   static notFound(data?: unknown): HttpResponse {
-    return { statusCode: 404, body: data }
+    return {
+      statusCode: 404,
+      body: {
+        error: 'Forbidden',
+        message: data
+      }
+    }
   }
 
   /**
@@ -95,6 +119,12 @@ export class ResponseBuilder {
    * @returns A `HttpResponse`.
    */
   static internalError(): HttpResponse {
-    return { statusCode: 500, body: { error: 'internal server error' } }
+    return {
+      statusCode: 500,
+      body: {
+        error: 'Internal Error',
+        message: 'internal server error'
+      }
+    }
   }
 }
