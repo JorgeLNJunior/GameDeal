@@ -33,7 +33,8 @@
     "pino": "^8.8.0",
     "pm2": "^5.2.2",
     "reflect-metadata": "^0.1.13",
-    "tsyringe": "^4.7.0"
+    "tsyringe": "^4.7.0",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",

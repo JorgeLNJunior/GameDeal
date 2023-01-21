@@ -3,6 +3,7 @@ import 'reflect-metadata'
 import { container, injectable } from 'tsyringe'
 
 import { DatabaseService } from './database/database.service'
+import { AddGameController } from './http/modules/game/addGame.controller'
 import { Server } from './http/server'
 import { Logger } from './infra/logger'
 
@@ -15,7 +16,7 @@ export default class Main {
   ) {}
 
   async start() {
-    this.server.registerControllers()
+    this.server.registerControllers(container.resolve(AddGameController))
 
     await this.dbService.connect()
     await this.server.listen()
