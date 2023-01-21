@@ -68,6 +68,7 @@ export class DatabaseService {
    * ```
    */
   private async migrate(): Promise<void> {
+    this.logger.info('executing all pending migrations')
     const { error, results } = await new Migrator({
       db: this.client,
       provider: new FileMigrationProvider({
