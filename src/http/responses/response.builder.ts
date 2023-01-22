@@ -26,7 +26,7 @@ export class ResponseBuilder {
    * @returns A `HttpResponse`.
    */
   static created(data?: unknown): HttpResponse {
-    return { statusCode: 200, body: data }
+    return { statusCode: 201, body: data }
   }
 
   /**
