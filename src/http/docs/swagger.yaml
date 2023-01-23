@@ -1,0 +1,138 @@
+openapi: "3.0.2"
+info:
+  title: Game Price Alert API
+  version: "0.0.1"
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:3000
+    description: Localhost
+paths:
+  /games:
+    post:
+      summary: Adicionar um novo jogo
+      tags:
+        - "Game"
+      requestBody:
+        $ref: "#/components/requestBodies/add-game"
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/game"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+
+components:
+  schemas:
+    game:
+      type: object
+      properties:
+        title:
+          type: string
+          example: "God of War"
+        steam_url:
+          type: string
+          example: https://store.steampowered.com/app/1593500/God_of_War
+        green_man_gaming_url:
+          type: string
+          example: https://www.greenmangaming.com/games/god-of-war-pc
+          nullable: true
+        nuuvem_url:
+          type: string
+          example: https://www.nuuvem.com/br-en/item/god-of-war
+          nullable: true
+        created_at:
+          type: string
+          example: 2023-01-23T00:30:19.000Z
+        updated_at:
+          type: string
+          example: 2023-01-23T00:30:19.000Z
+          nullable: true
+
+  requestBodies:
+    add-game:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - "title"
+              - "steam_url"
+            properties:
+              title:
+                type: string
+                example: "God of War"
+                description: "Título do jogo"
+              steam_url:
+                type: string
+                example: https://store.steampowered.com/app/1593500/God_of_War
+                description: "URL do jogo no Steam"
+              green_man_gaming_url:
+                type: string
+                example: https://www.greenmangaming.com/games/god-of-war-pc
+                description: "URL do jogo no Greenmangaming"
+              nuuvem_url:
+                type: string
+                example: https://www.nuuvem.com/br-en/item/god-of-war
+                description: "URL do jogo na Nuuvem"
+
+  responses:
+    400:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                default: 400
+              error:
+                type: string
+                default: Bad Request
+              messages:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      example: invalid_type
+                    message:
+                      type: string
+                      example: Invalid
+                    path:
+                      type: array
+                      items:
+                        type: string
+                        example: steam_url
+                    expected:
+                      type: string
+                      example: string
+                      nullable: true
+                    received:
+                      type: string
+                      example: undefined
+                      nullable: true
+    500:
+      description: Internal error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: number
+                default: 500
+              error:
+                type: string
+                default: Internal Error
+              message:
+                type: string
+                default: Internal Server Error

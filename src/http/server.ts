@@ -93,5 +93,15 @@ export class Server {
     await this.fastify.register(import('@fastify/compress'))
     await this.fastify.register(import('@fastify/cors'))
     await this.fastify.register(import('@fastify/helmet'))
+    await this.fastify.register(import('@fastify/swagger'), {
+      mode: 'static',
+      specification: {
+        path: __dirname + '/docs/swagger.yaml',
+        baseDir: ''
+      }
+    })
+    await this.fastify.register(import('@fastify/swagger-ui'), {
+      routePrefix: '/docs'
+    })
   }
 }
