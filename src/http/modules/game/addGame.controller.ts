@@ -24,11 +24,11 @@ export class AddGameController implements BaseController {
       const { success, errors } = this.validator.validate(request.body)
       if (!success) return ResponseBuilder.badRequest(errors)
 
-      const isAlreadyInsert = await this.gameRepository.isAlreadyInsert(
+      const isAlreadyInserted = await this.gameRepository.isAlreadyInserted(
         (request.body as AddGameDTO).title
       )
 
-      if (isAlreadyInsert) {
+      if (isAlreadyInserted) {
         return ResponseBuilder.badRequest({
           validation: 'unique',
           code: 'game_already_insert',

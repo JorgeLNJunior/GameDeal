@@ -1,4 +1,4 @@
-import { HttpRequest, HttpRespose } from './http.interface'
+import { HttpRequest, HttpResponse } from './http.interface'
 
 export interface BaseController {
   /** The route HTTP method. */
@@ -10,5 +10,5 @@ export interface BaseController {
    * Handle a server route.
    * @param request A `HttpRequest` object.
    */
-  handle(request: HttpRequest): HttpRespose | Promise<HttpRespose>
+  handle(request: HttpRequest): HttpResponse | Promise<HttpResponse>
 }

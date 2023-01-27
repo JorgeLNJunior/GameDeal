@@ -103,7 +103,7 @@ export class ResponseBuilder {
     return {
       statusCode: 404,
       body: {
-        error: 'Forbidden',
+        error: 'Not Found',
         message: data
       }
     }

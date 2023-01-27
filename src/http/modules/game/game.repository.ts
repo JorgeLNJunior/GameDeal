@@ -46,15 +46,15 @@ export class GameRepository {
   }
 
   /**
-   * Verify if a game is already insert.
+   * Verify if a game is already inserted.
    *
    * ```
-   * const isAlreadyInsert = await gameRepository.isAlreadyInsert('God of War')
+   * const isAlreadyInserted = await gameRepository.isAlreadyInserted('God of War')
    * ```
    *
    * @param gameTitle The title of the game.
    */
-  async isAlreadyInsert(gameTitle: string): Promise<boolean> {
+  async isAlreadyInserted(gameTitle: string): Promise<boolean> {
     const result = await this.db
       .getClient()
       .selectFrom('game')
