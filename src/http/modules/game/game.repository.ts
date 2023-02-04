@@ -15,8 +15,8 @@ export class GameRepository {
    * const game = await gameRespository.create(dto)
    * ```
    *
-   * @param dto The data required to insert a game.
-   * @returns A `Game` object.
+   * @param {AddGameDTO} dto The data required to insert a game.
+   * @returns {unknown} A `Game` object.
    */
   async create(dto: AddGameDTO) {
     return this.db
@@ -52,7 +52,7 @@ export class GameRepository {
    * const isAlreadyInserted = await gameRepository.isAlreadyInserted('God of War')
    * ```
    *
-   * @param gameTitle The title of the game.
+   * @param {string} gameTitle The title of the game.
    */
   async isAlreadyInserted(gameTitle: string): Promise<boolean> {
     const result = await this.db

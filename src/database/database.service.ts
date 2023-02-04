@@ -55,6 +55,8 @@ export class DatabaseService {
    * await db.connect()
    * const client = db.getClient()
    * ```
+   *
+   * @returns {Kysely<Database>} The database client instance.
    */
   public getClient(): Kysely<Database> {
     return this.client

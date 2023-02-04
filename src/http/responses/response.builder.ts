@@ -8,8 +8,8 @@ export class ResponseBuilder {
    * return ResponseBuilder.ok(data)
    * ```
    *
-   * @param data The data to be returned.
-   * @returns A `HttpResponse`.
+   * @param {unknown} data The data to be returned.
+   * @returns {HttpResponse} A `HttpResponse`.
    */
   static ok(data?: unknown): HttpResponse {
     return { statusCode: 200, body: data }
@@ -22,8 +22,8 @@ export class ResponseBuilder {
    * return ResponseBuilder.created(data)
    * ```
    *
-   * @param data The data to be returned.
-   * @returns A `HttpResponse`.
+   * @param {unknown} data The data to be returned.
+   * @returns {HttpResponse} A `HttpResponse`.
    */
   static created(data?: unknown): HttpResponse {
     return { statusCode: 201, body: data }
@@ -36,8 +36,8 @@ export class ResponseBuilder {
    * return ResponseBuilder.badRequest(data)
    * ```
    *
-   * @param data The data to be returned.
-   * @returns A `HttpResponse`.
+   * @param {unknown} errors A list of errors to be returned.
+   * @returns {HttpResponse} A `HttpResponse`.
    */
   static badRequest(errors?: unknown): HttpResponse {
     return {
@@ -56,8 +56,8 @@ export class ResponseBuilder {
    * return ResponseBuilder.ok(data)
    * ```
    *
-   * @param data The data to be returned.
-   * @returns A `HttpResponse`.
+   * @param {unknown} error An error to be returned.
+   * @returns {HttpResponse} A `HttpResponse`.
    */
   static unauthorized(error?: unknown): HttpResponse {
     return {
@@ -76,8 +76,8 @@ export class ResponseBuilder {
    * return ResponseBuilder.forbidden(data)
    * ```
    *
-   * @param data The data to be returned.
-   * @returns A `HttpResponse`.
+   * @param {unknown} error An error to be returned.
+   * @returns {HttpResponse} A `HttpResponse`.
    */
   static forbidden(error?: unknown): HttpResponse {
     return {
@@ -96,15 +96,15 @@ export class ResponseBuilder {
    * return ResponseBuilder.notFound(data)
    * ```
    *
-   * @param data The data to be returned.
-   * @returns A `HttpResponse`.
+   * @param {unknown} error An error to be returned.
+   * @returns {HttpResponse} A `HttpResponse`.
    */
-  static notFound(data?: unknown): HttpResponse {
+  static notFound(error?: unknown): HttpResponse {
     return {
       statusCode: 404,
       body: {
         error: 'Not Found',
-        message: data
+        message: error
       }
     }
   }
@@ -116,7 +116,7 @@ export class ResponseBuilder {
    * return ResponseBuilder.internalError()
    * ```
    *
-   * @returns A `HttpResponse`.
+   * @returns {HttpResponse} A `HttpResponse`.
    */
   static internalError(): HttpResponse {
     return {

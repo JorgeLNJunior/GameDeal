@@ -15,8 +15,8 @@ import { HttpRequest } from '../interfaces/http.interface'
  * })
  * ```
  *
- * @param controller A class wich implements `BaseController`.
- * @returns A fastify `RouteHandler`
+ * @param {BaseController} controller A class wich implements `BaseController`.
+ * @returns {RouteHandler} A fastify `RouteHandler`
  */
 export function adaptRoute(controller: BaseController): RouteHandler {
   return async (req: FastifyRequest, res: FastifyReply) => {

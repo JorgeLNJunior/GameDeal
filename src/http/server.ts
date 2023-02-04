@@ -52,6 +52,8 @@ export class Server {
    * ```
    * const fastify = server.getFastifyInstance()
    * ```
+   *
+   * @returns {FastifyInstance} A fastify instance.
    */
   public getFastifyInstance(): FastifyInstance {
     return this.fastify
@@ -67,8 +69,7 @@ export class Server {
    * )
    * ```
    *
-   * @param controllers A list of `BaseController`.
-   *
+   * @param {BaseController[]} controllers A list of `BaseController`.
    */
   public registerControllers(...controllers: BaseController[]): void {
     controllers.forEach((controller) => {

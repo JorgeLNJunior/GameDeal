@@ -7,14 +7,15 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended'
+    'plugin:prettier/recommended',
+    'plugin:jsdoc/recommended-error'
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'ES2021',
     sourceType: 'module'
   },
-  plugins: ['@typescript-eslint', 'prettier', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'prettier', 'simple-import-sort', 'jsdoc'],
   overrides: [
     {
       files: ['**/*.spec.ts'],
