@@ -1,9 +1,13 @@
 import Playwright from 'playwright'
 import { singleton } from 'tsyringe'
 
+import { Logger } from './logger'
+
 @singleton()
 export class Browser {
   private playwright!: Playwright.Browser
+
+  constructor(private logger: Logger) {}
 
   /**
    * Launch a new browser instance.
@@ -13,7 +17,9 @@ export class Browser {
    * ```
    */
   async launch(): Promise<void> {
+    this.logger.info('[browser] launching browser')
     this.playwright = await Playwright.chromium.launch()
+    this.logger.info('[browser] browser launched')
   }
 
   /**
@@ -24,7 +30,9 @@ export class Browser {
    * ```
    */
   async close(): Promise<void> {
-    return this.playwright.close()
+    this.logger.info('[browser] closing browser')
+    await this.playwright.close()
+    this.logger.info('[browser] browser closed')
   }
 
   /**

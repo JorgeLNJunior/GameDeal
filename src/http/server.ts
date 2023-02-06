@@ -22,6 +22,7 @@ export class Server {
    * ```
    */
   public async listen(): Promise<void> {
+    this.logger.info('[server] starting server')
     await this.registerPlugins()
     return this.fastify.listen(
       {
@@ -29,8 +30,8 @@ export class Server {
         port: this.config.getEnv<number>('PORT') || 3000
       },
       (error) => {
-        if (error) this.logger.fatal(error, 'server startup error')
-        else this.logger.info('server listening')
+        if (error) this.logger.fatal(error, '[Server] server startup error')
+        else this.logger.info('[Server] server started')
       }
     )
   }
@@ -43,7 +44,9 @@ export class Server {
    * ```
    */
   public async close(): Promise<void> {
+    this.logger.info('[Server] closing server')
     return this.fastify.close()
+    this.logger.info('[Server] server closed')
   }
 
   /**
@@ -72,6 +75,7 @@ export class Server {
    * @param {BaseController[]} controllers A list of `BaseController`.
    */
   public registerControllers(...controllers: BaseController[]): void {
+    this.logger.info('[Server] registering controllers')
     controllers.forEach((controller) => {
       this.fastify.route({
         url: controller.url,
@@ -80,6 +84,7 @@ export class Server {
         handler: adaptRoute(controller)
       })
     })
+    this.logger.info('[Server] controllers registered')
   }
 
   /**
@@ -90,7 +95,7 @@ export class Server {
    * ```
    */
   private async registerPlugins(): Promise<void> {
-    this.logger.info('registering all plugins')
+    this.logger.info('[Server] registering all plugins')
     await this.fastify.register(import('@fastify/compress'))
     await this.fastify.register(import('@fastify/cors'))
     await this.fastify.register(import('@fastify/helmet'))
@@ -104,5 +109,6 @@ export class Server {
     await this.fastify.register(import('@fastify/swagger-ui'), {
       routePrefix: '/docs'
     })
+    this.logger.info('[Server] all plugins registered')
   }
 }

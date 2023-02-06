@@ -10,9 +10,9 @@ import { Logger } from './infra/logger'
 @injectable()
 export default class Main {
   constructor(
+    private server: Server,
     private dbService: DatabaseService,
-    private logger: Logger,
-    private server: Server
+    private logger: Logger
   ) {}
 
   async start() {
@@ -23,16 +23,9 @@ export default class Main {
 
     // graceful shutdown
     process.on('SIGINT', async () => {
-      this.logger.info('received SIGINT signal')
-
-      this.logger.info('disconnecting from the database')
+      this.logger.info('[Main] received SIGINT signal')
       await this.dbService.disconnect()
-      this.logger.info('disconnected from the database')
-
-      this.logger.info('closing the server')
       await this.server.close()
-      this.logger.info('server closed')
-
       process.exit(0)
     })
   }

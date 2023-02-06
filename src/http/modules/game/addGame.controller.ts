@@ -41,7 +41,7 @@ export class AddGameController implements BaseController {
 
       return ResponseBuilder.ok({ game })
     } catch (error) {
-      this.logger.error(error, 'AddGameController: internal error')
+      this.logger.error(error, '[AddGameController] internal error')
       return ResponseBuilder.internalError()
     }
   }

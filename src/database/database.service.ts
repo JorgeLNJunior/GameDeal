@@ -22,6 +22,7 @@ export class DatabaseService {
    * ```
    */
   public async connect() {
+    this.logger.info('[DatabaseService] connecting to the database')
     this.client = new Kysely<Database>({
       dialect: new MysqlDialect({
         pool: createPool({
@@ -34,6 +35,7 @@ export class DatabaseService {
       })
     })
     await this.migrate()
+    this.logger.info('[DatabaseService] connected to the database')
   }
 
   /**
@@ -43,7 +45,9 @@ export class DatabaseService {
    * ```
    */
   async disconnect(): Promise<void> {
-    return this.client.destroy()
+    this.logger.info('[DatabaseService] disconnecting from the database')
+    await this.client.destroy()
+    this.logger.info('[DatabaseService] disconnected from the database')
   }
 
   /**
@@ -70,7 +74,7 @@ export class DatabaseService {
    * ```
    */
   private async migrate(): Promise<void> {
-    this.logger.info('executing all pending migrations')
+    this.logger.info('[DatabaseService] executing all pending migrations')
     const { error, results } = await new Migrator({
       db: this.client,
       provider: new FileMigrationProvider({
@@ -83,17 +87,17 @@ export class DatabaseService {
     results?.forEach((result) => {
       if (result.status === 'Success') {
         this.logger.info(
-          `migration "${result.migrationName}" was executed successfully.`
+          `[DatabaseService] migration "${result.migrationName}" was executed successfully.`
         )
       } else if (result.status === 'Error') {
         this.logger.error(
-          `failed to execute migration "${result.migrationName}".`
+          `[DatabaseService] failed to execute migration "${result.migrationName}".`
         )
       }
     })
 
     if (error) {
-      this.logger.fatal(error, 'database migration failed')
+      this.logger.fatal(error, '[DatabaseService] database migration failed')
       process.exit(1)
     }
   }
