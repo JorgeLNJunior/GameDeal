@@ -34,16 +34,12 @@ export class Browser {
    */
   async getPage(): Promise<Playwright.Page> {
     const ctx = await this.playwright.newContext()
-    ctx.addCookies([
+    await ctx.addCookies([
       {
         name: 'birthtime',
         value: '0',
-        domain: 'store.steampowered.com',
-        path: '/',
-        secure: false,
-        httpOnly: false,
-        expires: 86400,
-        sameSite: 'None'
+        domain: '.steampowered.com',
+        path: '/'
       }
     ])
     return ctx.newPage()
