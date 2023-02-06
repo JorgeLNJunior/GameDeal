@@ -37,6 +37,12 @@ export class Browser {
 
   /**
    * Create a new page with its own context.
+   * A browser instance should be launched before.
+   *
+   * ```
+   * await browser.launch()
+   * const page = await browser.newPage()
+   * ```
    *
    * @returns {Playwright.Page} The page instance.
    */
