@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "dbaeumer.vscode-eslint",
+        "mikestead.dotenv",
+        "editorconfig.editorconfig",
+        "42crunch.vscode-openapi",
+        "redhat.vscode-yaml"
+    ]
+}
