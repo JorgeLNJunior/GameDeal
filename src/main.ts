@@ -5,6 +5,7 @@ import { container, injectable } from 'tsyringe'
 import { DatabaseService } from './database/database.service'
 import { AddGameController } from './http/modules/game/addGame.controller'
 import { Server } from './http/server'
+import { Browser } from './infra/browser'
 import { Logger } from './infra/logger'
 
 @injectable()
@@ -12,6 +13,7 @@ export default class Main {
   constructor(
     private server: Server,
     private dbService: DatabaseService,
+    private browser: Browser,
     private logger: Logger
   ) {}
 
@@ -19,6 +21,7 @@ export default class Main {
     this.server.registerControllers(container.resolve(AddGameController))
 
     await this.dbService.connect()
+    await this.browser.launch()
     await this.server.listen()
 
     // graceful shutdown
