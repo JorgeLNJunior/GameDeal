@@ -10,6 +10,15 @@ export interface Game {
   updated_at: ColumnType<Date, never, never>
 }
 
+export interface GamePrice {
+  id: ColumnType<string, string, never>
+  game_id: ColumnType<string, string, never>
+  price: number
+  created_at: ColumnType<Date, never, never>
+  updated_at: ColumnType<Date, never, never>
+}
+
 export interface Database {
   game: Game
+  game_price: GamePrice
 }
