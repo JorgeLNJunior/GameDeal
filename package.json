@@ -6,6 +6,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc",
+    "postbuild": "mkdir dist/http/docs && cp src/http/docs/swagger.yaml dist/http/docs/",
     "start": "ts-node src/main.ts | pino-pretty",
     "start:dev": "tsnd --respawn --transpile-only src/main.ts | pino-pretty",
     "start:prod": "pm2-runtime start ecosystem.config.js --env production",
