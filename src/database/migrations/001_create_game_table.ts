@@ -1,3 +1,4 @@
+/* eslint-disable jsdoc/require-jsdoc */
 import { Kysely, sql } from 'kysely'
 
 export async function up(db: Kysely<unknown>): Promise<void> {
