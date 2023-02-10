@@ -65,4 +65,37 @@ export class GameRepository {
     if (result?.id) return true
     return false
   }
+
+  /**
+   * Insert a new value to a game price history.
+   *
+   * ```
+   * await gameRepository.insertPrice(gameId, price)
+   * ```
+   *
+   * @param {string} gameId The id of the game
+   * @param {number} price The current price of the game
+   * @returns {Promise<void>} A `GamePrice` object.
+   */
+  async insertPrice(gameId: string, price: number): Promise<void> {
+    await this.db
+      .getClient()
+      .transaction()
+      .execute(async (trx) => {
+        const uuidResult = await sql<
+          Record<string, string>
+        >`SELECT UUID()`.execute(trx)
+
+        const uuid = uuidResult.rows[0]['UUID()']
+
+        await trx
+          .insertInto('game_price')
+          .values({
+            id: uuid,
+            game_id: gameId,
+            price: price
+          })
+          .executeTakeFirstOrThrow()
+      })
+  }
 }
