@@ -28,6 +28,7 @@ export default class Main {
     process.on('SIGINT', async () => {
       this.logger.info('[Main] received SIGINT signal')
       await this.dbService.disconnect()
+      await this.browser.close()
       await this.server.close()
       process.exit(0)
     })
