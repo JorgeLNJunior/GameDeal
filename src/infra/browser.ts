@@ -42,9 +42,11 @@ export class Browser {
    * ```
    * await browser.launch()
    * const page = await browser.newPage()
+   * // do something with the page
+   * await page.close()
    * ```
    *
-   * @returns {Playwright.Page} The page instance.
+   * @returns {Promise<Playwright.Page>} The page instance.
    */
   async getPage(): Promise<Playwright.Page> {
     const ctx = await this.playwright.newContext()
