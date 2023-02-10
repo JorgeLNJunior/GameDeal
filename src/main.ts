@@ -7,6 +7,7 @@ import { AddGameController } from './http/modules/game/addGame.controller'
 import { Server } from './http/server'
 import { Browser } from './infra/browser'
 import { Logger } from './infra/logger'
+import { GameQueue } from './queue/game.queue'
 
 @injectable()
 export default class Main {
@@ -14,6 +15,7 @@ export default class Main {
     private server: Server,
     private dbService: DatabaseService,
     private browser: Browser,
+    private gameQueue: GameQueue,
     private logger: Logger
   ) {}
 
@@ -21,6 +23,7 @@ export default class Main {
     this.server.registerControllers(container.resolve(AddGameController))
 
     await this.dbService.connect()
+    await this.gameQueue.init()
     await this.browser.launch()
     await this.server.listen()
 
@@ -28,6 +31,7 @@ export default class Main {
     process.on('SIGINT', async () => {
       this.logger.info('[Main] received SIGINT signal')
       await this.dbService.disconnect()
+      await this.gameQueue.stop()
       await this.browser.close()
       await this.server.close()
       process.exit(0)
