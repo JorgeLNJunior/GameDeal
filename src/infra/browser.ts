@@ -50,6 +50,8 @@ export class Browser {
    */
   async getPage(): Promise<Playwright.Page> {
     const ctx = await this.playwright.newContext()
+
+    // bypass steam age check
     await ctx.addCookies([
       {
         name: 'birthtime',
@@ -58,6 +60,23 @@ export class Browser {
         path: '/'
       }
     ])
+
+    // block unnecessary resources
+    ctx.route('**/*', async (route) => {
+      const resourcesToExclude = [
+        'stylesheet',
+        'image',
+        'font',
+        'media',
+        'other'
+      ]
+
+      if (resourcesToExclude.includes(route.request().resourceType())) {
+        return route.abort()
+      }
+      return route.continue()
+    })
+
     return ctx.newPage()
   }
 }
