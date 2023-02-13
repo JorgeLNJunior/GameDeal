@@ -1,12 +1,13 @@
 import 'reflect-metadata'
 
 import { Browser } from '../browser'
+import { Logger } from '../logger'
 
 describe('Browser', () => {
   let browser: Browser
 
   beforeEach(async () => {
-    browser = new Browser()
+    browser = new Browser(new Logger())
   })
 
   describe('launch', () => {
@@ -20,6 +21,7 @@ describe('Browser', () => {
     it('should close a browser instance', async () => {
       await browser.launch()
       await expect(browser.close()).resolves.not.toThrow()
+      await browser.close()
     })
   })
 
