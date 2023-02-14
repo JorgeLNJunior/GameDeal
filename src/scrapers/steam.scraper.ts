@@ -21,14 +21,17 @@ export class SteamScraper implements Scraper {
 
       const price = await page
         .locator('div.game_area_purchase_game_wrapper .game_purchase_price')
-        .textContent()
+        .evaluateAll((elemets: HTMLDivElement[]) => {
+          const firtOcurrence = elemets.at(0)
+          if (firtOcurrence && firtOcurrence.textContent) {
+            return firtOcurrence.textContent
+          }
+          return undefined
+        })
+      if (price) return Number(price.replace('R$', '').replace(',', '.').trim())
 
-      if (!price) {
-        this.logger.error(`No price found for ${url}`)
-        throw new Error('Game price not found')
-      }
-
-      return Number(price.replace('R$', '').replace(',', '.').trim())
+      this.logger.error(`No price found for ${url}`)
+      throw new Error('Game price not found')
     } finally {
       this.logger.info('[SteamScraper] closing the page')
       await page.close()
