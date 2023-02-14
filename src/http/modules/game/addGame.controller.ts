@@ -39,7 +39,7 @@ export class AddGameController implements BaseController {
 
       const game = await this.gameRepository.create(request.body as AddGameDTO)
 
-      return ResponseBuilder.ok({ game })
+      return ResponseBuilder.created({ game })
     } catch (error) {
       this.logger.error(error, '[AddGameController] internal error')
       return ResponseBuilder.internalError()
