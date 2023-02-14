@@ -30,6 +30,8 @@ export default class Main {
     await this.browser.launch()
     await this.server.listen()
 
+    this.logger.info('[Main] Application started')
+
     // gracefull shutdown
     process.on('SIGINT', async () => {
       this.logger.info('[Main] received SIGINT signal')
@@ -38,6 +40,7 @@ export default class Main {
       await this.cronService.stop()
       await this.browser.close()
       await this.server.close()
+      this.logger.info('[Main] Application stopped')
       process.exit(0)
     })
   }
