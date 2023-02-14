@@ -2,6 +2,7 @@ import 'reflect-metadata'
 
 import { container, injectable } from 'tsyringe'
 
+import { CronService } from './cron/cron.service'
 import { DatabaseService } from './database/database.service'
 import { AddGameController } from './http/modules/game/addGame.controller'
 import { Server } from './http/server'
@@ -16,6 +17,7 @@ export default class Main {
     private dbService: DatabaseService,
     private browser: Browser,
     private gameQueue: GameQueue,
+    private cronService: CronService,
     private logger: Logger
   ) {}
 
@@ -24,14 +26,16 @@ export default class Main {
 
     await this.dbService.connect()
     await this.gameQueue.init()
+    await this.cronService.start()
     await this.browser.launch()
     await this.server.listen()
 
-    // graceful shutdown
+    // gracefull shutdown
     process.on('SIGINT', async () => {
       this.logger.info('[Main] received SIGINT signal')
       await this.dbService.disconnect()
       await this.gameQueue.stop()
+      await this.cronService.stop()
       await this.browser.close()
       await this.server.close()
       process.exit(0)

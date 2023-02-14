@@ -16,7 +16,7 @@ export class GameRepository {
    * ```
    *
    * @param {AddGameDTO} dto The data required to insert a game.
-   * @returns {unknown} A `Game` object.
+   * @returns {Promise<unknown>} A `Game` object.
    */
   async create(dto: AddGameDTO) {
     return this.db
@@ -97,5 +97,22 @@ export class GameRepository {
           })
           .executeTakeFirstOrThrow()
       })
+  }
+
+  /**
+   * Get a list of games with only the id and steam_url keys.
+   *
+   * ```
+   * const games = await gameRepository.findSteamScraperData()
+   * ```
+   *
+   * @returns {Promise<unknown>} A list of games.
+   */
+  async findSteamScraperData() {
+    return this.db
+      .getClient()
+      .selectFrom('game')
+      .select(['id', 'steam_url'])
+      .execute()
   }
 }
