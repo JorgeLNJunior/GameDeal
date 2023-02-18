@@ -20,9 +20,9 @@ export class SteamScraper implements Scraper {
       await page.waitForSelector('.game_area_purchase_game_wrapper')
 
       const price = await page
-        .locator('div.game_area_purchase_game_wrapper .game_purchase_price')
-        .evaluateAll((elemets: HTMLDivElement[]) => {
-          const firtOcurrence = elemets.at(0)
+        .locator('div.game_area_purchase_game_wrapper div.game_purchase_price')
+        .evaluateAll((elements: HTMLDivElement[]) => {
+          const firtOcurrence = elements.at(0)
           if (firtOcurrence && firtOcurrence.textContent) {
             return firtOcurrence.textContent
           }
