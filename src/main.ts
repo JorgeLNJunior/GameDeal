@@ -25,9 +25,9 @@ export default class Main {
     this.server.registerControllers(container.resolve(AddGameController))
 
     await this.dbService.connect()
+    await this.browser.launch()
     await this.gameQueue.init()
     await this.cronService.start()
-    await this.browser.launch()
     await this.server.listen()
 
     this.logger.info('[Main] Application started')
@@ -36,9 +36,9 @@ export default class Main {
     process.on('SIGINT', async () => {
       this.logger.info('[Main] received SIGINT signal')
       await this.dbService.disconnect()
+      await this.browser.close()
       await this.gameQueue.stop()
       await this.cronService.stop()
-      await this.browser.close()
       await this.server.close()
       this.logger.info('[Main] Application stopped')
       process.exit(0)
