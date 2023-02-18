@@ -4,6 +4,7 @@ import './dependencies/dependency.container'
 import { container, inject, injectable } from 'tsyringe'
 
 import { CronService } from './cron/cron.service'
+import { GameScrapingCronJob } from './cron/jobs/gameScraping.cronjob'
 import { DatabaseService } from './database/database.service'
 import { PINO_LOGGER } from './dependencies/dependency.tokens'
 import { AddGameController } from './http/modules/game/addGame.controller'
@@ -25,6 +26,7 @@ export default class Main {
 
   async start() {
     this.server.registerControllers(container.resolve(AddGameController))
+    this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
     await this.dbService.connect()
     await this.browser.launch()
