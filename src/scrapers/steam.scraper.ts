@@ -30,6 +30,19 @@ export class SteamScraper implements Scraper {
         })
       if (price) return Number(price.replace('R$', '').replace(',', '.').trim())
 
+      const salePrice = await page
+        .locator('div.game_area_purchase_game_wrapper div.discount_final_price')
+        .evaluateAll((elements: HTMLDivElement[]) => {
+          const firtOcurrence = elements.at(0)
+          if (firtOcurrence && firtOcurrence.textContent) {
+            return firtOcurrence.textContent
+          }
+          return undefined
+        })
+      if (salePrice) {
+        return Number(salePrice.replace('R$', '').replace(',', '.').trim())
+      }
+
       this.logger.error(`No price found for ${url}`)
       throw new Error('Game price not found')
     } finally {
