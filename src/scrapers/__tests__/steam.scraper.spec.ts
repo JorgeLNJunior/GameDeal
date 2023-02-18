@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 
 import { Browser } from '../../infra/browser'
-import { Logger } from '../../infra/logger'
+import { PinoLogger } from '../../infra/logger'
 import { SteamScraper } from '../steam.scraper'
 
 describe('SteamScraper', () => {
@@ -9,7 +9,7 @@ describe('SteamScraper', () => {
   let browser: Browser
 
   beforeEach(async () => {
-    const logger = new Logger()
+    const logger = new PinoLogger()
     browser = new Browser(logger)
     scraper = new SteamScraper(browser, logger)
     await browser.launch()

@@ -1,18 +1,19 @@
 import { CronJob } from 'cron'
-import { injectable } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 
+import { PINO_LOGGER } from '../dependencies/dependency.tokens'
 import { GameRepository } from '../http/modules/game/game.repository'
-import { Logger } from '../infra/logger'
 import { GameQueue } from '../queue/game.queue'
+import { ApplicationLogger } from '../types/logger.type'
 
 @injectable()
 export class CronService {
   private jobs: CronJob[] = []
 
   constructor(
-    private logger: Logger,
     private gameQueue: GameQueue,
-    private gameRepository: GameRepository
+    private gameRepository: GameRepository,
+    @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
   async start(): Promise<void> {

@@ -1,12 +1,14 @@
 import { config } from 'dotenv'
-import { injectable } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 
-import { Logger } from '../infra/logger'
+import { PINO_LOGGER } from '../dependencies/dependency.tokens'
+import { ApplicationLogger } from '../types/logger.type'
+
 config()
 
 @injectable()
 export default class ConfigService {
-  constructor(private logger: Logger) {}
+  constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   getEnv<T>(env: string): T | undefined {
     if (process.env[env]) {

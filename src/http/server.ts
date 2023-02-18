@@ -1,8 +1,9 @@
 import { fastify, FastifyInstance } from 'fastify'
-import { singleton } from 'tsyringe'
+import { inject, singleton } from 'tsyringe'
 
-import { Logger } from '../infra/logger'
+import { PINO_LOGGER } from '../dependencies/dependency.tokens'
 import ConfigService from '../services/config.service'
+import { ApplicationLogger } from '../types/logger.type'
 import { adaptRoute } from './adapters/route.adapter'
 import { BaseController } from './interfaces/baseController.interface'
 
@@ -10,7 +11,10 @@ import { BaseController } from './interfaces/baseController.interface'
 export class Server {
   private fastify: FastifyInstance
 
-  constructor(private config: ConfigService, private logger: Logger) {
+  constructor(
+    private config: ConfigService,
+    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  ) {
     this.fastify = fastify()
   }
 

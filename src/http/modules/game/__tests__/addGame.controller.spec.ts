@@ -2,7 +2,7 @@ import 'reflect-metadata'
 
 import { container } from 'tsyringe'
 
-import { Logger } from '../../../../infra/logger'
+import { PinoLogger } from '../../../../infra/logger'
 import { AddGameController } from '../addGame.controller'
 import { GameRepository } from '../game.repository'
 import { AddGameValidator } from '../validators/addGame.validator'
@@ -15,9 +15,9 @@ describe('AddGameController', () => {
   beforeEach(() => {
     validator = container.resolve(AddGameValidator)
     repository = container.resolve(GameRepository)
-    const logger = container.resolve(Logger)
+    const logger = new PinoLogger()
 
-    controller = new AddGameController(validator, logger, repository)
+    controller = new AddGameController(validator, repository, logger)
   })
 
   it('should return a OK response if it succeeds', async () => {

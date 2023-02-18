@@ -1,8 +1,9 @@
 import { Queue, Worker } from 'bullmq'
-import { singleton } from 'tsyringe'
+import { inject, singleton } from 'tsyringe'
 
-import { Logger } from '../infra/logger'
+import { PINO_LOGGER } from '../dependencies/dependency.tokens'
 import ConfigService from '../services/config.service'
+import { ApplicationLogger } from '../types/logger.type'
 import { GameJobProcessor } from './game.job.processor'
 
 export interface ScrapeGamePriceData {
@@ -16,9 +17,9 @@ export class GameQueue {
   private worker!: Worker<ScrapeGamePriceData>
 
   constructor(
-    private logger: Logger,
+    private gameJobProcessor: GameJobProcessor,
     private config: ConfigService,
-    private gameJobProcessor: GameJobProcessor
+    @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
   /**

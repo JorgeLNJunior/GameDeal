@@ -1,6 +1,7 @@
-import { injectable } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 
-import { Logger } from '../../../infra/logger'
+import { PINO_LOGGER } from '../../../dependencies/dependency.tokens'
+import { ApplicationLogger } from '../../../types/logger.type'
 import { BaseController } from '../../interfaces/baseController.interface'
 import { HttpRequest, HttpResponse } from '../../interfaces/http.interface'
 import { ResponseBuilder } from '../../responses/response.builder'
@@ -15,8 +16,8 @@ export class AddGameController implements BaseController {
 
   constructor(
     private validator: AddGameValidator,
-    private logger: Logger,
-    private gameRepository: GameRepository
+    private gameRepository: GameRepository,
+    @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
   async handle(request: HttpRequest): Promise<HttpResponse> {

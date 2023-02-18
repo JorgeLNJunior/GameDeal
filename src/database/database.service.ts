@@ -2,17 +2,21 @@ import { promises as fs } from 'fs'
 import { FileMigrationProvider, Kysely, Migrator, MysqlDialect } from 'kysely'
 import { createPool } from 'mysql2'
 import * as path from 'path'
-import { singleton } from 'tsyringe'
+import { inject, singleton } from 'tsyringe'
 
-import { Logger } from '../infra/logger'
+import { PINO_LOGGER } from '../dependencies/dependency.tokens'
 import ConfigService from '../services/config.service'
+import { ApplicationLogger } from '../types/logger.type'
 import { Database } from './interfaces/database.interface'
 
 @singleton()
 export class DatabaseService {
   private client!: Kysely<Database>
 
-  constructor(private config: ConfigService, private logger: Logger) {}
+  constructor(
+    private config: ConfigService,
+    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  ) {}
 
   /**
    * Connect to the database and run all pending migrations.

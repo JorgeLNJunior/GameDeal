@@ -1,13 +1,13 @@
 import 'reflect-metadata'
 
 import { Browser } from '../browser'
-import { Logger } from '../logger'
+import { PinoLogger } from '../logger'
 
 describe('Browser', () => {
   let browser: Browser
 
   beforeEach(async () => {
-    browser = new Browser(new Logger())
+    browser = new Browser(new PinoLogger())
   })
 
   describe('launch', () => {

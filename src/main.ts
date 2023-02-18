@@ -1,14 +1,16 @@
 import 'reflect-metadata'
+import './dependencies/dependency.container'
 
-import { container, injectable } from 'tsyringe'
+import { container, inject, injectable } from 'tsyringe'
 
 import { CronService } from './cron/cron.service'
 import { DatabaseService } from './database/database.service'
+import { PINO_LOGGER } from './dependencies/dependency.tokens'
 import { AddGameController } from './http/modules/game/addGame.controller'
 import { Server } from './http/server'
 import { Browser } from './infra/browser'
-import { Logger } from './infra/logger'
 import { GameQueue } from './queue/game.queue'
+import { ApplicationLogger } from './types/logger.type'
 
 @injectable()
 export default class Main {
@@ -18,7 +20,7 @@ export default class Main {
     private browser: Browser,
     private gameQueue: GameQueue,
     private cronService: CronService,
-    private logger: Logger
+    @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
   async start() {

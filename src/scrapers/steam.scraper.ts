@@ -1,12 +1,16 @@
-import { injectable } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 
+import { PINO_LOGGER } from '../dependencies/dependency.tokens'
 import { Browser } from '../infra/browser'
-import { Logger } from '../infra/logger'
+import { ApplicationLogger } from '../types/logger.type'
 import { Scraper } from './scraper.interface'
 
 @injectable()
 export class SteamScraper implements Scraper {
-  constructor(private browser: Browser, private logger: Logger) {}
+  constructor(
+    private browser: Browser,
+    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  ) {}
 
   async getGamePrice(url: string): Promise<number> {
     this.logger.info('[SteamScraper] getting a page')

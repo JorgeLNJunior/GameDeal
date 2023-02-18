@@ -1,23 +1,25 @@
 import pino from 'pino'
 
-export class Logger {
+import { ApplicationLogger } from '../types/logger.type'
+
+export class PinoLogger implements ApplicationLogger {
   private pino = pino({
     level: process.env.NODE_ENV === 'production' ? 'info' : 'debug'
   })
 
-  public info(obj: unknown, msg?: string, ...args: unknown[]) {
-    this.pino.info(obj, msg, args)
+  public info(obj: unknown, msg?: string) {
+    this.pino.info(obj, msg)
   }
 
-  public error(obj: unknown, msg?: string, ...args: unknown[]) {
-    this.pino.error(obj, msg, args)
+  public error(obj: unknown, msg?: string) {
+    this.pino.error(obj, msg)
   }
 
-  public fatal(obj: unknown, msg?: string, ...args: unknown[]) {
-    this.pino.fatal(obj, msg, args)
+  public fatal(obj: unknown, msg?: string) {
+    this.pino.fatal(obj, msg)
   }
 
-  public warn(obj: unknown, msg?: string, ...args: unknown[]) {
-    this.pino.warn(obj, msg, args)
+  public warn(obj: unknown, msg?: string) {
+    this.pino.warn(obj, msg)
   }
 }

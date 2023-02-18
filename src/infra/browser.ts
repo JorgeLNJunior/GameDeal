@@ -1,13 +1,14 @@
 import Playwright from 'playwright'
-import { singleton } from 'tsyringe'
+import { inject, singleton } from 'tsyringe'
 
-import { Logger } from './logger'
+import { PINO_LOGGER } from '../dependencies/dependency.tokens'
+import { ApplicationLogger } from '../types/logger.type'
 
 @singleton()
 export class Browser {
   private playwright!: Playwright.Browser
 
-  constructor(private logger: Logger) {}
+  constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   /**
    * Launch a new browser instance.
