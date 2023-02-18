@@ -16,7 +16,8 @@ export class CronService {
   ) {}
 
   async start(): Promise<void> {
-    const gameScrapingJob = new CronJob('00 00 * * *', async () => {
+    this.logger.info('[CronService] starting cron service')
+    const gameScrapingJob = new CronJob('52 14 * * *', async () => {
       this.logger.info('[CronService] Running game scraping job')
 
       const games = await this.gameRepository.findSteamScraperData()
@@ -47,6 +48,7 @@ export class CronService {
   }
 
   async stop(): Promise<void> {
+    this.logger.info('[CronService] Stopping all jobs')
     this.jobs.forEach((job) => {
       job.stop()
     })
