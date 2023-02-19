@@ -49,7 +49,7 @@ export class Server {
    */
   public async close(): Promise<void> {
     this.logger.info('[Server] closing server')
-    return this.fastify.close()
+    await this.fastify.close()
     this.logger.info('[Server] server closed')
   }
 
