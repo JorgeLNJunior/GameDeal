@@ -31,7 +31,7 @@ export default class Main {
     await this.dbService.connect()
     await this.browser.launch()
     await this.gameQueue.init()
-    await this.cronService.start()
+    this.cronService.start()
     await this.server.listen()
 
     this.logger.info('[Main] Application started')
@@ -42,7 +42,7 @@ export default class Main {
       await this.dbService.disconnect()
       await this.browser.close()
       await this.gameQueue.stop()
-      await this.cronService.stop()
+      this.cronService.stop()
       await this.server.close()
       this.logger.info('[Main] Application stopped')
       process.exit(0)
