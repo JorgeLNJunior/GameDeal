@@ -1,9 +1,9 @@
 import { inject, injectable } from 'tsyringe'
 
 import { PINO_LOGGER } from '../../../dependencies/dependency.tokens'
+import { BaseController } from '../../../types/http/baseController.type'
+import { HttpRequest, HttpResponse } from '../../../types/http/http.type'
 import { ApplicationLogger } from '../../../types/logger.type'
-import { BaseController } from '../../interfaces/baseController.interface'
-import { HttpRequest, HttpResponse } from '../../interfaces/http.interface'
 import { ResponseBuilder } from '../../responses/response.builder'
 import { AddGameDTO } from './dto/addGame.dto'
 import { GameRepository } from './game.repository'

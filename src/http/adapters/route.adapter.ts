@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FastifyReply, FastifyRequest, RouteHandler } from 'fastify'
 
-import { BaseController } from '../interfaces/baseController.interface'
-import { HttpRequest } from '../interfaces/http.interface'
+import { BaseController } from '../../types/http/baseController.type'
+import { HttpRequest } from '../../types/http/http.type'
 
 /**
  * Adapt an application route to a fastify route.

@@ -7,7 +7,7 @@ import { inject, singleton } from 'tsyringe'
 import { PINO_LOGGER } from '../dependencies/dependency.tokens'
 import ConfigService from '../services/config.service'
 import { ApplicationLogger } from '../types/logger.type'
-import { Database } from './interfaces/database.interface'
+import { Database } from './database.interface'
 
 @singleton()
 export class DatabaseService {
