@@ -18,7 +18,7 @@ module.exports = {
   plugins: ['@typescript-eslint', 'prettier', 'simple-import-sort', 'jsdoc'],
   overrides: [
     {
-      files: ['**/*.spec.ts'],
+      files: ['**/*.spec.ts', '**/*.test.ts'],
       plugins: ['jest'],
       extends: ['plugin:jest/recommended']
     }
