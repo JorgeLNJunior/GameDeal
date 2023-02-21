@@ -6,13 +6,19 @@ import { ScrapeGamePriceData } from './game.queue'
 
 @injectable()
 export class GameJobProcessor {
+  /**
+   * Process all game related jobs from the game queue.
+   *
+   * @param {SteamScraper} steamScraper An instance of `SteamScraper`.
+   * @param {GameRepository} gameRepository An instance of `GameRepository`.
+   */
   constructor(
     private steamScraper: SteamScraper,
     private gameRepository: GameRepository
   ) {}
 
   /**
-   * Scrape and save the current game price.
+   * Scrapes and saves the current game price.
    *
    * @param {ScrapeGamePriceData} data The game data.
    * @returns {Promise<void>}

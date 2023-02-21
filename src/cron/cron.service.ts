@@ -17,7 +17,7 @@ export class CronService {
   constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   /**
-   * Register cron jobs.
+   * Registers a list of cron jobs.
    *
    * ```
    * this.cronService.registerJobs(new MyFirtsJob(), new MySecondJob())

@@ -13,13 +13,19 @@ import { Database } from './interfaces/database.interface'
 export class DatabaseService {
   private client!: Kysely<Database>
 
+  /**
+   * Handles the database connection.
+   *
+   * @param {ApplicationLogger} config A `ConfigService` instance.
+   * @param {ApplicationLogger} logger An `ApplicationLogger` instance.
+   */
   constructor(
     private config: ConfigService,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
   /**
-   * Connect to the database and run all pending migrations.
+   * Connects to the database and runs all pending migrations.
    *
    * ```
    * await new DatabaseService().connect()
@@ -43,7 +49,7 @@ export class DatabaseService {
   }
 
   /**
-   * Disconnect from the database.
+   * Disconnects from the database.
    *```
    * await db.disconnect()
    * ```
@@ -55,7 +61,7 @@ export class DatabaseService {
   }
 
   /**
-   * Get the database client instance.
+   * Gets the database client instance.
    * You MUST call `.connect()` method before get the client.
    *
    * ```
@@ -71,7 +77,7 @@ export class DatabaseService {
   }
 
   /**
-   * Execute all pending migrations.
+   * Executes all pending migrations.
    *
    * ```
    * await this.migrate()

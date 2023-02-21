@@ -8,10 +8,15 @@ import { ApplicationLogger } from '../types/logger.type'
 export class Browser {
   private playwright!: Playwright.Browser
 
+  /**
+   * A browser wraper.
+   *
+   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   */
   constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   /**
-   * Launch a new browser instance.
+   * Launches a new browser instance.
    *
    * ```
    * await browser.launch()
@@ -24,7 +29,7 @@ export class Browser {
   }
 
   /**
-   * Close the browser instance and all its pages.
+   * Closes the browser instance and all its pages.
    *
    * ```
    * await browser.close()
@@ -37,7 +42,7 @@ export class Browser {
   }
 
   /**
-   * Create a new page with its own context.
+   * Creates a new page with its own context.
    * A browser instance should be launched before.
    *
    * ```
@@ -64,15 +69,9 @@ export class Browser {
 
     // block unnecessary resources
     ctx.route('**/*', async (route) => {
-      const resourcesToExclude = [
-        'stylesheet',
-        'image',
-        'font',
-        'media',
-        'other'
-      ]
+      const resourcesToBlock = ['stylesheet', 'image', 'font', 'media', 'other']
 
-      if (resourcesToExclude.includes(route.request().resourceType())) {
+      if (resourcesToBlock.includes(route.request().resourceType())) {
         return route.abort()
       }
       return route.continue()

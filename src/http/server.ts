@@ -19,7 +19,7 @@ export class Server {
   }
 
   /**
-   * Start the server and listen at `PORT` env or `3000`.
+   * Starts the server and listen at `PORT` env or `3000`.
    *
    * ```
    * await server.listen()
@@ -41,7 +41,7 @@ export class Server {
   }
 
   /**
-   * Close the server and stop listen.
+   * Closes the server and stops listening.
    *
    * ```
    * await server.close()
@@ -54,7 +54,7 @@ export class Server {
   }
 
   /**
-   * Get the fastify instance.
+   * Gets the fastify instance.
    *
    * ```
    * const fastify = server.getFastifyInstance()
@@ -67,7 +67,7 @@ export class Server {
   }
 
   /**
-   * Register a list of controllers.
+   * Registers a list of controllers.
    *
    * ```
    * server.registerControllers(
@@ -92,10 +92,10 @@ export class Server {
   }
 
   /**
-   * Register fastify plugins.
+   * Registers fastify plugins.
    *
    * ```
-   * await server.registerPlugins()
+   * await this.registerPlugins()
    * ```
    */
   private async registerPlugins(): Promise<void> {

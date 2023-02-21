@@ -7,11 +7,27 @@ import { Scraper } from './scraper.interface'
 
 @injectable()
 export class SteamScraper implements Scraper {
+  /**
+   * Handles all steam scraping process.
+   *
+   * @param {Browser} browser An instance of `Browser`.
+   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   */
   constructor(
     private browser: Browser,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
+  /**
+   * Gets the game price. Suports normal and sale prices.
+   *
+   * ```
+   * const price = await scraper.getGamePrice(data);
+   * ```
+   *
+   * @param {string} url The steam game url.
+   * @returns {Promise<number>} The current steam game price.
+   */
   async getGamePrice(url: string): Promise<number> {
     this.logger.info('[SteamScraper] getting a page')
     const page = await this.browser.getPage()

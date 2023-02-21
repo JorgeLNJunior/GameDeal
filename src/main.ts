@@ -15,6 +15,16 @@ import { ApplicationLogger } from './types/logger.type'
 
 @injectable()
 export default class Main {
+  /**
+   * The main application class.
+   *
+   * @param {Server} server An instance of `erver`.
+   * @param {DatabaseService} dbService An instance of `DatabaseService`.
+   * @param {Browser} browser An instance of `Browser`.
+   * @param {GameQueue} gameQueue An instance of `GameQueue`.
+   * @param {CronService} cronService An instance of `CronService`.
+   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   */
   constructor(
     private server: Server,
     private dbService: DatabaseService,
@@ -24,7 +34,14 @@ export default class Main {
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
-  async start() {
+  /**
+   * Starts the application and all its modules.
+   *
+   * ```
+   * const main = new Main(params...).start()
+   * ```
+   */
+  async start(): Promise<void> {
     this.server.registerControllers(container.resolve(AddGameController))
     this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 

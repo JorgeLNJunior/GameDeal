@@ -16,6 +16,13 @@ export class GameQueue {
   private queue!: Queue<ScrapeGamePriceData>
   private worker!: Worker<ScrapeGamePriceData>
 
+  /**
+   * Handles the game queue.
+   *
+   * @param {GameJobProcessor} gameJobProcessor An instance of `GameJobProcessor`.
+   * @param {ConfigService} config An instance of `ConfigService`.
+   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   */
   constructor(
     private gameJobProcessor: GameJobProcessor,
     private config: ConfigService,
@@ -23,7 +30,7 @@ export class GameQueue {
   ) {}
 
   /**
-   * Add a job to the queue.
+   * Adds a job to the queue.
    * You must call `init()` before call this method.
    *
    * @param {ScrapeGamePriceData} data The data to add to the queue.
@@ -43,7 +50,7 @@ export class GameQueue {
   }
 
   /**
-   * Start the queue.
+   * Starts the queue.
    * You must call this method before add a job to the queue.
    *
    * ```
@@ -89,7 +96,7 @@ export class GameQueue {
   }
 
   /**
-   * Gracefully stop the queue
+   * Gracefully stops the queue
    *
    * ```
    * await queue.stop()

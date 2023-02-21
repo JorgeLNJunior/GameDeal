@@ -1,6 +1,6 @@
 export interface ApplicationCronJob {
   /**
-   * The cron sintax time to fire your job.
+   * The cron syntax time to fire your job.
    *
    * @see https://crontab.guru
    */
