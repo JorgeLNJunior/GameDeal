@@ -31,12 +31,18 @@ export class CronService {
     }
   }
 
+  /**
+   * Starts the cron service.
+   */
   start(): void {
     this.logger.info('[CronService] Starting cron service')
     this.jobs.forEach((job) => job.start())
     this.logger.info('[CronService] Cron service started')
   }
 
+  /**
+   * Stops the cron service.
+   */
   stop(): void {
     this.logger.info('[CronService] Stopping all jobs')
     this.jobs.forEach((job) => {
