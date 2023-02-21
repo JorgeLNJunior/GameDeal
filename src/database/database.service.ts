@@ -16,8 +16,8 @@ export class DatabaseService {
   /**
    * Handles the database connection.
    *
-   * @param {ApplicationLogger} config A `ConfigService` instance.
-   * @param {ApplicationLogger} logger An `ApplicationLogger` instance.
+   * @param config - A `ConfigService` instance.
+   * @param logger - An `ApplicationLogger` instance.
    */
   constructor(
     private config: ConfigService,
@@ -50,6 +50,8 @@ export class DatabaseService {
 
   /**
    * Disconnects from the database.
+   *
+   * @example
    *```
    * await db.disconnect()
    * ```
@@ -64,13 +66,13 @@ export class DatabaseService {
    * Gets the database client instance.
    * You MUST call `.connect()` method before get the client.
    *
+   * @example
    * ```
    * const db = new DatabaseService()
    * await db.connect()
    * const client = db.getClient()
    * ```
-   *
-   * @returns {Kysely<Database>} The database client instance.
+   * @returns The database client instance.
    */
   public getClient(): Kysely<Database> {
     return this.client
@@ -79,6 +81,7 @@ export class DatabaseService {
   /**
    * Executes all pending migrations.
    *
+   * @example
    * ```
    * await this.migrate()
    * ```

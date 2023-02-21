@@ -12,7 +12,7 @@ export class CronService {
   /**
    * A service to handle cron jobs.
    *
-   * @param {ApplicationLogger} logger An application logger.
+   * @param logger - An application logger.
    */
   constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
@@ -23,7 +23,7 @@ export class CronService {
    * this.cronService.registerJobs(new MyFirtsJob(), new MySecondJob())
    * ```
    *
-   * @param {ApplicationCronJob} jobs A list of cron jobs.
+   * @param jobs - A list of cron jobs.
    */
   registerJobs(...jobs: ApplicationCronJob[]): void {
     for (const job of jobs) {

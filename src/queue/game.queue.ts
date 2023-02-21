@@ -19,9 +19,9 @@ export class GameQueue {
   /**
    * Handles the game queue.
    *
-   * @param {GameJobProcessor} gameJobProcessor An instance of `GameJobProcessor`.
-   * @param {ConfigService} config An instance of `ConfigService`.
-   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   * @param gameJobProcessor - An instance of `GameJobProcessor`.
+   * @param config - An instance of `ConfigService`.
+   * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(
     private gameJobProcessor: GameJobProcessor,
@@ -33,13 +33,12 @@ export class GameQueue {
    * Adds a job to the queue.
    * You must call `init()` before call this method.
    *
-   * @param {ScrapeGamePriceData} data The data to add to the queue.
-   * @returns {Promise<void>}
-   *
+   * @example
    * ```
    * await queue.init()
    * await queue.add(data)
    * ```
+   * @param data - The data to add to the queue.
    */
   async add(data: ScrapeGamePriceData): Promise<void> {
     this.queue.add('scrape', data, {
@@ -53,11 +52,10 @@ export class GameQueue {
    * Starts the queue.
    * You must call this method before add a job to the queue.
    *
+   * @example
    * ```
    * await queue.init()
    * ```
-   *
-   * @returns {Promise<void>}
    */
   async init(): Promise<void> {
     this.queue = new Queue<ScrapeGamePriceData>('game', {
@@ -98,11 +96,10 @@ export class GameQueue {
   /**
    * Gracefully stops the queue
    *
+   * @example
    * ```
    * await queue.stop()
    * ```
-   *
-   * @returns {Promise<void>}
    */
   async stop(): Promise<void> {
     this.logger.info('[GameQueue] stopping queue')

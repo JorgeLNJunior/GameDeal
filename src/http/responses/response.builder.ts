@@ -4,12 +4,12 @@ export class ResponseBuilder {
   /**
    * Build a HTTP 200 response.
    *
+   * @example
    * ```
    * return ResponseBuilder.ok(data)
    * ```
-   *
-   * @param {unknown} data The data to be returned.
-   * @returns {HttpResponse} A `HttpResponse`.
+   * @param data - The data to be returned.
+   * @returns A `HttpResponse`.
    */
   static ok(data?: unknown): HttpResponse {
     return { statusCode: 200, body: data }
@@ -18,12 +18,12 @@ export class ResponseBuilder {
   /**
    * Build a HTTP 201 response.
    *
+   * @example
    * ```
    * return ResponseBuilder.created(data)
    * ```
-   *
-   * @param {unknown} data The data to be returned.
-   * @returns {HttpResponse} A `HttpResponse`.
+   * @param data - The data to be returned.
+   * @returns A `HttpResponse`.
    */
   static created(data?: unknown): HttpResponse {
     return { statusCode: 201, body: data }
@@ -32,12 +32,12 @@ export class ResponseBuilder {
   /**
    * Build a HTTP 400 response.
    *
+   * @example
    * ```
    * return ResponseBuilder.badRequest(data)
    * ```
-   *
-   * @param {unknown} errors A list of errors to be returned.
-   * @returns {HttpResponse} A `HttpResponse`.
+   * @param errors - A list of errors to be returned.
+   * @returns A `HttpResponse`.
    */
   static badRequest(errors?: unknown): HttpResponse {
     return {
@@ -52,12 +52,12 @@ export class ResponseBuilder {
   /**
    * Build a HTTP 401 response.
    *
+   * @example
    * ```
    * return ResponseBuilder.ok(data)
    * ```
-   *
-   * @param {unknown} error An error to be returned.
-   * @returns {HttpResponse} A `HttpResponse`.
+   * @param error - An error to be returned.
+   * @returns A `HttpResponse`.
    */
   static unauthorized(error?: unknown): HttpResponse {
     return {
@@ -72,12 +72,12 @@ export class ResponseBuilder {
   /**
    * Build a HTTP 403 response.
    *
+   * @example
    * ```
    * return ResponseBuilder.forbidden(data)
    * ```
-   *
-   * @param {unknown} error An error to be returned.
-   * @returns {HttpResponse} A `HttpResponse`.
+   * @param error - An error to be returned.
+   * @returns A `HttpResponse`.
    */
   static forbidden(error?: unknown): HttpResponse {
     return {
@@ -92,12 +92,12 @@ export class ResponseBuilder {
   /**
    * Build a HTTP 404 response.
    *
+   * @example
    * ```
    * return ResponseBuilder.notFound(data)
    * ```
-   *
-   * @param {unknown} error An error to be returned.
-   * @returns {HttpResponse} A `HttpResponse`.
+   * @param error - An error to be returned.
+   * @returns A `HttpResponse`.
    */
   static notFound(error?: unknown): HttpResponse {
     return {
@@ -112,11 +112,11 @@ export class ResponseBuilder {
   /**
    * Build a HTTP 500 response.
    *
+   * @example
    * ```
    * return ResponseBuilder.internalError()
    * ```
-   *
-   * @returns {HttpResponse} A `HttpResponse`.
+   * @returns A `HttpResponse`.
    */
   static internalError(): HttpResponse {
     return {

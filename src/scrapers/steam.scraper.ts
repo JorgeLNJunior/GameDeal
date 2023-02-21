@@ -10,8 +10,8 @@ export class SteamScraper implements Scraper {
   /**
    * Handles all steam scraping process.
    *
-   * @param {Browser} browser An instance of `Browser`.
-   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   * @param browser - An instance of `Browser`.
+   * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(
     private browser: Browser,
@@ -21,12 +21,12 @@ export class SteamScraper implements Scraper {
   /**
    * Gets the game price. Suports normal and sale prices.
    *
+   * @example
    * ```
    * const price = await scraper.getGamePrice(data);
    * ```
-   *
-   * @param {string} url The steam game url.
-   * @returns {Promise<number>} The current steam game price.
+   * @param url - The steam game url.
+   * @returns The current steam game price.
    */
   async getGamePrice(url: string): Promise<number> {
     this.logger.info('[SteamScraper] getting a page')

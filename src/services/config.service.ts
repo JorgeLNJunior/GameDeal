@@ -11,19 +11,19 @@ export default class ConfigService {
   /**
    * Configuration class helper.
    *
-   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   /**
    * Gets a value of a environment variable.
    *
+   * @example
    * ```
    * const port = await configService.get<number>('PORT')
    * ```
-   *
-   * @param {string} key The environment variable key.
-   * @returns {unknown | undefined} The environment variable value.
+   * @param key - The environment variable key.
+   * @returns The environment variable value.
    */
   public getEnv<T>(key: string): T | undefined {
     if (process.env[key]) {

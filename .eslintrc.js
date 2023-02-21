@@ -39,6 +39,9 @@ module.exports = {
       }
     ],
     'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'jsdoc/require-param-type': 'off',
+    'jsdoc/require-returns-type': 'off',
     'tsdoc/syntax': 'warn'
   }
 }

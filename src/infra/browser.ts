@@ -11,13 +11,14 @@ export class Browser {
   /**
    * A browser wraper.
    *
-   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   /**
    * Launches a new browser instance.
    *
+   * @example
    * ```
    * await browser.launch()
    * ```
@@ -31,6 +32,7 @@ export class Browser {
   /**
    * Closes the browser instance and all its pages.
    *
+   * @example
    * ```
    * await browser.close()
    * ```
@@ -45,14 +47,14 @@ export class Browser {
    * Creates a new page with its own context.
    * A browser instance should be launched before.
    *
+   * @example
    * ```
    * await browser.launch()
    * const page = await browser.newPage()
    * // do something with the page
    * await page.close()
    * ```
-   *
-   * @returns {Promise<Playwright.Page>} The page instance.
+   * @returns The page instance.
    */
   async getPage(): Promise<Playwright.Page> {
     const ctx = await this.playwright.newContext()

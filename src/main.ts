@@ -18,12 +18,12 @@ export default class Main {
   /**
    * The main application class.
    *
-   * @param {Server} server An instance of `erver`.
-   * @param {DatabaseService} dbService An instance of `DatabaseService`.
-   * @param {Browser} browser An instance of `Browser`.
-   * @param {GameQueue} gameQueue An instance of `GameQueue`.
-   * @param {CronService} cronService An instance of `CronService`.
-   * @param {ApplicationLogger} logger An instance of `ApplicationLogger`.
+   * @param server - An instance of `erver`.
+   * @param dbService - An instance of `DatabaseService`.
+   * @param browser - An instance of `Browser`.
+   * @param gameQueue - An instance of `GameQueue`.
+   * @param cronService - An instance of `CronService`.
+   * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(
     private server: Server,
@@ -37,6 +37,7 @@ export default class Main {
   /**
    * Starts the application and all its modules.
    *
+   * @example
    * ```
    * const main = new Main(params...).start()
    * ```

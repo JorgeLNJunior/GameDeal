@@ -13,9 +13,9 @@ export class GameScrapingCronJob implements ApplicationCronJob {
   /**
    * Handles the game scraping cron job.
    *
-   * @param {GameRepository} gameRepository A game repository instance.
-   * @param {GameQueue} gameQueue A game queue instance.
-   * @param {ApplicationLogger} logger An application logger.
+   * @param gameRepository - A game repository instance.
+   * @param gameQueue - A game queue instance.
+   * @param logger - An application logger.
    */
   constructor(
     private gameRepository: GameRepository,

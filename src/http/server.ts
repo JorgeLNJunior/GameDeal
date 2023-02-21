@@ -21,6 +21,7 @@ export class Server {
   /**
    * Starts the server and listen at `PORT` env or `3000`.
    *
+   * @example
    * ```
    * await server.listen()
    * ```
@@ -43,6 +44,7 @@ export class Server {
   /**
    * Closes the server and stops listening.
    *
+   * @example
    * ```
    * await server.close()
    * ```
@@ -56,11 +58,11 @@ export class Server {
   /**
    * Gets the fastify instance.
    *
+   * @example
    * ```
    * const fastify = server.getFastifyInstance()
    * ```
-   *
-   * @returns {FastifyInstance} A fastify instance.
+   * @returns A fastify instance.
    */
   public getFastifyInstance(): FastifyInstance {
     return this.fastify
@@ -69,14 +71,14 @@ export class Server {
   /**
    * Registers a list of controllers.
    *
+   * @example
    * ```
    * server.registerControllers(
    *    new CatController(),
    *    new DogController(),
    * )
    * ```
-   *
-   * @param {BaseController[]} controllers A list of `BaseController`.
+   * @param controllers - A list of `BaseController`.
    */
   public registerControllers(...controllers: BaseController[]): void {
     this.logger.info('[Server] registering controllers')
@@ -94,6 +96,7 @@ export class Server {
   /**
    * Registers fastify plugins.
    *
+   * @example
    * ```
    * await this.registerPlugins()
    * ```
