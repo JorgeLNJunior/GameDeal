@@ -1,5 +1,3 @@
-import 'reflect-metadata'
-
 import { Browser } from '../infra/browser'
 import { PinoLogger } from '../infra/pino.logger'
 import { SteamScraper } from './steam.scraper'

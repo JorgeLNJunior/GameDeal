@@ -1,5 +1,3 @@
-import 'reflect-metadata'
-
 import { container } from 'tsyringe'
 
 import { GameRepository } from '../../../database/repositories/game.repository'

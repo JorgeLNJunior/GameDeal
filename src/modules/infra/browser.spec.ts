@@ -1,5 +1,3 @@
-import 'reflect-metadata'
-
 import { Browser } from './browser'
 import { PinoLogger } from './pino.logger'
 

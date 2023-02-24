@@ -1,5 +1,3 @@
-import 'reflect-metadata'
-
 import { randomUUID } from 'crypto'
 import { Kysely, sql } from 'kysely'
 import { container } from 'tsyringe'

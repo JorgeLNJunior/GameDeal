@@ -1,5 +1,3 @@
-import 'reflect-metadata'
-
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
