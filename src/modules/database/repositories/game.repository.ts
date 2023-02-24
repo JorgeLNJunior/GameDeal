@@ -1,7 +1,7 @@
 import { sql } from 'kysely'
 import { injectable } from 'tsyringe'
 
-import { DatabaseService } from '../../../database/database.service'
+import { DatabaseService } from '../../../modules/database/database.service'
 import { AddGameDTO } from './dto/addGame.dto'
 
 @injectable()
@@ -9,14 +9,14 @@ export class GameRepository {
   constructor(private db: DatabaseService) {}
 
   /**
-   * Add a new game.
+   * Adds a new game.
    *
    * ```
    * const game = await gameRespository.create(dto)
    * ```
    *
-   * @param {AddGameDTO} dto The data required to insert a game.
-   * @returns {Promise<unknown>} A `Game` object.
+   * @param dto - The data required to insert a game.
+   * @returns A `Game` object.
    */
   async create(dto: AddGameDTO) {
     return this.db
@@ -46,13 +46,13 @@ export class GameRepository {
   }
 
   /**
-   * Verify if a game is already inserted.
+   * Verifies if a game is already inserted.
    *
    * ```
    * const isAlreadyInserted = await gameRepository.isAlreadyInserted('God of War')
    * ```
    *
-   * @param {string} gameTitle The title of the game.
+   * @param gameTitle - The title of the game.
    */
   async isAlreadyInserted(gameTitle: string): Promise<boolean> {
     const result = await this.db
@@ -67,15 +67,15 @@ export class GameRepository {
   }
 
   /**
-   * Insert a new value to a game price history.
+   * Inserts a new value to a game price history.
    *
    * ```
    * await gameRepository.insertPrice(gameId, price)
    * ```
    *
-   * @param {string} gameId The id of the game
-   * @param {number} price The current price of the game
-   * @returns {Promise<void>} A `GamePrice` object.
+   * @param gameId - The id of the game
+   * @param price - The current price of the game
+   * @returns A `GamePrice` object.
    */
   async insertPrice(gameId: string, price: number): Promise<void> {
     await this.db
@@ -100,13 +100,13 @@ export class GameRepository {
   }
 
   /**
-   * Get a list of games with only the id and steam_url keys.
+   * Gets a list of games with only the id and steam_url keys.
    *
    * ```
    * const games = await gameRepository.findSteamScraperData()
    * ```
    *
-   * @returns {Promise<unknown>} A list of games.
+   * @returns A list of games.
    */
   async findSteamScraperData() {
     return this.db

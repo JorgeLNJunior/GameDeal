@@ -1,11 +1,11 @@
 import { fastify, FastifyInstance } from 'fastify'
 import { inject, singleton } from 'tsyringe'
 
-import { PINO_LOGGER } from '../dependencies/dependency.tokens'
-import ConfigService from '../services/config.service'
-import { BaseController } from '../types/http/baseController.type'
-import { ApplicationLogger } from '../types/logger.type'
-import { adaptRoute } from './adapters/route.adapter'
+import ConfigService from '../../config/config.service'
+import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
+import { BaseController } from '../../types/http/baseController.type'
+import { ApplicationLogger } from '../../types/logger.type'
+import { adaptRoute } from './internal/route.adapter'
 
 @singleton()
 export class Server {

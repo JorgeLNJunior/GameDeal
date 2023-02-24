@@ -1,9 +1,9 @@
 import { Queue, Worker } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
-import { PINO_LOGGER } from '../dependencies/dependency.tokens'
-import ConfigService from '../services/config.service'
-import { ApplicationLogger } from '../types/logger.type'
+import ConfigService from '../../config/config.service'
+import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
+import { ApplicationLogger } from '../../types/logger.type'
 import { GameJobProcessor } from './game.job.processor'
 
 export interface ScrapeGamePriceData {

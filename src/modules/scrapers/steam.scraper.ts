@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe'
 
-import { PINO_LOGGER } from '../dependencies/dependency.tokens'
+import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
+import { ApplicationLogger } from '../../types/logger.type'
 import { Browser } from '../infra/browser'
-import { ApplicationLogger } from '../types/logger.type'
 import { Scraper } from './scraper.interface'
 
 @injectable()

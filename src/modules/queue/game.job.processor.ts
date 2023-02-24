@@ -1,6 +1,6 @@
 import { injectable } from 'tsyringe'
 
-import { GameRepository } from '../http/modules/game/game.repository'
+import { GameRepository } from '../database/repositories/game.repository'
 import { SteamScraper } from '../scrapers/steam.scraper'
 import { ScrapeGamePriceData } from './game.queue'
 

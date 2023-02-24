@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FastifyReply, FastifyRequest, RouteHandler } from 'fastify'
 
-import { BaseController } from '../../types/http/baseController.type'
-import { HttpRequest } from '../../types/http/http.type'
+import { BaseController } from '../../../types/http/baseController.type'
+import { HttpRequest } from '../../../types/http/http.type'
 
 /**
  * Adapt an application route to a fastify route.
@@ -15,8 +15,8 @@ import { HttpRequest } from '../../types/http/http.type'
  * })
  * ```
  *
- * @param {BaseController} controller A class wich implements `BaseController`.
- * @returns {RouteHandler} A fastify `RouteHandler`
+ * @param controller - A class wich implements `BaseController`.
+ * @returns A fastify `RouteHandler`
  */
 export function adaptRoute(controller: BaseController): RouteHandler {
   return async (req: FastifyRequest, res: FastifyReply) => {

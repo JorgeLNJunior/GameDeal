@@ -4,9 +4,9 @@ import { createPool } from 'mysql2'
 import * as path from 'path'
 import { inject, singleton } from 'tsyringe'
 
-import { PINO_LOGGER } from '../dependencies/dependency.tokens'
-import ConfigService from '../services/config.service'
-import { ApplicationLogger } from '../types/logger.type'
+import ConfigService from '../../config/config.service'
+import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
+import { ApplicationLogger } from '../../types/logger.type'
 import { Database } from './database.interface'
 
 @singleton()

@@ -2,10 +2,10 @@ import 'reflect-metadata'
 
 import { container } from 'tsyringe'
 
-import { PinoLogger } from '../../../infra/logger'
+import { GameRepository } from '../../../database/repositories/game.repository'
+import { PinoLogger } from '../../../infra/pino.logger'
 import { AddGameController } from './addGame.controller'
-import { GameRepository } from './game.repository'
-import { AddGameValidator } from './validators/addGame.validator'
+import { AddGameValidator } from './addGame.validator'
 
 describe('AddGameController', () => {
   let controller: AddGameController
@@ -20,7 +20,7 @@ describe('AddGameController', () => {
     controller = new AddGameController(validator, repository, logger)
   })
 
-  it('should return a OK response if it succeeds', async () => {
+  it('should return a CREATED response if it succeeds', async () => {
     const data = {
       title: 'title',
       id: 'id',
@@ -41,7 +41,7 @@ describe('AddGameController', () => {
       query: {}
     })
 
-    expect(response.statusCode).toBe(200)
+    expect(response.statusCode).toBe(201)
     expect(response.body).toEqual({ game: data })
   })
 

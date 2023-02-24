@@ -3,14 +3,14 @@ import './dependencies/dependency.container'
 
 import { container, inject, injectable } from 'tsyringe'
 
-import { CronService } from './cron/cron.service'
-import { GameScrapingCronJob } from './cron/jobs/gameScraping.cronjob'
-import { DatabaseService } from './database/database.service'
 import { PINO_LOGGER } from './dependencies/dependency.tokens'
-import { AddGameController } from './http/modules/game/addGame.controller'
-import { Server } from './http/server'
-import { Browser } from './infra/browser'
-import { GameQueue } from './queue/game.queue'
+import { CronService } from './modules/cron/cron.service'
+import { GameScrapingCronJob } from './modules/cron/jobs/gameScraping.cronjob'
+import { DatabaseService } from './modules/database/database.service'
+import { AddGameController } from './modules/http/routes/addGame/addGame.controller'
+import { Server } from './modules/http/server'
+import { Browser } from './modules/infra/browser'
+import { GameQueue } from './modules/queue/game.queue'
 import { ApplicationLogger } from './types/logger.type'
 
 @injectable()

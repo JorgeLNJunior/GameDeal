@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 
 import { Browser } from './browser'
-import { PinoLogger } from './logger'
+import { PinoLogger } from './pino.logger'
 
 describe('Browser', () => {
   let browser: Browser

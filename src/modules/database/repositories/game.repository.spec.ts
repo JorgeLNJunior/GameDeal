@@ -3,9 +3,9 @@ import 'reflect-metadata'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
-import { DatabaseService } from '../../../../database/database.service'
-import { AddGameDTO } from '../dto/addGame.dto'
-import { GameRepository } from '../game.repository'
+import { DatabaseService } from '../../database/database.service'
+import { AddGameDTO } from './dto/addGame.dto'
+import { GameRepository } from './game.repository'
 
 describe('GameRepository', () => {
   let repository: GameRepository

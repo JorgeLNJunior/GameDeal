@@ -1,13 +1,13 @@
 import { inject, injectable } from 'tsyringe'
 
-import { PINO_LOGGER } from '../../../dependencies/dependency.tokens'
-import { BaseController } from '../../../types/http/baseController.type'
-import { HttpRequest, HttpResponse } from '../../../types/http/http.type'
-import { ApplicationLogger } from '../../../types/logger.type'
+import { PINO_LOGGER } from '../../../../dependencies/dependency.tokens'
+import { BaseController } from '../../../../types/http/baseController.type'
+import { HttpRequest, HttpResponse } from '../../../../types/http/http.type'
+import { ApplicationLogger } from '../../../../types/logger.type'
+import { AddGameDTO } from '../../../database/repositories/dto/addGame.dto'
+import { GameRepository } from '../../../database/repositories/game.repository'
 import { ResponseBuilder } from '../../responses/response.builder'
-import { AddGameDTO } from './dto/addGame.dto'
-import { GameRepository } from './game.repository'
-import { AddGameValidator } from './validators/addGame.validator'
+import { AddGameValidator } from './addGame.validator'
 
 @injectable()
 export class AddGameController implements BaseController {

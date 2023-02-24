@@ -1,8 +1,8 @@
 import Playwright from 'playwright'
 import { inject, singleton } from 'tsyringe'
 
-import { PINO_LOGGER } from '../dependencies/dependency.tokens'
-import { ApplicationLogger } from '../types/logger.type'
+import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
+import { ApplicationLogger } from '../../types/logger.type'
 
 @singleton()
 export class Browser {
