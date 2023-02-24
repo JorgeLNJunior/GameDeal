@@ -4,7 +4,7 @@ import { randomUUID } from 'crypto'
 import { Kysely, sql } from 'kysely'
 import { container } from 'tsyringe'
 
-import { DatabaseService } from '../database.service'
+import { DatabaseService } from './database.service'
 
 describe('DatabaseService', () => {
   let database: DatabaseService

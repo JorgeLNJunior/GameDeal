@@ -2,10 +2,10 @@ import 'reflect-metadata'
 
 import { container } from 'tsyringe'
 
-import { PinoLogger } from '../../../../infra/logger'
-import { AddGameController } from '../addGame.controller'
-import { GameRepository } from '../game.repository'
-import { AddGameValidator } from '../validators/addGame.validator'
+import { PinoLogger } from '../../../infra/logger'
+import { AddGameController } from './addGame.controller'
+import { GameRepository } from './game.repository'
+import { AddGameValidator } from './validators/addGame.validator'
 
 describe('AddGameController', () => {
   let controller: AddGameController

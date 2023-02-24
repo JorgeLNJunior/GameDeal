@@ -2,7 +2,7 @@ import 'reflect-metadata'
 
 import { container } from 'tsyringe'
 
-import ConfigService from '../config.service'
+import ConfigService from './config.service'
 
 describe('ConfigService', () => {
   let configService: ConfigService

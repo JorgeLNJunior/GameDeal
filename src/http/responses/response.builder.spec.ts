@@ -1,4 +1,4 @@
-import { ResponseBuilder } from '../response.builder'
+import { ResponseBuilder } from './response.builder'
 
 describe('ResponseBuilder', () => {
   it('should return a OK response', () => {

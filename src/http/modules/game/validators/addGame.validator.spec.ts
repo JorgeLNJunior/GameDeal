@@ -1,5 +1,5 @@
-import { AddGameDTO } from '../../dto/addGame.dto'
-import { AddGameValidator } from '../../validators/addGame.validator'
+import { AddGameDTO } from '../dto/addGame.dto'
+import { AddGameValidator } from './addGame.validator'
 
 describe('AddGameValidator', () => {
   it('should return true if validation succeeds', async () => {

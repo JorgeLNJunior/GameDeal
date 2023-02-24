@@ -1,8 +1,8 @@
 import 'reflect-metadata'
 
-import { Browser } from '../../infra/browser'
-import { PinoLogger } from '../../infra/logger'
-import { SteamScraper } from '../steam.scraper'
+import { Browser } from '../infra/browser'
+import { PinoLogger } from '../infra/logger'
+import { SteamScraper } from './steam.scraper'
 
 describe('SteamScraper', () => {
   let scraper: SteamScraper
