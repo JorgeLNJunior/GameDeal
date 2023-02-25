@@ -27,6 +27,22 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
+    get:
+      summary: Listar todos os jogos
+      tags:
+        - "Game"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/game"
+        500:
+          $ref: "#/components/responses/500"
+
 components:
   schemas:
     game:

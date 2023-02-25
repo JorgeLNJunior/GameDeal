@@ -11,10 +11,10 @@ export class GameRepository {
   /**
    * Adds a new game.
    *
+   * @example
    * ```
    * const game = await gameRespository.create(dto)
    * ```
-   *
    * @param dto - The data required to insert a game.
    * @returns A `Game` object.
    */
@@ -48,10 +48,10 @@ export class GameRepository {
   /**
    * Verifies if a game is already inserted.
    *
+   * @example
    * ```
    * const isAlreadyInserted = await gameRepository.isAlreadyInserted('God of War')
    * ```
-   *
    * @param gameTitle - The title of the game.
    */
   async isAlreadyInserted(gameTitle: string): Promise<boolean> {
@@ -69,10 +69,10 @@ export class GameRepository {
   /**
    * Inserts a new value to a game price history.
    *
+   * @example
    * ```
    * await gameRepository.insertPrice(gameId, price)
    * ```
-   *
    * @param gameId - The id of the game
    * @param price - The current price of the game
    * @returns A `GamePrice` object.
@@ -102,10 +102,10 @@ export class GameRepository {
   /**
    * Gets a list of games with only the id and steam_url keys.
    *
+   * @example
    * ```
    * const games = await gameRepository.findSteamScraperData()
    * ```
-   *
    * @returns A list of games.
    */
   async findSteamScraperData() {
@@ -114,5 +114,18 @@ export class GameRepository {
       .selectFrom('game')
       .select(['id', 'steam_url'])
       .execute()
+  }
+
+  /**
+   * Gets a list of games.
+   *
+   * @example
+   * ```
+   * const games = await gameRepository.find()
+   * ```
+   * @returns A list of games.
+   */
+  async find() {
+    return this.db.getClient().selectFrom('game').selectAll().execute()
   }
 }
