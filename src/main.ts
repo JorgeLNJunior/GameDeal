@@ -1,7 +1,6 @@
 import 'reflect-metadata'
 import './dependencies/dependency.container'
 
-import dotenv from 'dotenv'
 import { container, inject, injectable } from 'tsyringe'
 
 import { PINO_LOGGER } from './dependencies/dependency.tokens'
@@ -14,8 +13,6 @@ import { Server } from './modules/http/server'
 import { Browser } from './modules/infra/browser'
 import { GameQueue } from './modules/queue/game.queue'
 import { ApplicationLogger } from './types/logger.type'
-
-dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
 
 @injectable()
 export default class Main {
