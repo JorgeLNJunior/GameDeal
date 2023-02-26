@@ -26,6 +26,18 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+
+      - name: Setup MySQL 8
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          mysql version: '8.0'
+          mysql database: 'game_price_alert_test'
+          mysql root password: 'root'
+
+      - name: Setup Redis 7
+        uses: supercharge/redis-github-action@1.5.0
+        with:
+          redis-version: 7
       - run: npm ci
       - run: npm run test:cov
         env:
