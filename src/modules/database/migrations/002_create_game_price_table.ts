@@ -9,7 +9,11 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     .addColumn('game_id', 'varchar(36)', (col) =>
       col.notNull().references('game.id').onDelete('cascade')
     )
-    .addColumn('price', 'decimal(15, 2)', (col) => col.notNull())
+    .addColumn('steam_price', 'decimal(15, 2)', (col) => col.notNull())
+    .addColumn('nuuvem_price', 'decimal(15, 2)', (col) => col.notNull())
+    .addColumn('green_man_gaming_price', 'decimal(15, 2)', (col) =>
+      col.notNull()
+    )
     .addColumn('created_at', 'timestamp', (col) =>
       col.notNull().defaultTo(sql`CURRENT_TIMESTAMP`)
     )

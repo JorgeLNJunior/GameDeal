@@ -74,10 +74,10 @@ export class GameRepository {
    * await gameRepository.insertPrice(gameId, price)
    * ```
    * @param gameId - The id of the game
-   * @param price - The current price of the game
+   * @param prices - The current prices of the game
    * @returns A `GamePrice` object.
    */
-  async insertPrice(gameId: string, price: number): Promise<void> {
+  async insertPrice(gameId: string, prices: PlatformPrices): Promise<void> {
     await this.db
       .getClient()
       .transaction()
@@ -93,7 +93,7 @@ export class GameRepository {
           .values({
             id: uuid,
             game_id: gameId,
-            price: price
+            steam_price: prices.steam_price
           })
           .executeTakeFirstOrThrow()
       })
@@ -128,4 +128,8 @@ export class GameRepository {
   async find() {
     return this.db.getClient().selectFrom('game').selectAll().execute()
   }
+}
+
+interface PlatformPrices {
+  steam_price: number
 }

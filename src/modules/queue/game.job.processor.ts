@@ -24,6 +24,8 @@ export class GameJobProcessor {
    */
   async scrapePrice(data: ScrapeGamePriceData): Promise<void> {
     const price = await this.steamScraper.getGamePrice(data.gameUrl)
-    await this.gameRepository.insertPrice(data.gameId, price)
+    await this.gameRepository.insertPrice(data.gameId, {
+      steam_price: price
+    })
   }
 }
