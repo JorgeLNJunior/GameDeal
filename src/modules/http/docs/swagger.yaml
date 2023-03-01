@@ -72,6 +72,9 @@ components:
     game:
       type: object
       properties:
+        id:
+          type: string
+          example: b1a382ce-b85b-11ed-b7cb-0242ac110002
         title:
           type: string
           example: "God of War"
@@ -208,9 +211,6 @@ components:
           schema:
             type: object
             properties:
-              statusCode:
-                type: number
-                default: 500
               error:
                 type: string
                 default: Internal Error
