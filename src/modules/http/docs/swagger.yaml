@@ -43,6 +43,30 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
+  /games/{id}/price:
+    get:
+      summary: Obter o preço atual de um jogo pelo ID
+      tags:
+        - "Game"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID do jogo
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/game_price"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+
 components:
   schemas:
     game:
@@ -69,6 +93,34 @@ components:
           type: string
           example: 2023-01-23T00:30:19.000Z
           nullable: true
+
+    game_price: 
+      type: object
+      properties:
+        id:
+          type: string
+          example: cac76f00-b85b-11ed-b7cb-0242ac110002
+        game_id:
+          type: string
+          example: b1a382ce-b85b-11ed-b7cb-0242ac110002
+        steam_price:
+          type: number
+          example: 150.00
+        nuuvem_price:
+          type: number
+          example: 150.00
+          nullable: true
+        green_man_gaming_price:
+          type: number
+          example: null
+          nullable: true
+        created_at:
+          type: string
+          example: 2023-01-23T00:30:19.000Z
+        updated_at:
+          type: string
+          nullable: true
+          example: null
 
   requestBodies:
     add-game:
@@ -136,6 +188,19 @@ components:
                       type: string
                       example: undefined
                       nullable: true
+    404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                default: Not Found
+              message:
+                type: string
+                example: Object not found              
     500:
       description: Internal error
       content:
