@@ -128,6 +128,44 @@ export class GameRepository {
   async find() {
     return this.db.getClient().selectFrom('game').selectAll().execute()
   }
+
+  /**
+   * Finds a game by its id.
+   *
+   * @example
+   * ```
+   * const game = await gameRepository.findById(gameId)
+   * ```
+   * @param id - The id of the game.
+   */
+  async findById(id: string): Promise<Game | undefined> {
+    return this.db
+      .getClient()
+      .selectFrom('game')
+      .selectAll()
+      .where('id', '=', id)
+      .executeTakeFirst()
+  }
+
+  /**
+   * Gets the last registred game price.
+   *
+   * @example
+   * ```
+   * const price = await gameRepository.getPrice()
+   * ```
+   * @param gameId - The id of the game.
+   */
+  async getPrice(gameId: string): Promise<GamePrice | undefined> {
+    return this.db
+      .getClient()
+      .selectFrom('game_price')
+      .selectAll()
+      .where('game_id', '=', gameId)
+      .orderBy('created_at', 'desc')
+      .limit(1)
+      .executeTakeFirst()
+  }
 }
 
 interface PlatformPrices {

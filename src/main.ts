@@ -9,6 +9,7 @@ import { GameScrapingCronJob } from './modules/cron/jobs/gameScraping.cronjob'
 import { DatabaseService } from './modules/database/database.service'
 import { AddGameController } from './modules/http/routes/addGame/addGame.controller'
 import { GetGameController } from './modules/http/routes/getGame/getGame.controller'
+import { GetGamePriceController } from './modules/http/routes/getGamePrice/getGamePrice.controller'
 import { Server } from './modules/http/server'
 import { Browser } from './modules/infra/browser'
 import { GameQueue } from './modules/queue/game.queue'
@@ -46,7 +47,8 @@ export default class Main {
   async start(): Promise<void> {
     this.server.registerControllers(
       container.resolve(AddGameController),
-      container.resolve(GetGameController)
+      container.resolve(GetGameController),
+      container.resolve(GetGamePriceController)
     )
     this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
