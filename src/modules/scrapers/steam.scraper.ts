@@ -2,8 +2,8 @@ import { inject, injectable } from 'tsyringe'
 
 import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
 import { ApplicationLogger } from '../../types/logger.type'
+import { Scraper } from '../../types/scraper.type'
 import { Browser } from '../infra/browser'
-import { Scraper } from './scraper.interface'
 
 @injectable()
 export class SteamScraper implements Scraper {
