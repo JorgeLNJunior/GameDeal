@@ -40,7 +40,7 @@ describe('AddGameController', () => {
     })
 
     expect(response.statusCode).toBe(201)
-    expect(response.body).toEqual({ game: data })
+    expect(response.body).toEqual(data)
   })
 
   it('should return a BAD_REQUEST response if validation fails', async () => {
