@@ -20,6 +20,10 @@ describe('GameRepository', () => {
   })
 
   describe('create', () => {
+    afterEach(async () => {
+      await sql`DELETE FROM game`.execute(db.getClient())
+    })
+
     it('should create a new game', async () => {
       const data: AddGameDTO = {
         title: 'Cyberpunk 2077',
@@ -52,6 +56,89 @@ describe('GameRepository', () => {
     it('should return false if a game is not inserted', async () => {
       const isAlreadyInserted = await repository.isAlreadyInserted('Terraria')
       expect(isAlreadyInserted).toBe(false)
+    })
+  })
+
+  describe('insertPrice', () => {
+    afterEach(async () => {
+      await sql`DELETE FROM game`.execute(db.getClient())
+      await sql`DELETE FROM game_price`.execute(db.getClient())
+    })
+
+    it('should insert a new game price', async () => {
+      const game = await repository.create({
+        title: 'Cyberpunk 2077',
+        steam_url: 'https://steamcommunity.com/id',
+        green_man_gaming_url: 'https://www.greenmangaming.com/id',
+        nuuvem_url: 'https://nuuvem.com/id'
+      })
+
+      const price = await repository.insertPrice(game.id, {
+        steam_price: 100
+      })
+
+      expect(price.steam_price).toBe('100.00')
+    })
+  })
+
+  describe('find', () => {
+    afterEach(async () => {
+      await sql`DELETE FROM game`.execute(db.getClient())
+    })
+
+    it('should return a list of games', async () => {
+      const game = await repository.create({
+        title: 'Cyberpunk 2077',
+        steam_url: 'https://steamcommunity.com/id',
+        green_man_gaming_url: 'https://www.greenmangaming.com/id',
+        nuuvem_url: 'https://nuuvem.com/id'
+      })
+
+      const games = await repository.find()
+
+      expect(games[0]).toEqual(game)
+    })
+  })
+
+  describe('findById', () => {
+    afterEach(async () => {
+      await sql`DELETE FROM game`.execute(db.getClient())
+    })
+
+    it('should return a game', async () => {
+      const game = await repository.create({
+        title: 'Cyberpunk 2077',
+        steam_url: 'https://steamcommunity.com/id',
+        green_man_gaming_url: 'https://www.greenmangaming.com/id',
+        nuuvem_url: 'https://nuuvem.com/id'
+      })
+
+      const result = await repository.findById(game.id)
+
+      expect(result).toEqual(game)
+    })
+  })
+
+  describe('getPrice', () => {
+    afterEach(async () => {
+      await sql`DELETE FROM game`.execute(db.getClient())
+      await sql`DELETE FROM game_price`.execute(db.getClient())
+    })
+
+    it('should return a game price', async () => {
+      const game = await repository.create({
+        title: 'Cyberpunk 2077',
+        steam_url: 'https://steamcommunity.com/id',
+        green_man_gaming_url: 'https://www.greenmangaming.com/id',
+        nuuvem_url: 'https://nuuvem.com/id'
+      })
+      await repository.insertPrice(game.id, {
+        steam_price: 100
+      })
+
+      const result = await repository.getPrice(game.id)
+
+      expect(result?.steam_price).toEqual('100.00')
     })
   })
 })
