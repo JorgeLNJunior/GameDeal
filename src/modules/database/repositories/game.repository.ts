@@ -18,7 +18,7 @@ export class GameRepository {
    * @param dto - The data required to insert a game.
    * @returns A `Game` object.
    */
-  async create(dto: AddGameDTO) {
+  async create(dto: AddGameDTO): Promise<Game> {
     return this.db
       .getClient()
       .transaction()
@@ -77,8 +77,11 @@ export class GameRepository {
    * @param prices - The current prices of the game
    * @returns A `GamePrice` object.
    */
-  async insertPrice(gameId: string, prices: PlatformPrices): Promise<void> {
-    await this.db
+  async insertPrice(
+    gameId: string,
+    prices: PlatformPrices
+  ): Promise<GamePrice> {
+    return this.db
       .getClient()
       .transaction()
       .execute(async (trx) => {
@@ -95,6 +98,12 @@ export class GameRepository {
             game_id: gameId,
             steam_price: prices.steam_price
           })
+          .execute()
+
+        return trx
+          .selectFrom('game_price')
+          .selectAll()
+          .where('id', '=', uuid)
           .executeTakeFirstOrThrow()
       })
   }
@@ -125,7 +134,7 @@ export class GameRepository {
    * ```
    * @returns A list of games.
    */
-  async find() {
+  async find(): Promise<Game[]> {
     return this.db.getClient().selectFrom('game').selectAll().execute()
   }
 
