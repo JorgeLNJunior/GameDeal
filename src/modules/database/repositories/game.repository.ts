@@ -96,7 +96,8 @@ export class GameRepository {
           .values({
             id: uuid,
             game_id: gameId,
-            steam_price: prices.steam_price
+            steam_price: prices.steam_price,
+            nuuvem_price: prices.nuuvem_price
           })
           .execute()
 
@@ -121,7 +122,7 @@ export class GameRepository {
     return this.db
       .getClient()
       .selectFrom('game')
-      .select(['id', 'steam_url'])
+      .select(['id', 'steam_url', 'nuuvem_url'])
       .execute()
   }
 
@@ -179,6 +180,7 @@ export class GameRepository {
 
 interface PlatformPrices {
   steam_price: number
+  nuuvem_price: number | null
 }
 
 export interface Game {

@@ -4,12 +4,8 @@ import { inject, singleton } from 'tsyringe'
 import ConfigService from '../../config/config.service'
 import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
 import { ApplicationLogger } from '../../types/logger.type'
+import { ScrapeGamePriceData } from '../../types/queue.type'
 import { GameJobProcessor } from './game.job.processor'
-
-export interface ScrapeGamePriceData {
-  gameId: string
-  gameUrl: string
-}
 
 @singleton()
 export class GameQueue {

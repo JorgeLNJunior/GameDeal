@@ -8,7 +8,7 @@ import { GameQueue } from '../../queue/game.queue'
 
 @injectable()
 export class GameScrapingCronJob implements ApplicationCronJob {
-  public cronTime = '00 00 * * *'
+  public cronTime = '07 17 * * *'
 
   /**
    * Handles the game scraping cron job.
@@ -31,7 +31,8 @@ export class GameScrapingCronJob implements ApplicationCronJob {
     const promises = games.map(async (game) => {
       await this.gameQueue.add({
         gameId: game.id,
-        gameUrl: game.steam_url
+        steamUrl: game.steam_url,
+        nuuvemUrl: game.nuuvem_url
       })
     })
 
@@ -40,7 +41,7 @@ export class GameScrapingCronJob implements ApplicationCronJob {
       if (result.status === 'rejected') {
         this.logger.error(
           result.reason,
-          `[CronService] Failed to add a game to the queue`
+          `[GameScrapingCronJob] Failed to add a game to the queue`
         )
       }
     })

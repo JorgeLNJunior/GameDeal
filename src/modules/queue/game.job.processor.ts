@@ -1,8 +1,9 @@
 import { injectable } from 'tsyringe'
 
+import { ScrapeGamePriceData } from '../../types/queue.type'
 import { GameRepository } from '../database/repositories/game.repository'
+import { NuuvemScraper } from '../scrapers/nuuvem.scraper'
 import { SteamScraper } from '../scrapers/steam.scraper'
-import { ScrapeGamePriceData } from './game.queue'
 
 @injectable()
 export class GameJobProcessor {
@@ -10,10 +11,12 @@ export class GameJobProcessor {
    * Process all game related jobs from the game queue.
    *
    * @param steamScraper - An instance of `SteamScraper`.
+   * @param nuuvemScraper - An instance of `NuuvemScraper`.
    * @param gameRepository - An instance of `GameRepository`.
    */
   constructor(
     private steamScraper: SteamScraper,
+    private nuuvemScraper: NuuvemScraper,
     private gameRepository: GameRepository
   ) {}
 
@@ -23,9 +26,17 @@ export class GameJobProcessor {
    * @param data - The game data.
    */
   async scrapePrice(data: ScrapeGamePriceData): Promise<void> {
-    const price = await this.steamScraper.getGamePrice(data.gameUrl)
+    let nuuvemPrice = null
+
+    const steamPrice = await this.steamScraper.getGamePrice(data.steamUrl)
+
+    if (data.nuuvemUrl) {
+      nuuvemPrice = await this.nuuvemScraper.getGamePrice(data.nuuvemUrl)
+    }
+
     await this.gameRepository.insertPrice(data.gameId, {
-      steam_price: price
+      steam_price: steamPrice,
+      nuuvem_price: nuuvemPrice
     })
   }
 }
