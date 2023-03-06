@@ -74,10 +74,12 @@ describe('GameRepository', () => {
       })
 
       const price = await repository.insertPrice(game.id, {
-        steam_price: 100
+        steam_price: 100,
+        nuuvem_price: 100
       })
 
       expect(price.steam_price).toBe('100.00')
+      expect(price.nuuvem_price).toBe('100.00')
     })
   })
 
@@ -133,12 +135,14 @@ describe('GameRepository', () => {
         nuuvem_url: 'https://nuuvem.com/id'
       })
       await repository.insertPrice(game.id, {
-        steam_price: 100
+        steam_price: 100,
+        nuuvem_price: 100
       })
 
       const result = await repository.getPrice(game.id)
 
       expect(result?.steam_price).toEqual('100.00')
+      expect(result?.nuuvem_price).toEqual('100.00')
     })
   })
 })
