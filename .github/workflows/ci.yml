@@ -72,22 +72,22 @@ jobs:
         with:
           definition-file: ./src/modules/http/docs/swagger.yaml
 
-  release:
-    runs-on: ubuntu-latest
-    needs: [build, test, lint, validate_swagger_file]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: git config
-        run: |
-          git config user.name "${GITHUB_ACTOR}"
-          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-      - run: npm ci
-      - run: npm run release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # release:
+  #   runs-on: ubuntu-latest
+  #   needs: [build, test, lint, validate_swagger_file]
+  #   if: github.ref == 'refs/heads/main'
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #       with:
+  #         fetch-depth: 0
+  #     - name: git config
+  #       run: |
+  #         git config user.name "${GITHUB_ACTOR}"
+  #         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+  #     - run: npm ci
+  #     - run: npm run release
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   # deploy:
   #   runs-on: ubuntu-latest
