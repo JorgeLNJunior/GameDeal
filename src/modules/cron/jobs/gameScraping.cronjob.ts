@@ -8,7 +8,7 @@ import { GameQueue } from '../../queue/game.queue'
 
 @injectable()
 export class GameScrapingCronJob implements ApplicationCronJob {
-  public cronTime = '07 17 * * *'
+  public cronTime = '00 00 * * *'
 
   /**
    * Handles the game scraping cron job.

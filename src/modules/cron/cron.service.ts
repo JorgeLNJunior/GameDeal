@@ -27,7 +27,11 @@ export class CronService {
    */
   registerJobs(...jobs: ApplicationCronJob[]): void {
     for (const job of jobs) {
-      this.jobs.push(new CronJob(job.cronTime, job.jobFunction))
+      this.jobs.push(
+        new CronJob(job.cronTime, async function () {
+          await job.jobFunction()
+        })
+      )
     }
   }
 
