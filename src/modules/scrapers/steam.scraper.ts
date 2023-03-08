@@ -29,6 +29,9 @@ export class SteamScraper implements Scraper {
    * @returns The current steam game price.
    */
   async getGamePrice(url: string): Promise<number> {
+    // makes steam show brazilian prices
+    url += '?cc=br'
+
     this.logger.info('[SteamScraper] getting a page')
     const page = await this.browser.getPage()
 
