@@ -1,9 +1,8 @@
+import { GameRepository } from '@database/repositories/game.repository'
+import { ScrapeGamePriceData } from '@localtypes/queue.type'
+import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
+import { SteamScraper } from '@scrapers/steam.scraper'
 import { injectable } from 'tsyringe'
-
-import { ScrapeGamePriceData } from '../../types/queue.type'
-import { GameRepository } from '../database/repositories/game.repository'
-import { NuuvemScraper } from '../scrapers/nuuvem.scraper'
-import { SteamScraper } from '../scrapers/steam.scraper'
 
 @injectable()
 export class GameJobProcessor {

@@ -1,10 +1,10 @@
+import ConfigService from '@config/config.service'
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { ApplicationLogger } from '@localtypes/logger.type'
+import { ScrapeGamePriceData } from '@localtypes/queue.type'
 import { Queue, Worker } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
-import ConfigService from '../../config/config.service'
-import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
-import { ApplicationLogger } from '../../types/logger.type'
-import { ScrapeGamePriceData } from '../../types/queue.type'
 import { GameJobProcessor } from './game.job.processor'
 
 @singleton()

@@ -1,9 +1,8 @@
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { Browser } from '@infra/browser'
+import { ApplicationLogger } from '@localtypes/logger.type'
+import { Scraper } from '@localtypes/scraper.type'
 import { inject, injectable } from 'tsyringe'
-
-import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
-import { ApplicationLogger } from '../../types/logger.type'
-import { Scraper } from '../../types/scraper.type'
-import { Browser } from '../infra/browser'
 
 @injectable()
 export class NuuvemScraper implements Scraper {

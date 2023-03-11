@@ -1,7 +1,7 @@
+import { DatabaseService } from '@database/database.service'
 import { sql } from 'kysely'
 import { injectable } from 'tsyringe'
 
-import { DatabaseService } from '../../../modules/database/database.service'
 import { AddGameDTO } from './dto/addGame.dto'
 
 @injectable()

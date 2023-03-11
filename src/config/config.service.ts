@@ -1,8 +1,7 @@
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { ApplicationLogger } from '@localtypes/logger.type'
 import dotenv from 'dotenv'
 import { inject, injectable } from 'tsyringe'
-
-import { PINO_LOGGER } from '../dependencies/dependency.tokens'
-import { ApplicationLogger } from '../types/logger.type'
 
 dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
 

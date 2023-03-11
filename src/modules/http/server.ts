@@ -1,10 +1,10 @@
+import ConfigService from '@config/config.service'
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { BaseController } from '@localtypes/http/baseController.type'
+import { ApplicationLogger } from '@localtypes/logger.type'
 import { fastify, FastifyInstance } from 'fastify'
 import { inject, singleton } from 'tsyringe'
 
-import ConfigService from '../../config/config.service'
-import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
-import { BaseController } from '../../types/http/baseController.type'
-import { ApplicationLogger } from '../../types/logger.type'
 import { adaptRoute } from './internal/route.adapter'
 
 @singleton()

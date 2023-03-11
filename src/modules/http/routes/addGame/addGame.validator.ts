@@ -1,6 +1,5 @@
+import { Validator } from '@localtypes/validator.type'
 import { z } from 'zod'
-
-import { Validator } from '../../../../types/validator.type'
 
 export class AddGameValidator implements Validator {
   public validate(data: unknown) {

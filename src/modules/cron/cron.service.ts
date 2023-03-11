@@ -1,9 +1,8 @@
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { ApplicationCronJob } from '@localtypes/cron.type'
+import { ApplicationLogger } from '@localtypes/logger.type'
 import { CronJob } from 'cron'
 import { inject, injectable } from 'tsyringe'
-
-import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
-import { ApplicationCronJob } from '../../types/cron.type'
-import { ApplicationLogger } from '../../types/logger.type'
 
 @injectable()
 export class CronService {

@@ -1,19 +1,18 @@
 import 'reflect-metadata'
-import './dependencies/dependency.container'
+import '@dependencies/dependency.container'
 
+import { CronService } from '@cron/cron.service'
+import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
+import { DatabaseService } from '@database/database.service'
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { AddGameController } from '@http/routes/addGame/addGame.controller'
+import { GetGameController } from '@http/routes/getGame/getGame.controller'
+import { GetGamePriceController } from '@http/routes/getGamePrice/getGamePrice.controller'
+import { Server } from '@http/server'
+import { Browser } from '@infra/browser'
+import { ApplicationLogger } from '@localtypes/logger.type'
+import { GameQueue } from '@queue/game.queue'
 import { container, inject, injectable } from 'tsyringe'
-
-import { PINO_LOGGER } from './dependencies/dependency.tokens'
-import { CronService } from './modules/cron/cron.service'
-import { GameScrapingCronJob } from './modules/cron/jobs/gameScraping.cronjob'
-import { DatabaseService } from './modules/database/database.service'
-import { AddGameController } from './modules/http/routes/addGame/addGame.controller'
-import { GetGameController } from './modules/http/routes/getGame/getGame.controller'
-import { GetGamePriceController } from './modules/http/routes/getGamePrice/getGamePrice.controller'
-import { Server } from './modules/http/server'
-import { Browser } from './modules/infra/browser'
-import { GameQueue } from './modules/queue/game.queue'
-import { ApplicationLogger } from './types/logger.type'
 
 @injectable()
 export default class Main {

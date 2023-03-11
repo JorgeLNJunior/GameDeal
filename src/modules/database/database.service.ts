@@ -1,12 +1,12 @@
+import ConfigService from '@config/config.service'
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { ApplicationLogger } from '@localtypes/logger.type'
 import { promises as fs } from 'fs'
 import { FileMigrationProvider, Kysely, Migrator, MysqlDialect } from 'kysely'
 import { createPool } from 'mysql2'
 import * as path from 'path'
 import { inject, singleton } from 'tsyringe'
 
-import ConfigService from '../../config/config.service'
-import { PINO_LOGGER } from '../../dependencies/dependency.tokens'
-import { ApplicationLogger } from '../../types/logger.type'
 import { Database } from './database.interface'
 
 @singleton()

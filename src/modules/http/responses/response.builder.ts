@@ -1,4 +1,4 @@
-import { HttpResponse } from '../../../types/http/http.type'
+import { HttpResponse } from '@localtypes/http/http.type'
 
 export class ResponseBuilder {
   /**

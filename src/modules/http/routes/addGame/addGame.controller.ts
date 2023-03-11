@@ -1,12 +1,12 @@
+import { AddGameDTO } from '@database/repositories/dto/addGame.dto'
+import { GameRepository } from '@database/repositories/game.repository'
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { ResponseBuilder } from '@http/responses/response.builder'
+import { BaseController } from '@localtypes/http/baseController.type'
+import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
+import { ApplicationLogger } from '@localtypes/logger.type'
 import { inject, injectable } from 'tsyringe'
 
-import { PINO_LOGGER } from '../../../../dependencies/dependency.tokens'
-import { BaseController } from '../../../../types/http/baseController.type'
-import { HttpRequest, HttpResponse } from '../../../../types/http/http.type'
-import { ApplicationLogger } from '../../../../types/logger.type'
-import { AddGameDTO } from '../../../database/repositories/dto/addGame.dto'
-import { GameRepository } from '../../../database/repositories/game.repository'
-import { ResponseBuilder } from '../../responses/response.builder'
 import { AddGameValidator } from './addGame.validator'
 
 @injectable()

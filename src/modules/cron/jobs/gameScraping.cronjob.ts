@@ -1,10 +1,9 @@
+import { GameRepository } from '@database/repositories/game.repository'
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { ApplicationCronJob } from '@localtypes/cron.type'
+import { ApplicationLogger } from '@localtypes/logger.type'
+import { GameQueue } from '@queue/game.queue'
 import { inject, injectable } from 'tsyringe'
-
-import { PINO_LOGGER } from '../../../dependencies/dependency.tokens'
-import { ApplicationCronJob } from '../../../types/cron.type'
-import { ApplicationLogger } from '../../../types/logger.type'
-import { GameRepository } from '../../database/repositories/game.repository'
-import { GameQueue } from '../../queue/game.queue'
 
 @injectable()
 export class GameScrapingCronJob implements ApplicationCronJob {

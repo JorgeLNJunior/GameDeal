@@ -1,9 +1,8 @@
+import { GameRepository } from '@database/repositories/game.repository'
+import { ResponseBuilder } from '@http/responses/response.builder'
+import { BaseController } from '@localtypes/http/baseController.type'
+import { HttpResponse } from '@localtypes/http/http.type'
 import { injectable } from 'tsyringe'
-
-import { GameRepository } from '../../../../modules/database/repositories/game.repository'
-import { BaseController } from '../../../../types/http/baseController.type'
-import { HttpResponse } from '../../../../types/http/http.type'
-import { ResponseBuilder } from '../../responses/response.builder'
 
 @injectable()
 export class GetGameController implements BaseController {

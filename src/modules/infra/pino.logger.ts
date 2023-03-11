@@ -1,6 +1,5 @@
+import { ApplicationLogger } from '@localtypes/logger.type'
 import pino from 'pino'
-
-import { ApplicationLogger } from '../../types/logger.type'
 
 export class PinoLogger implements ApplicationLogger {
   private pino = pino({
