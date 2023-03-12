@@ -63,11 +63,11 @@ jobs:
 
   validate_swagger_file:
     runs-on: ubuntu-latest
-    name: Validate Swagger file
+    name: validate swagger file
 
     steps:
       - uses: actions/checkout@v2
-      - name: Validate OpenAPI definition
+      - name: validate OpenAPI definition
         uses: char0n/swagger-editor-validate@v1
         with:
           definition-file: ./src/modules/http/docs/swagger.yaml
