@@ -5,7 +5,7 @@
   "main": "dist/src/main.js",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc && tsc-alias",
+    "build": "tsc -p tsconfig.build.json && tsc-alias",
     "postbuild": "mkdir dist/modules/http/docs && cp src/modules/http/docs/swagger.yaml dist/modules/http/docs/",
     "start": "ts-node -r tsconfig-paths/register src/main.ts | pino-pretty",
     "start:dev": "tsnd -r tsconfig-paths/register --respawn --transpile-only src/main.ts | pino-pretty",
