@@ -1,7 +1,7 @@
+import { GameRepository } from '@database/repositories/game.repository'
+import { PinoLogger } from '@infra/pino.logger'
 import { container } from 'tsyringe'
 
-import { GameRepository } from '../../../database/repositories/game.repository'
-import { PinoLogger } from '../../../infra/pino.logger'
 import { AddGameController } from './addGame.controller'
 import { AddGameValidator } from './addGame.validator'
 

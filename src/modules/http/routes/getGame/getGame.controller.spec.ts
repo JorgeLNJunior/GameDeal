@@ -1,6 +1,6 @@
+import { GameRepository } from '@database/repositories/game.repository'
 import { container } from 'tsyringe'
 
-import { GameRepository } from '../../../database/repositories/game.repository'
 import { GetGameController } from './getGame.controller'
 
 describe('GetGameController', () => {

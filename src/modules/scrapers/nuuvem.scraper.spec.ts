@@ -1,5 +1,6 @@
-import { Browser } from '../infra/browser'
-import { PinoLogger } from '../infra/pino.logger'
+import { Browser } from '@infra/browser'
+import { PinoLogger } from '@infra/pino.logger'
+
 import { NuuvemScraper } from './nuuvem.scraper'
 
 jest.setTimeout(30000)

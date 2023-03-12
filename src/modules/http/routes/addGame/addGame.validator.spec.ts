@@ -1,4 +1,5 @@
-import { AddGameDTO } from '../../../database/repositories/dto/addGame.dto'
+import { AddGameDTO } from '@database/repositories/dto/addGame.dto'
+
 import { AddGameValidator } from './addGame.validator'
 
 describe('AddGameValidator', () => {
