@@ -10,17 +10,11 @@
     "module": "CommonJS",
     "baseUrl": "./",
     "paths": {
-      "@src/*": [
-        "src/*"
-      ],
       "@config/*": [
         "src/config/*"
       ],
       "@dependencies/*": [
         "src/dependencies/*"
-      ],
-      "@modules/*": [
-        "src/modules/*"
       ],
       "@cron/*": [
         "src/modules/cron/*"
@@ -40,9 +34,15 @@
       "@scrapers/*": [
         "src/modules/scrapers/*"
       ],
+      "@modules/*": [
+        "src/modules/*"
+      ],
       "@localtypes/*": [
         "src/types/*"
       ],
+      "@src/*": [
+        "src/*"
+      ]
     },
     "resolveJsonModule": true,
     "allowJs": true,
