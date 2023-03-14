@@ -45,7 +45,7 @@ paths:
 
   /games/{id}/price:
     get:
-      summary: Obter o preço atual de um jogo pelo ID
+      summary: Obter o preço atual de um jogo a partir do ID
       tags:
         - "Game"
       parameters:
@@ -107,14 +107,14 @@ components:
           type: string
           example: b1a382ce-b85b-11ed-b7cb-0242ac110002
         steam_price:
-          type: number
-          example: 150.00
+          type: string
+          example: "150.99"
         nuuvem_price:
-          type: number
-          example: 150.00
+          type: string
+          example: "145.99"
           nullable: true
         green_man_gaming_price:
-          type: number
+          type: string
           example: null
           nullable: true
         created_at:
