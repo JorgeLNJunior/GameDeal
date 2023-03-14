@@ -1,15 +1,15 @@
-import { GameRepository } from '@database/repositories/game.repository'
 import { container } from 'tsyringe'
 
-import { GetGameController } from './getGame.controller'
+import { FindGamesController } from './findGames.controller'
+import { FindGamesRepository } from './repositories/findGames.repository'
 
-describe('GetGameController', () => {
-  let controller: GetGameController
-  let repository: GameRepository
+describe('FindGamesController', () => {
+  let controller: FindGamesController
+  let repository: FindGamesRepository
 
   beforeEach(async () => {
-    repository = container.resolve(GameRepository)
-    controller = new GetGameController(repository)
+    repository = container.resolve(FindGamesRepository)
+    controller = new FindGamesController(repository)
   })
 
   it('should return a list of games', async () => {

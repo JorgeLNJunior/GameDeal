@@ -1,9 +1,10 @@
-import { GameRepository } from '@database/repositories/game.repository'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationCronJob } from '@localtypes/cron.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { GameQueue } from '@queue/game.queue'
 import { inject, injectable } from 'tsyringe'
+
+import { FindGameScraperDataRepository } from './repositories/findGameScraperData.repository'
 
 @injectable()
 export class GameScrapingCronJob implements ApplicationCronJob {
@@ -12,12 +13,12 @@ export class GameScrapingCronJob implements ApplicationCronJob {
   /**
    * Handles the game scraping cron job.
    *
-   * @param gameRepository - A game repository instance.
+   * @param findGameScraperDataRepository - A game FindGameScraperDataRepository instance.
    * @param gameQueue - A game queue instance.
    * @param logger - An application logger.
    */
   constructor(
-    private gameRepository: GameRepository,
+    private findGameScraperDataRepository: FindGameScraperDataRepository,
     private gameQueue: GameQueue,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
@@ -25,7 +26,7 @@ export class GameScrapingCronJob implements ApplicationCronJob {
   public async jobFunction(): Promise<void> {
     this.logger.info('[GameScrapingCronJob] Running game scraping job')
 
-    const games = await this.gameRepository.findSteamScraperData()
+    const games = await this.findGameScraperDataRepository.find()
 
     const promises = games.map(async (game) => {
       await this.gameQueue.add({

@@ -1,13 +1,14 @@
-import { AddGameDTO } from '@database/repositories/dto/addGame.dto'
-import { GameRepository } from '@database/repositories/game.repository'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ResponseBuilder } from '@http/responses/response.builder'
 import { BaseController } from '@localtypes/http/baseController.type'
 import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
+import { AddGameDTO } from '@src/modules/http/routes/addGame/dto/addGame.dto'
 import { inject, injectable } from 'tsyringe'
 
-import { AddGameValidator } from './addGame.validator'
+import { AddGameRepository } from './repositories/addGame.repository'
+import { IsGameAlreadyInsertedRepository } from './repositories/isGameAlreadyInserted.repository'
+import { AddGameValidator } from './validator/addGame.validator'
 
 @injectable()
 export class AddGameController implements BaseController {
@@ -16,7 +17,8 @@ export class AddGameController implements BaseController {
 
   constructor(
     private validator: AddGameValidator,
-    private gameRepository: GameRepository,
+    private addGameRepository: AddGameRepository,
+    private isGameAlreadyInsertedRepository: IsGameAlreadyInsertedRepository,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
@@ -25,9 +27,10 @@ export class AddGameController implements BaseController {
       const { success, errors } = this.validator.validate(request.body)
       if (!success) return ResponseBuilder.badRequest(errors)
 
-      const isAlreadyInserted = await this.gameRepository.isAlreadyInserted(
-        (request.body as AddGameDTO).title
-      )
+      const isAlreadyInserted =
+        await this.isGameAlreadyInsertedRepository.handle(
+          (request.body as AddGameDTO).title
+        )
 
       if (isAlreadyInserted) {
         return ResponseBuilder.badRequest({
@@ -38,7 +41,7 @@ export class AddGameController implements BaseController {
         })
       }
 
-      const game = await this.gameRepository.create(request.body as AddGameDTO)
+      const game = await this.addGameRepository.add(request.body as AddGameDTO)
 
       return ResponseBuilder.created(game)
     } catch (error) {

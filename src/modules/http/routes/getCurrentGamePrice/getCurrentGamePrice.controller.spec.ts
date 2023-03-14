@@ -1,23 +1,30 @@
-import {
-  Game,
-  GamePrice,
-  GameRepository
-} from '@database/repositories/game.repository'
+import { DatabaseService } from '@database/database.service'
+import { Game, GamePrice } from '@localtypes/entities.type'
+import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
 import { container } from 'tsyringe'
 
-import { GetGamePriceController } from './getGamePrice.controller'
+import { GetGamePriceController } from './getCurrentGamePrice.controller'
+import { GetCurrentGamePriceRepository } from './repositories/getCurrentGamePrice.repository'
 
 describe('GetGamePriceController', () => {
   let controller: GetGamePriceController
-  let repository: GameRepository
+  let getCurrentGamePriceRepository: GetCurrentGamePriceRepository
+  let findGameByIdRepository: FindGameByIdRepository
 
   beforeEach(() => {
-    repository = container.resolve(GameRepository)
-    controller = new GetGamePriceController(repository)
+    const db = container.resolve(DatabaseService)
+
+    getCurrentGamePriceRepository = new GetCurrentGamePriceRepository(db)
+    findGameByIdRepository = new FindGameByIdRepository(db)
+
+    controller = new GetGamePriceController(
+      getCurrentGamePriceRepository,
+      findGameByIdRepository
+    )
   })
 
   it('should return 404 if the game is not found', async () => {
-    jest.spyOn(repository, 'findById').mockResolvedValueOnce(undefined)
+    jest.spyOn(findGameByIdRepository, 'find').mockResolvedValueOnce(undefined)
 
     const response = await controller.handle({
       params: {
@@ -55,11 +62,11 @@ describe('GetGamePriceController', () => {
       updated_at: null
     }
     jest
-      .spyOn(repository, 'findById')
+      .spyOn(findGameByIdRepository, 'find')
       .mockImplementationOnce(() => Promise.resolve(game))
 
     jest
-      .spyOn(repository, 'getPrice')
+      .spyOn(getCurrentGamePriceRepository, 'getPrice')
       .mockImplementationOnce(() => Promise.resolve(price))
 
     const response = await controller.handle({

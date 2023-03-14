@@ -1,21 +1,31 @@
-import { GameRepository } from '@database/repositories/game.repository'
 import { PinoLogger } from '@infra/pino.logger'
 import { container } from 'tsyringe'
 
 import { AddGameController } from './addGame.controller'
-import { AddGameValidator } from './addGame.validator'
+import { AddGameRepository } from './repositories/addGame.repository'
+import { IsGameAlreadyInsertedRepository } from './repositories/isGameAlreadyInserted.repository'
+import { AddGameValidator } from './validator/addGame.validator'
 
 describe('AddGameController', () => {
   let controller: AddGameController
   let validator: AddGameValidator
-  let repository: GameRepository
+  let addGameRepository: AddGameRepository
+  let isGameAlreadyInsertedRepository: IsGameAlreadyInsertedRepository
 
   beforeEach(() => {
     validator = container.resolve(AddGameValidator)
-    repository = container.resolve(GameRepository)
+    addGameRepository = container.resolve(AddGameRepository)
+    isGameAlreadyInsertedRepository = container.resolve(
+      IsGameAlreadyInsertedRepository
+    )
     const logger = new PinoLogger()
 
-    controller = new AddGameController(validator, repository, logger)
+    controller = new AddGameController(
+      validator,
+      addGameRepository,
+      isGameAlreadyInsertedRepository,
+      logger
+    )
   })
 
   it('should return a CREATED response if it succeeds', async () => {
@@ -29,8 +39,10 @@ describe('AddGameController', () => {
       updated_at: new Date()
     }
     jest.spyOn(validator, 'validate').mockReturnValue({ success: true })
-    jest.spyOn(repository, 'isAlreadyInserted').mockResolvedValue(false)
-    jest.spyOn(repository, 'create').mockResolvedValue(data)
+    jest
+      .spyOn(isGameAlreadyInsertedRepository, 'handle')
+      .mockResolvedValue(false)
+    jest.spyOn(addGameRepository, 'add').mockResolvedValue(data)
 
     const response = await controller.handle({
       body: {},
@@ -58,8 +70,10 @@ describe('AddGameController', () => {
 
   it('should return a BAD_REQUEST response if the game is already inserted', async () => {
     jest.spyOn(validator, 'validate').mockReturnValue({ success: true })
-    jest.spyOn(repository, 'isAlreadyInserted').mockResolvedValue(true)
-    jest.spyOn(repository, 'create').mockRejectedValue({} as never)
+    jest
+      .spyOn(isGameAlreadyInsertedRepository, 'handle')
+      .mockResolvedValue(true)
+    jest.spyOn(addGameRepository, 'add').mockRejectedValue({} as unknown)
 
     const response = await controller.handle({
       body: {},
@@ -73,9 +87,11 @@ describe('AddGameController', () => {
 
   it('should return a INTERNAL_ERROR response if repository fails', async () => {
     jest.spyOn(validator, 'validate').mockReturnValue({ success: true })
-    jest.spyOn(repository, 'isAlreadyInserted').mockResolvedValue(false)
     jest
-      .spyOn(repository, 'create')
+      .spyOn(isGameAlreadyInsertedRepository, 'handle')
+      .mockResolvedValue(false)
+    jest
+      .spyOn(addGameRepository, 'add')
       .mockRejectedValue(new Error('repository error'))
 
     const response = await controller.handle({
