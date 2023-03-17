@@ -18,10 +18,10 @@ export class CronService {
   /**
    * Registers a list of cron jobs.
    *
+   * @example
    * ```
    * this.cronService.registerJobs(new MyFirtsJob(), new MySecondJob())
    * ```
-   *
    * @param jobs - A list of cron jobs.
    */
   registerJobs(...jobs: ApplicationCronJob[]): void {
