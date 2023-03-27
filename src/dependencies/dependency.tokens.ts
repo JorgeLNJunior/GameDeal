@@ -1,6 +1,6 @@
 /** `PinoLogger` injection token. */
 const PINO_LOGGER = 'PinoLogger'
-/** Notificators injection token */
-const NOTIFICATORS = 'Notificators'
+/** Notifiers injection token */
+const NOTIFIERS = 'Notificators'
 
-export { NOTIFICATORS, PINO_LOGGER }
+export { NOTIFIERS, PINO_LOGGER }
