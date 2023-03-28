@@ -10,6 +10,7 @@ import { FindGamesController } from '@http/routes/findGames/findGames.controller
 import { GetGamePriceController } from '@http/routes/getCurrentGamePrice/getCurrentGamePrice.controller'
 import { Server } from '@http/server'
 import { Browser } from '@infra/browser'
+import { NotificationService } from '@infra/notification/notification.service'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { GameQueue } from '@queue/game.queue'
 import { container, inject, injectable } from 'tsyringe'
@@ -24,6 +25,7 @@ export default class Main {
    * @param browser - An instance of `Browser`.
    * @param gameQueue - An instance of `GameQueue`.
    * @param cronService - An instance of `CronService`.
+   * @param notificationService - An instance of `NotificationService`.
    * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(
@@ -32,6 +34,7 @@ export default class Main {
     private browser: Browser,
     private gameQueue: GameQueue,
     private cronService: CronService,
+    private notificationService: NotificationService,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
@@ -54,6 +57,7 @@ export default class Main {
     await this.dbService.connect()
     await this.browser.launch()
     await this.gameQueue.init()
+    await this.notificationService.start()
     this.cronService.start()
     await this.server.listen()
 
@@ -65,6 +69,7 @@ export default class Main {
       await this.dbService.disconnect()
       await this.browser.close()
       await this.gameQueue.stop()
+      await this.notificationService.stop()
       this.cronService.stop()
       await this.server.close()
       this.logger.info('[Main] Application stopped')
