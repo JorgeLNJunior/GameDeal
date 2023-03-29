@@ -33,7 +33,6 @@ describe('AddGameController', () => {
       title: 'title',
       id: 'id',
       steam_url: 'steam_url',
-      green_man_gaming_url: 'green_man_gaming_url',
       nuuvem_url: 'nuuvem_url',
       created_at: new Date(),
       updated_at: new Date()

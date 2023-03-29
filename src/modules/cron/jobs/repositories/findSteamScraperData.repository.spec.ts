@@ -25,7 +25,6 @@ describe('FindGameScraperDataRepository', () => {
       id: randomUUID(),
       title: 'Cyberpunk 2077',
       steam_url: 'https://steamcommunity.com/id',
-      green_man_gaming_url: 'https://www.greenmangaming.com/id',
       nuuvem_url: 'https://nuuvem.com/id'
     }
 

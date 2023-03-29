@@ -48,7 +48,6 @@ describe('GetGamePriceController', () => {
       title: 'Cyberpunk 2077',
       steam_url: 'steam_url',
       nuuvem_url: 'nuuvem_url',
-      green_man_gaming_url: 'green_man_gaming_url',
       created_at: new Date(),
       updated_at: null
     }
@@ -57,7 +56,6 @@ describe('GetGamePriceController', () => {
       game_id: 'id',
       steam_price: 10,
       nuuvem_price: null,
-      green_man_gaming_price: null,
       created_at: new Date(),
       updated_at: null
     }
