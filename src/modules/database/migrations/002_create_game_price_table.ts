@@ -11,7 +11,6 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     )
     .addColumn('steam_price', 'decimal(15, 2)', (col) => col.notNull())
     .addColumn('nuuvem_price', 'decimal(15, 2)')
-    .addColumn('green_man_gaming_price', 'decimal(15, 2)')
     .addColumn('created_at', 'timestamp', (col) =>
       col.notNull().defaultTo(sql`CURRENT_TIMESTAMP`)
     )

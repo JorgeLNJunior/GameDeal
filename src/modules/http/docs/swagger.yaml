@@ -81,10 +81,6 @@ components:
         steam_url:
           type: string
           example: https://store.steampowered.com/app/1593500/God_of_War
-        green_man_gaming_url:
-          type: string
-          example: https://www.greenmangaming.com/games/god-of-war-pc
-          nullable: true
         nuuvem_url:
           type: string
           example: https://www.nuuvem.com/br-en/item/god-of-war
@@ -113,10 +109,6 @@ components:
           type: string
           example: "145.99"
           nullable: true
-        green_man_gaming_price:
-          type: string
-          example: null
-          nullable: true
         created_at:
           type: string
           example: 2023-01-23T00:30:19.000Z
@@ -144,10 +136,6 @@ components:
                 type: string
                 example: https://store.steampowered.com/app/1593500/God_of_War
                 description: "URL do jogo no Steam"
-              green_man_gaming_url:
-                type: string
-                example: https://www.greenmangaming.com/games/god-of-war-pc
-                description: "URL do jogo no Greenmangaming"
               nuuvem_url:
                 type: string
                 example: https://www.nuuvem.com/br-en/item/god-of-war
