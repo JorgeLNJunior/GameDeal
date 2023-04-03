@@ -1,7 +1,7 @@
-import { GetCurrentGamePriceRepository } from '@http/routes/getCurrentGamePrice/repositories/getCurrentGamePrice.repository'
 import { NotificationService } from '@infra/notification/notification.service'
 import { ScrapeGamePriceData } from '@localtypes/queue.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
+import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
 import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
 import { SteamScraper } from '@scrapers/steam.scraper'
 import { injectable } from 'tsyringe'
