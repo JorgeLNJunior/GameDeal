@@ -2,9 +2,8 @@ import { ResponseBuilder } from '@http/responses/response.builder'
 import { BaseController } from '@localtypes/http/baseController.type'
 import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
+import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
 import { injectable } from 'tsyringe'
-
-import { GetCurrentGamePriceRepository } from './repositories/getCurrentGamePrice.repository'
 
 @injectable()
 export class GetGamePriceController implements BaseController {

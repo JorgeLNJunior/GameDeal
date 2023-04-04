@@ -1,10 +1,10 @@
 import { DatabaseService } from '@database/database.service'
 import { Game, GamePrice } from '@localtypes/entities.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
+import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
 import { container } from 'tsyringe'
 
 import { GetGamePriceController } from './getCurrentGamePrice.controller'
-import { GetCurrentGamePriceRepository } from './repositories/getCurrentGamePrice.repository'
 
 describe('GetGamePriceController', () => {
   let controller: GetGamePriceController
