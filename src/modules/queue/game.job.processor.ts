@@ -32,48 +32,59 @@ export class GameJobProcessor {
   /**
    * Scrapes and saves the current game price.
    *
+   * Notifies if the current price is lower than the latest registered.
+   *
    * @param data - The game data.
    */
   async scrapePrice(data: ScrapeGamePriceData): Promise<void> {
-    let nuuvemPrice = null
+    let currentNuuvemPrice = null
 
-    const steamPrice = await this.steamScraper.getGamePrice(data.steamUrl)
+    const currentSteamPrice = await this.steamScraper.getGamePrice(
+      data.steamUrl
+    )
 
-    if (data.nuuvemUrl) {
-      nuuvemPrice = await this.nuuvemScraper.getGamePrice(data.nuuvemUrl)
+    const hasNuuvemUrl = data.nuuvemUrl
+    if (hasNuuvemUrl) {
+      currentNuuvemPrice = await this.nuuvemScraper.getGamePrice(
+        data.nuuvemUrl as string
+      )
     }
 
     await this.insertGamePriceRepository.insert(data.gameId, {
-      steam_price: steamPrice,
-      nuuvem_price: nuuvemPrice
+      steam_price: currentSteamPrice,
+      nuuvem_price: currentNuuvemPrice
     })
 
-    const lastPrice = await this.getCurrentGamePriceRepository.getPrice(
+    const lastestPrice = await this.getCurrentGamePriceRepository.getPrice(
       data.gameId
     )
-    if (!lastPrice) return
+    if (!lastestPrice) return // returns if there's no price registered
 
     const game = await this.findGameByIdRepository.find(data.gameId)
     if (!game) return
 
-    if (steamPrice < lastPrice.steam_price) {
+    const isCurrentSteamPriceLower =
+      currentSteamPrice < lastestPrice.steam_price
+
+    if (isCurrentSteamPriceLower) {
       this.notificationService.notify({
-        currentPrice: steamPrice,
-        oldPrice: lastPrice.steam_price,
+        currentPrice: currentSteamPrice,
+        oldPrice: lastestPrice.steam_price,
         gameTitle: game.title,
         platform: 'Steam',
         gameUrl: game.steam_url
       })
     }
 
-    if (
-      nuuvemPrice &&
-      lastPrice.nuuvem_price &&
-      nuuvemPrice < lastPrice.steam_price
-    ) {
+    const isNuuvemPriceLowerThanSteam =
+      currentNuuvemPrice &&
+      lastestPrice.nuuvem_price &&
+      currentNuuvemPrice < lastestPrice.steam_price
+
+    if (isNuuvemPriceLowerThanSteam) {
       this.notificationService.notify({
-        currentPrice: steamPrice,
-        oldPrice: lastPrice.nuuvem_price,
+        currentPrice: currentNuuvemPrice as number,
+        oldPrice: lastestPrice.nuuvem_price as number,
         gameTitle: game.title,
         platform: 'Nuuvem',
         gameUrl: game.nuuvem_url as string
