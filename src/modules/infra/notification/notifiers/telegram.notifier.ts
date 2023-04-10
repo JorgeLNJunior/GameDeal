@@ -27,16 +27,17 @@ export class TelegramNotifier implements Notifier {
 
     await this.bot.telegram.sendMessage(
       CHAT_ID,
-      `
-        ⚠️ Queda de preço no jogo: ${data.gameTitle} ⚠️
-
-      Plataforma: ${data.platform}
-      Preço atual: ${data.currentPrice}
-      Preço anterior: ${data.oldPrice}
-
-      Acesse: ${data.gameUrl}
-      `.trim(),
-      { parse_mode: 'Markdown' }
+      `⚠️ *Queda de preço: ${data.gameTitle}* ⚠️ \n\n` +
+        `*Plataforma:* ${data.platform} \n` +
+        `*Preço atual:* R$ ${data.currentPrice} \n` +
+        `*Preço anterior:* R$ ${data.oldPrice} \n\n ` +
+        `🔗 ${data.gameUrl}`,
+      {
+        parse_mode: 'Markdown',
+        reply_markup: {
+          inline_keyboard: [[{ text: 'Acesse', url: data.gameUrl }]]
+        }
+      }
     )
   }
 }
