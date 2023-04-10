@@ -8,6 +8,7 @@ import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { AddGameController } from '@http/routes/addGame/addGame.controller'
 import { FindGamesController } from '@http/routes/findGames/findGames.controller'
 import { GetGamePriceController } from '@http/routes/getCurrentGamePrice/getCurrentGamePrice.controller'
+import { HealthController } from '@http/routes/health/health.controller'
 import { Server } from '@http/server'
 import { Browser } from '@infra/browser'
 import { NotificationService } from '@infra/notification/notification.service'
@@ -50,7 +51,8 @@ export default class Main {
     this.server.registerControllers(
       container.resolve(AddGameController),
       container.resolve(FindGamesController),
-      container.resolve(GetGamePriceController)
+      container.resolve(GetGamePriceController),
+      container.resolve(HealthController)
     )
     this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
