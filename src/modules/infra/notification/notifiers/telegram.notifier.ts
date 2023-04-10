@@ -4,7 +4,7 @@ import { Telegraf } from 'telegraf'
 import { singleton } from 'tsyringe'
 
 @singleton()
-export class TelegramNotificator implements Notifier {
+export class TelegramNotifier implements Notifier {
   private bot!: Telegraf
 
   constructor(private configService: ConfigService) {}
