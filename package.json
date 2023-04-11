@@ -1,5 +1,5 @@
 {
-  "name": "game-price-alert",
+  "name": "game-price-tracker",
   "version": "0.0.0",
   "description": "",
   "main": "dist/main.js",
@@ -19,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/JorgeLNJunior/game-price-alert.git"
+    "url": "git+ssh://git@github.com/JorgeLNJunior/game-price-tracker.git"
   },
   "author": "JorgeLNJunior",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/JorgeLNJunior/game-price-alert/issues"
+    "url": "https://github.com/JorgeLNJunior/game-price-tracker/issues"
   },
-  "homepage": "https://github.com/JorgeLNJunior/game-price-alert#readme",
+  "homepage": "https://github.com/JorgeLNJunior/game-price-tracker#readme",
   "dependencies": {
     "@fastify/compress": "^6.2.0",
     "@fastify/cors": "^8.2.0",
