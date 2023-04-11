@@ -27,7 +27,7 @@ export class TelegramNotifier implements Notifier {
 
     await this.bot.telegram.sendMessage(
       CHAT_ID,
-      `⚠️ *Queda de preço: ${data.gameTitle}* ⚠️ \n\n` +
+      `⚠️ *Queda de preço: ${data.gameTitle}* \n\n` +
         `*Plataforma:* ${data.platform} \n` +
         `*Preço atual:* R$ ${data.currentPrice} \n` +
         `*Preço anterior:* R$ ${data.oldPrice} \n\n ` +
