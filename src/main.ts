@@ -1,3 +1,4 @@
+import './newrelic'
 import 'reflect-metadata'
 import '@dependencies/dependency.container'
 
