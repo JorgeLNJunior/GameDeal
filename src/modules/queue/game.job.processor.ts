@@ -55,21 +55,20 @@ export class GameJobProcessor {
       nuuvem_price: currentNuuvemPrice
     })
 
-    const lastestPrice = await this.getCurrentGamePriceRepository.getPrice(
-      data.gameId
-    )
-    if (!lastestPrice) return // returns if there's no price registered
+    const lastestRegistredPrice =
+      await this.getCurrentGamePriceRepository.getPrice(data.gameId)
+    if (!lastestRegistredPrice) return // returns if there's no price registered
 
     const game = await this.findGameByIdRepository.find(data.gameId)
     if (!game) return
 
     const isCurrentSteamPriceLower =
-      currentSteamPrice < lastestPrice.steam_price
+      currentSteamPrice < lastestRegistredPrice.steam_price
 
     if (isCurrentSteamPriceLower) {
       this.notificationService.notify({
         currentPrice: currentSteamPrice,
-        oldPrice: lastestPrice.steam_price,
+        oldPrice: lastestRegistredPrice.steam_price,
         gameTitle: game.title,
         platform: 'Steam',
         gameUrl: game.steam_url
@@ -78,13 +77,14 @@ export class GameJobProcessor {
 
     const isNuuvemPriceLowerThanSteam =
       currentNuuvemPrice &&
-      lastestPrice.nuuvem_price &&
-      currentNuuvemPrice < lastestPrice.steam_price
+      lastestRegistredPrice.nuuvem_price &&
+      currentNuuvemPrice < lastestRegistredPrice.steam_price &&
+      currentNuuvemPrice < lastestRegistredPrice.nuuvem_price
 
     if (isNuuvemPriceLowerThanSteam) {
       this.notificationService.notify({
         currentPrice: currentNuuvemPrice as number,
-        oldPrice: lastestPrice.nuuvem_price as number,
+        oldPrice: lastestRegistredPrice.nuuvem_price as number,
         gameTitle: game.title,
         platform: 'Nuuvem',
         gameUrl: game.nuuvem_url as string
