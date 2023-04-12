@@ -8,7 +8,7 @@ import { FindGameScraperDataRepository } from './repositories/findGameScraperDat
 
 @injectable()
 export class GameScrapingCronJob implements ApplicationCronJob {
-  public cronTime = '00 00 * * *'
+  public cronTime = '0 */2 * * *' // At minute 0 past every 2nd hour
 
   /**
    * Handles the game scraping cron job.
