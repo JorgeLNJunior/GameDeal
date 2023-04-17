@@ -24,7 +24,7 @@ export class GameScrapingCronJob implements ApplicationCronJob {
   ) {}
 
   public async jobFunction(): Promise<void> {
-    this.logger.info('[GameScrapingCronJob] Running game scraping job')
+    this.logger.info('[GameScrapingCronJob] running the game scraping job')
 
     const games = await this.findGameScraperDataRepository.find()
 
@@ -41,11 +41,11 @@ export class GameScrapingCronJob implements ApplicationCronJob {
       if (result.status === 'rejected') {
         this.logger.error(
           result.reason,
-          `[GameScrapingCronJob] Failed to add a game to the queue`
+          `[GameScrapingCronJob] failed to add a game to the queue`
         )
       }
     })
 
-    this.logger.info('[GameScrapingCronJob] Finished game scraping job')
+    this.logger.info('[GameScrapingCronJob] the game scraping job is finished')
   }
 }

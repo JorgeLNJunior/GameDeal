@@ -29,7 +29,9 @@ export default class ConfigService {
       return process.env[key] as unknown as T
     }
 
-    this.logger.warn(`the enviroment variable "${key}" is undefined`)
+    this.logger.warn(
+      `[ConfigService] the enviroment variable "${key}" is undefined`
+    )
 
     return undefined
   }

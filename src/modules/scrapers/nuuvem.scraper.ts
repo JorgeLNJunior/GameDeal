@@ -16,10 +16,10 @@ export class NuuvemScraper implements Scraper {
     const page = await this.browser.getPage()
 
     try {
-      this.logger.info(`[NuuvemScraper] Navigating to ${gameUrl}`)
+      this.logger.info(`[NuuvemScraper] navigating to ${gameUrl}`)
       await page.goto(gameUrl, { waitUntil: 'domcontentloaded' })
 
-      this.logger.info('[NuuvemScraper] waiting for page selector')
+      this.logger.info('[NuuvemScraper] waiting for the page selector')
       await page.waitForSelector('span.product-price--val')
 
       const price = await page
@@ -35,12 +35,12 @@ export class NuuvemScraper implements Scraper {
 
       if (price) return Number(price.replace('R$', '').replace(',', '.').trim())
 
-      this.logger.error(`No price found for ${gameUrl}`)
+      this.logger.error(`[NuuvemScraper] no price found for ${gameUrl}`)
       throw new Error('Game price not found')
     } finally {
-      this.logger.info('[NuuvemScraper] Closing the page')
+      this.logger.info('[NuuvemScraper] closing the page')
       await page.close()
-      this.logger.info('[NuuvemScraper] Page closed')
+      this.logger.info('[NuuvemScraper] the page was closed')
     }
   }
 }

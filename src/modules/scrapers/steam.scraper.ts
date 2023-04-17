@@ -35,10 +35,10 @@ export class SteamScraper implements Scraper {
     const page = await this.browser.getPage()
 
     try {
-      this.logger.info(`[SteamScraper] Navigating to ${url}`)
+      this.logger.info(`[SteamScraper] navigating to ${url}`)
       await page.goto(url, { waitUntil: 'domcontentloaded' })
 
-      this.logger.info('[SteamScraper] waiting for page selector')
+      this.logger.info('[SteamScraper] waiting for the page selector')
       await page.waitForSelector('.game_area_purchase_game_wrapper')
 
       const price = await page
@@ -65,12 +65,12 @@ export class SteamScraper implements Scraper {
         return Number(salePrice.replace('R$', '').replace(',', '.').trim())
       }
 
-      this.logger.error(`No price found for ${url}`)
+      this.logger.error(`[SteamScraper] no price found for ${url}`)
       throw new Error('Game price not found')
     } finally {
       this.logger.info('[SteamScraper] closing the page')
       await page.close()
-      this.logger.info('[SteamScraper] page closed')
+      this.logger.info('[SteamScraper] the page was closed')
     }
   }
 }

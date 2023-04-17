@@ -23,9 +23,9 @@ export class Browser {
    * ```
    */
   async launch(): Promise<void> {
-    this.logger.info('[Browser] launching browser')
+    this.logger.info('[Browser] launching the browser')
     this.playwright = await Playwright.chromium.launch()
-    this.logger.info('[Browser] browser launched')
+    this.logger.info('[Browser] the browser is launched')
   }
 
   /**
@@ -37,9 +37,9 @@ export class Browser {
    * ```
    */
   async close(): Promise<void> {
-    this.logger.info('[Browser] closing browser')
+    this.logger.info('[Browser] closing the browser')
     await this.playwright.close()
-    this.logger.info('[Browser] browser closed')
+    this.logger.info('[Browser] the browser was closed')
   }
 
   /**
