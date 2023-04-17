@@ -7,6 +7,7 @@ import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
 import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { AddGameController } from '@http/routes/addGame/addGame.controller'
+import { FindGameByIdController } from '@http/routes/findGameById/findGameById.controller'
 import { FindGamesController } from '@http/routes/findGames/findGames.controller'
 import { GetGamePriceController } from '@http/routes/getCurrentGamePrice/getCurrentGamePrice.controller'
 import { HealthController } from '@http/routes/health/health.controller'
@@ -51,6 +52,7 @@ export default class Main {
   async start(): Promise<void> {
     this.server.registerControllers(
       container.resolve(AddGameController),
+      container.resolve(FindGameByIdController),
       container.resolve(FindGamesController),
       container.resolve(GetGamePriceController),
       container.resolve(HealthController)
