@@ -1,4 +1,5 @@
 import { DatabaseService } from '@database/database.service'
+import { PinoLogger } from '@infra/pino.logger'
 import { Game, GamePrice } from '@localtypes/entities.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
@@ -19,11 +20,12 @@ describe('GetGamePriceController', () => {
 
     controller = new GetGamePriceController(
       getCurrentGamePriceRepository,
-      findGameByIdRepository
+      findGameByIdRepository,
+      new PinoLogger()
     )
   })
 
-  it('should return 404 if the game is not found', async () => {
+  it('should return a NOT_FOUND rseponse if the game was not found', async () => {
     jest.spyOn(findGameByIdRepository, 'find').mockResolvedValueOnce(undefined)
 
     const response = await controller.handle({
@@ -42,7 +44,7 @@ describe('GetGamePriceController', () => {
     })
   })
 
-  it('should return a price object', async () => {
+  it('should return a OK response an a price object', async () => {
     const game: Game = {
       id: 'id',
       title: 'Cyberpunk 2077',
@@ -78,5 +80,22 @@ describe('GetGamePriceController', () => {
 
     expect(response.statusCode).toBe(200)
     expect(response.body).toMatchObject(price)
+  })
+
+  it('should return a INTERNAL_ERROR response if an exception was trown', async () => {
+    jest
+      .spyOn(findGameByIdRepository, 'find')
+      .mockRejectedValueOnce(new Error('repository error'))
+
+    const response = await controller.handle({
+      params: {
+        id: 'id'
+      },
+      query: {},
+      body: {},
+      headers: {}
+    })
+
+    expect(response.statusCode).toBe(500)
   })
 })

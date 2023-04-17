@@ -1,3 +1,4 @@
+import { PinoLogger } from '@infra/pino.logger'
 import { container } from 'tsyringe'
 
 import { FindGamesController } from './findGames.controller'
@@ -9,10 +10,10 @@ describe('FindGamesController', () => {
 
   beforeEach(async () => {
     repository = container.resolve(FindGamesRepository)
-    controller = new FindGamesController(repository)
+    controller = new FindGamesController(repository, new PinoLogger())
   })
 
-  it('should return a list of games', async () => {
+  it('should return a OK reponse and a list of games', async () => {
     const game = {
       title: 'title',
       id: 'id',
@@ -22,10 +23,20 @@ describe('FindGamesController', () => {
       updated_at: new Date()
     }
 
-    jest.spyOn(repository, 'find').mockResolvedValue([game])
+    jest.spyOn(repository, 'find').mockResolvedValueOnce([game])
 
     const response = await controller.handle()
 
     expect((response.body as Array<unknown>)[0]).toMatchObject(game)
+  })
+
+  it('should return a INTERNAL_ERROR reponse if an exception was trown', async () => {
+    jest
+      .spyOn(repository, 'find')
+      .mockRejectedValueOnce(new Error('repository error'))
+
+    const response = await controller.handle()
+
+    expect(response.statusCode).toBe(500)
   })
 })

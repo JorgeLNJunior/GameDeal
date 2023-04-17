@@ -37,11 +37,11 @@ describe('AddGameController', () => {
       created_at: new Date(),
       updated_at: new Date()
     }
-    jest.spyOn(validator, 'validate').mockReturnValue({ success: true })
+    jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: true })
     jest
       .spyOn(isGameAlreadyInsertedRepository, 'handle')
-      .mockResolvedValue(false)
-    jest.spyOn(addGameRepository, 'add').mockResolvedValue(data)
+      .mockResolvedValueOnce(false)
+    jest.spyOn(addGameRepository, 'add').mockResolvedValueOnce(data)
 
     const response = await controller.handle({
       body: {},
@@ -55,7 +55,7 @@ describe('AddGameController', () => {
   })
 
   it('should return a BAD_REQUEST response if validation fails', async () => {
-    jest.spyOn(validator, 'validate').mockReturnValue({ success: false })
+    jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: false })
 
     const response = await controller.handle({
       body: {},
@@ -68,11 +68,11 @@ describe('AddGameController', () => {
   })
 
   it('should return a BAD_REQUEST response if the game is already inserted', async () => {
-    jest.spyOn(validator, 'validate').mockReturnValue({ success: true })
+    jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: true })
     jest
       .spyOn(isGameAlreadyInsertedRepository, 'handle')
-      .mockResolvedValue(true)
-    jest.spyOn(addGameRepository, 'add').mockRejectedValue({} as unknown)
+      .mockResolvedValueOnce(true)
+    jest.spyOn(addGameRepository, 'add').mockRejectedValueOnce({} as unknown)
 
     const response = await controller.handle({
       body: {},
@@ -84,14 +84,14 @@ describe('AddGameController', () => {
     expect(response.statusCode).toBe(400)
   })
 
-  it('should return a INTERNAL_ERROR response if repository fails', async () => {
-    jest.spyOn(validator, 'validate').mockReturnValue({ success: true })
+  it('should return a INTERNAL_ERROR response if the repository fail', async () => {
+    jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: true })
     jest
       .spyOn(isGameAlreadyInsertedRepository, 'handle')
-      .mockResolvedValue(false)
+      .mockResolvedValueOnce(false)
     jest
       .spyOn(addGameRepository, 'add')
-      .mockRejectedValue(new Error('repository error'))
+      .mockRejectedValueOnce(new Error('repository error'))
 
     const response = await controller.handle({
       body: {},
