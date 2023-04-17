@@ -43,6 +43,29 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
+  /games/{id}:
+    get:
+      summary: Obter o um jogo a partir do ID
+      tags:
+        - "Game"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID do jogo
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/game"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
   /games/{id}/price:
     get:
       summary: Obter o preço atual de um jogo a partir do ID
