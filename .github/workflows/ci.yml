@@ -31,7 +31,7 @@ jobs:
         uses: mirromutth/mysql-action@v1.1
         with:
           mysql version: '8.0'
-          mysql database: 'game_price_alert_test'
+          mysql database: 'game_price_tracker_test'
           mysql root password: 'root'
 
       - name: Setup Redis 7
