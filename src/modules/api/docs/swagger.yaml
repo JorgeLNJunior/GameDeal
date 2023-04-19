@@ -8,6 +8,29 @@ servers:
   - url: http://localhost:3000
     description: Localhost
 paths:
+  /login:
+    post:
+      summary: Retorna um token de autenticação
+      tags:
+        - "Autenticação"
+      requestBody:
+        $ref: "#/components/requestBodies/login"
+      responses:
+        200:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+
   /games:
     post:
       summary: Adicionar um novo jogo
@@ -66,6 +89,7 @@ paths:
           $ref: "#/components/responses/404"
         500:
           $ref: "#/components/responses/500"
+
   /games/{id}/price:
     get:
       summary: Obter o preço atual de um jogo a partir do ID
@@ -148,6 +172,22 @@ components:
           example: null
 
   requestBodies:
+    login:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - "user"
+              - "password"
+            properties:
+              user:
+                type: string
+                example: Leon
+              password:
+                type: string
+                example: super-strong-password
     add-game:
       required: true
       content:
@@ -225,7 +265,20 @@ components:
                 default: Not Found
               message:
                 type: string
-                example: Object not found              
+                example: Object not found
+    401:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                default: Unauthorized
+              message:
+                type: string
+                example: invalid credential         
     500:
       description: Internal error
       content:
