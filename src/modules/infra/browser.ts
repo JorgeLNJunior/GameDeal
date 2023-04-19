@@ -58,12 +58,20 @@ export class Browser {
   async getPage(): Promise<Playwright.Page> {
     const ctx = await this.playwright.newContext()
 
-    // bypass steam age check
     await ctx.addCookies([
+      // bypass steam age check
       {
         name: 'birthtime',
         value: '0',
         domain: '.steampowered.com',
+        path: '/'
+      },
+      // refuse cookies and show brazilian prices
+      {
+        name: 'CookieConsent',
+        value:
+          '{stamp:%27HSuU8NTEcnRBbTc7NNM/4vPPXbhhOB3fgDm/n/dfofPLXz9RpEkqbg==%27%2Cnecessary:true%2Cpreferences:false%2Cstatistics:false%2Cmarketing:false%2Cmethod:%27explicit%27%2Cver:1%2Cutc:1681839121580%2Cregion:%27br%27}',
+        domain: 'www.gamersgate.com',
         path: '/'
       }
     ])
