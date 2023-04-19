@@ -7,10 +7,10 @@ export class AddGameValidator implements Validator {
       title: z.string(),
       steam_url: z
         .string()
-        .regex(/^https:\/\/store.steampowered.com\/app\/[0-9]{1,7}\/\S+/),
+        .regex(/^https:\/\/store\.steampowered\.com\/app\/[0-9]{1,7}\/\w+\/?$/),
       nuuvem_url: z
         .string()
-        .regex(/^https:\/\/www.nuuvem.com\/br-en\/item\/\S+/)
+        .regex(/^https:\/\/www.nuuvem.com\/(br-en|br-pt)\/item\/[\w-]+\/?$/)
         .optional()
     })
 
