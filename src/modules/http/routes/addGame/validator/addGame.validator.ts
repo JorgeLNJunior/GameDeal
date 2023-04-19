@@ -11,6 +11,10 @@ export class AddGameValidator implements Validator {
       nuuvem_url: z
         .string()
         .regex(/^https:\/\/www.nuuvem.com\/(br-en|br-pt)\/item\/[\w-]+\/?$/)
+        .optional(),
+      gamers_gate_url: z
+        .string()
+        .regex(/^https:\/\/www.gamersgate.com\/product\/[\w-]+\/?$/)
         .optional()
     })
 

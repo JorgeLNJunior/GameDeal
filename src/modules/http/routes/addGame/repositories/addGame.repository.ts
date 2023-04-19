@@ -34,7 +34,10 @@ export class AddGameRepository {
           .insertInto('game')
           .values({
             id: uuid,
-            ...dto
+            title: dto.title,
+            steam_url: dto.steam_url,
+            nuuvem_url: dto.nuuvem_url,
+            gamers_gate_url: dto.gamers_gate_url
           })
           .executeTakeFirstOrThrow()
 
