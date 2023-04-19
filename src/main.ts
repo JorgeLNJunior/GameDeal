@@ -56,6 +56,7 @@ export default class Main {
       container.resolve(FindGameByIdController),
       container.resolve(FindGamesController),
       container.resolve(GetGamePriceController),
+      container.resolve(LoginController),
       container.resolve(HealthController)
     )
     this.cronService.registerJobs(container.resolve(GameScrapingCronJob))

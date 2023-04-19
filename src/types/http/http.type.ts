@@ -1,6 +1,7 @@
 export interface HttpRequest {
   query: Record<string, string>
-  body: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  body: any
   headers: Record<string, string>
   params: Record<string, string>
 }
