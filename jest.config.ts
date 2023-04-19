@@ -21,7 +21,7 @@ const config: JestConfigWithTsJest = {
     '^@modules/(.*)$': '<rootDir>/src/modules/$1',
     '^@cron/(.*)$': '<rootDir>/src/modules/cron/$1',
     '^@database/(.*)$': '<rootDir>/src/modules/database/$1',
-    '^@http/(.*)$': '<rootDir>/src/modules/http/$1',
+    '^@api/(.*)$': '<rootDir>/src/modules/api/$1',
     '^@infra/(.*)$': '<rootDir>/src/modules/infra/$1',
     '^@queue/(.*)$': '<rootDir>/src/modules/queue/$1',
     '^@scrapers/(.*)$': '<rootDir>/src/modules/scrapers/$1',

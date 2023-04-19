@@ -22,8 +22,8 @@
       "@database/*": [
         "src/modules/database/*"
       ],
-      "@http/*": [
-        "src/modules/http/*"
+      "@api/*": [
+        "src/modules/api/*"
       ],
       "@infra/*": [
         "src/modules/infra/*"

@@ -7,7 +7,7 @@
     "postinstall": "PLAYWRIGHT_BROWSERS_PATH=browsers npx playwright install chromium",
     "prebuild": "rimraf dist",
     "build": "tsc -p tsconfig.build.json && tsc-alias",
-    "postbuild": "mkdir dist/modules/http/docs && cp src/modules/http/docs/swagger.yaml dist/modules/http/docs/",
+    "postbuild": "mkdir dist/modules/api/docs && cp src/modules/api/docs/swagger.yaml dist/modules/api/docs/",
     "start": "PLAYWRIGHT_BROWSERS_PATH=browsers node .",
     "start:dev": "PLAYWRIGHT_BROWSERS_PATH=browsers ts-node -r tsconfig-paths/register src/main.ts | pino-pretty",
     "start:watch": "PLAYWRIGHT_BROWSERS_PATH=browsers tsnd -r tsconfig-paths/register --respawn --transpile-only src/main.ts | pino-pretty",

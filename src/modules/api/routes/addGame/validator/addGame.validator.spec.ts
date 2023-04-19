@@ -1,4 +1,4 @@
-import { AddGameDTO } from '@http/routes/addGame/dto/addGame.dto'
+import { AddGameDTO } from '@modules/api/routes/addGame/dto/addGame.dto'
 
 import { AddGameValidator } from './addGame.validator'
 

@@ -1,9 +1,9 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { ResponseBuilder } from '@http/responses/response.builder'
 import { BaseController } from '@localtypes/http/baseController.type'
 import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { AddGameDTO } from '@src/modules/http/routes/addGame/dto/addGame.dto'
+import { ResponseBuilder } from '@modules/api/responses/response.builder'
+import { AddGameDTO } from '@modules/api/routes/addGame/dto/addGame.dto'
 import { inject, injectable } from 'tsyringe'
 
 import { AddGameRepository } from './repositories/addGame.repository'

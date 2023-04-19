@@ -1,8 +1,8 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { ResponseBuilder } from '@http/responses/response.builder'
 import { BaseController } from '@localtypes/http/baseController.type'
 import { HttpResponse } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
+import { ResponseBuilder } from '@modules/api/responses/response.builder'
 import { inject, injectable } from 'tsyringe'
 
 import { FindGamesRepository } from './repositories/findGames.repository'
