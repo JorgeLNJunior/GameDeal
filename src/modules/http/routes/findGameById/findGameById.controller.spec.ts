@@ -19,6 +19,7 @@ describe('FindGameByIdController', () => {
       title: 'title',
       steam_url: 'stem_url',
       nuuvem_url: 'nuuvem_url',
+      gamers_gate_url: 'gamers_gate_url',
       created_at: new Date(),
       updated_at: null
     }
