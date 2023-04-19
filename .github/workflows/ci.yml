@@ -70,7 +70,7 @@ jobs:
       - name: validate OpenAPI definition
         uses: char0n/swagger-editor-validate@v1
         with:
-          definition-file: ./src/modules/http/docs/swagger.yaml
+          definition-file: ./src/modules/api/docs/swagger.yaml
 
   # release:
   #   runs-on: ubuntu-latest
