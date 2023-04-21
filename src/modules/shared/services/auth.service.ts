@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 import { injectable } from 'tsyringe'
 
 @injectable()
-export class LoginService {
+export class AuthService {
   constructor(private config: ConfigService) {}
 
   async getJwtToken(): Promise<string> {

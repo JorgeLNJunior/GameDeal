@@ -25,6 +25,7 @@ const config: JestConfigWithTsJest = {
     '^@infra/(.*)$': '<rootDir>/src/modules/infra/$1',
     '^@queue/(.*)$': '<rootDir>/src/modules/queue/$1',
     '^@scrapers/(.*)$': '<rootDir>/src/modules/scrapers/$1',
+    '^@shared/(.*)$': '<rootDir>/src/modules/shared/$1',
     '^@localtypes/(.*)$': '<rootDir>/src/types/$1'
   },
   verbose: true,

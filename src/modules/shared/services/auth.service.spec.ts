@@ -1,12 +1,12 @@
 import { container } from 'tsyringe'
 
-import { LoginService } from './login.service'
+import { AuthService } from './auth.service'
 
-describe('LoginService', () => {
-  let service: LoginService
+describe('AuthService', () => {
+  let service: AuthService
 
   beforeEach(async () => {
-    service = container.resolve(LoginService)
+    service = container.resolve(AuthService)
   })
 
   it('should return a jwt token', async () => {

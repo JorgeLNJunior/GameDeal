@@ -1,19 +1,19 @@
 import ConfigService from '@config/config.service'
 import { PinoLogger } from '@infra/pino.logger'
+import { AuthService } from '@shared/services/auth.service'
 import { container } from 'tsyringe'
 
 import { LoginController } from './login.controller'
-import { LoginService } from './login.service'
 
 describe('LoginController', () => {
   let controller: LoginController
-  let loginService: LoginService
+  let authService: AuthService
 
   beforeEach(async () => {
-    loginService = container.resolve(LoginService)
+    authService = container.resolve(AuthService)
     controller = new LoginController(
       container.resolve(ConfigService),
-      loginService,
+      authService,
       new PinoLogger()
     )
   })
@@ -25,7 +25,7 @@ describe('LoginController', () => {
     }
     const jwt = 'jwt-token'
 
-    jest.spyOn(loginService, 'getJwtToken').mockResolvedValueOnce(jwt)
+    jest.spyOn(authService, 'getJwtToken').mockResolvedValueOnce(jwt)
 
     const response = await controller.handle({
       headers: {},
@@ -84,7 +84,7 @@ describe('LoginController', () => {
     }
 
     jest
-      .spyOn(loginService, 'getJwtToken')
+      .spyOn(authService, 'getJwtToken')
       .mockRejectedValueOnce(new Error('jwt error'))
 
     const response = await controller.handle({

@@ -4,9 +4,8 @@ import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { BaseController } from '@localtypes/http/baseController.type'
 import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
+import { AuthService } from '@shared/services/auth.service'
 import { inject, injectable } from 'tsyringe'
-
-import { LoginService } from './login.service'
 
 @injectable()
 export class LoginController implements BaseController {
@@ -15,7 +14,7 @@ export class LoginController implements BaseController {
 
   constructor(
     private config: ConfigService,
-    private loginService: LoginService,
+    private authService: AuthService,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
@@ -31,7 +30,7 @@ export class LoginController implements BaseController {
         return ResponseBuilder.unauthorized('invalid credentials')
       }
 
-      const token = await this.loginService.getJwtToken()
+      const token = await this.authService.getJwtToken()
       return ResponseBuilder.ok({ token })
     } catch (error) {
       this.logger.error(error, '[LoginController] internal error')
