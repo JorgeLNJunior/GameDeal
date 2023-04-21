@@ -36,6 +36,9 @@ paths:
       summary: Adicionar um novo jogo
       tags:
         - "Game"
+      security:
+        - bearerAuth: []
+      
       requestBody:
         $ref: "#/components/requestBodies/add-game"
       responses:
@@ -47,6 +50,8 @@ paths:
                 $ref: "#/components/schemas/game"
         400:
           $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
 
@@ -163,6 +168,12 @@ components:
           type: string
           nullable: true
           example: null
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   requestBodies:
     login:
