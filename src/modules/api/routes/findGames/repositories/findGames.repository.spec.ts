@@ -26,8 +26,7 @@ describe('FindGamesRepository', () => {
       id: randomUUID(),
       title: 'Cyberpunk 2077',
       steam_url: 'https://steamcommunity.com/id',
-      nuuvem_url: 'https://nuuvem.com/id',
-      gamers_gate_url: 'https://gamersgate.com/id'
+      nuuvem_url: 'https://nuuvem.com/id'
     }
     await db.getClient().insertInto('game').values(game).execute()
 
@@ -37,6 +36,5 @@ describe('FindGamesRepository', () => {
     expect(games[0].title).toEqual(game.title)
     expect(games[0].steam_url).toEqual(game.steam_url)
     expect(games[0].nuuvem_url).toEqual(game.nuuvem_url)
-    expect(games[0].gamers_gate_url).toEqual(game.gamers_gate_url)
   })
 })

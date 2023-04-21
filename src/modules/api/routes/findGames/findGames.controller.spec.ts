@@ -19,7 +19,6 @@ describe('FindGamesController', () => {
       id: 'id',
       steam_url: 'steam_url',
       nuuvem_url: 'nuuvem_url',
-      gamers_gate_url: 'gamers_gate_url',
       created_at: new Date(),
       updated_at: new Date()
     }

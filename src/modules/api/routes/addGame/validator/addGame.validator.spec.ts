@@ -7,8 +7,7 @@ describe('AddGameValidator', () => {
     const data: AddGameDTO = {
       title: 'God of War',
       steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
-      nuuvem_url: 'https://www.nuuvem.com/br-en/item/god-of-war',
-      gamers_gate_url: 'https://www.gamersgate.com/product/god-of-war'
+      nuuvem_url: 'https://www.nuuvem.com/br-en/item/god-of-war'
     }
 
     const { success, errors } = new AddGameValidator().validate(data)
@@ -45,20 +44,6 @@ describe('AddGameValidator', () => {
       title: 'God of War',
       steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
       nuuvem_url: 'invalid url'
-    }
-
-    const { success, errors } = new AddGameValidator().validate(data)
-
-    expect(success).toBe(false)
-    expect(errors).toBeDefined()
-  })
-
-  it('should return false if gamers_gate_url validation fails', async () => {
-    const data: AddGameDTO = {
-      title: 'God of War',
-      steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
-      nuuvem_url: 'https://www.nuuvem.com/br-en/item/god-of-war',
-      gamers_gate_url: 'invalid url'
     }
 
     const { success, errors } = new AddGameValidator().validate(data)

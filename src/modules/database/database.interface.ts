@@ -5,7 +5,6 @@ export interface GameTable {
   title: string
   steam_url: string
   nuuvem_url: string | null
-  gamers_gate_url: string | null
   created_at: ColumnType<Date, never, never>
   updated_at: ColumnType<Date, never, never>
 }
@@ -15,7 +14,6 @@ export interface GamePriceTable {
   game_id: ColumnType<string, string, never>
   steam_price: number
   nuuvem_price: number | null
-  gamers_gate_price: number | null
   created_at: ColumnType<Date, never, never>
   updated_at: ColumnType<Date, never, never>
 }

@@ -18,7 +18,7 @@ export class FindGameScraperDataRepository {
     return this.databaseService
       .getClient()
       .selectFrom('game')
-      .select(['id', 'steam_url', 'nuuvem_url', 'gamers_gate_url'])
+      .select(['id', 'steam_url', 'nuuvem_url'])
       .execute()
   }
 }

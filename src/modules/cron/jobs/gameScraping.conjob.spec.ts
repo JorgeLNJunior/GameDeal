@@ -21,20 +21,17 @@ describe('GameScrapingCronJob', () => {
       {
         id: 'id',
         steam_url: 'steam_url',
-        nuuvem_url: 'nuuvem_url',
-        gamers_gate_url: 'gamers_gate_url'
+        nuuvem_url: 'nuuvem_url'
       },
       {
         id: 'id2',
         steam_url: 'steam_url2',
-        nuuvem_url: 'nuuvem_url2',
-        gamers_gate_url: 'gamers_gate_url2'
+        nuuvem_url: 'nuuvem_url2'
       },
       {
         id: 'id3',
         steam_url: 'steam_url3',
-        nuuvem_url: 'nuuvem_url3',
-        gamers_gate_url: 'gamers_gate_url3'
+        nuuvem_url: 'nuuvem_url3'
       }
     ]
     jest.spyOn(repository, 'find').mockResolvedValueOnce(scraperData)

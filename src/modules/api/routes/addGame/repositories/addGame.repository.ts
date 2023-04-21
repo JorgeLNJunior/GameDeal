@@ -36,8 +36,7 @@ export class AddGameRepository {
             id: uuid,
             title: dto.title,
             steam_url: dto.steam_url,
-            nuuvem_url: dto.nuuvem_url,
-            gamers_gate_url: dto.gamers_gate_url
+            nuuvem_url: dto.nuuvem_url
           })
           .executeTakeFirstOrThrow()
 

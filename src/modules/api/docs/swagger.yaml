@@ -131,9 +131,6 @@ components:
         nuuvem_url:
           type: string
           example: https://www.nuuvem.com/br-en/item/god-of-war
-        gamers_gate_url:
-          type: string
-          example: https://www.gamersgate.com/product/god-of-war
           nullable: true
         created_at:
           type: string
@@ -158,10 +155,6 @@ components:
         nuuvem_price:
           type: string
           example: "145.99"
-          nullable: true
-        gamers_gate_price:
-          type: string
-          example: "148.55"
           nullable: true
         created_at:
           type: string
@@ -210,10 +203,6 @@ components:
                 type: string
                 example: https://www.nuuvem.com/br-en/item/god-of-war
                 description: "URL do jogo na Nuuvem"
-              gamers_gate_url:
-                type: string
-                example: https://www.gamersgate.com/product/god-of-war
-                description: "URL do jogo na GamersGate"
 
   responses:
     400:
