@@ -4,6 +4,7 @@ import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { ResponseBuilder } from '@modules/api/responses/response.builder'
 import { AddGameDTO } from '@modules/api/routes/addGame/dto/addGame.dto'
+import { AuthService } from '@shared/services/auth.service'
 import { inject, injectable } from 'tsyringe'
 
 import { AddGameRepository } from './repositories/addGame.repository'
@@ -19,11 +20,24 @@ export class AddGameController implements BaseController {
     private validator: AddGameValidator,
     private addGameRepository: AddGameRepository,
     private isGameAlreadyInsertedRepository: IsGameAlreadyInsertedRepository,
+    private authService: AuthService,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
+      const authToken = request.headers.Authorization
+      if (!authToken) {
+        return ResponseBuilder.unauthorized('auth token not provided')
+      }
+
+      const tokenValidation = await this.authService.verifyToken(
+        authToken.replace('Bearer ', '')
+      )
+      if (!tokenValidation.isValid) {
+        return ResponseBuilder.unauthorized(tokenValidation.error)
+      }
+
       const { success, errors } = this.validator.validate(request.body)
       if (!success) return ResponseBuilder.badRequest(errors)
 
