@@ -55,7 +55,8 @@ export class GameQueue {
       connection: {
         host: this.config.getEnv('REDIS_HOST'),
         port: this.config.getEnv('REDIS_PORT'),
-        password: this.config.getEnv('REDIS_PASSWORD')
+        password: this.config.getEnv('REDIS_PASSWORD'),
+        enableOfflineQueue: false
       }
     })
 
