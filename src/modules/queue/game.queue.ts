@@ -76,13 +76,13 @@ export class GameQueue {
     )
 
     this.queue.on('error', (err) => {
-      this.logger.error(err, `[GameQueue] the queue failed`)
+      this.logger.error(err, `[GameQueue] queue failed`)
     })
     this.worker.on('failed', (job, err) => {
       this.logger.error(err, `[GameWorker] the job "${job?.id}" failed`)
     })
     this.worker.on('error', (err) => {
-      this.logger.error(err, `[GameWorker] the worker failed`)
+      this.logger.error(err, `[GameWorker] worker failed`)
     })
   }
 
@@ -97,6 +97,6 @@ export class GameQueue {
     this.logger.info('[GameQueue] stopping the queue')
     await this.worker.close()
     await this.queue.close()
-    this.logger.info('[GameQueue] the queue was stopped')
+    this.logger.info('[GameQueue] the queue stopped')
   }
 }

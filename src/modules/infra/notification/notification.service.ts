@@ -40,10 +40,10 @@ export class NotificationService {
     for await (const notifier of this.notifiers) {
       await notifier.start()
       this.logger.info(
-        `[NotificationService] notifier "${notifier.constructor.name}" is started`
+        `[NotificationService] notifier "${notifier.constructor.name}" started`
       )
     }
-    this.logger.info('[NotificationService] notification service is started')
+    this.logger.info('[NotificationService] notification service started')
   }
 
   /**
@@ -54,10 +54,10 @@ export class NotificationService {
    * ```
    */
   async stop(): Promise<void> {
-    this.logger.info('[NotificationService] stopping all notification services')
+    this.logger.info('[NotificationService] stopping notification service')
     for await (const notifier of this.notifiers) {
       await notifier.stop()
     }
-    this.logger.info('[NotificationService] notification services was stopped')
+    this.logger.info('[NotificationService] notification service stopped')
   }
 }

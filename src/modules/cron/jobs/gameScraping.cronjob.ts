@@ -23,7 +23,7 @@ export class GameScrapingCronJob implements ApplicationCronJob {
   ) {}
 
   public async jobFunction(): Promise<void> {
-    this.logger.info('[GameScrapingCronJob] running the game scraping job')
+    this.logger.info('[GameScrapingCronJob] running game scraping job')
 
     const games = await this.findGameScraperDataRepository.find()
 
@@ -45,6 +45,6 @@ export class GameScrapingCronJob implements ApplicationCronJob {
       }
     })
 
-    this.logger.info('[GameScrapingCronJob] the game scraping job is finished')
+    this.logger.info('[GameScrapingCronJob] game scraping job is finished')
   }
 }

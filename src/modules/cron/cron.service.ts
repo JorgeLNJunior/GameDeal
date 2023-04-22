@@ -38,7 +38,7 @@ export class CronService {
   start(): void {
     this.logger.info('[CronService] starting cron service')
     this.jobs.forEach((job) => job.start())
-    this.logger.info('[CronService] cron service is started')
+    this.logger.info('[CronService] cron service started')
   }
 
   /**

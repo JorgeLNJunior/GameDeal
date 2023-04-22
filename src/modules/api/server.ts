@@ -35,7 +35,7 @@ export class Server {
       },
       (error) => {
         if (error) this.logger.fatal(error, '[Server] server startup error')
-        else this.logger.info('[Server] the server was started')
+        else this.logger.info('[Server] the server is listening')
       }
     )
   }
@@ -50,7 +50,7 @@ export class Server {
   public async close(): Promise<void> {
     this.logger.info('[Server] closing the server')
     await this.fastify.close()
-    this.logger.info('[Server] the server is closed')
+    this.logger.info('[Server] the server has been closed')
   }
 
   /**
@@ -111,6 +111,6 @@ export class Server {
     await this.fastify.register(import('@fastify/swagger-ui'), {
       routePrefix: '/docs'
     })
-    this.logger.info('[Server] all plugins was registered')
+    this.logger.info('[Server] all plugins registered')
   }
 }

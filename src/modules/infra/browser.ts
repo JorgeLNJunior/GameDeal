@@ -36,7 +36,7 @@ export class Browser {
   async close(): Promise<void> {
     this.logger.info('[Browser] closing the browser')
     await this.playwright.close()
-    this.logger.info('[Browser] the browser was closed')
+    this.logger.info('[Browser] the browser closed')
   }
 
   /**
