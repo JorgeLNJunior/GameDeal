@@ -49,37 +49,42 @@ export default class Main {
    * ```
    */
   async start(): Promise<void> {
-    this.server.registerControllers(
-      container.resolve(AddGameController),
-      container.resolve(FindGameByIdController),
-      container.resolve(FindGamesController),
-      container.resolve(GetGamePriceController),
-      container.resolve(LoginController),
-      container.resolve(HealthController)
-    )
-    this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
+    try {
+      this.server.registerControllers(
+        container.resolve(AddGameController),
+        container.resolve(FindGameByIdController),
+        container.resolve(FindGamesController),
+        container.resolve(GetGamePriceController),
+        container.resolve(LoginController),
+        container.resolve(HealthController)
+      )
+      this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
-    await this.dbService.connect()
-    await this.browser.launch()
-    await this.gameQueue.init()
-    await this.notificationService.start()
-    this.cronService.start()
-    await this.server.listen()
+      await this.dbService.connect()
+      await this.browser.launch()
+      await this.gameQueue.init()
+      await this.notificationService.start()
+      this.cronService.start()
+      await this.server.listen()
 
-    this.logger.info('[Main] application started')
+      this.logger.info('[Main] application started')
 
-    // gracefull shutdown
-    process.on('SIGINT', async () => {
-      this.logger.info('Main] received SIGINT signal')
-      await this.dbService.disconnect()
-      await this.browser.close()
-      await this.gameQueue.stop()
-      await this.notificationService.stop()
-      this.cronService.stop()
-      await this.server.close()
-      this.logger.info('[Main] application stopped')
-      process.exit(0)
-    })
+      // gracefull shutdown
+      process.on('SIGINT', async () => {
+        this.logger.info('Main] received SIGINT signal')
+        await this.dbService.disconnect()
+        await this.browser.close()
+        await this.gameQueue.stop()
+        await this.notificationService.stop()
+        this.cronService.stop()
+        await this.server.close()
+        this.logger.info('[Main] application stopped')
+        process.exit(0)
+      })
+    } catch (error) {
+      this.logger.error(error, '[Main] application failed')
+      process.exit(1)
+    }
   }
 }
 
