@@ -8,7 +8,6 @@ export class FindGameByIdRepository {
 
   /**
    * Finds a game by its id.
-   *
    * @example
    * ```
    * const game = await findGameByIdRepository.find(gameId)

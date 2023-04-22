@@ -14,7 +14,6 @@ export class GameQueue {
 
   /**
    * Handles the game queue.
-   *
    * @param gameJobProcessor - An instance of `GameJobProcessor`.
    * @param config - An instance of `ConfigService`.
    * @param logger - An instance of `ApplicationLogger`.
@@ -28,7 +27,6 @@ export class GameQueue {
   /**
    * Adds a job to the queue.
    * You must call `init()` before call this method.
-   *
    * @example
    * ```
    * await queue.init()
@@ -47,7 +45,6 @@ export class GameQueue {
   /**
    * Starts the queue.
    * You must call this method before add a job to the queue.
-   *
    * @example
    * ```
    * await queue.init()
@@ -91,7 +88,6 @@ export class GameQueue {
 
   /**
    * Gracefully stops the queue
-   *
    * @example
    * ```
    * await queue.stop()

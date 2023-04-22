@@ -3,7 +3,6 @@ import { HttpResponse } from '@localtypes/http/http.type'
 export class ResponseBuilder {
   /**
    * Build a HTTP 200 response.
-   *
    * @example
    * ```
    * return ResponseBuilder.ok(data)
@@ -17,7 +16,6 @@ export class ResponseBuilder {
 
   /**
    * Build a HTTP 201 response.
-   *
    * @example
    * ```
    * return ResponseBuilder.created(data)
@@ -31,7 +29,6 @@ export class ResponseBuilder {
 
   /**
    * Build a HTTP 400 response.
-   *
    * @example
    * ```
    * return ResponseBuilder.badRequest(data)
@@ -51,7 +48,6 @@ export class ResponseBuilder {
 
   /**
    * Build a HTTP 401 response.
-   *
    * @example
    * ```
    * return ResponseBuilder.ok(data)
@@ -71,7 +67,6 @@ export class ResponseBuilder {
 
   /**
    * Build a HTTP 403 response.
-   *
    * @example
    * ```
    * return ResponseBuilder.forbidden(data)
@@ -91,7 +86,6 @@ export class ResponseBuilder {
 
   /**
    * Build a HTTP 404 response.
-   *
    * @example
    * ```
    * return ResponseBuilder.notFound(data)
@@ -111,7 +105,6 @@ export class ResponseBuilder {
 
   /**
    * Build a HTTP 500 response.
-   *
    * @example
    * ```
    * return ResponseBuilder.internalError()

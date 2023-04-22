@@ -23,7 +23,6 @@ import { container, inject, injectable } from 'tsyringe'
 export default class Main {
   /**
    * The main application class.
-   *
    * @param server - An instance of `erver`.
    * @param dbService - An instance of `DatabaseService`.
    * @param browser - An instance of `Browser`.
@@ -44,7 +43,6 @@ export default class Main {
 
   /**
    * Starts the application and all its modules.
-   *
    * @example
    * ```
    * const main = new Main(params...).start()
@@ -68,7 +66,7 @@ export default class Main {
     this.cronService.start()
     await this.server.listen()
 
-    this.logger.info('[main] application started')
+    this.logger.info('[Main] application have been started')
 
     // gracefull shutdown
     process.on('SIGINT', async () => {

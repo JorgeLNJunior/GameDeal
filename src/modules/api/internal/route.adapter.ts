@@ -8,12 +8,11 @@ import { FastifyReply, FastifyRequest, RouteHandler } from 'fastify'
  *
  * ```
  * fastify.route({
- *  url: controller.url,
- *  method: controller.method as never,
- *  handler: adaptRoute(controller)
+ * url: controller.url,
+ * method: controller.method as never,
+ * handler: adaptRoute(controller)
  * })
  * ```
- *
  * @param controller - A class wich implements `BaseController`.
  * @returns A fastify `RouteHandler`
  */

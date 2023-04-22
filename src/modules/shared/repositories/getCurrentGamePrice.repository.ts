@@ -8,7 +8,6 @@ export class GetCurrentGamePriceRepository {
 
   /**
    * Gets the last registred game price.
-   *
    * @example
    * ```
    * const price = await gameRepository.getPrice()

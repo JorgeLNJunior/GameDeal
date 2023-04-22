@@ -11,7 +11,6 @@ export class AddGameRepository {
 
   /**
    * Adds a new game.
-   *
    * @example
    * ```
    * const game = await addGameRespository.add(dto)

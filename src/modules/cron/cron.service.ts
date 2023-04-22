@@ -10,14 +10,12 @@ export class CronService {
 
   /**
    * A service to handle cron jobs.
-   *
    * @param logger - An application logger.
    */
   constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   /**
    * Registers a list of cron jobs.
-   *
    * @example
    * ```
    * this.cronService.registerJobs(new MyFirtsJob(), new MySecondJob())

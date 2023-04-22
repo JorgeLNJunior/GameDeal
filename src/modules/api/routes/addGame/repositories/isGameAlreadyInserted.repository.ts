@@ -7,7 +7,6 @@ export class IsGameAlreadyInsertedRepository {
 
   /**
    * Verifies if a game is already inserted.
-   *
    * @example
    * ```
    * const isAlreadyInserted = await isGameAlreadyInsertedRepository.handle('God of War')

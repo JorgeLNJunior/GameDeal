@@ -8,7 +8,6 @@ import { inject, injectable } from 'tsyringe'
 export class SteamScraper implements Scraper {
   /**
    * Handles all steam scraping process.
-   *
    * @param browser - An instance of `Browser`.
    * @param logger - An instance of `ApplicationLogger`.
    */
@@ -19,7 +18,6 @@ export class SteamScraper implements Scraper {
 
   /**
    * Gets the game price. Suports normal and sale prices.
-   *
    * @example
    * ```
    * const price = await scraper.getGamePrice(data);

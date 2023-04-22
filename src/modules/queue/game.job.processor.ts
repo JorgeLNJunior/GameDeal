@@ -12,7 +12,6 @@ import { InsertGamePriceRepository } from './repositories/insertGamePrice.reposi
 export class GameJobProcessor {
   /**
    * Process all game related jobs from the game queue.
-   *
    * @param steamScraper - An instance of `SteamScraper`.
    * @param nuuvemScraper - An instance of `NuuvemScraper`.
    * @param insertGamePriceRepository - An instance of `InsertGamePriceRepository`.
@@ -33,7 +32,6 @@ export class GameJobProcessor {
    * Scrapes and saves the current game price.
    *
    * Notifies if the current price is lower than the latest registered.
-   *
    * @param data - The game data.
    */
   async scrapePrice(data: ScrapeGamePriceData): Promise<void> {

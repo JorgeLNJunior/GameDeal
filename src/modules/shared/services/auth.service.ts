@@ -10,7 +10,6 @@ export class AuthService {
 
   /**
    * Generates a new JWT Token token.
-   *
    * @returns - A JWT token.
    */
   async getJwtToken(): Promise<string> {
@@ -19,7 +18,6 @@ export class AuthService {
 
   /**
    * Verifies if a JWT token is valid or not.
-   *
    * @param token - A JWT token to be verified.
    * @returns If the token is valid or not.
    */

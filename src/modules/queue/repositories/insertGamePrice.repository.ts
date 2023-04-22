@@ -9,7 +9,6 @@ export class InsertGamePriceRepository {
 
   /**
    * Inserts a new value to a game price history.
-   *
    * @example
    * ```
    * await gameRepository.insertPrice(gameId, price)

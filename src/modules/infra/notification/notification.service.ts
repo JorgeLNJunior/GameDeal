@@ -14,7 +14,6 @@ export class NotificationService {
    * Sends a game price notification.
    *
    * WARNING: You must call the `start()` method before calling this.
-   *
    * @param data - The data needed to notify.
    * @example
    * ```
@@ -31,7 +30,6 @@ export class NotificationService {
    * Starts the notification service and all its notifiers.
    *
    * WARNING: This method is must be called before sending any notification.
-   *
    * @example
    * ```
    * await notificationService.start()
@@ -50,7 +48,6 @@ export class NotificationService {
 
   /**
    * Stops the notification service and all its notifiers.
-   *
    * @example
    * ```
    * await notificationService.stop()

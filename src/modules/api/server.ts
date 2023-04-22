@@ -20,7 +20,6 @@ export class Server {
 
   /**
    * Starts the server and listen at `PORT` env or `3000`.
-   *
    * @example
    * ```
    * await server.listen()
@@ -43,7 +42,6 @@ export class Server {
 
   /**
    * Closes the server and stops listening.
-   *
    * @example
    * ```
    * await server.close()
@@ -57,7 +55,6 @@ export class Server {
 
   /**
    * Gets the fastify instance.
-   *
    * @example
    * ```
    * const fastify = server.getFastifyInstance()
@@ -70,7 +67,6 @@ export class Server {
 
   /**
    * Registers a list of controllers.
-   *
    * @example
    * ```
    * server.registerControllers(
@@ -95,7 +91,6 @@ export class Server {
 
   /**
    * Registers fastify plugins.
-   *
    * @example
    * ```
    * await this.registerPlugins()

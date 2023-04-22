@@ -8,7 +8,6 @@ export interface BaseController {
 
   /**
    * Handle a server route.
-   *
    * @param request - A `HttpRequest` object.
    */
   handle(request: HttpRequest): HttpResponse | Promise<HttpResponse>

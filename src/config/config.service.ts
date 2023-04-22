@@ -9,14 +9,12 @@ dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
 export default class ConfigService {
   /**
    * Configuration class helper.
-   *
    * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   /**
    * Gets a value of a environment variable.
-   *
    * @example
    * ```
    * const port = await configService.get<number>('PORT')

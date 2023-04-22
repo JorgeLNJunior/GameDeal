@@ -8,7 +8,6 @@ export class FindGamesRepository {
 
   /**
    * Gets a list of games.
-   *
    * @example
    * ```
    * const games = await gameRepository.find()

@@ -7,7 +7,6 @@ export class FindGameScraperDataRepository {
 
   /**
    * Gets a list of games with only the id and steam_url keys.
-   *
    * @example
    * ```
    * const games = await findGameScraperDataRepository.find()

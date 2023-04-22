@@ -1,7 +1,6 @@
 export interface Notifier {
   /**
    * Sends a notification.
-   *
    * @example
    * ```
    * await notifier.notify()
@@ -10,7 +9,6 @@ export interface Notifier {
   notify(data: NotifyData): Promise<void>
   /**
    * Starts the notifier.
-   *
    *    @example
    * ```
    * await notifier.start()
@@ -19,7 +17,6 @@ export interface Notifier {
   start(): Promise<void>
   /**
    * Stops the notifier.
-   *
    * @example
    * ```
    * await notifier.stop()

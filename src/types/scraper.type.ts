@@ -1,7 +1,6 @@
 export interface Scraper {
   /**
    * Gets the game price.
-   *
    * @example
    * ```
    * const price = await scraper.getGamePrice(url);

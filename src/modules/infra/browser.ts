@@ -9,14 +9,12 @@ export class Browser {
 
   /**
    * A browser wraper.
-   *
    * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
 
   /**
    * Launches a new browser instance.
-   *
    * @example
    * ```
    * await browser.launch()
@@ -30,7 +28,6 @@ export class Browser {
 
   /**
    * Closes the browser instance and all its pages.
-   *
    * @example
    * ```
    * await browser.close()
@@ -45,7 +42,6 @@ export class Browser {
   /**
    * Creates a new page with its own context.
    * A browser instance should be launched before.
-   *
    * @example
    * ```
    * await browser.launch()
