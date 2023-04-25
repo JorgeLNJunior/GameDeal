@@ -53,39 +53,56 @@ export class GameJobProcessor {
       nuuvem_price: currentNuuvemPrice
     })
 
-    const lastestRegistredPrice =
+    const lastRegisteredPrice =
       await this.getCurrentGamePriceRepository.getPrice(data.gameId)
-    if (!lastestRegistredPrice) return // returns if there's no price registered
+    if (!lastRegisteredPrice) return // returns if there's no price registered
 
     const game = await this.findGameByIdRepository.find(data.gameId)
     if (!game) return
 
-    const isCurrentSteamPriceLower =
-      currentSteamPrice < lastestRegistredPrice.steam_price
+    // needs rewrite, i coudn't find a cleaner solution.
+    // needs to handle nuuvem prices being null.
+    // should notify if current price at steam or nuuvem is lower than last registered price (both platforms).
+    if (currentNuuvemPrice && lastRegisteredPrice.nuuvem_price) {
+      const isNuuvemPriceLowest =
+        currentNuuvemPrice <
+        Math.min(
+          lastRegisteredPrice.nuuvem_price,
+          lastRegisteredPrice.steam_price,
+          currentSteamPrice
+        )
+      const isSteamPriceLowest =
+        currentSteamPrice <
+        Math.min(
+          lastRegisteredPrice.nuuvem_price,
+          lastRegisteredPrice.steam_price,
+          currentNuuvemPrice
+        )
 
-    if (isCurrentSteamPriceLower) {
+      if (isNuuvemPriceLowest) {
+        this.notificationService.notify({
+          currentPrice: currentNuuvemPrice as number,
+          oldPrice: lastRegisteredPrice.nuuvem_price as number,
+          gameTitle: game.title,
+          platform: 'Nuuvem',
+          gameUrl: game.nuuvem_url as string
+        })
+      } else if (isSteamPriceLowest) {
+        this.notificationService.notify({
+          currentPrice: currentSteamPrice,
+          oldPrice: lastRegisteredPrice.steam_price,
+          gameTitle: game.title,
+          platform: 'Steam',
+          gameUrl: game.steam_url
+        })
+      }
+    } else if (currentSteamPrice < lastRegisteredPrice.steam_price) {
       this.notificationService.notify({
         currentPrice: currentSteamPrice,
-        oldPrice: lastestRegistredPrice.steam_price,
+        oldPrice: lastRegisteredPrice.steam_price,
         gameTitle: game.title,
         platform: 'Steam',
         gameUrl: game.steam_url
-      })
-    }
-
-    const isNuuvemPriceLowerThanSteam =
-      currentNuuvemPrice &&
-      lastestRegistredPrice.nuuvem_price &&
-      currentNuuvemPrice < lastestRegistredPrice.steam_price &&
-      currentNuuvemPrice < lastestRegistredPrice.nuuvem_price
-
-    if (isNuuvemPriceLowerThanSteam) {
-      this.notificationService.notify({
-        currentPrice: currentNuuvemPrice as number,
-        oldPrice: lastestRegistredPrice.nuuvem_price as number,
-        gameTitle: game.title,
-        platform: 'Nuuvem',
-        gameUrl: game.nuuvem_url as string
       })
     }
   }
