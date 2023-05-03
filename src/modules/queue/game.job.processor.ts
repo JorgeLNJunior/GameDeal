@@ -82,15 +82,16 @@ export class GameJobProcessor {
         )
 
       if (isNuuvemPriceLowest) {
-        this.notificationService.notify({
+        return this.notificationService.notify({
           currentPrice: currentNuuvemPrice as number,
           oldPrice: lastRegisteredPrice.nuuvem_price as number,
           gameTitle: game.title,
           platform: 'Nuuvem',
           gameUrl: game.nuuvem_url as string
         })
-      } else if (isSteamPriceLowest) {
-        this.notificationService.notify({
+      }
+      if (isSteamPriceLowest) {
+        return this.notificationService.notify({
           currentPrice: currentSteamPrice,
           oldPrice: lastRegisteredPrice.steam_price,
           gameTitle: game.title,
@@ -98,8 +99,9 @@ export class GameJobProcessor {
           gameUrl: game.steam_url
         })
       }
-    } else if (currentSteamPrice < lastRegisteredPrice.steam_price) {
-      this.notificationService.notify({
+    }
+    if (currentSteamPrice < lastRegisteredPrice.steam_price) {
+      return this.notificationService.notify({
         currentPrice: currentSteamPrice,
         oldPrice: lastRegisteredPrice.steam_price,
         gameTitle: game.title,
