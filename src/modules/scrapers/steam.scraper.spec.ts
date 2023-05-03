@@ -1,30 +1,69 @@
-import { Browser } from '@infra/browser'
 import { PinoLogger } from '@infra/pino.logger'
 
+import { CheerioParser } from './parsers/cheerio.parser'
 import { SteamScraper } from './steam.scraper'
-
-jest.setTimeout(30000)
 
 describe('SteamScraper', () => {
   let scraper: SteamScraper
-  let browser: Browser
+  let parser: CheerioParser
+  let logger: PinoLogger
 
   beforeEach(async () => {
-    const logger = new PinoLogger()
-    browser = new Browser(logger)
-    scraper = new SteamScraper(browser, logger)
-    await browser.launch()
-  })
-  afterEach(async () => {
-    await browser.close()
+    logger = new PinoLogger()
+    parser = new CheerioParser()
+    scraper = new SteamScraper(parser, logger)
   })
 
   it('should return a price', async () => {
     const price = await scraper.getGamePrice(
-      'https://store.steampowered.com/app/1593500/God_of_War'
+      'https://store.steampowered.com/app/1245620/ELDEN_RING'
     )
 
+    console.log(price)
+
+    expect(price).toBeDefined()
     expect(typeof price).toBe('number')
-    expect(price).toBeGreaterThan(0)
+  })
+
+  it('should return null if it did not find a price', async () => {
+    const gameUrl = 'https://store.steampowered.com/app/1245620/ELDEN_RING'
+
+    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce(undefined)
+
+    const price = await scraper.getGamePrice(gameUrl)
+
+    expect(price).toBe(null)
+  })
+
+  it('should log if it did not find a price', async () => {
+    const gameUrl = 'https://store.steampowered.com/app/1245620/ELDEN_RING'
+
+    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce(undefined)
+    const logSpy = jest.spyOn(logger, 'error')
+
+    await scraper.getGamePrice(gameUrl)
+
+    expect(logSpy).toHaveBeenCalled()
+  })
+
+  it('should return null if it fails to parse a price', async () => {
+    const gameUrl = 'https://store.steampowered.com/app/1245620/ELDEN_RING'
+
+    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce('invalid-price')
+
+    const price = await scraper.getGamePrice(gameUrl)
+
+    expect(price).toBe(null)
+  })
+
+  it('should log if it fails to parse a price', async () => {
+    const gameUrl = 'https://store.steampowered.com/app/1245620/ELDEN_RING'
+
+    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce('invalid-price')
+    const logSpy = jest.spyOn(logger, 'error')
+
+    await scraper.getGamePrice(gameUrl)
+
+    expect(logSpy).toHaveBeenCalled()
   })
 })
