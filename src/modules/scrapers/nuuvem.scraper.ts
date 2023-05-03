@@ -1,46 +1,38 @@
-import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { Browser } from '@infra/browser'
+import { CHEERIO_PARSER, PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { HTMLParser } from '@localtypes/html.parser'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { Scraper } from '@localtypes/scraper.type'
-import { inject, injectable } from 'tsyringe'
+import axios from 'axios'
+import { inject } from 'tsyringe'
 
-@injectable()
 export class NuuvemScraper implements Scraper {
   constructor(
-    private browser: Browser,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+    @inject(CHEERIO_PARSER) private readonly parser: HTMLParser,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  async getGamePrice(gameUrl: string): Promise<number> {
-    this.logger.info('[NuuvemScraper] getting a page')
-    const page = await this.browser.getPage()
+  async getGamePrice(gameUrl: string) {
+    const response = await axios.get(gameUrl)
 
-    try {
-      this.logger.info(`[NuuvemScraper] navigating to ${gameUrl}`)
-      await page.goto(gameUrl, { waitUntil: 'domcontentloaded' })
-
-      this.logger.info('[NuuvemScraper] waiting for the page selector')
-      await page.waitForSelector('span.product-price--val')
-
-      const price = await page
-        .locator('span.product-price--val')
-        .evaluateAll((elements: HTMLDivElement[]) => {
-          const firstOcurrence = elements.at(0)
-          if (firstOcurrence && firstOcurrence.textContent) {
-            firstOcurrence.removeChild(firstOcurrence.children[0]) // removes old price if the game is on sale
-            return firstOcurrence.textContent
-          }
-          return undefined
-        })
-
-      if (price) return Number(price.replace('R$', '').replace(',', '.').trim())
-
-      this.logger.error(`[NuuvemScraper] no price found for ${gameUrl}`)
-      throw new Error('Game price not found')
-    } finally {
-      this.logger.info('[NuuvemScraper] closing the page')
-      await page.close()
-      this.logger.info('[NuuvemScraper] the page was closed')
+    const priceString = this.parser
+      .getElementValue(response.data, 'span.product-price--val', [
+        '.product-price--old',
+        '.currency-symbol'
+      ])
+      ?.replace(',', '.')
+    if (!priceString) {
+      this.logger.error(`[NuuvemScraper] no price found for "${gameUrl}"`)
+      return null
     }
+
+    const price = Number(priceString)
+    if (Number.isNaN(price)) {
+      this.logger.error(
+        `[NuuvemScraper] error parsing a price for game "${gameUrl}"`
+      )
+      return null
+    }
+
+    return price
   }
 }

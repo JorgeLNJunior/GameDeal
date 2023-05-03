@@ -1,74 +1,65 @@
-import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { Browser } from '@infra/browser'
+import { CHEERIO_PARSER, PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { HTMLParser } from '@localtypes/html.parser'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { Scraper } from '@localtypes/scraper.type'
-import { inject, injectable } from 'tsyringe'
+import axios from 'axios'
+import { inject } from 'tsyringe'
 
-@injectable()
 export class SteamScraper implements Scraper {
-  /**
-   * Handles all steam scraping process.
-   * @param browser - An instance of `Browser`.
-   * @param logger - An instance of `ApplicationLogger`.
-   */
   constructor(
-    private browser: Browser,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+    @inject(CHEERIO_PARSER) private readonly parser: HTMLParser,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  /**
-   * Gets the game price. Suports normal and sale prices.
-   * @example
-   * ```
-   * const price = await scraper.getGamePrice(data);
-   * ```
-   * @param url - The steam game url.
-   * @returns The current steam game price.
-   */
-  async getGamePrice(url: string): Promise<number> {
+  async getGamePrice(gameUrl: string): Promise<number | null> {
     // makes steam show brazilian prices
-    url += '?cc=br'
+    gameUrl += '?cc=br'
 
-    this.logger.info('[SteamScraper] getting a page')
-    const page = await this.browser.getPage()
-
-    try {
-      this.logger.info(`[SteamScraper] navigating to ${url}`)
-      await page.goto(url, { waitUntil: 'domcontentloaded' })
-
-      this.logger.info('[SteamScraper] waiting for the page selector')
-      await page.waitForSelector('.game_area_purchase_game_wrapper')
-
-      const price = await page
-        .locator('div.game_area_purchase_game_wrapper div.game_purchase_price')
-        .evaluateAll((elements: HTMLDivElement[]) => {
-          const firtOcurrence = elements.at(0)
-          if (firtOcurrence && firtOcurrence.textContent) {
-            return firtOcurrence.textContent
-          }
-          return undefined
-        })
-      if (price) return Number(price.replace('R$', '').replace(',', '.').trim())
-
-      const salePrice = await page
-        .locator('div.game_area_purchase_game_wrapper div.discount_final_price')
-        .evaluateAll((elements: HTMLDivElement[]) => {
-          const firtOcurrence = elements.at(0)
-          if (firtOcurrence && firtOcurrence.textContent) {
-            return firtOcurrence.textContent
-          }
-          return undefined
-        })
-      if (salePrice) {
-        return Number(salePrice.replace('R$', '').replace(',', '.').trim())
+    const response = await axios.get(gameUrl, {
+      headers: {
+        Cookie: 'birthtime=0' // bypass age check
       }
+    })
 
-      this.logger.error(`[SteamScraper] no price found for ${url}`)
-      throw new Error('Game price not found')
-    } finally {
-      this.logger.info('[SteamScraper] closing the page')
-      await page.close()
-      this.logger.info('[SteamScraper] the page was closed')
+    let priceString = this.parser
+      .getElementValue(
+        response.data,
+        'div.game_area_purchase_game_wrapper:first div.game_purchase_price'
+      )
+      ?.replace('R$', '')
+      .replace(',', '.')
+      .trim()
+    if (priceString) {
+      const price = Number(priceString)
+      if (Number.isNaN(price)) {
+        this.logger.error(
+          `[SteamScraper] error parsing a price for game "${gameUrl}"`
+        )
+        return null
+      }
+      return price
     }
+
+    priceString = this.parser
+      .getElementValue(
+        response.data,
+        'div.game_area_purchase_game_wrapper:first div.discount_final_price'
+      )
+      ?.replace('R$', '')
+      .replace(',', '.')
+      .trim()
+    if (priceString) {
+      const price = Number(priceString)
+      if (Number.isNaN(price)) {
+        this.logger.error(
+          `[SteamScraper] error parsing a price for game "${gameUrl}"`
+        )
+        return null
+      }
+      return price
+    }
+
+    this.logger.error(`[SteamScraper] no price found for "${gameUrl}"`)
+    return null
   }
 }
