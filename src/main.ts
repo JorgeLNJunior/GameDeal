@@ -7,7 +7,6 @@ import { CronService } from '@cron/cron.service'
 import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
 import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { Browser } from '@infra/browser'
 import { NotificationService } from '@infra/notification/notification.service'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { AddGameController } from '@modules/api/routes/addGame/addGame.controller'
@@ -25,7 +24,6 @@ export default class Main {
    * The main application class.
    * @param server - An instance of `erver`.
    * @param dbService - An instance of `DatabaseService`.
-   * @param browser - An instance of `Browser`.
    * @param gameQueue - An instance of `GameQueue`.
    * @param cronService - An instance of `CronService`.
    * @param notificationService - An instance of `NotificationService`.
@@ -34,7 +32,6 @@ export default class Main {
   constructor(
     private server: Server,
     private dbService: DatabaseService,
-    private browser: Browser,
     private gameQueue: GameQueue,
     private cronService: CronService,
     private notificationService: NotificationService,
@@ -61,7 +58,6 @@ export default class Main {
       this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
       await this.dbService.connect()
-      await this.browser.launch()
       await this.gameQueue.init()
       await this.notificationService.start()
       this.cronService.start()
@@ -73,7 +69,6 @@ export default class Main {
       process.on('SIGINT', async () => {
         this.logger.info('Main] received SIGINT signal')
         await this.dbService.disconnect()
-        await this.browser.close()
         await this.gameQueue.stop()
         await this.notificationService.stop()
         this.cronService.stop()
