@@ -3,8 +3,9 @@ import { HTMLParser } from '@localtypes/html.parser'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { Scraper } from '@localtypes/scraper.type'
 import axios from 'axios'
-import { inject } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 
+@injectable()
 export class SteamScraper implements Scraper {
   constructor(
     @inject(CHEERIO_PARSER) private readonly parser: HTMLParser,

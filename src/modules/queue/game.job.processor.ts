@@ -48,6 +48,8 @@ export class GameJobProcessor {
       )
     }
 
+    if (!currentSteamPrice) return
+
     await this.insertGamePriceRepository.insert(data.gameId, {
       steam_price: currentSteamPrice,
       nuuvem_price: currentNuuvemPrice
