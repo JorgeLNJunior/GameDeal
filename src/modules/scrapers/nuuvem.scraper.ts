@@ -26,6 +26,13 @@ export class NuuvemScraper implements Scraper {
       return null
     }
 
+    const unavailableOptions = ['Unavailable', 'Indisponível']
+    const isUnavailable = unavailableOptions.includes(priceString)
+    if (isUnavailable) {
+      this.logger.warn(`[NuuvemScraper] The game "${gameUrl}" is unavailable`)
+      return null
+    }
+
     const price = Number(priceString)
     if (Number.isNaN(price)) {
       this.logger.error(
