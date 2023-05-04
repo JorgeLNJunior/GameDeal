@@ -66,4 +66,24 @@ describe('NuuvemScraper', () => {
 
     expect(logSpy).toHaveBeenCalled()
   })
+
+  it('should return null if a game is unavailable (br-en)', async () => {
+    const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
+
+    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce('Unavailable')
+
+    const price = await scraper.getGamePrice(gameUrl)
+
+    expect(price).toBe(null)
+  })
+
+  it('should return null if a game is unavailable (br-pt)', async () => {
+    const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
+
+    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce('Indisponível')
+
+    const price = await scraper.getGamePrice(gameUrl)
+
+    expect(price).toBe(null)
+  })
 })
