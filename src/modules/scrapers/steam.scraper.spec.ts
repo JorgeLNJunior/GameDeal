@@ -19,8 +19,6 @@ describe('SteamScraper', () => {
       'https://store.steampowered.com/app/1245620/ELDEN_RING'
     )
 
-    console.log(price)
-
     expect(price).toBeDefined()
     expect(typeof price).toBe('number')
   })
