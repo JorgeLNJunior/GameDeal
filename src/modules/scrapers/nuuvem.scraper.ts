@@ -16,7 +16,7 @@ export class NuuvemScraper implements Scraper {
     const response = await axios.get(gameUrl)
 
     const priceString = this.parser
-      .getElementValue(response.data, 'span.product-price--val', [
+      .getElementValue(response.data, 'span.product-price--val:first', [
         '.product-price--old',
         '.currency-symbol'
       ])
