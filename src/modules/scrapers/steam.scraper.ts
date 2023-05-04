@@ -34,6 +34,7 @@ export class SteamScraper implements Scraper {
       const price = Number(priceString)
       if (Number.isNaN(price)) {
         this.logger.error(
+          priceString,
           `[SteamScraper] error parsing a price for game "${gameUrl}"`
         )
         return null
@@ -53,6 +54,7 @@ export class SteamScraper implements Scraper {
       const price = Number(priceString)
       if (Number.isNaN(price)) {
         this.logger.error(
+          priceString,
           `[SteamScraper] error parsing a price for game "${gameUrl}"`
         )
         return null

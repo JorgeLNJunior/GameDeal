@@ -29,6 +29,7 @@ export class NuuvemScraper implements Scraper {
     const price = Number(priceString)
     if (Number.isNaN(price)) {
       this.logger.error(
+        priceString,
         `[NuuvemScraper] error parsing a price for game "${gameUrl}"`
       )
       return null
