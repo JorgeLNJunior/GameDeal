@@ -15,6 +15,7 @@ import { FindGamesController } from '@modules/api/routes/findGames/findGames.con
 import { GetGamePriceController } from '@modules/api/routes/getCurrentGamePrice/getCurrentGamePrice.controller'
 import { HealthController } from '@modules/api/routes/health/health.controller'
 import { Server } from '@modules/api/server'
+import { GameWorker } from '@modules/worker/game.worker'
 import { GameQueue } from '@queue/game.queue'
 import { container, inject, injectable } from 'tsyringe'
 
@@ -25,6 +26,7 @@ export default class Main {
    * @param server - An instance of `erver`.
    * @param dbService - An instance of `DatabaseService`.
    * @param gameQueue - An instance of `GameQueue`.
+   * @param gameWorker - An instance of `GameWorker`.
    * @param cronService - An instance of `CronService`.
    * @param notificationService - An instance of `NotificationService`.
    * @param logger - An instance of `ApplicationLogger`.
@@ -33,6 +35,7 @@ export default class Main {
     private server: Server,
     private dbService: DatabaseService,
     private gameQueue: GameQueue,
+    private gameWorker: GameWorker,
     private cronService: CronService,
     private notificationService: NotificationService,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
@@ -58,8 +61,9 @@ export default class Main {
       this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
       await this.dbService.connect()
-      await this.gameQueue.init()
       await this.notificationService.start()
+      await this.gameQueue.init()
+      await this.gameWorker.init()
       this.cronService.start()
       await this.server.listen()
 
@@ -70,6 +74,7 @@ export default class Main {
         this.logger.info('Main] received SIGINT signal')
         await this.dbService.disconnect()
         await this.gameQueue.stop()
+        await this.gameWorker.stop()
         await this.notificationService.stop()
         this.cronService.stop()
         await this.server.close()

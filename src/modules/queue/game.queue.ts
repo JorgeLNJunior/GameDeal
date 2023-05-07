@@ -2,24 +2,19 @@ import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { ScrapeGamePriceData } from '@localtypes/queue.type'
-import { Queue, Worker } from 'bullmq'
+import { Queue } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
-
-import { GameJobProcessor } from './game.job.processor'
 
 @singleton()
 export class GameQueue {
   private queue!: Queue<ScrapeGamePriceData>
-  private worker!: Worker<ScrapeGamePriceData>
 
   /**
    * Handles the game queue.
-   * @param gameJobProcessor - An instance of `GameJobProcessor`.
    * @param config - An instance of `ConfigService`.
    * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(
-    private gameJobProcessor: GameJobProcessor,
     private config: ConfigService,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
@@ -60,30 +55,8 @@ export class GameQueue {
       }
     })
 
-    this.worker = new Worker<ScrapeGamePriceData, void>(
-      'game',
-      async (job) => {
-        this.logger.info(job.data, `[GameQueue] processing job ${job.id}`)
-        await this.gameJobProcessor.scrapePrice(job.data)
-        this.logger.info(`[GameQueue] job ${job.id} processed`)
-      },
-      {
-        connection: {
-          host: this.config.getEnv('REDIS_HOST'),
-          port: this.config.getEnv('REDIS_PORT'),
-          password: this.config.getEnv('REDIS_PASSWORD')
-        }
-      }
-    )
-
     this.queue.on('error', (err) => {
       this.logger.error(err, `[GameQueue] queue failed`)
-    })
-    this.worker.on('failed', (job, err) => {
-      this.logger.error(err, `[GameWorker] the job "${job?.id}" failed`)
-    })
-    this.worker.on('error', (err) => {
-      this.logger.error(err, `[GameWorker] worker failed`)
     })
   }
 
@@ -96,7 +69,6 @@ export class GameQueue {
    */
   async stop(): Promise<void> {
     this.logger.info('[GameQueue] stopping the queue')
-    await this.worker.close()
     await this.queue.close()
     this.logger.info('[GameQueue] the queue stopped')
   }
