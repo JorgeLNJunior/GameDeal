@@ -65,8 +65,7 @@ export class GameQueue {
       async (job) => {
         this.logger.info(job.data, `[GameQueue] processing job ${job.id}`)
         await this.gameJobProcessor.scrapePrice(job.data)
-        const isCompleted = (await job.getState()) === 'completed'
-        if (isCompleted) this.logger.info(`[GameQueue] job ${job.id} processed`)
+        this.logger.info(`[GameQueue] job ${job.id} processed`)
       },
       {
         connection: {
