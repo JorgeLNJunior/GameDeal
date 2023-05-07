@@ -3,6 +3,7 @@ import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { NotificationService } from '@infra/notification/notification.service'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { NotifyData } from '@localtypes/notifier.type'
+import { QueueName } from '@localtypes/queue.type'
 import { Worker } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
@@ -33,7 +34,7 @@ export class NotificationWorker {
     await this.notificationService.start()
 
     this.worker = new Worker<NotifyData, void>(
-      'game',
+      QueueName.NOTICATION,
       async (job) => {
         this.logger.info(`[NotificationWorker] processing job ${job.id}`)
         await this.notificationService.notify(job.data)

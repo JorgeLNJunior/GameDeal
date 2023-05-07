@@ -2,6 +2,7 @@ import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { NotifyData } from '@localtypes/notifier.type'
+import { QueueJobName, QueueName } from '@localtypes/queue.type'
 import { Queue } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
@@ -30,7 +31,7 @@ export class NotificationQueue {
    * @param data - The data to add to the queue.
    */
   async add(data: NotifyData): Promise<void> {
-    this.queue.add('notify', data, {
+    await this.queue.add(QueueJobName.NOTIFY_PRICE_DROP, data, {
       attempts: 3,
       removeOnComplete: true,
       removeOnFail: true
@@ -46,7 +47,7 @@ export class NotificationQueue {
    * ```
    */
   async init(): Promise<void> {
-    this.queue = new Queue<NotifyData>('notifier', {
+    this.queue = new Queue<NotifyData>(QueueName.NOTICATION, {
       connection: {
         host: this.config.getEnv('REDIS_HOST'),
         port: this.config.getEnv('REDIS_PORT'),

@@ -1,7 +1,11 @@
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { ScrapeGamePriceData } from '@localtypes/queue.type'
+import {
+  QueueJobName,
+  QueueName,
+  ScrapeGamePriceData
+} from '@localtypes/queue.type'
 import { Queue } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
@@ -30,7 +34,7 @@ export class GameQueue {
    * @param data - The data to add to the queue.
    */
   async add(data: ScrapeGamePriceData): Promise<void> {
-    this.queue.add('scrape', data, {
+    this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data, {
       attempts: 3,
       removeOnComplete: true,
       removeOnFail: true
@@ -46,7 +50,7 @@ export class GameQueue {
    * ```
    */
   async init(): Promise<void> {
-    this.queue = new Queue<ScrapeGamePriceData>('game', {
+    this.queue = new Queue<ScrapeGamePriceData>(QueueName.GAME_SCRAPING, {
       connection: {
         host: this.config.getEnv('REDIS_HOST'),
         port: this.config.getEnv('REDIS_PORT'),

@@ -1,7 +1,7 @@
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { ScrapeGamePriceData } from '@localtypes/queue.type'
+import { QueueName, ScrapeGamePriceData } from '@localtypes/queue.type'
 import { Worker } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
@@ -32,7 +32,7 @@ export class GameWorker {
    */
   async init(): Promise<void> {
     this.worker = new Worker<ScrapeGamePriceData, void>(
-      'game',
+      QueueName.GAME_SCRAPING,
       async (job) => {
         this.logger.info(job.data, `[GameWorker] processing job ${job.id}`)
         await this.gameJobProcessor.scrapePrice(job.data)
