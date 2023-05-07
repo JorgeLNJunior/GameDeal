@@ -7,7 +7,6 @@ import { CronService } from '@cron/cron.service'
 import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
 import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { NotificationService } from '@infra/notification/notification.service'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { AddGameController } from '@modules/api/routes/addGame/addGame.controller'
 import { FindGameByIdController } from '@modules/api/routes/findGameById/findGameById.controller'
@@ -15,8 +14,10 @@ import { FindGamesController } from '@modules/api/routes/findGames/findGames.con
 import { GetGamePriceController } from '@modules/api/routes/getCurrentGamePrice/getCurrentGamePrice.controller'
 import { HealthController } from '@modules/api/routes/health/health.controller'
 import { Server } from '@modules/api/server'
-import { GameWorker } from '@modules/worker/game.worker'
+import { GameWorker } from '@modules/worker/game/game.worker'
+import { NotificationWorker } from '@modules/worker/notification/notification.worker'
 import { GameQueue } from '@queue/game.queue'
+import { NotificationQueue } from '@queue/notification.queue'
 import { container, inject, injectable } from 'tsyringe'
 
 @injectable()
@@ -26,18 +27,20 @@ export default class Main {
    * @param server - An instance of `erver`.
    * @param dbService - An instance of `DatabaseService`.
    * @param gameQueue - An instance of `GameQueue`.
+   * @param notificationQueue - An instance of `NotificationQueue`
    * @param gameWorker - An instance of `GameWorker`.
+   * @param notificationWorker - An instance of `NotificationWorker`.
    * @param cronService - An instance of `CronService`.
-   * @param notificationService - An instance of `NotificationService`.
    * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(
     private server: Server,
     private dbService: DatabaseService,
     private gameQueue: GameQueue,
+    private notificationQueue: NotificationQueue,
     private gameWorker: GameWorker,
+    private notificationWorker: NotificationWorker,
     private cronService: CronService,
-    private notificationService: NotificationService,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
@@ -61,9 +64,10 @@ export default class Main {
       this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
       await this.dbService.connect()
-      await this.notificationService.start()
       await this.gameQueue.init()
       await this.gameWorker.init()
+      await this.notificationQueue.init()
+      await this.notificationWorker.init()
       this.cronService.start()
       await this.server.listen()
 
@@ -75,7 +79,8 @@ export default class Main {
         await this.dbService.disconnect()
         await this.gameQueue.stop()
         await this.gameWorker.stop()
-        await this.notificationService.stop()
+        await this.notificationQueue.init()
+        await this.notificationWorker.init()
         this.cronService.stop()
         await this.server.close()
         this.logger.info('[Main] application stopped')

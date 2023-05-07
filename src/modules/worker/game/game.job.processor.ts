@@ -1,7 +1,7 @@
-import { NotificationService } from '@infra/notification/notification.service'
 import { ScrapeGamePriceData } from '@localtypes/queue.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
+import { NotificationQueue } from '@queue/notification.queue'
 import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
 import { SteamScraper } from '@scrapers/steam.scraper'
 import { injectable } from 'tsyringe'
@@ -17,7 +17,7 @@ export class GameJobProcessor {
    * @param insertGamePriceRepository - An instance of `InsertGamePriceRepository`.
    * @param getCurrentGamePriceRepository - An instance of `GetCurrentGamePriceRepository`.
    * @param findGameByIdRepository - An instance of `FindGameByIdRepository`
-   * @param notificationService - An instance of `NotificationService`.
+   * @param notificationQueue - An instance of `NotificationQueue`.
    */
   constructor(
     private steamScraper: SteamScraper,
@@ -25,7 +25,7 @@ export class GameJobProcessor {
     private insertGamePriceRepository: InsertGamePriceRepository,
     private getCurrentGamePriceRepository: GetCurrentGamePriceRepository,
     private findGameByIdRepository: FindGameByIdRepository,
-    private notificationService: NotificationService
+    private notificationQueue: NotificationQueue
   ) {}
 
   /**
@@ -82,7 +82,7 @@ export class GameJobProcessor {
         )
 
       if (isNuuvemPriceLowest) {
-        return this.notificationService.notify({
+        return this.notificationQueue.add({
           currentPrice: currentNuuvemPrice as number,
           oldPrice: lastRegisteredPrice.nuuvem_price as number,
           gameTitle: game.title,
@@ -91,7 +91,7 @@ export class GameJobProcessor {
         })
       }
       if (isSteamPriceLowest) {
-        return this.notificationService.notify({
+        return this.notificationQueue.add({
           currentPrice: currentSteamPrice,
           oldPrice: lastRegisteredPrice.steam_price,
           gameTitle: game.title,
@@ -101,7 +101,7 @@ export class GameJobProcessor {
       }
     }
     if (currentSteamPrice < lastRegisteredPrice.steam_price) {
-      return this.notificationService.notify({
+      return this.notificationQueue.add({
         currentPrice: currentSteamPrice,
         oldPrice: lastRegisteredPrice.steam_price,
         gameTitle: game.title,
