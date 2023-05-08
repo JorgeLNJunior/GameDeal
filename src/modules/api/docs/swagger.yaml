@@ -59,15 +59,37 @@ paths:
       summary: Listar todos os jogos
       tags:
         - "Game"
+      parameters:
+        - in: query
+          name: title
+          schema:
+            type: string
+            example: Resident Evil
+        - in: query
+          name: page
+          schema:
+            type: number
+            example: 1
+        - in: query
+          name: limit
+          schema:
+            type: number
+            example: 10
       responses:
         200:
           description: OK
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/game"
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/game"
+                  pages:
+                    type: number
+                    example: 15
         500:
           $ref: "#/components/responses/500"
 
