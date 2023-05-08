@@ -30,11 +30,11 @@ describe('FindGamesRepository', () => {
     }
     await db.getClient().insertInto('game').values(game).execute()
 
-    const games = await repository.find()
+    const games = await repository.find({})
 
-    expect(games[0].id).toEqual(game.id)
-    expect(games[0].title).toEqual(game.title)
-    expect(games[0].steam_url).toEqual(game.steam_url)
-    expect(games[0].nuuvem_url).toEqual(game.nuuvem_url)
+    expect(games.results[0].id).toEqual(game.id)
+    expect(games.results[0].title).toEqual(game.title)
+    expect(games.results[0].steam_url).toEqual(game.steam_url)
+    expect(games.results[0].nuuvem_url).toEqual(game.nuuvem_url)
   })
 })

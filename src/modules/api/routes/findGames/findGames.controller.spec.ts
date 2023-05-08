@@ -22,20 +22,34 @@ describe('FindGamesController', () => {
       created_at: new Date(),
       updated_at: new Date()
     }
+    const result = { results: [game], pages: 1 }
+    const request = {
+      query: {},
+      headers: {},
+      body: {},
+      params: {}
+    }
 
-    jest.spyOn(repository, 'find').mockResolvedValueOnce([game])
+    jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
 
-    const response = await controller.handle()
+    const response = await controller.handle(request)
 
-    expect((response.body as Array<unknown>)[0]).toMatchObject(game)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect((response.body as any).results[0]).toMatchObject(game)
   })
 
   it('should return a INTERNAL_ERROR reponse if an exception was trown', async () => {
+    const request = {
+      query: {},
+      headers: {},
+      body: {},
+      params: {}
+    }
     jest
       .spyOn(repository, 'find')
       .mockRejectedValueOnce(new Error('repository error'))
 
-    const response = await controller.handle()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(500)
   })
