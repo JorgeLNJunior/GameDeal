@@ -1,6 +1,6 @@
 openapi: "3.0.2"
 info:
-  title: Game Price Alert API
+  title: Game Price Tracker API
   version: "0.0.1"
   license:
     name: MIT
@@ -136,6 +136,53 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/game_price"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+
+  /games/{id}/history:
+    get:
+      summary: Obter o preço atual de um jogo a partir do ID
+      tags:
+        - "Game"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID do jogo
+        - in: query
+          name: title
+          schema:
+            type: string
+            example: Resident Evil
+        - in: query
+          name: page
+          schema:
+            type: number
+            example: 1
+        - in: query
+          name: limit
+          schema:
+            type: number
+            example: 10
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/game_price"
+                  page:
+                    type: number
+                    example: 10
         404:
           $ref: "#/components/responses/404"
         500:
