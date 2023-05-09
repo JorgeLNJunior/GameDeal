@@ -42,7 +42,7 @@ export class FindGamesRepository {
   }
 
   private async getRegistersCount(title?: string): Promise<number> {
-    let where = null
+    let where = ''
     if (title) where = `where title like "%${title}%"`
     const queryResult = await sql
       .raw<CountResult>(`SELECT COUNT(id) as total from game ${where}`)
