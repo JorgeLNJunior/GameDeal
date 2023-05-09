@@ -2,6 +2,7 @@ import '@modules/infra/newrelic'
 import 'reflect-metadata'
 import '@dependencies/dependency.container'
 
+import { GetGamePriceHistoryController } from '@api/routes/getGamePriceHistory/getGamePriceHistory.controller'
 import { LoginController } from '@api/routes/login/login.controller'
 import { CronService } from '@cron/cron.service'
 import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
@@ -58,6 +59,7 @@ export default class Main {
         container.resolve(FindGameByIdController),
         container.resolve(FindGamesController),
         container.resolve(GetGamePriceController),
+        container.resolve(GetGamePriceHistoryController),
         container.resolve(LoginController),
         container.resolve(HealthController)
       )
