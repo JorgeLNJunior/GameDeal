@@ -1,3 +1,4 @@
+import { PinoLogger } from '@infra/pino.logger'
 import { NotificationQueue } from '@queue/notification.queue'
 import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
 import { SteamScraper } from '@scrapers/steam.scraper'
@@ -30,7 +31,8 @@ describe('GameJobProcessor', () => {
       insertPriceRepo,
       getPriceRepo,
       findGameByIdRepo,
-      notificationQueue
+      notificationQueue,
+      new PinoLogger()
     )
   })
 
