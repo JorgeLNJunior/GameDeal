@@ -51,7 +51,7 @@ describe('AddGameController', () => {
     const response = await controller.handle({
       body: {},
       headers: {
-        Authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`
       },
       params: {},
       query: {}
@@ -68,7 +68,7 @@ describe('AddGameController', () => {
     const response = await controller.handle({
       body: {},
       headers: {
-        Authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`
       },
       params: {},
       query: {}
@@ -88,7 +88,7 @@ describe('AddGameController', () => {
     const response = await controller.handle({
       body: {},
       headers: {
-        Authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`
       },
       params: {},
       query: {}
@@ -119,7 +119,7 @@ describe('AddGameController', () => {
       params: {},
       query: {},
       headers: {
-        Authorization: 'Bearer invalid.token'
+        authorization: 'Bearer invalid.token'
       }
     })
 
@@ -142,7 +142,7 @@ describe('AddGameController', () => {
     const response = await controller.handle({
       body: {},
       headers: {
-        Authorization: `Bearer ${token}`
+        authorization: `Bearer ${token}`
       },
       params: {},
       query: {}

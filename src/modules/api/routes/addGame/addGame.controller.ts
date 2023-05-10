@@ -26,7 +26,7 @@ export class AddGameController implements BaseController {
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const authToken = request.headers.Authorization
+      const authToken = request.headers.authorization
       if (!authToken) {
         return ResponseBuilder.unauthorized('auth token not provided')
       }
