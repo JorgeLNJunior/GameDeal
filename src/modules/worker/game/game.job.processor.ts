@@ -1,10 +1,12 @@
+import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { ApplicationLogger } from '@localtypes/logger.type'
 import { ScrapeGamePriceData } from '@localtypes/queue.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
 import { NotificationQueue } from '@queue/notification.queue'
 import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
 import { SteamScraper } from '@scrapers/steam.scraper'
-import { injectable } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 
 import { InsertGamePriceRepository } from './repositories/insertGamePrice.repository'
 
@@ -18,6 +20,7 @@ export class GameJobProcessor {
    * @param getCurrentGamePriceRepository - An instance of `GetCurrentGamePriceRepository`.
    * @param findGameByIdRepository - An instance of `FindGameByIdRepository`
    * @param notificationQueue - An instance of `NotificationQueue`.
+   * @param logger - An instance of `ApplicationLogger`.
    */
   constructor(
     private steamScraper: SteamScraper,
@@ -25,7 +28,8 @@ export class GameJobProcessor {
     private insertGamePriceRepository: InsertGamePriceRepository,
     private getCurrentGamePriceRepository: GetCurrentGamePriceRepository,
     private findGameByIdRepository: FindGameByIdRepository,
-    private notificationQueue: NotificationQueue
+    private notificationQueue: NotificationQueue,
+    @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
   /**
@@ -48,7 +52,10 @@ export class GameJobProcessor {
       )
     }
 
-    if (!currentSteamPrice) return
+    if (!currentSteamPrice) {
+      this.logger.warn(`[DEBUGER] return because there is not steam price`)
+      return
+    }
 
     await this.insertGamePriceRepository.insert(data.gameId, {
       steam_price: currentSteamPrice,
@@ -57,10 +64,16 @@ export class GameJobProcessor {
 
     const lastRegisteredPrice =
       await this.getCurrentGamePriceRepository.getPrice(data.gameId)
-    if (!lastRegisteredPrice) return // returns if there's no price registered
+    if (!lastRegisteredPrice) {
+      this.logger.warn(`[DEBUGER] return because there is price registered`)
+      return // returns if there's no price registered
+    }
 
     const game = await this.findGameByIdRepository.find(data.gameId)
-    if (!game) return
+    if (!game) {
+      this.logger.warn(`[DEBUGER] return because there is game registered`)
+      return
+    }
 
     // needs rewrite, i coudn't find a cleaner solution.
     // needs to handle nuuvem prices being null.
@@ -82,6 +95,7 @@ export class GameJobProcessor {
         )
 
       if (isNuuvemPriceLowest) {
+        this.logger.warn(`[DEBUGER] isNuuvemPriceLowest triggered`)
         return this.notificationQueue.add({
           currentPrice: currentNuuvemPrice as number,
           oldPrice: lastRegisteredPrice.nuuvem_price as number,
@@ -91,6 +105,7 @@ export class GameJobProcessor {
         })
       }
       if (isSteamPriceLowest) {
+        this.logger.warn(`[DEBUGER] isSteamPriceLowest triggered`)
         return this.notificationQueue.add({
           currentPrice: currentSteamPrice,
           oldPrice: lastRegisteredPrice.steam_price,
@@ -101,6 +116,7 @@ export class GameJobProcessor {
       }
     }
     if (currentSteamPrice < lastRegisteredPrice.steam_price) {
+      this.logger.warn(`[DEBUGER] isSteamPriceLowest without nuuvem triggered`)
       return this.notificationQueue.add({
         currentPrice: currentSteamPrice,
         oldPrice: lastRegisteredPrice.steam_price,
