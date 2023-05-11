@@ -52,33 +52,25 @@ export class GameJobProcessor {
       )
     }
 
-    if (!currentSteamPrice) {
-      this.logger.warn(`[DEBUGER] return because there is not steam price`)
-      return
-    }
+    if (!currentSteamPrice) return
+    const game = await this.findGameByIdRepository.find(data.gameId)
+    if (!game) return
+
+    const lastRegisteredPrice =
+      await this.getCurrentGamePriceRepository.getPrice(data.gameId)
 
     await this.insertGamePriceRepository.insert(data.gameId, {
       steam_price: currentSteamPrice,
       nuuvem_price: currentNuuvemPrice
     })
 
-    const lastRegisteredPrice =
-      await this.getCurrentGamePriceRepository.getPrice(data.gameId)
-    if (!lastRegisteredPrice) {
-      this.logger.warn(`[DEBUGER] return because there is price registered`)
-      return // returns if there's no price registered
-    }
-
-    const game = await this.findGameByIdRepository.find(data.gameId)
-    if (!game) {
-      this.logger.warn(`[DEBUGER] return because there is game registered`)
-      return
-    }
-
     // needs rewrite, i coudn't find a cleaner solution.
-    // needs to handle nuuvem prices being null.
     // should notify if current price at steam or nuuvem is lower than last registered price (both platforms).
-    if (currentNuuvemPrice && lastRegisteredPrice.nuuvem_price) {
+    if (
+      lastRegisteredPrice &&
+      currentNuuvemPrice &&
+      lastRegisteredPrice.nuuvem_price
+    ) {
       const isNuuvemPriceLowest =
         currentNuuvemPrice <
         Math.min(
@@ -86,16 +78,7 @@ export class GameJobProcessor {
           lastRegisteredPrice.steam_price,
           currentSteamPrice
         )
-      const isSteamPriceLowest =
-        currentSteamPrice <
-        Math.min(
-          lastRegisteredPrice.nuuvem_price,
-          lastRegisteredPrice.steam_price,
-          currentNuuvemPrice
-        )
-
       if (isNuuvemPriceLowest) {
-        this.logger.warn(`[DEBUGER] isNuuvemPriceLowest triggered`)
         return this.notificationQueue.add({
           currentPrice: currentNuuvemPrice as number,
           oldPrice: lastRegisteredPrice.nuuvem_price as number,
@@ -104,8 +87,15 @@ export class GameJobProcessor {
           gameUrl: game.nuuvem_url as string
         })
       }
+
+      const isSteamPriceLowest =
+        currentSteamPrice <
+        Math.min(
+          lastRegisteredPrice.nuuvem_price,
+          lastRegisteredPrice.steam_price,
+          currentNuuvemPrice
+        )
       if (isSteamPriceLowest) {
-        this.logger.warn(`[DEBUGER] isSteamPriceLowest triggered`)
         return this.notificationQueue.add({
           currentPrice: currentSteamPrice,
           oldPrice: lastRegisteredPrice.steam_price,
@@ -115,8 +105,10 @@ export class GameJobProcessor {
         })
       }
     }
-    if (currentSteamPrice < lastRegisteredPrice.steam_price) {
-      this.logger.warn(`[DEBUGER] isSteamPriceLowest without nuuvem triggered`)
+    if (
+      lastRegisteredPrice &&
+      currentSteamPrice < lastRegisteredPrice.steam_price
+    ) {
       return this.notificationQueue.add({
         currentPrice: currentSteamPrice,
         oldPrice: lastRegisteredPrice.steam_price,

@@ -36,30 +36,7 @@ describe('GameJobProcessor', () => {
     )
   })
 
-  it('should return if there is no price registered', async () => {
-    jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(10)
-    jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(20)
-    jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce({
-      id: 'id',
-      game_id: 'game_id',
-      steam_price: 10,
-      nuuvem_price: 20,
-      created_at: new Date(),
-      updated_at: null
-    })
-    jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(undefined)
-    const findGameRepoSpy = jest.spyOn(findGameByIdRepo, 'find')
-
-    await job.scrapePrice({
-      gameId: 'id',
-      steamUrl: 'steamUrl',
-      nuuvemUrl: 'nuuvemUrl'
-    })
-
-    expect(findGameRepoSpy).not.toHaveBeenCalled()
-  })
-
-  it('should notify if the current steam price is lower than the lastest registered', async () => {
+  it('should notify if the current steam price is lower than the latest registered', async () => {
     const currentSteamPrice = 10
     const game = {
       id: 'id',
@@ -103,7 +80,7 @@ describe('GameJobProcessor', () => {
     })
   })
 
-  it('should notify if the current nuuvem price is lower than the lastest registered (steam and nuuvem prices)', async () => {
+  it('should notify if the current nuuvem price is lower than the latest registered (steam and nuuvem prices)', async () => {
     const currentNuuvemPrice = 10
     const game = {
       id: 'id',
@@ -147,7 +124,7 @@ describe('GameJobProcessor', () => {
     })
   })
 
-  it('should notify if the current steam price is lower than the lastest registered (steam price only)', async () => {
+  it('should notify if the current steam price is lower than the latest registered (steam price only)', async () => {
     const currentSteamPrice = 10
     const game = {
       id: 'id',
