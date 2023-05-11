@@ -30,7 +30,6 @@ export class TelegramNotifier implements Notifier {
     const CHAT_ID = this.configService.getEnv<number>('TELEGRAM_CHAT_ID')
     if (!CHAT_ID) throw new Error('CHAT_ID is not defined')
 
-    this.logger.warn(`[DEBUGER] trying to send a notification via Telegram`)
     await this.bot.telegram.sendMessage(
       CHAT_ID,
       `⚠️ *Queda de preço: ${data.gameTitle}* \n\n` +
@@ -45,6 +44,5 @@ export class TelegramNotifier implements Notifier {
         }
       }
     )
-    this.logger.warn(`[DEBUGER] telegram notification sent`)
   }
 }

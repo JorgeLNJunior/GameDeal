@@ -31,13 +31,11 @@ export class NotificationQueue {
    * @param data - The data to add to the queue.
    */
   async add(data: NotifyData): Promise<void> {
-    this.logger.warn(`[DEBUGER] trying to add a notification to the queue`)
     await this.queue.add(QueueJobName.NOTIFY_PRICE_DROP, data, {
       attempts: 3,
       removeOnComplete: true,
       removeOnFail: true
     })
-    this.logger.warn(`[DEBUGER] notification added to the queue`)
   }
 
   /**
