@@ -19,7 +19,7 @@ export class GetGamePriceHistoryRepository {
     const pages = Math.ceil(total / perPage)
     const offset = perPage * ((query.page || 1) - 1)
 
-    const results = await this.databaseService
+    let dbQuery = this.databaseService
       .getClient()
       .selectFrom('game_price')
       .selectAll()
@@ -27,7 +27,15 @@ export class GetGamePriceHistoryRepository {
       .offset(offset)
       .limit(perPage)
       .orderBy('created_at', 'asc')
-      .execute()
+
+    if (query.startDate) {
+      dbQuery = dbQuery.where('created_at', '>=', query.startDate)
+    }
+    if (query.endDate) {
+      dbQuery = dbQuery.where('created_at', '<', query.endDate)
+    }
+
+    const results = await dbQuery.execute()
 
     return { results, pages }
   }
