@@ -154,10 +154,15 @@ paths:
           required: true
           description: ID do jogo
         - in: query
-          name: title
+          name: startDate
           schema:
             type: string
-            example: Resident Evil
+            example: 2020-01-01
+        - in: query
+          name: endDate
+          schema:
+            type: string
+            example: 2025-01-01
         - in: query
           name: page
           schema:
