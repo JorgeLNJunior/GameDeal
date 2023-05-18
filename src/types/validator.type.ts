@@ -4,5 +4,5 @@ export interface Validator {
 
 interface ValidationReturn {
   success: boolean
-  errors?: unknown
+  errors?: string[]
 }

@@ -306,27 +306,8 @@ components:
               messages:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    code:
-                      type: string
-                      example: invalid_type
-                    message:
-                      type: string
-                      example: Invalid
-                    path:
-                      type: array
-                      items:
-                        type: string
-                        example: steam_url
-                    expected:
-                      type: string
-                      example: string
-                      nullable: true
-                    received:
-                      type: string
-                      example: undefined
-                      nullable: true
+                  type: string
+                  example: '"url" is undefined'
     404:
       description: Not Found
       content:
