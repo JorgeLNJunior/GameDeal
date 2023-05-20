@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BaseController } from '@localtypes/http/baseController.type'
+import { HttpController } from '@localtypes/http/http.controller.type'
 import { HttpRequest } from '@localtypes/http/http.type'
 import { FastifyReply, FastifyRequest, RouteHandler } from 'fastify'
 
@@ -13,10 +13,10 @@ import { FastifyReply, FastifyRequest, RouteHandler } from 'fastify'
  * handler: adaptRoute(controller)
  * })
  * ```
- * @param controller - A class wich implements `BaseController`.
+ * @param controller - A class wich implements `HttpController`.
  * @returns A fastify `RouteHandler`
  */
-export function adaptRoute(controller: BaseController): RouteHandler {
+export function adaptRoute(controller: HttpController): RouteHandler {
   return async (req: FastifyRequest, res: FastifyReply) => {
     const request: HttpRequest = {
       body: req.body,

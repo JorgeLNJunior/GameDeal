@@ -1,15 +1,19 @@
 import { ResponseBuilder } from '@api/responses/response.builder'
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { BaseController } from '@localtypes/http/baseController.type'
-import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
+import { HttpController } from '@localtypes/http/http.controller.type'
+import {
+  HttpMethod,
+  HttpRequest,
+  HttpResponse
+} from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { AuthService } from '@shared/services/auth.service'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
-export class LoginController implements BaseController {
-  public method = 'POST'
+export class LoginController implements HttpController {
+  public method = HttpMethod.POST
   public url = '/login'
 
   constructor(

@@ -1,14 +1,18 @@
 import { ResponseBuilder } from '@api/responses/response.builder'
-import { BaseController } from '@localtypes/http/baseController.type'
-import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
+import { HttpController } from '@localtypes/http/http.controller.type'
+import {
+  HttpMethod,
+  HttpRequest,
+  HttpResponse
+} from '@localtypes/http/http.type'
 import { injectable } from 'tsyringe'
 
 import { GetGamePriceHistoryRepository } from './repositories/getGamePriceHistory.repository'
 import { IsGameExistRepository } from './repositories/isGameExist.repository'
 
 @injectable()
-export class GetGamePriceHistoryController implements BaseController {
-  public method = 'GET'
+export class GetGamePriceHistoryController implements HttpController {
+  public method = HttpMethod.GET
   public url = '/games/:id/history'
 
   constructor(

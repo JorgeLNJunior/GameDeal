@@ -1,6 +1,10 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { BaseController } from '@localtypes/http/baseController.type'
-import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
+import { HttpController } from '@localtypes/http/http.controller.type'
+import {
+  HttpMethod,
+  HttpRequest,
+  HttpResponse
+} from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { ResponseBuilder } from '@modules/api/responses/response.builder'
 import { AddGameDTO } from '@modules/api/routes/addGame/dto/addGame.dto'
@@ -12,8 +16,8 @@ import { IsGameAlreadyInsertedRepository } from './repositories/isGameAlreadyIns
 import { AddGameValidator } from './validator/addGame.validator'
 
 @injectable()
-export class AddGameController implements BaseController {
-  method = 'POST'
+export class AddGameController implements HttpController {
+  method = HttpMethod.POST
   url = '/games'
 
   constructor(

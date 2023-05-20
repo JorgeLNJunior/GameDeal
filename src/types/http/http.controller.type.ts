@@ -1,8 +1,8 @@
-import { HttpRequest, HttpResponse } from './http.type'
+import { HttpMethod, HttpRequest, HttpResponse } from './http.type'
 
-export interface BaseController {
+export interface HttpController {
   /** The route HTTP method. */
-  method: string
+  method: HttpMethod
   /** The route url. */
   url: string
 

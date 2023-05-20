@@ -10,3 +10,11 @@ export interface HttpResponse {
   statusCode: number
   body: unknown
 }
+
+export enum HttpMethod {
+  'GET',
+  'POST',
+  'PATCH',
+  'PUT',
+  'HEAD'
+}

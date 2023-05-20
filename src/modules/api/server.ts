@@ -1,6 +1,6 @@
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { BaseController } from '@localtypes/http/baseController.type'
+import { HttpController } from '@localtypes/http/http.controller.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { fastify, FastifyInstance } from 'fastify'
 import { inject, singleton } from 'tsyringe'
@@ -74,9 +74,9 @@ export class Server {
    *    new DogController(),
    * )
    * ```
-   * @param controllers - A list of `BaseController`.
+   * @param controllers - A list of `HttpController`.
    */
-  public registerControllers(...controllers: BaseController[]): void {
+  public registerControllers(...controllers: HttpController[]): void {
     this.logger.info('[Server] registering all controllers')
     controllers.forEach((controller) => {
       this.fastify.route({

@@ -1,6 +1,10 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { BaseController } from '@localtypes/http/baseController.type'
-import { HttpRequest, HttpResponse } from '@localtypes/http/http.type'
+import { HttpController } from '@localtypes/http/http.controller.type'
+import {
+  HttpMethod,
+  HttpRequest,
+  HttpResponse
+} from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { ResponseBuilder } from '@modules/api/responses/response.builder'
 import { inject, injectable } from 'tsyringe'
@@ -8,8 +12,8 @@ import { inject, injectable } from 'tsyringe'
 import { FindGamesRepository } from './repositories/findGames.repository'
 
 @injectable()
-export class FindGamesController implements BaseController {
-  public method = 'GET'
+export class FindGamesController implements HttpController {
+  public method = HttpMethod.GET
   public url = '/games'
 
   constructor(
