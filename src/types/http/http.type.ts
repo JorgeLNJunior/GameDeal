@@ -12,9 +12,9 @@ export interface HttpResponse {
 }
 
 export enum HttpMethod {
-  'GET',
-  'POST',
-  'PATCH',
-  'PUT',
-  'HEAD'
+  GET = 'GET',
+  POST = 'POST',
+  PATCH = 'PATCH',
+  PUT = 'PUT',
+  HEAD = 'HEAD'
 }
