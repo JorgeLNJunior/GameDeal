@@ -25,7 +25,7 @@ describe('GetGamePriceController', () => {
     )
   })
 
-  it('should return a NOT_FOUND rseponse if the game was not found', async () => {
+  it('should return a NOT_FOUND response if the game was not found', async () => {
     jest.spyOn(findGameByIdRepository, 'find').mockResolvedValueOnce(undefined)
 
     const response = await controller.handle({
