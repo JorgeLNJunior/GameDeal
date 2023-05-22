@@ -13,7 +13,7 @@ import { IsGameExistRepository } from './repositories/isGameExist.repository'
 @injectable()
 export class GetGamePriceHistoryController implements HttpController {
   public method = HttpMethod.GET
-  public url = '/games/:id/history'
+  public url = '/games/:id/price/history'
 
   constructor(
     private readonly getGamePriceHistoryRepo: GetGamePriceHistoryRepository,
