@@ -1,18 +1,18 @@
 openapi: "3.0.2"
 info:
   title: Game Price Tracker API
-  version: "0.0.1"
+  version: "0.0.0"
   license:
     name: MIT
 servers:
   - url: http://localhost:3000
-    description: Localhost
+    description: localhost
 paths:
   /login:
     post:
       summary: Retorna um token de autenticação
       tags:
-        - "Autenticação"
+        - "Auth"
       requestBody:
         $ref: "#/components/requestBodies/login"
       responses:
@@ -119,7 +119,7 @@ paths:
 
   /games/{id}/price:
     get:
-      summary: Obter o preço atual de um jogo a partir do ID
+      summary: Obter o preço atual de um jogo
       tags:
         - "Game"
       parameters:
@@ -143,7 +143,7 @@ paths:
 
   /games/{id}/price/historical:
     get:
-      summary: Obter o menor preço histórico de um jogo a partir do ID
+      summary: Obter o menor preço histórico de um jogo
       tags:
         - "Game"
       parameters:
