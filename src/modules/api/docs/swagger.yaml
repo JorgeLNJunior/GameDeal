@@ -141,6 +141,30 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
+  /games/{id}/price/historical:
+    get:
+      summary: Obter o menor preço histórico de um jogo a partir do ID
+      tags:
+        - "Game"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID do jogo
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/game_price"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+
   /games/{id}/history:
     get:
       summary: Obter o preço atual de um jogo a partir do ID
