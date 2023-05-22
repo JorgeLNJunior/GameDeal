@@ -165,9 +165,9 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
-  /games/{id}/history:
+  /games/{id}/price/history:
     get:
-      summary: Obter o preço atual de um jogo a partir do ID
+      summary: Obter o histórico de preço de um jogo
       tags:
         - "Game"
       parameters:
