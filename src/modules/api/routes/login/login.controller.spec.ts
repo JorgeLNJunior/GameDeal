@@ -31,7 +31,8 @@ describe('LoginController', () => {
       headers: {},
       params: {},
       query: {},
-      body: data
+      body: data,
+      url: ''
     })
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -50,7 +51,8 @@ describe('LoginController', () => {
       headers: {},
       params: {},
       query: {},
-      body: data
+      body: data,
+      url: ''
     })
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -69,7 +71,8 @@ describe('LoginController', () => {
       headers: {},
       params: {},
       query: {},
-      body: data
+      body: data,
+      url: ''
     })
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -91,7 +94,8 @@ describe('LoginController', () => {
       headers: {},
       params: {},
       query: {},
-      body: data
+      body: data,
+      url: ''
     })
 
     expect(response.statusCode).toBe(500)

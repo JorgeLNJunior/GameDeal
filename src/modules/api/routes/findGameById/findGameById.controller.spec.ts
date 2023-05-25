@@ -1,5 +1,7 @@
 import { PinoLogger } from '@infra/pino.logger'
+import { ApplicationCache } from '@localtypes/http/cache.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
+import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
 import { FindGameByIdController } from './findGameById.controller'
@@ -7,10 +9,12 @@ import { FindGameByIdController } from './findGameById.controller'
 describe('FindGameByIdController', () => {
   let controller: FindGameByIdController
   let repository: FindGameByIdRepository
+  let cache: ApplicationCache
 
   beforeEach(async () => {
     repository = container.resolve(FindGameByIdRepository)
-    controller = new FindGameByIdController(repository, new PinoLogger())
+    cache = new FakeCache()
+    controller = new FindGameByIdController(repository, cache, new PinoLogger())
   })
 
   it('should return a OK reponse', async () => {
@@ -28,7 +32,8 @@ describe('FindGameByIdController', () => {
       body: {},
       headers: {},
       query: {},
-      params: { id: game.id }
+      params: { id: game.id },
+      url: ''
     })
 
     expect(response.statusCode).toBe(200)
@@ -42,7 +47,8 @@ describe('FindGameByIdController', () => {
       body: {},
       headers: {},
       query: {},
-      params: { id: 'id' }
+      params: { id: 'id' },
+      url: ''
     })
 
     console.log(response.body)
@@ -61,7 +67,8 @@ describe('FindGameByIdController', () => {
       body: {},
       headers: {},
       query: {},
-      params: { id: 'id' }
+      params: { id: 'id' },
+      url: ''
     })
 
     expect(response.statusCode).toBe(500)

@@ -1,8 +1,10 @@
 import { DatabaseService } from '@database/database.service'
 import { PinoLogger } from '@infra/pino.logger'
 import { Game, GamePrice } from '@localtypes/entities.type'
+import { ApplicationCache } from '@localtypes/http/cache.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
+import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
 import { GetGamePriceController } from './getCurrentGamePrice.controller'
@@ -11,16 +13,19 @@ describe('GetGamePriceController', () => {
   let controller: GetGamePriceController
   let getCurrentGamePriceRepository: GetCurrentGamePriceRepository
   let findGameByIdRepository: FindGameByIdRepository
+  let cache: ApplicationCache
 
   beforeEach(() => {
     const db = container.resolve(DatabaseService)
 
     getCurrentGamePriceRepository = new GetCurrentGamePriceRepository(db)
     findGameByIdRepository = new FindGameByIdRepository(db)
+    cache = new FakeCache()
 
     controller = new GetGamePriceController(
       getCurrentGamePriceRepository,
       findGameByIdRepository,
+      cache,
       new PinoLogger()
     )
   })
@@ -34,7 +39,8 @@ describe('GetGamePriceController', () => {
       },
       query: {},
       body: {},
-      headers: {}
+      headers: {},
+      url: ''
     })
 
     expect(response.statusCode).toBe(404)
@@ -75,7 +81,8 @@ describe('GetGamePriceController', () => {
       },
       query: {},
       body: {},
-      headers: {}
+      headers: {},
+      url: ''
     })
 
     expect(response.statusCode).toBe(200)
@@ -93,7 +100,8 @@ describe('GetGamePriceController', () => {
       },
       query: {},
       body: {},
-      headers: {}
+      headers: {},
+      url: ''
     })
 
     expect(response.statusCode).toBe(500)

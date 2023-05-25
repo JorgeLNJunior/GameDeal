@@ -54,7 +54,8 @@ describe('AddGameController', () => {
         authorization: `Bearer ${token}`
       },
       params: {},
-      query: {}
+      query: {},
+      url: ''
     })
 
     expect(response.statusCode).toBe(201)
@@ -71,7 +72,8 @@ describe('AddGameController', () => {
         authorization: `Bearer ${token}`
       },
       params: {},
-      query: {}
+      query: {},
+      url: ''
     })
 
     expect(response.statusCode).toBe(400)
@@ -91,7 +93,8 @@ describe('AddGameController', () => {
         authorization: `Bearer ${token}`
       },
       params: {},
-      query: {}
+      query: {},
+      url: ''
     })
 
     expect(response.statusCode).toBe(400)
@@ -102,7 +105,8 @@ describe('AddGameController', () => {
       body: {},
       params: {},
       query: {},
-      headers: {}
+      headers: {},
+      url: ''
     })
 
     expect(response.statusCode).toBe(401)
@@ -120,7 +124,8 @@ describe('AddGameController', () => {
       query: {},
       headers: {
         authorization: 'Bearer invalid.token'
-      }
+      },
+      url: ''
     })
 
     expect(response.statusCode).toBe(401)
@@ -145,7 +150,8 @@ describe('AddGameController', () => {
         authorization: `Bearer ${token}`
       },
       params: {},
-      query: {}
+      query: {},
+      url: ''
     })
 
     expect(response.statusCode).toBe(500)

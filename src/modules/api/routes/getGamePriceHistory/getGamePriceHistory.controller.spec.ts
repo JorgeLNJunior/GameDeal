@@ -1,3 +1,6 @@
+import { PinoLogger } from '@infra/pino.logger'
+import { ApplicationCache } from '@localtypes/http/cache.type'
+import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
 import { GetGamePriceHistoryController } from './getGamePriceHistory.controller'
@@ -8,13 +11,17 @@ describe('GetGamePriceHistoryController', () => {
   let controller: GetGamePriceHistoryController
   let getGamePriceHistoryRepo: GetGamePriceHistoryRepository
   let isGameExistRepo: IsGameExistRepository
+  let cache: ApplicationCache
 
   beforeEach(async () => {
+    cache = new FakeCache()
     getGamePriceHistoryRepo = container.resolve(GetGamePriceHistoryRepository)
     isGameExistRepo = container.resolve(IsGameExistRepository)
     controller = new GetGamePriceHistoryController(
       getGamePriceHistoryRepo,
-      isGameExistRepo
+      isGameExistRepo,
+      cache,
+      new PinoLogger()
     )
   })
 
@@ -39,7 +46,8 @@ describe('GetGamePriceHistoryController', () => {
       body: {},
       headers: {},
       query: {},
-      params: { id: 'id' }
+      params: { id: 'id' },
+      url: ''
     })
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -54,7 +62,8 @@ describe('GetGamePriceHistoryController', () => {
       body: {},
       headers: {},
       query: {},
-      params: { id: 'invalid-id' }
+      params: { id: 'invalid-id' },
+      url: ''
     })
 
     expect(response.statusCode).toBe(404)

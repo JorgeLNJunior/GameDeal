@@ -1,3 +1,6 @@
+import { PinoLogger } from '@infra/pino.logger'
+import { ApplicationCache } from '@localtypes/http/cache.type'
+import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
 import { IsGameExistRepository } from '../getGamePriceHistory/repositories/isGameExist.repository'
@@ -8,15 +11,19 @@ describe('GetLowestHistoricalPriceController', () => {
   let controller: GetLowestHistoricalPriceController
   let getLowestHistoricalPriceRepo: GetLowestHistoricalPriceRepository
   let isGameExistRepo: IsGameExistRepository
+  let cache: ApplicationCache
 
   beforeEach(async () => {
+    cache = new FakeCache()
     getLowestHistoricalPriceRepo = container.resolve(
       GetLowestHistoricalPriceRepository
     )
     isGameExistRepo = container.resolve(IsGameExistRepository)
     controller = new GetLowestHistoricalPriceController(
       getLowestHistoricalPriceRepo,
-      isGameExistRepo
+      isGameExistRepo,
+      cache,
+      new PinoLogger()
     )
   })
 
@@ -36,7 +43,8 @@ describe('GetLowestHistoricalPriceController', () => {
       body: {},
       headers: {},
       query: {},
-      params: { id: 'id' }
+      params: { id: 'id' },
+      url: ''
     })
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -51,7 +59,8 @@ describe('GetLowestHistoricalPriceController', () => {
       body: {},
       headers: {},
       query: {},
-      params: { id: 'invalid-id' }
+      params: { id: 'invalid-id' },
+      url: ''
     })
 
     expect(response.statusCode).toBe(404)

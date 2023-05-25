@@ -1,4 +1,6 @@
 import { PinoLogger } from '@infra/pino.logger'
+import { ApplicationCache } from '@localtypes/http/cache.type'
+import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
 import { FindGamesController } from './findGames.controller'
@@ -7,10 +9,12 @@ import { FindGamesRepository } from './repositories/findGames.repository'
 describe('FindGamesController', () => {
   let controller: FindGamesController
   let repository: FindGamesRepository
+  let cache: ApplicationCache
 
   beforeEach(async () => {
+    cache = new FakeCache()
     repository = container.resolve(FindGamesRepository)
-    controller = new FindGamesController(repository, new PinoLogger())
+    controller = new FindGamesController(repository, cache, new PinoLogger())
   })
 
   it('should return a OK reponse and a list of games', async () => {
@@ -27,7 +31,8 @@ describe('FindGamesController', () => {
       query: {},
       headers: {},
       body: {},
-      params: {}
+      params: {},
+      url: ''
     }
 
     jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
@@ -43,7 +48,8 @@ describe('FindGamesController', () => {
       query: {},
       headers: {},
       body: {},
-      params: {}
+      params: {},
+      url: ''
     }
     jest
       .spyOn(repository, 'find')

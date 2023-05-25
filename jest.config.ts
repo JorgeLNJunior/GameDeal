@@ -16,6 +16,7 @@ const config: JestConfigWithTsJest = {
   coverageProvider: 'v8',
   moduleNameMapper: {
     '^@src/(.*)$': '<rootDir>/src/$1',
+    '^@testing/(.*)$': '<rootDir>/testing/$1',
     '^@config/(.*)$': '<rootDir>/src/config/$1',
     '^@dependencies/(.*)$': '<rootDir>/src/dependencies/$1',
     '^@modules/(.*)$': '<rootDir>/src/modules/$1',
