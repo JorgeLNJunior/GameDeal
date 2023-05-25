@@ -80,13 +80,13 @@ export default class Main {
       // gracefull shutdown
       process.on('SIGINT', async () => {
         this.logger.info('Main] received SIGINT signal')
+        await this.server.close()
         await this.dbService.disconnect()
         await this.gameQueue.stop()
         await this.gameWorker.stop()
         await this.notificationQueue.init()
         await this.notificationWorker.init()
         this.cronService.stop()
-        await this.server.close()
         this.logger.info('[Main] application stopped')
         process.exit(0)
       })

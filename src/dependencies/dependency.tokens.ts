@@ -4,3 +4,5 @@ export const PINO_LOGGER = 'PinoLogger'
 export const NOTIFIERS = 'Notificators'
 /** Notifiers injection token */
 export const CHEERIO_PARSER = 'CheerioParser'
+/** Notifiers injection token */
+export const REDIS_CACHE = 'RedisCache'

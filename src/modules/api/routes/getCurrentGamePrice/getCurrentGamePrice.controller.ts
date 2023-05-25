@@ -1,4 +1,5 @@
-import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { PINO_LOGGER, REDIS_CACHE } from '@dependencies/dependency.tokens'
+import { ApplicationCache } from '@localtypes/http/cache.type'
 import { HttpController } from '@localtypes/http/http.controller.type'
 import {
   HttpMethod,
@@ -19,11 +20,20 @@ export class GetGamePriceController implements HttpController {
   constructor(
     private getCurrentGamePriceRepository: GetCurrentGamePriceRepository,
     private findGameByIdRepository: FindGameByIdRepository,
+    @inject(REDIS_CACHE) private cacheService: ApplicationCache,
     @inject(PINO_LOGGER) private logger: ApplicationLogger
   ) {}
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
+      const cache = await this.cacheService.get(request.url)
+      if (cache) {
+        const headers = {
+          'cache-control': `max-age=${cache.expires}`
+        }
+        return ResponseBuilder.notModified(cache.value, headers)
+      }
+
       const isGameExists = await this.findGameByIdRepository.find(
         request.params.id
       )
@@ -32,6 +42,7 @@ export class GetGamePriceController implements HttpController {
       const price = await this.getCurrentGamePriceRepository.getPrice(
         request.params.id
       )
+      this.cacheService.set(request.url, price, 60 * 5)
       return ResponseBuilder.ok(price)
     } catch (error) {
       this.logger.error(error, '[FindGameByIdController] internal server error')

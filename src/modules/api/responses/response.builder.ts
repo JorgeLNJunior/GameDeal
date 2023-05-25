@@ -28,6 +28,23 @@ export class ResponseBuilder {
   }
 
   /**
+   * Build a HTTP 304 response.
+   * @example
+   * ```
+   * return ResponseBuilder.notModified(data, headers)
+   * ```
+   * @param data - The data to be returned.
+   * @param headers - The headers to be returned.
+   * @returns A `HttpResponse`.
+   */
+  static notModified(
+    data?: unknown,
+    headers?: Record<string, unknown>
+  ): HttpResponse {
+    return { statusCode: 200, body: data, headers }
+  }
+
+  /**
    * Build a HTTP 400 response.
    * @example
    * ```

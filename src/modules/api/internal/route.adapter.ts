@@ -22,10 +22,14 @@ export function adaptRoute(controller: HttpController): RouteHandler {
       body: req.body,
       params: req.params as any,
       headers: req.headers as any,
-      query: req.query as any
+      query: req.query as any,
+      url: req.url
     }
     const response = await controller.handle(request)
 
-    return res.status(response.statusCode).send(response.body)
+    return res
+      .status(response.statusCode)
+      .headers(response.headers || {})
+      .send(response.body)
   }
 }

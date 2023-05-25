@@ -4,11 +4,13 @@ export interface HttpRequest {
   body: any
   headers: Record<string, string>
   params: Record<string, string>
+  url: string
 }
 
 export interface HttpResponse {
   statusCode: number
   body: unknown
+  headers?: Record<string, unknown>
 }
 
 export enum HttpMethod {
