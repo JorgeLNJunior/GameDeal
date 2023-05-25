@@ -27,12 +27,17 @@ export class GetLowestHistoricalPriceController implements HttpController {
 
   async handle(request: HttpRequest): Promise<HttpResponse> {
     try {
-      const cache = await this.cacheService.get(request.url)
-      if (cache) {
-        const headers = {
-          'Cache-Control': `max-age=${cache.expires}`
+      const noCache =
+        request.headers['cache-control'] &&
+        request.headers['cache-control'].includes('no-cache')
+      if (!noCache) {
+        const cache = await this.cacheService.get(request.url)
+        if (cache) {
+          const headers = {
+            'Cache-Control': `max-age=${cache.expires}`
+          }
+          return ResponseBuilder.notModified(cache.value, headers)
         }
-        return ResponseBuilder.notModified(cache.value, headers)
       }
 
       const isGameExist = await this.isGameExistRepo.get(request.params.id)
