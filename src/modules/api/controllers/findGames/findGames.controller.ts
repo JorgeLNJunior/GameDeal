@@ -28,7 +28,7 @@ export class FindGamesController implements HttpController {
       const cache = await this.cacheService.get(request.url)
       if (cache) {
         const headers = {
-          'cache-control': `max-age=${cache.expires}`
+          'Cache-Control': `max-age=${cache.expires}`
         }
         return ResponseBuilder.notModified(cache.value, headers)
       }
