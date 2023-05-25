@@ -40,6 +40,61 @@ describe('FindGameByIdController', () => {
     expect(response.body).toEqual(game)
   })
 
+  it('should return OK with cache enabled', async () => {
+    const game = {
+      id: 'id',
+      title: 'title',
+      steam_url: 'stem_url',
+      nuuvem_url: 'nuuvem_url',
+      created_at: new Date(),
+      updated_at: null
+    }
+    jest.spyOn(repository, 'find').mockResolvedValueOnce(game)
+    const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
+      value: game,
+      expires: 60
+    })
+
+    const response = await controller.handle({
+      body: {},
+      headers: {},
+      query: {},
+      params: { id: game.id },
+      url: ''
+    })
+
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toEqual(game)
+    expect(cacheSpy).toHaveBeenCalled()
+  })
+
+  it('should return OK with cache disabled', async () => {
+    const game = {
+      id: 'id',
+      title: 'title',
+      steam_url: 'stem_url',
+      nuuvem_url: 'nuuvem_url',
+      created_at: new Date(),
+      updated_at: null
+    }
+    jest.spyOn(repository, 'find').mockResolvedValueOnce(game)
+    const cacheSpy = jest.spyOn(cache, 'get')
+
+    const response = await controller.handle({
+      body: {},
+      headers: {
+        'cache-control': 'no-cache'
+      },
+      query: {},
+      params: { id: game.id },
+      url: ''
+    })
+
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toEqual(game)
+    expect(cacheSpy).not.toHaveBeenCalled()
+  })
+
   it('should return a NOT_FOUND response if the game was not found', async () => {
     jest.spyOn(repository, 'find').mockResolvedValueOnce(undefined)
 
@@ -50,8 +105,6 @@ describe('FindGameByIdController', () => {
       params: { id: 'id' },
       url: ''
     })
-
-    console.log(response.body)
 
     expect(response.statusCode).toBe(404)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

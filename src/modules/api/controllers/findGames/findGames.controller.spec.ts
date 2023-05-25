@@ -18,15 +18,17 @@ describe('FindGamesController', () => {
   })
 
   it('should return a OK reponse and a list of games', async () => {
-    const game = {
-      title: 'title',
-      id: 'id',
-      steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url',
-      created_at: new Date(),
-      updated_at: new Date()
-    }
-    const result = { results: [game], pages: 1 }
+    const games = [
+      {
+        title: 'title',
+        id: 'id',
+        steam_url: 'steam_url',
+        nuuvem_url: 'nuuvem_url',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ]
+    const result = { results: games, pages: 1 }
     const request = {
       query: {},
       headers: {},
@@ -40,7 +42,72 @@ describe('FindGamesController', () => {
     const response = await controller.handle(request)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    expect((response.body as any).results[0]).toMatchObject(game)
+    expect((response.body as any).results[0]).toMatchObject(games[0])
+  })
+
+  it('should return a OK if cache is enabled', async () => {
+    const games = [
+      {
+        title: 'title',
+        id: 'id',
+        steam_url: 'steam_url',
+        nuuvem_url: 'nuuvem_url',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ]
+    const result = { results: games, pages: 1 }
+    const request = {
+      query: {},
+      headers: {},
+      body: {},
+      params: {},
+      url: ''
+    }
+
+    jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
+    const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
+      value: result,
+      expires: 60
+    })
+
+    const response = await controller.handle(request)
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect((response.body as any).results[0]).toMatchObject(games[0])
+    expect(cacheSpy).toHaveBeenCalled()
+  })
+
+  it('should return a OK if cache is disabled', async () => {
+    const games = [
+      {
+        title: 'title',
+        id: 'id',
+        steam_url: 'steam_url',
+        nuuvem_url: 'nuuvem_url',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ]
+    const result = { results: games, pages: 1 }
+    const request = {
+      query: {},
+      headers: {
+        'cache-control': 'no-cache'
+      },
+      body: {},
+      params: {},
+      url: ''
+    }
+
+    jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
+    const cacheSpy = jest.spyOn(cache, 'get')
+
+    const response = await controller.handle(request)
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect((response.body as any).results[0]).toMatchObject(games[0])
+    expect(cacheSpy).not.toHaveBeenCalled()
   })
 
   it('should return a INTERNAL_ERROR reponse if an exception was trown', async () => {

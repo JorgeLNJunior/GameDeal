@@ -30,26 +30,6 @@ describe('GetGamePriceController', () => {
     )
   })
 
-  it('should return a NOT_FOUND response if the game was not found', async () => {
-    jest.spyOn(findGameByIdRepository, 'find').mockResolvedValueOnce(undefined)
-
-    const response = await controller.handle({
-      params: {
-        id: 'not-found'
-      },
-      query: {},
-      body: {},
-      headers: {},
-      url: ''
-    })
-
-    expect(response.statusCode).toBe(404)
-    expect(response.body).toStrictEqual({
-      error: 'Not Found',
-      message: 'Game not found'
-    })
-  })
-
   it('should return a OK response an a price object', async () => {
     const game: Game = {
       id: 'id',
@@ -87,6 +67,111 @@ describe('GetGamePriceController', () => {
 
     expect(response.statusCode).toBe(200)
     expect(response.body).toMatchObject(price)
+  })
+
+  it('should return a OK if cache is enabled', async () => {
+    const game: Game = {
+      id: 'id',
+      title: 'Cyberpunk 2077',
+      steam_url: 'steam_url',
+      nuuvem_url: 'nuuvem_url',
+      created_at: new Date(),
+      updated_at: null
+    }
+    const price: GamePrice = {
+      id: 'id',
+      game_id: 'id',
+      steam_price: 10,
+      nuuvem_price: 20,
+      created_at: new Date(),
+      updated_at: null
+    }
+    jest
+      .spyOn(findGameByIdRepository, 'find')
+      .mockImplementationOnce(() => Promise.resolve(game))
+    jest
+      .spyOn(getCurrentGamePriceRepository, 'getPrice')
+      .mockImplementationOnce(() => Promise.resolve(price))
+    const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
+      value: price,
+      expires: 60
+    })
+
+    const response = await controller.handle({
+      params: {
+        id: '1'
+      },
+      query: {},
+      body: {},
+      headers: {},
+      url: ''
+    })
+
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toMatchObject(price)
+    expect(cacheSpy).toHaveBeenCalled()
+  })
+
+  it('should return a OK if cache is disabled', async () => {
+    const game: Game = {
+      id: 'id',
+      title: 'Cyberpunk 2077',
+      steam_url: 'steam_url',
+      nuuvem_url: 'nuuvem_url',
+      created_at: new Date(),
+      updated_at: null
+    }
+    const price: GamePrice = {
+      id: 'id',
+      game_id: 'id',
+      steam_price: 10,
+      nuuvem_price: 20,
+      created_at: new Date(),
+      updated_at: null
+    }
+    jest
+      .spyOn(findGameByIdRepository, 'find')
+      .mockImplementationOnce(() => Promise.resolve(game))
+    jest
+      .spyOn(getCurrentGamePriceRepository, 'getPrice')
+      .mockImplementationOnce(() => Promise.resolve(price))
+    const cacheSpy = jest.spyOn(cache, 'get')
+
+    const response = await controller.handle({
+      params: {
+        id: '1'
+      },
+      query: {},
+      body: {},
+      headers: {
+        'cache-control': 'no-cache'
+      },
+      url: ''
+    })
+
+    expect(response.statusCode).toBe(200)
+    expect(response.body).toMatchObject(price)
+    expect(cacheSpy).not.toHaveBeenCalled()
+  })
+
+  it('should return a NOT_FOUND response if the game was not found', async () => {
+    jest.spyOn(findGameByIdRepository, 'find').mockResolvedValueOnce(undefined)
+
+    const response = await controller.handle({
+      params: {
+        id: 'not-found'
+      },
+      query: {},
+      body: {},
+      headers: {},
+      url: ''
+    })
+
+    expect(response.statusCode).toBe(404)
+    expect(response.body).toStrictEqual({
+      error: 'Not Found',
+      message: 'Game not found'
+    })
   })
 
   it('should return a INTERNAL_ERROR response if an exception was trown', async () => {
