@@ -14,6 +14,7 @@ import { CronService } from '@cron/cron.service'
 import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
 import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { PinoLogger } from '@infra/pino.logger'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { Server } from '@modules/api/server'
 import { GameWorker } from '@modules/worker/game/game.worker'
@@ -35,15 +36,15 @@ export default class Main {
    * @param cronService - An instance of `CronService`.
    * @param logger - An instance of `ApplicationLogger`.
    */
-  constructor(
-    private server: Server,
-    private dbService: DatabaseService,
-    private gameQueue: GameQueue,
-    private notificationQueue: NotificationQueue,
-    private gameWorker: GameWorker,
-    private notificationWorker: NotificationWorker,
-    private cronService: CronService,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly server: Server,
+    private readonly dbService: DatabaseService,
+    private readonly gameQueue: GameQueue,
+    private readonly notificationQueue: NotificationQueue,
+    private readonly gameWorker: GameWorker,
+    private readonly notificationWorker: NotificationWorker,
+    private readonly cronService: CronService,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
   /**
@@ -53,7 +54,7 @@ export default class Main {
    * const main = new Main(params...).start()
    * ```
    */
-  async start(): Promise<void> {
+  async start (): Promise<void> {
     try {
       this.server.registerControllers(
         container.resolve(AddGameController),
@@ -75,17 +76,16 @@ export default class Main {
       this.cronService.start()
       await this.server.listen()
 
-      this.logger.info('[Main] application started')
-
       // gracefull shutdown
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
       process.on('SIGINT', async () => {
         this.logger.info('Main] received SIGINT signal')
         await this.server.close()
         await this.dbService.disconnect()
         await this.gameQueue.stop()
         await this.gameWorker.stop()
-        await this.notificationQueue.init()
-        await this.notificationWorker.init()
+        await this.notificationQueue.stop()
+        await this.notificationWorker.stop()
         this.cronService.stop()
         this.logger.info('[Main] application stopped')
         process.exit(0)
@@ -97,4 +97,8 @@ export default class Main {
   }
 }
 
-container.resolve(Main).start()
+;void (async () => {
+  await container.resolve(Main).start().then(() => {
+    new PinoLogger().info('[Main] application started')
+  })
+})()

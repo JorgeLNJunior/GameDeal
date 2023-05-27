@@ -1,16 +1,16 @@
 import ConfigService from '@config/config.service'
 import { PinoLogger } from '@infra/pino.logger'
-import { ApplicationCache, CacheData } from '@localtypes/http/cache.type'
+import type { ApplicationCache, CacheData } from '@localtypes/http/cache.type'
 import { DEFAULT_CACHE_TTL } from '@localtypes/http/cache.type'
 import { Redis } from 'ioredis'
 import { singleton } from 'tsyringe'
 
 @singleton()
 export class RedisCache implements ApplicationCache {
-  private redis: Redis
-  private config: ConfigService
+  private readonly redis: Redis
+  private readonly config: ConfigService
 
-  constructor() {
+  constructor () {
     this.config = new ConfigService(new PinoLogger())
     this.redis = new Redis({
       host: this.config.getEnv('REDIS_HOST'),
@@ -28,9 +28,9 @@ export class RedisCache implements ApplicationCache {
    * @param key - The cache key.
    * @returns The value and the expiration in seconds.
    */
-  async get(key: string): Promise<CacheData | undefined> {
+  async get (key: string): Promise<CacheData | undefined> {
     const data = await this.redis.get(key)
-    if (!data) return undefined
+    if (data === null) return undefined
 
     const expires = await this.redis.ttl(key)
     const value = JSON.parse(data)
@@ -47,8 +47,8 @@ export class RedisCache implements ApplicationCache {
    * @param value - The value to be stored.
    * @param expire - The expiration time in seconds. Default 60.
    */
-  async set(key: string, value: unknown, expire?: number): Promise<void> {
+  async set (key: string, value: unknown, expire?: number): Promise<void> {
     await this.redis.set(key, JSON.stringify(value))
-    await this.redis.expire(key, expire || DEFAULT_CACHE_TTL)
+    await this.redis.expire(key, expire ?? DEFAULT_CACHE_TTL)
   }
 }

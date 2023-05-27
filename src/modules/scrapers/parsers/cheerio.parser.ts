@@ -1,8 +1,8 @@
-import { HTMLParser } from '@localtypes/html.parser'
+import type { HTMLParser } from '@localtypes/html.parser'
 import * as cheerio from 'cheerio'
 
 export class CheerioParser implements HTMLParser {
-  getElementValue(
+  getElementValue (
     content: string,
     element: string,
     removeElements?: string[]
@@ -14,7 +14,7 @@ export class CheerioParser implements HTMLParser {
     })
 
     const value = selector(element)
-    if (!value.html()) return undefined
+    if (value.html() === null) return undefined
 
     return value.text().trim()
   }

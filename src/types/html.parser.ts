@@ -1,7 +1,7 @@
 export interface HTMLParser {
-  getElementValue(
+  getElementValue: (
     content: string,
     element: string,
     removeElements?: string[]
-  ): string | undefined
+  ) => string | undefined
 }

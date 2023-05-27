@@ -4,15 +4,15 @@ import { injectable } from 'tsyringe'
 
 @injectable()
 export class AuthService {
-  private SECRET = this.config.getEnv<string>('JWT_SECRET') as string
+  private readonly SECRET = this.config.getEnv<string>('JWT_SECRET') as string
 
-  constructor(private config: ConfigService) {}
+  constructor (private readonly config: ConfigService) {}
 
   /**
    * Generates a new JWT Token token.
    * @returns - A JWT token.
    */
-  async getJwtToken(): Promise<string> {
+  async getJwtToken (): Promise<string> {
     return jwt.sign({}, this.SECRET, { expiresIn: '1d' })
   }
 
@@ -21,10 +21,10 @@ export class AuthService {
    * @param token - A JWT token to be verified.
    * @returns If the token is valid or not.
    */
-  async verifyToken(token: string): Promise<JWTValidationResponse> {
-    return new Promise((resolve) => {
+  async verifyToken (token: string): Promise<JWTValidationResponse> {
+    return await new Promise((resolve) => {
       jwt.verify(token, this.SECRET, (err) => {
-        if (err) {
+        if (err !== null) {
           resolve({
             isValid: false,
             error: err.message

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AddGameDTO } from '@api/controllers/addGame/dto/addGame.dto'
+import type { AddGameDTO } from '@api/controllers/addGame/dto/addGame.dto'
 
 import { AddGameValidator } from './addGame.validator'
 

@@ -1,5 +1,5 @@
 import { PinoLogger } from '@infra/pino.logger'
-import { ApplicationCronJob } from '@localtypes/cron.type'
+import type { ApplicationCronJob } from '@localtypes/cron.type'
 
 import { CronService } from './cron.service'
 
@@ -13,7 +13,7 @@ describe('CronService', () => {
   it('should register a job', async () => {
     class FakeJob implements ApplicationCronJob {
       public cronTime = '00 00 * * *'
-      async jobFunction() {
+      async jobFunction (): Promise<void> {
         console.log('')
       }
     }
@@ -26,7 +26,7 @@ describe('CronService', () => {
   it('should start all jobs', async () => {
     class FakeJob implements ApplicationCronJob {
       public cronTime = '00 00 * * *'
-      async jobFunction() {
+      async jobFunction (): Promise<void> {
         console.log('')
       }
     }
@@ -42,7 +42,7 @@ describe('CronService', () => {
   it('should stop all jobs', async () => {
     class FakeJob implements ApplicationCronJob {
       public cronTime = '00 00 * * *'
-      async jobFunction() {
+      async jobFunction (): Promise<void> {
         console.log('')
       }
     }

@@ -1,27 +1,26 @@
-import { Validator } from '@localtypes/validator.type'
+import type { ValidationResult, Validator } from '@localtypes/validator.type'
 
-import { AddGameDTO } from '../dto/addGame.dto'
+import type { AddGameDTO } from '../dto/addGame.dto'
 
 export class AddGameValidator implements Validator {
-  public validate(data: AddGameDTO) {
+  public validate (data: AddGameDTO): ValidationResult {
     const errors: string[] = []
 
-    if (!data.title) {
+    if (data.title == null) {
       errors.push('"title" is required')
     }
     if (typeof data.title !== 'string') {
       errors.push('"title" must be a string')
     }
-    if (!data.steam_url) {
+    if (data.steam_url == null) {
       errors.push('"steam_url" is required')
     }
     if (typeof data.steam_url !== 'string') {
       errors.push('"steam_url" must be a string')
     }
-    if (data.steam_url) {
-      // eslint-disable-next-line prettier/prettier
-      const steam_regex = /^https:\/\/store\.steampowered\.com\/app\/[0-9]{1,7}\/\w+\/?$/
-      const isValidUrl = steam_regex.test(data.steam_url)
+    if (data.steam_url != null) {
+      const STEAM_REGEX = /^https:\/\/store\.steampowered\.com\/app\/[0-9]{1,7}\/\w+\/?$/
+      const isValidUrl = STEAM_REGEX.test(data.steam_url)
       if (!isValidUrl) {
         errors.push('"nuuvem_url" is not a valid game url')
       }
@@ -29,10 +28,9 @@ export class AddGameValidator implements Validator {
         errors.push('"steam_url" must be a string')
       }
     }
-    if (data.nuuvem_url) {
-      // eslint-disable-next-line prettier/prettier
-      const nuuvem_regex = /^https:\/\/www.nuuvem.com\/(br-en|br-pt)\/item\/[\w-]+\/?$/
-      const isValidUrl = nuuvem_regex.test(data.nuuvem_url)
+    if (data.nuuvem_url != null) {
+      const NUUVEM_REGEX = /^https:\/\/www.nuuvem.com\/(br-en|br-pt)\/item\/[\w-]+\/?$/
+      const isValidUrl = NUUVEM_REGEX.test(data.nuuvem_url)
       if (!isValidUrl) {
         errors.push('"nuuvem_url" is not a valid game url')
       }
@@ -43,6 +41,6 @@ export class AddGameValidator implements Validator {
 
     if (errors.length === 0) return { success: true }
 
-    return { success: false, errors: errors }
+    return { success: false, errors }
   }
 }

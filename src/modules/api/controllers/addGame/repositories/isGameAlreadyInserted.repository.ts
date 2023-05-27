@@ -3,7 +3,7 @@ import { injectable } from 'tsyringe'
 
 @injectable()
 export class IsGameAlreadyInsertedRepository {
-  constructor(private db: DatabaseService) {}
+  constructor (private readonly db: DatabaseService) {}
 
   /**
    * Verifies if a game is already inserted.
@@ -13,7 +13,7 @@ export class IsGameAlreadyInsertedRepository {
    * ```
    * @param gameTitle - The title of the game.
    */
-  async handle(gameTitle: string): Promise<boolean> {
+  async handle (gameTitle: string): Promise<boolean> {
     const result = await this.db
       .getClient()
       .selectFrom('game')
@@ -21,7 +21,7 @@ export class IsGameAlreadyInsertedRepository {
       .where('title', '=', gameTitle)
       .executeTakeFirst()
 
-    if (result?.id) return true
+    if (result?.id != null) return true
     return false
   }
 }

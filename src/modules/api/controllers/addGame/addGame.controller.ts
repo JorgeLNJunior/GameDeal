@@ -1,11 +1,11 @@
-import { AddGameDTO } from '@api/controllers/addGame/dto/addGame.dto'
+import type { AddGameDTO } from '@api/controllers/addGame/dto/addGame.dto'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { HttpController } from '@localtypes/http/http.controller.type'
-import {
-  HttpMethod,
+import type { HttpController } from '@localtypes/http/http.controller.type'
+import type {
   HttpRequest,
   HttpResponse
 } from '@localtypes/http/http.type'
+import { HttpMethod } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { ResponseBuilder } from '@modules/api/responses/response.builder'
 import { AuthService } from '@shared/services/auth.service'
@@ -20,18 +20,18 @@ export class AddGameController implements HttpController {
   method = HttpMethod.POST
   url = '/games'
 
-  constructor(
-    private validator: AddGameValidator,
-    private addGameRepository: AddGameRepository,
-    private isGameAlreadyInsertedRepository: IsGameAlreadyInsertedRepository,
-    private authService: AuthService,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly validator: AddGameValidator,
+    private readonly addGameRepository: AddGameRepository,
+    private readonly isGameAlreadyInsertedRepository: IsGameAlreadyInsertedRepository,
+    private readonly authService: AuthService,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  async handle(request: HttpRequest): Promise<HttpResponse> {
+  async handle (request: HttpRequest): Promise<HttpResponse> {
     try {
       const authToken = request.headers.authorization
-      if (!authToken) {
+      if (authToken == null) {
         return ResponseBuilder.unauthorized('auth token not provided')
       }
 

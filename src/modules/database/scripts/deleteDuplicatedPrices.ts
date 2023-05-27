@@ -9,7 +9,7 @@ const db = container.resolve(DatabaseService)
 /**
  * Deletes duplicated prices if more than one have been registered a day.
  */
-export async function deleteDuplicatedPrices() {
+export async function deleteDuplicatedPrices (): Promise<void> {
   await db.connect()
   const client = db.getClient()
   const games = await client.selectFrom('game').select(['id']).execute()
@@ -50,6 +50,6 @@ export async function deleteDuplicatedPrices() {
   await db.disconnect()
 }
 
-;(async () => {
+;void (async () => {
   await deleteDuplicatedPrices()
 })()

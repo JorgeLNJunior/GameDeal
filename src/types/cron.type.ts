@@ -5,5 +5,5 @@ export interface ApplicationCronJob {
    */
   cronTime: string
   /** The function that will be fired. */
-  jobFunction(): Promise<void>
+  jobFunction: () => Promise<void>
 }

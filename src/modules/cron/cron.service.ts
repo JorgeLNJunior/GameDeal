@@ -1,18 +1,18 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { ApplicationCronJob } from '@localtypes/cron.type'
+import { type ApplicationCronJob } from '@localtypes/cron.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { CronJob } from 'cron'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class CronService {
-  private jobs: CronJob[] = []
+  private readonly jobs: CronJob[] = []
 
   /**
    * A service to handle cron jobs.
    * @param logger - An application logger.
    */
-  constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
+  constructor (@inject(PINO_LOGGER) private readonly logger: ApplicationLogger) {}
 
   /**
    * Registers a list of cron jobs.
@@ -22,9 +22,10 @@ export class CronService {
    * ```
    * @param jobs - A list of cron jobs.
    */
-  registerJobs(...jobs: ApplicationCronJob[]): void {
+  registerJobs (...jobs: ApplicationCronJob[]): void {
     for (const job of jobs) {
       this.jobs.push(
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         new CronJob(job.cronTime, async function () {
           await job.jobFunction()
         })
@@ -35,16 +36,16 @@ export class CronService {
   /**
    * Starts the cron service.
    */
-  start(): void {
+  start (): void {
     this.logger.info('[CronService] starting cron service')
-    this.jobs.forEach((job) => job.start())
+    this.jobs.forEach((job) => { job.start() })
     this.logger.info('[CronService] cron service started')
   }
 
   /**
    * Stops the cron service.
    */
-  stop(): void {
+  stop (): void {
     this.logger.info('[CronService] stopping all jobs')
     this.jobs.forEach((job) => {
       job.stop()

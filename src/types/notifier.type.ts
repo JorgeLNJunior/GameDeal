@@ -6,7 +6,7 @@ export interface Notifier {
    * await notifier.notify()
    * ```
    */
-  notify(data: NotifyData): Promise<void>
+  notify: (data: NotifyData) => Promise<void>
   /**
    * Starts the notifier.
    *    @example
@@ -14,7 +14,7 @@ export interface Notifier {
    * await notifier.start()
    * ```
    */
-  start(): Promise<void>
+  start: () => Promise<void>
   /**
    * Stops the notifier.
    * @example
@@ -22,7 +22,7 @@ export interface Notifier {
    * await notifier.stop()
    * ```
    */
-  stop(): Promise<void>
+  stop: () => Promise<void>
 }
 
 export interface NotifyData {

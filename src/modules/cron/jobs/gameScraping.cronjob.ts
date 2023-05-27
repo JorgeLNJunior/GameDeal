@@ -1,5 +1,5 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { ApplicationCronJob } from '@localtypes/cron.type'
+import type { ApplicationCronJob } from '@localtypes/cron.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { GameQueue } from '@queue/game.queue'
 import { inject, injectable } from 'tsyringe'
@@ -16,13 +16,13 @@ export class GameScrapingCronJob implements ApplicationCronJob {
    * @param gameQueue - A game queue instance.
    * @param logger - An application logger.
    */
-  constructor(
-    private findGameScraperDataRepository: FindGameScraperDataRepository,
-    private gameQueue: GameQueue,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly findGameScraperDataRepository: FindGameScraperDataRepository,
+    private readonly gameQueue: GameQueue,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  public async jobFunction(): Promise<void> {
+  public async jobFunction (): Promise<void> {
     this.logger.info('[GameScrapingCronJob] running game scraping job')
 
     const games = await this.findGameScraperDataRepository.find()
@@ -40,7 +40,7 @@ export class GameScrapingCronJob implements ApplicationCronJob {
       if (result.status === 'rejected') {
         this.logger.error(
           result.reason,
-          `[GameScrapingCronJob] failed to add a game to the queue`
+          '[GameScrapingCronJob] failed to add a game to the queue'
         )
       }
     })

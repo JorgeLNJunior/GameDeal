@@ -1,8 +1,9 @@
 export interface Validator {
-  validate(data: unknown): ValidationReturn
+  // eslint-disable-next-line @typescript-eslint/method-signature-style
+  validate(data: unknown): ValidationResult | Promise<ValidationResult>
 }
 
-interface ValidationReturn {
+export interface ValidationResult {
   success: boolean
   errors?: string[]
 }

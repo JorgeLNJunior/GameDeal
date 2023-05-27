@@ -8,5 +8,5 @@ export interface Scraper {
    * @param gameUrl - The game url.
    * @returns The game price.
    */
-  getGamePrice(gameUrl: string): Promise<number | null>
+  getGamePrice: (gameUrl: string) => Promise<number | null>
 }

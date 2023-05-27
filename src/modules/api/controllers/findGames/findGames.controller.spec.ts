@@ -1,5 +1,5 @@
 import { PinoLogger } from '@infra/pino.logger'
-import { ApplicationCache } from '@localtypes/http/cache.type'
+import type { ApplicationCache } from '@localtypes/http/cache.type'
 import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 

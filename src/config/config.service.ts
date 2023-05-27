@@ -11,7 +11,7 @@ export default class ConfigService {
    * Configuration class helper.
    * @param logger - An instance of `ApplicationLogger`.
    */
-  constructor(@inject(PINO_LOGGER) private logger: ApplicationLogger) {}
+  constructor (@inject(PINO_LOGGER) private readonly logger: ApplicationLogger) {}
 
   /**
    * Gets a value of a environment variable.
@@ -23,7 +23,7 @@ export default class ConfigService {
    * @returns The environment variable value.
    */
   public getEnv<T>(key: string): T | undefined {
-    if (process.env[key]) {
+    if (process.env[key] != null) {
       return process.env[key] as unknown as T
     }
 

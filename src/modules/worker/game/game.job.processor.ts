@@ -1,6 +1,6 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { ScrapeGamePriceData } from '@localtypes/queue.type'
+import type { ScrapeGamePriceData } from '@localtypes/queue.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
 import { NotificationQueue } from '@queue/notification.queue'
@@ -12,24 +12,14 @@ import { InsertGamePriceRepository } from './repositories/insertGamePrice.reposi
 
 @injectable()
 export class GameJobProcessor {
-  /**
-   * Process all game related jobs from the game queue.
-   * @param steamScraper - An instance of `SteamScraper`.
-   * @param nuuvemScraper - An instance of `NuuvemScraper`.
-   * @param insertGamePriceRepository - An instance of `InsertGamePriceRepository`.
-   * @param getCurrentGamePriceRepository - An instance of `GetCurrentGamePriceRepository`.
-   * @param findGameByIdRepository - An instance of `FindGameByIdRepository`
-   * @param notificationQueue - An instance of `NotificationQueue`.
-   * @param logger - An instance of `ApplicationLogger`.
-   */
-  constructor(
-    private steamScraper: SteamScraper,
-    private nuuvemScraper: NuuvemScraper,
-    private insertGamePriceRepository: InsertGamePriceRepository,
-    private getCurrentGamePriceRepository: GetCurrentGamePriceRepository,
-    private findGameByIdRepository: FindGameByIdRepository,
-    private notificationQueue: NotificationQueue,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly steamScraper: SteamScraper,
+    private readonly nuuvemScraper: NuuvemScraper,
+    private readonly insertGamePriceRepository: InsertGamePriceRepository,
+    private readonly getCurrentGamePriceRepository: GetCurrentGamePriceRepository,
+    private readonly findGameByIdRepository: FindGameByIdRepository,
+    private readonly notificationQueue: NotificationQueue,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
   /**
@@ -38,7 +28,7 @@ export class GameJobProcessor {
    * Notifies if the current price is lower than the latest registered.
    * @param data - The game data.
    */
-  async scrapePrice(data: ScrapeGamePriceData): Promise<void> {
+  async scrapePrice (data: ScrapeGamePriceData): Promise<void> {
     let currentNuuvemPrice = null
 
     const currentSteamPrice = await this.steamScraper.getGamePrice(
@@ -46,15 +36,14 @@ export class GameJobProcessor {
     )
 
     const hasNuuvemUrl = data.nuuvemUrl
-    if (hasNuuvemUrl) {
-      currentNuuvemPrice = await this.nuuvemScraper.getGamePrice(
-        data.nuuvemUrl as string
-      )
+    if (hasNuuvemUrl !== null) {
+      currentNuuvemPrice = await this.nuuvemScraper
+        .getGamePrice(data.nuuvemUrl as string)
     }
 
-    if (!currentSteamPrice) return
+    if (currentSteamPrice === null) return
     const game = await this.findGameByIdRepository.find(data.gameId)
-    if (!game) return
+    if (game == null) return
 
     const lastRegisteredPrice =
       await this.getCurrentGamePriceRepository.getPrice(data.gameId)
@@ -65,11 +54,12 @@ export class GameJobProcessor {
     })
 
     // needs rewrite, i coudn't find a cleaner solution.
-    // should notify if current price at steam or nuuvem is lower than last registered price (both platforms).
+    // should notify if current price at steam or nuuvem
+    // is lower than last registered price (both platforms).
     if (
-      lastRegisteredPrice &&
-      currentNuuvemPrice &&
-      lastRegisteredPrice.nuuvem_price
+      lastRegisteredPrice !== undefined &&
+      currentNuuvemPrice !== null &&
+      lastRegisteredPrice.nuuvem_price !== null
     ) {
       const isNuuvemPriceLowest =
         currentNuuvemPrice <
@@ -79,13 +69,13 @@ export class GameJobProcessor {
           currentSteamPrice
         )
       if (isNuuvemPriceLowest) {
-        return this.notificationQueue.add({
-          currentPrice: currentNuuvemPrice as number,
-          oldPrice: lastRegisteredPrice.nuuvem_price as number,
+        await this.notificationQueue.add({
+          currentPrice: currentNuuvemPrice,
+          oldPrice: lastRegisteredPrice.nuuvem_price,
           gameTitle: game.title,
           platform: 'Nuuvem',
           gameUrl: game.nuuvem_url as string
-        })
+        }); return
       }
 
       const isSteamPriceLowest =
@@ -96,20 +86,20 @@ export class GameJobProcessor {
           currentNuuvemPrice
         )
       if (isSteamPriceLowest) {
-        return this.notificationQueue.add({
+        await this.notificationQueue.add({
           currentPrice: currentSteamPrice,
           oldPrice: lastRegisteredPrice.steam_price,
           gameTitle: game.title,
           platform: 'Steam',
           gameUrl: game.steam_url
-        })
+        }); return
       }
     }
     if (
-      lastRegisteredPrice &&
+      (lastRegisteredPrice !== undefined) &&
       currentSteamPrice < lastRegisteredPrice.steam_price
     ) {
-      return this.notificationQueue.add({
+      await this.notificationQueue.add({
         currentPrice: currentSteamPrice,
         oldPrice: lastRegisteredPrice.steam_price,
         gameTitle: game.title,

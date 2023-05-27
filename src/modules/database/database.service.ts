@@ -5,9 +5,10 @@ import { promises as fs } from 'fs'
 import { FileMigrationProvider, Kysely, Migrator, MysqlDialect } from 'kysely'
 import { createPool } from 'mysql2'
 import * as path from 'path'
+import { join } from 'path'
 import { inject, singleton } from 'tsyringe'
 
-import { Database } from './database.interface'
+import { type Database } from './database.interface'
 
 @singleton()
 export class DatabaseService {
@@ -18,9 +19,9 @@ export class DatabaseService {
    * @param config - A `ConfigService` instance.
    * @param logger - An `ApplicationLogger` instance.
    */
-  constructor(
-    private config: ConfigService,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly config: ConfigService,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
   /**
@@ -30,7 +31,7 @@ export class DatabaseService {
    * await new DatabaseService().connect()
    * ```
    */
-  public async connect() {
+  async connect (): Promise<void> {
     this.logger.info('[DatabaseService] connecting to the database')
     this.client = new Kysely<Database>({
       dialect: new MysqlDialect({
@@ -54,7 +55,7 @@ export class DatabaseService {
    * await db.disconnect()
    * ```
    */
-  async disconnect(): Promise<void> {
+  async disconnect (): Promise<void> {
     this.logger.info('[DatabaseService] disconnecting from the database')
     await this.client.destroy()
     this.logger.info('[DatabaseService] disconnected from the database')
@@ -71,7 +72,7 @@ export class DatabaseService {
    * ```
    * @returns The database client instance.
    */
-  public getClient(): Kysely<Database> {
+  public getClient (): Kysely<Database> {
     return this.client
   }
 
@@ -82,14 +83,14 @@ export class DatabaseService {
    * await this.migrate()
    * ```
    */
-  private async migrate(): Promise<void> {
+  private async migrate (): Promise<void> {
     this.logger.info('[DatabaseService] executing all pending migrations')
     const { error, results } = await new Migrator({
       db: this.client,
       provider: new FileMigrationProvider({
         fs,
         path,
-        migrationFolder: __dirname + '/migrations'
+        migrationFolder: join(__dirname, '/migrations')
       })
     }).migrateToLatest()
 
@@ -105,7 +106,7 @@ export class DatabaseService {
       }
     })
 
-    if (error) {
+    if (error !== undefined) {
       this.logger.fatal(error, '[DatabaseService] database migration failed')
       process.exit(1)
     }

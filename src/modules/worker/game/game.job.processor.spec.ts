@@ -54,16 +54,12 @@ describe('GameJobProcessor', () => {
       created_at: new Date(),
       updated_at: null
     }
-    jest
-      .spyOn(steamScraper, 'getGamePrice')
-      .mockResolvedValueOnce(currentSteamPrice)
+    jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
     jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(30)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
-    const notificationSpy = jest
-      .spyOn(notificationQueue, 'add')
-      .mockResolvedValue()
+    const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValue()
 
     await job.scrapePrice({
       gameId: game.id,
@@ -98,16 +94,12 @@ describe('GameJobProcessor', () => {
       created_at: new Date(),
       updated_at: null
     }
+    jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(currentNuuvemPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
-    jest
-      .spyOn(nuuvemScraper, 'getGamePrice')
-      .mockResolvedValueOnce(currentNuuvemPrice)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
-    const notificationSpy = jest
-      .spyOn(notificationQueue, 'add')
-      .mockResolvedValue()
+    const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValue()
 
     await job.scrapePrice({
       gameId: game.id,
@@ -142,15 +134,11 @@ describe('GameJobProcessor', () => {
       created_at: new Date(),
       updated_at: null
     }
-    jest
-      .spyOn(steamScraper, 'getGamePrice')
-      .mockResolvedValueOnce(currentSteamPrice)
+    jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
-    const notificationSpy = jest
-      .spyOn(notificationQueue, 'add')
-      .mockResolvedValue()
+    const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValue()
 
     await job.scrapePrice({
       gameId: game.id,

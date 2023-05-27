@@ -1,11 +1,11 @@
 import { DatabaseService } from '@database/database.service'
-import { GamePrice } from '@localtypes/entities.type'
+import type { GamePrice } from '@localtypes/entities.type'
 import { sql } from 'kysely'
 import { injectable } from 'tsyringe'
 
 @injectable()
 export class InsertGamePriceRepository {
-  constructor(private databaseService: DatabaseService) {}
+  constructor (private readonly databaseService: DatabaseService) {}
 
   /**
    * Inserts a new value to a game price history.
@@ -17,13 +17,13 @@ export class InsertGamePriceRepository {
    * @param prices - The current prices of the game
    * @returns A `GamePrice` object.
    */
-  async insert(gameId: string, prices: PlatformPrices): Promise<GamePrice> {
-    return this.databaseService
+  async insert (gameId: string, prices: PlatformPrices): Promise<GamePrice> {
+    return await this.databaseService
       .getClient()
       .transaction()
       .execute(async (trx) => {
         const uuidResult = await sql<
-          Record<string, string>
+        Record<string, string>
         >`SELECT UUID()`.execute(trx)
 
         const uuid = uuidResult.rows[0]['UUID()']
@@ -38,7 +38,7 @@ export class InsertGamePriceRepository {
           })
           .execute()
 
-        return trx
+        return await trx
           .selectFrom('game_price')
           .selectAll()
           .where('id', '=', uuid)

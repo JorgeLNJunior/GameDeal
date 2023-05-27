@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HttpController } from '@localtypes/http/http.controller.type'
-import { HttpRequest } from '@localtypes/http/http.type'
-import { FastifyReply, FastifyRequest, RouteHandler } from 'fastify'
+import { type HttpController } from '@localtypes/http/http.controller.type'
+import { type HttpRequest } from '@localtypes/http/http.type'
+import { type FastifyReply, type FastifyRequest, type RouteHandler } from 'fastify'
 
 /**
  * Adapt an application route to a fastify route.
@@ -16,7 +16,7 @@ import { FastifyReply, FastifyRequest, RouteHandler } from 'fastify'
  * @param controller - A class wich implements `HttpController`.
  * @returns A fastify `RouteHandler`
  */
-export function adaptRoute(controller: HttpController): RouteHandler {
+export function adaptRoute (controller: HttpController): RouteHandler {
   return async (req: FastifyRequest, res: FastifyReply) => {
     const request: HttpRequest = {
       body: req.body,
@@ -27,9 +27,9 @@ export function adaptRoute(controller: HttpController): RouteHandler {
     }
     const response = await controller.handle(request)
 
-    return res
+    return await res
       .status(response.statusCode)
-      .headers(response.headers || {})
+      .headers(response.headers ?? {})
       .send(response.body)
   }
 }

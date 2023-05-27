@@ -1,13 +1,13 @@
 import { NOTIFIERS, PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { Notifier, NotifyData } from '@localtypes/notifier.type'
+import { type Notifier, type NotifyData } from '@localtypes/notifier.type'
 import { inject, singleton } from 'tsyringe'
 
 @singleton()
 export class NotificationService {
-  constructor(
-    @inject(NOTIFIERS) private notifiers: Notifier[],
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    @inject(NOTIFIERS) private readonly notifiers: Notifier[],
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
   /**
@@ -20,7 +20,7 @@ export class NotificationService {
    * await notificationService.notify()
    * ```
    */
-  async notify(data: NotifyData): Promise<void> {
+  async notify (data: NotifyData): Promise<void> {
     for await (const notifier of this.notifiers) {
       await notifier.notify(data)
     }
@@ -35,7 +35,7 @@ export class NotificationService {
    * await notificationService.start()
    * ```
    */
-  async start(): Promise<void> {
+  async start (): Promise<void> {
     this.logger.info('[NotificationService] starting all notification services')
     for await (const notifier of this.notifiers) {
       await notifier.start()
@@ -53,7 +53,7 @@ export class NotificationService {
    * await notificationService.stop()
    * ```
    */
-  async stop(): Promise<void> {
+  async stop (): Promise<void> {
     this.logger.info('[NotificationService] stopping notification service')
     for await (const notifier of this.notifiers) {
       await notifier.stop()

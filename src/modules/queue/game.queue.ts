@@ -4,7 +4,7 @@ import { ApplicationLogger } from '@localtypes/logger.type'
 import {
   QueueJobName,
   QueueName,
-  ScrapeGamePriceData
+  type ScrapeGamePriceData
 } from '@localtypes/queue.type'
 import { Queue } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
@@ -18,9 +18,9 @@ export class GameQueue {
    * @param config - An instance of `ConfigService`.
    * @param logger - An instance of `ApplicationLogger`.
    */
-  constructor(
-    private config: ConfigService,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly config: ConfigService,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
   /**
@@ -33,8 +33,8 @@ export class GameQueue {
    * ```
    * @param data - The data to add to the queue.
    */
-  async add(data: ScrapeGamePriceData): Promise<void> {
-    this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data, {
+  async add (data: ScrapeGamePriceData): Promise<void> {
+    await this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data, {
       attempts: 3,
       removeOnComplete: true,
       removeOnFail: true
@@ -49,7 +49,7 @@ export class GameQueue {
    * await queue.init()
    * ```
    */
-  async init(): Promise<void> {
+  async init (): Promise<void> {
     this.queue = new Queue<ScrapeGamePriceData>(QueueName.GAME_SCRAPING, {
       connection: {
         host: this.config.getEnv('REDIS_HOST'),
@@ -60,7 +60,7 @@ export class GameQueue {
     })
 
     this.queue.on('error', (err) => {
-      this.logger.error(err, `[GameQueue] queue failed`)
+      this.logger.error(err, '[GameQueue] queue failed')
     })
   }
 
@@ -71,7 +71,7 @@ export class GameQueue {
    * await queue.stop()
    * ```
    */
-  async stop(): Promise<void> {
+  async stop (): Promise<void> {
     this.logger.info('[GameQueue] stopping the queue')
     await this.queue.close()
     this.logger.info('[GameQueue] the queue stopped')

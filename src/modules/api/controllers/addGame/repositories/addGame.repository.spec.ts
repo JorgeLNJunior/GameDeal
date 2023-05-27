@@ -2,7 +2,7 @@ import { DatabaseService } from '@database/database.service'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
-import { AddGameDTO } from '../dto/addGame.dto'
+import type { AddGameDTO } from '../dto/addGame.dto'
 import { AddGameRepository } from './addGame.repository'
 
 describe('AddGameRepository', () => {

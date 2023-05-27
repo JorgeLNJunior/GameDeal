@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import { GamePrice } from '@localtypes/entities.type'
+import type { GamePrice } from '@localtypes/entities.type'
 import { randomUUID } from 'crypto'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'

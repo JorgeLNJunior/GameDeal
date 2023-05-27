@@ -22,7 +22,7 @@ describe('ResponseBuilder', () => {
     expect(response.statusCode).toBe(400)
     expect(response.body).toEqual({
       error: 'Bad Request',
-      messages: messages
+      messages
     })
   })
 

@@ -1,7 +1,7 @@
 import { DatabaseService } from '@database/database.service'
 import { PinoLogger } from '@infra/pino.logger'
-import { Game, GamePrice } from '@localtypes/entities.type'
-import { ApplicationCache } from '@localtypes/http/cache.type'
+import type { Game, GamePrice } from '@localtypes/entities.type'
+import type { ApplicationCache } from '@localtypes/http/cache.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
 import { FakeCache } from '@testing/fakes/fake.cache'
@@ -49,11 +49,11 @@ describe('GetGamePriceController', () => {
     }
     jest
       .spyOn(findGameByIdRepository, 'find')
-      .mockImplementationOnce(() => Promise.resolve(game))
+      .mockImplementationOnce(async () => await Promise.resolve(game))
 
     jest
       .spyOn(getCurrentGamePriceRepository, 'getPrice')
-      .mockImplementationOnce(() => Promise.resolve(price))
+      .mockImplementationOnce(async () => await Promise.resolve(price))
 
     const response = await controller.handle({
       params: {
@@ -88,10 +88,10 @@ describe('GetGamePriceController', () => {
     }
     jest
       .spyOn(findGameByIdRepository, 'find')
-      .mockImplementationOnce(() => Promise.resolve(game))
+      .mockImplementationOnce(async () => await Promise.resolve(game))
     jest
       .spyOn(getCurrentGamePriceRepository, 'getPrice')
-      .mockImplementationOnce(() => Promise.resolve(price))
+      .mockImplementationOnce(async () => await Promise.resolve(price))
     const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
       value: price,
       expires: 60
@@ -131,10 +131,10 @@ describe('GetGamePriceController', () => {
     }
     jest
       .spyOn(findGameByIdRepository, 'find')
-      .mockImplementationOnce(() => Promise.resolve(game))
+      .mockImplementationOnce(async () => await Promise.resolve(game))
     jest
       .spyOn(getCurrentGamePriceRepository, 'getPrice')
-      .mockImplementationOnce(() => Promise.resolve(price))
+      .mockImplementationOnce(async () => await Promise.resolve(price))
     const cacheSpy = jest.spyOn(cache, 'get')
 
     const response = await controller.handle({

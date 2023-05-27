@@ -12,7 +12,7 @@ describe('AuthService', () => {
   describe('getJwtToken', () => {
     it('should return a jwt token', async () => {
       const token = await service.getJwtToken()
-      const isJWT = new RegExp(/^[\w-]+\.[\w-]+\.[\w-]+$/).test(token)
+      const isJWT = /^[\w-]+\.[\w-]+\.[\w-]+$/.test(token)
 
       expect(isJWT).toBe(true)
     })

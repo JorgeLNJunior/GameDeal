@@ -1,6 +1,6 @@
 import { RedisCache } from '@api/internal/redis.cache'
 import { TelegramNotifier } from '@infra/notification/notifiers/telegram.notifier'
-import { Notifier } from '@localtypes/notifier.type'
+import type { Notifier } from '@localtypes/notifier.type'
 import { PinoLogger } from '@modules/infra/pino.logger'
 import { CheerioParser } from '@scrapers/parsers/cheerio.parser'
 import { container } from 'tsyringe'

@@ -1,18 +1,18 @@
 import { CHEERIO_PARSER, PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { HTMLParser } from '@localtypes/html.parser'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { Scraper } from '@localtypes/scraper.type'
+import type { Scraper } from '@localtypes/scraper.type'
 import axios from 'axios'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class SteamScraper implements Scraper {
-  constructor(
+  constructor (
     @inject(CHEERIO_PARSER) private readonly parser: HTMLParser,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  async getGamePrice(gameUrl: string): Promise<number | null> {
+  async getGamePrice (gameUrl: string): Promise<number | null> {
     // makes steam show brazilian prices
     gameUrl += '?cc=br'
 
@@ -30,7 +30,7 @@ export class SteamScraper implements Scraper {
       ?.replace('R$', '')
       .replace(',', '.')
       .trim()
-    if (priceString) {
+    if (priceString !== undefined) {
       const price = Number(priceString)
       if (Number.isNaN(price)) {
         this.logger.error(
@@ -50,7 +50,7 @@ export class SteamScraper implements Scraper {
       ?.replace('R$', '')
       .replace(',', '.')
       .trim()
-    if (priceString) {
+    if (priceString !== undefined) {
       const price = Number(priceString)
       if (Number.isNaN(price)) {
         this.logger.error(

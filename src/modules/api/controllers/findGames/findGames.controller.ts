@@ -1,10 +1,10 @@
 import { PINO_LOGGER, REDIS_CACHE } from '@dependencies/dependency.tokens'
 import { ApplicationCache } from '@localtypes/http/cache.type'
-import { HttpController } from '@localtypes/http/http.controller.type'
+import { type HttpController } from '@localtypes/http/http.controller.type'
 import {
   HttpMethod,
-  HttpRequest,
-  HttpResponse
+  type HttpRequest,
+  type HttpResponse
 } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { ResponseBuilder } from '@modules/api/responses/response.builder'
@@ -17,20 +17,18 @@ export class FindGamesController implements HttpController {
   public method = HttpMethod.GET
   public url = '/games'
 
-  constructor(
-    private findGamesRepository: FindGamesRepository,
-    @inject(REDIS_CACHE) private cacheService: ApplicationCache,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly findGamesRepository: FindGamesRepository,
+    @inject(REDIS_CACHE) private readonly cacheService: ApplicationCache,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  async handle(request: HttpRequest): Promise<HttpResponse> {
+  async handle (request: HttpRequest): Promise<HttpResponse> {
     try {
-      const noCache =
-        request.headers['cache-control'] &&
-        request.headers['cache-control'].includes('no-cache')
+      const noCache = request.headers['cache-control']?.includes('no-cache')
       if (!noCache) {
         const cache = await this.cacheService.get(request.url)
-        if (cache) {
+        if (cache != null) {
           const headers = {
             'Cache-Control': `max-age=${cache.expires}`
           }
@@ -39,7 +37,7 @@ export class FindGamesController implements HttpController {
       }
 
       const games = await this.findGamesRepository.find(request.query)
-      this.cacheService.set(request.url, games)
+      await this.cacheService.set(request.url, games)
       return ResponseBuilder.ok(games)
     } catch (error) {
       this.logger.error(error, '[FindGameByIdController] internal server error')

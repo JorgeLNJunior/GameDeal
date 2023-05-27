@@ -1,24 +1,24 @@
-import { ApplicationLogger } from '@localtypes/logger.type'
+import { type ApplicationLogger } from '@localtypes/logger.type'
 import pino from 'pino'
 
 export class PinoLogger implements ApplicationLogger {
-  private pino = pino({
+  private readonly pino = pino({
     level: process.env.NODE_ENV === 'production' ? 'info' : 'debug'
   })
 
-  public info(obj: unknown, msg?: string) {
+  public info (obj: unknown, msg?: string): void {
     this.pino.info(obj, msg)
   }
 
-  public error(obj: unknown, msg?: string) {
+  public error (obj: unknown, msg?: string): void {
     this.pino.error(obj, msg)
   }
 
-  public fatal(obj: unknown, msg?: string) {
+  public fatal (obj: unknown, msg?: string): void {
     this.pino.fatal(obj, msg)
   }
 
-  public warn(obj: unknown, msg?: string) {
+  public warn (obj: unknown, msg?: string): void {
     this.pino.warn(obj, msg)
   }
 }

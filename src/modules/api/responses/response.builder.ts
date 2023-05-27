@@ -1,5 +1,6 @@
-import { HttpResponse } from '@localtypes/http/http.type'
+import type { HttpResponse } from '@localtypes/http/http.type'
 
+// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export class ResponseBuilder {
   /**
    * Build a HTTP 200 response.
@@ -10,7 +11,7 @@ export class ResponseBuilder {
    * @param data - The data to be returned.
    * @returns A `HttpResponse`.
    */
-  static ok(data?: unknown): HttpResponse {
+  static ok (data?: unknown): HttpResponse {
     return { statusCode: 200, body: data }
   }
 
@@ -23,7 +24,7 @@ export class ResponseBuilder {
    * @param data - The data to be returned.
    * @returns A `HttpResponse`.
    */
-  static created(data?: unknown): HttpResponse {
+  static created (data?: unknown): HttpResponse {
     return { statusCode: 201, body: data }
   }
 
@@ -37,7 +38,7 @@ export class ResponseBuilder {
    * @param headers - The headers to be returned.
    * @returns A `HttpResponse`.
    */
-  static notModified(
+  static notModified (
     data?: unknown,
     headers?: Record<string, unknown>
   ): HttpResponse {
@@ -53,7 +54,7 @@ export class ResponseBuilder {
    * @param errors - A list of errors to be returned.
    * @returns A `HttpResponse`.
    */
-  static badRequest(errors?: unknown): HttpResponse {
+  static badRequest (errors?: unknown): HttpResponse {
     return {
       statusCode: 400,
       body: {
@@ -72,7 +73,7 @@ export class ResponseBuilder {
    * @param error - An error to be returned.
    * @returns A `HttpResponse`.
    */
-  static unauthorized(error?: unknown): HttpResponse {
+  static unauthorized (error?: unknown): HttpResponse {
     return {
       statusCode: 401,
       body: {
@@ -91,7 +92,7 @@ export class ResponseBuilder {
    * @param error - An error to be returned.
    * @returns A `HttpResponse`.
    */
-  static forbidden(error?: unknown): HttpResponse {
+  static forbidden (error?: unknown): HttpResponse {
     return {
       statusCode: 403,
       body: {
@@ -110,7 +111,7 @@ export class ResponseBuilder {
    * @param error - An error to be returned.
    * @returns A `HttpResponse`.
    */
-  static notFound(error?: unknown): HttpResponse {
+  static notFound (error?: unknown): HttpResponse {
     return {
       statusCode: 404,
       body: {
@@ -128,7 +129,7 @@ export class ResponseBuilder {
    * ```
    * @returns A `HttpResponse`.
    */
-  static internalError(): HttpResponse {
+  static internalError (): HttpResponse {
     return {
       statusCode: 500,
       body: {

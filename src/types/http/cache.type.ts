@@ -1,6 +1,6 @@
 export interface ApplicationCache {
-  get(key: string): Promise<CacheData | undefined>
-  set(key: string, value: unknown, expire?: number): Promise<void>
+  get: (key: string) => Promise<CacheData | undefined>
+  set: (key: string, value: unknown, expire?: number) => Promise<void>
 }
 
 export interface CacheData {

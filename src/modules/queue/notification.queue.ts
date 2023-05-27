@@ -1,7 +1,7 @@
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { NotifyData } from '@localtypes/notifier.type'
+import { type NotifyData } from '@localtypes/notifier.type'
 import { QueueJobName, QueueName } from '@localtypes/queue.type'
 import { Queue } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
@@ -15,9 +15,9 @@ export class NotificationQueue {
    * @param config - An instance of `ConfigService`.
    * @param logger - An instance of `ApplicationLogger`.
    */
-  constructor(
-    private config: ConfigService,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly config: ConfigService,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
   /**
@@ -30,7 +30,7 @@ export class NotificationQueue {
    * ```
    * @param data - The data to add to the queue.
    */
-  async add(data: NotifyData): Promise<void> {
+  async add (data: NotifyData): Promise<void> {
     await this.queue.add(QueueJobName.NOTIFY_PRICE_DROP, data, {
       attempts: 3,
       removeOnComplete: true,
@@ -46,7 +46,7 @@ export class NotificationQueue {
    * await queue.init()
    * ```
    */
-  async init(): Promise<void> {
+  async init (): Promise<void> {
     this.queue = new Queue<NotifyData>(QueueName.NOTICATION, {
       connection: {
         host: this.config.getEnv('REDIS_HOST'),
@@ -57,7 +57,7 @@ export class NotificationQueue {
     })
 
     this.queue.on('error', (err) => {
-      this.logger.error(err, `[NotificationQueue] queue failed`)
+      this.logger.error(err, '[NotificationQueue] queue failed')
     })
   }
 
@@ -68,7 +68,7 @@ export class NotificationQueue {
    * await queue.stop()
    * ```
    */
-  async stop(): Promise<void> {
+  async stop (): Promise<void> {
     this.logger.info('[NotificationQueue] stopping the queue')
     await this.queue.close()
     this.logger.info('[NotificationQueue] the queue stopped')

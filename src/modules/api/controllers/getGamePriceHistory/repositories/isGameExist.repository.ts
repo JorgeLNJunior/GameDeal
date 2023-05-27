@@ -3,9 +3,9 @@ import { injectable } from 'tsyringe'
 
 @injectable()
 export class IsGameExistRepository {
-  constructor(private databaseService: DatabaseService) {}
+  constructor (private readonly databaseService: DatabaseService) {}
 
-  async get(gameID: string): Promise<boolean> {
+  async get (gameID: string): Promise<boolean> {
     const game = await this.databaseService
       .getClient()
       .selectFrom('game')
@@ -13,7 +13,7 @@ export class IsGameExistRepository {
       .where('id', '=', gameID)
       .executeTakeFirst()
 
-    if (game) return true
+    if (game?.id != null) return true
     return false
   }
 }

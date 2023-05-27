@@ -33,19 +33,19 @@ describe('AddGameController', () => {
   })
 
   it('should return a CREATED response if it succeeds', async () => {
-    const data = {
-      title: 'title',
+    const game = {
       id: 'id',
-      steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url',
+      title: 'God of War',
+      steam_url: 'url',
+      nuuvem_url: 'url',
       created_at: new Date(),
-      updated_at: new Date()
+      updated_at: null
     }
     jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: true })
     jest
       .spyOn(isGameAlreadyInsertedRepository, 'handle')
       .mockResolvedValueOnce(false)
-    jest.spyOn(addGameRepository, 'add').mockResolvedValueOnce(data)
+    jest.spyOn(addGameRepository, 'add').mockResolvedValueOnce(game)
     const token = await authService.getJwtToken()
 
     const response = await controller.handle({
@@ -59,7 +59,7 @@ describe('AddGameController', () => {
     })
 
     expect(response.statusCode).toBe(201)
-    expect(response.body).toEqual(data)
+    expect(response.body).toEqual(game)
   })
 
   it('should return a BAD_REQUEST response if validation fails', async () => {

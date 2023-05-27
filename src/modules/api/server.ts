@@ -1,19 +1,20 @@
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { HttpController } from '@localtypes/http/http.controller.type'
+import type { HttpController } from '@localtypes/http/http.controller.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { fastify, FastifyInstance } from 'fastify'
+import { fastify, type FastifyInstance } from 'fastify'
+import { join } from 'path'
 import { inject, singleton } from 'tsyringe'
 
 import { adaptRoute } from './internal/route.adapter'
 
 @singleton()
 export class Server {
-  private fastify: FastifyInstance
+  private readonly fastify: FastifyInstance
 
-  constructor(
-    private config: ConfigService,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly config: ConfigService,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {
     this.fastify = fastify()
   }
@@ -25,16 +26,16 @@ export class Server {
    * await server.listen()
    * ```
    */
-  public async listen(): Promise<void> {
+  public async listen (): Promise<void> {
     this.logger.info('[Server] starting the server')
     await this.registerPlugins()
-    return this.fastify.listen(
+    this.fastify.listen(
       {
-        host: this.config.getEnv<string>('HOST') || '0.0.0.0',
-        port: this.config.getEnv<number>('PORT') || 3000
+        host: this.config.getEnv<string>('HOST') ?? '0.0.0.0',
+        port: this.config.getEnv<number>('PORT') ?? 3000
       },
       (error) => {
-        if (error) this.logger.fatal(error, '[Server] server startup error')
+        if (error !== null) this.logger.fatal(error, '[Server] server startup error')
         else this.logger.info('[Server] the server is listening')
       }
     )
@@ -47,7 +48,7 @@ export class Server {
    * await server.close()
    * ```
    */
-  public async close(): Promise<void> {
+  public async close (): Promise<void> {
     this.logger.info('[Server] closing the server')
     await this.fastify.close()
     this.logger.info('[Server] the server has been closed')
@@ -61,7 +62,7 @@ export class Server {
    * ```
    * @returns A fastify instance.
    */
-  public getFastifyInstance(): FastifyInstance {
+  public getFastifyInstance (): FastifyInstance {
     return this.fastify
   }
 
@@ -76,7 +77,7 @@ export class Server {
    * ```
    * @param controllers - A list of `HttpController`.
    */
-  public registerControllers(...controllers: HttpController[]): void {
+  public registerControllers (...controllers: HttpController[]): void {
     this.logger.info('[Server] registering all controllers')
     controllers.forEach((controller) => {
       this.fastify.route({
@@ -96,7 +97,7 @@ export class Server {
    * await this.registerPlugins()
    * ```
    */
-  private async registerPlugins(): Promise<void> {
+  private async registerPlugins (): Promise<void> {
     this.logger.info('[Server] registering all plugins')
     await this.fastify.register(import('@fastify/compress'))
     await this.fastify.register(import('@fastify/cors'))
@@ -104,7 +105,7 @@ export class Server {
     await this.fastify.register(import('@fastify/swagger'), {
       mode: 'static',
       specification: {
-        path: __dirname + '/docs/swagger.yaml',
+        path: join(__dirname, '/docs/swagger.yaml'),
         baseDir: ''
       }
     })

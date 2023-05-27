@@ -1,13 +1,13 @@
 import { DatabaseService } from '@database/database.service'
-import { Game } from '@localtypes/entities.type'
+import type { Game } from '@localtypes/entities.type'
 import { sql } from 'kysely'
 import { injectable } from 'tsyringe'
 
-import { AddGameDTO } from '../dto/addGame.dto'
+import type { AddGameDTO } from '../dto/addGame.dto'
 
 @injectable()
 export class AddGameRepository {
-  constructor(private db: DatabaseService) {}
+  constructor (private readonly db: DatabaseService) {}
 
   /**
    * Adds a new game.
@@ -18,13 +18,13 @@ export class AddGameRepository {
    * @param dto - The data required to insert a game.
    * @returns A `Game` object.
    */
-  async add(dto: AddGameDTO): Promise<Game> {
-    return this.db
+  async add (dto: AddGameDTO): Promise<Game> {
+    return await this.db
       .getClient()
       .transaction()
       .execute(async (trx) => {
         const uuidResult = await sql<
-          Record<string, string>
+        Record<string, string>
         >`select UUID()`.execute(trx)
 
         const uuid = uuidResult.rows[0]['UUID()']
@@ -39,7 +39,7 @@ export class AddGameRepository {
           })
           .executeTakeFirstOrThrow()
 
-        return trx
+        return await trx
           .selectFrom('game')
           .selectAll()
           .where('id', '=', uuid)

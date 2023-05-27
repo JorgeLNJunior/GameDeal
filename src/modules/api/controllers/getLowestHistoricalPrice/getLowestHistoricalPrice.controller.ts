@@ -1,12 +1,12 @@
 import { ResponseBuilder } from '@api/responses/response.builder'
 import { PINO_LOGGER, REDIS_CACHE } from '@dependencies/dependency.tokens'
 import { ApplicationCache } from '@localtypes/http/cache.type'
-import { HttpController } from '@localtypes/http/http.controller.type'
-import {
-  HttpMethod,
+import type { HttpController } from '@localtypes/http/http.controller.type'
+import type {
   HttpRequest,
   HttpResponse
 } from '@localtypes/http/http.type'
+import { HttpMethod } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { inject, injectable } from 'tsyringe'
 
@@ -18,21 +18,19 @@ export class GetLowestHistoricalPriceController implements HttpController {
   public method = HttpMethod.GET
   public url = '/games/:id/price/historical'
 
-  constructor(
+  constructor (
     private readonly getLowestPriceRepo: GetLowestHistoricalPriceRepository,
     private readonly isGameExistRepo: IsGameExistRepository,
-    @inject(REDIS_CACHE) private cacheService: ApplicationCache,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+    @inject(REDIS_CACHE) private readonly cacheService: ApplicationCache,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  async handle(request: HttpRequest): Promise<HttpResponse> {
+  async handle (request: HttpRequest): Promise<HttpResponse> {
     try {
-      const noCache =
-        request.headers['cache-control'] &&
-        request.headers['cache-control'].includes('no-cache')
+      const noCache = request.headers['cache-control']?.includes('no-cache')
       if (!noCache) {
         const cache = await this.cacheService.get(request.url)
-        if (cache) {
+        if (cache !== undefined) {
           const headers = {
             'Cache-Control': `max-age=${cache.expires}`
           }
@@ -44,7 +42,7 @@ export class GetLowestHistoricalPriceController implements HttpController {
       if (!isGameExist) return ResponseBuilder.notFound('game not found')
 
       const price = await this.getLowestPriceRepo.get(request.params.id)
-      this.cacheService.set(request.url, price, 60 * 5)
+      await this.cacheService.set(request.url, price, 60 * 5)
       return ResponseBuilder.ok(price)
     } catch (error) {
       this.logger.error(

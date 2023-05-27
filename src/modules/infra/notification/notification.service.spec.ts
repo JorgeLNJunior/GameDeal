@@ -1,5 +1,5 @@
 import { PinoLogger } from '@infra/pino.logger'
-import { Notifier, NotifyData } from '@localtypes/notifier.type'
+import type { Notifier, NotifyData } from '@localtypes/notifier.type'
 
 import { NotificationService } from './notification.service'
 
@@ -56,13 +56,15 @@ describe('NotificationService', () => {
 })
 
 class FakeNotifier implements Notifier {
-  async notify() {
+  async notify (): Promise<void> {
     console.log('')
   }
-  async start() {
+
+  async start (): Promise<void> {
     console.log('')
   }
-  async stop() {
+
+  async stop (): Promise<void> {
     console.log('')
   }
 }

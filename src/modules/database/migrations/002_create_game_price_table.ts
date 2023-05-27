@@ -1,7 +1,6 @@
-/* eslint-disable jsdoc/require-jsdoc */
-import { Kysely, sql } from 'kysely'
+import { type Kysely, sql } from 'kysely'
 
-export async function up(db: Kysely<unknown>): Promise<void> {
+export async function up (db: Kysely<unknown>): Promise<void> {
   await db.schema
     .createTable('game_price')
     .ifNotExists()
@@ -26,7 +25,7 @@ export async function up(db: Kysely<unknown>): Promise<void> {
     .execute()
 }
 
-export async function down(db: Kysely<unknown>) {
+export async function down (db: Kysely<unknown>): Promise<void> {
   await db.schema.dropIndex('game_id_index').ifExists().execute()
   await db.schema.dropTable('game_price').ifExists().execute()
 }
