@@ -3,6 +3,11 @@ import type { ApplicationCronJob } from '@localtypes/cron.type'
 
 import { CronService } from './cron.service'
 
+class FakeJob implements ApplicationCronJob {
+  public cronTime = '00 00 * * *'
+  async jobFunction (): Promise<void> {}
+}
+
 describe('CronService', () => {
   let service: CronService
 
@@ -11,25 +16,12 @@ describe('CronService', () => {
   })
 
   it('should register a job', async () => {
-    class FakeJob implements ApplicationCronJob {
-      public cronTime = '00 00 * * *'
-      async jobFunction (): Promise<void> {
-        console.log('')
-      }
-    }
-
     expect(() => {
       service.registerJobs(new FakeJob())
     }).not.toThrow()
   })
 
   it('should start all jobs', async () => {
-    class FakeJob implements ApplicationCronJob {
-      public cronTime = '00 00 * * *'
-      async jobFunction (): Promise<void> {
-        console.log('')
-      }
-    }
     service.registerJobs(new FakeJob())
 
     expect(() => {
@@ -40,12 +32,6 @@ describe('CronService', () => {
   })
 
   it('should stop all jobs', async () => {
-    class FakeJob implements ApplicationCronJob {
-      public cronTime = '00 00 * * *'
-      async jobFunction (): Promise<void> {
-        console.log('')
-      }
-    }
     service.registerJobs(new FakeJob())
 
     expect(() => {

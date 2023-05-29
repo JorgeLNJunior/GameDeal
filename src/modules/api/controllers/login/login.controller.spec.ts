@@ -1,6 +1,7 @@
 import ConfigService from '@config/config.service'
 import { PinoLogger } from '@infra/pino.logger'
 import { AuthService } from '@shared/services/auth.service'
+import { HttpRequestBuilder } from '@testing/builders/http/http.request.builder'
 import { container } from 'tsyringe'
 
 import { LoginController } from './login.controller'
@@ -27,13 +28,8 @@ describe('LoginController', () => {
 
     jest.spyOn(authService, 'getJwtToken').mockResolvedValueOnce(jwt)
 
-    const response = await controller.handle({
-      headers: {},
-      params: {},
-      query: {},
-      body: data,
-      url: ''
-    })
+    const request = new HttpRequestBuilder().withBody(data).build()
+    const response = await controller.handle(request)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect((response.body as any).token).toBe(jwt)
@@ -47,13 +43,8 @@ describe('LoginController', () => {
       password: 'admin'
     }
 
-    const response = await controller.handle({
-      headers: {},
-      params: {},
-      query: {},
-      body: data,
-      url: ''
-    })
+    const request = new HttpRequestBuilder().withBody(data).build()
+    const response = await controller.handle(request)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect((response.body as any).message).toBe('invalid credentials')
@@ -67,13 +58,8 @@ describe('LoginController', () => {
       password: 'invalid'
     }
 
-    const response = await controller.handle({
-      headers: {},
-      params: {},
-      query: {},
-      body: data,
-      url: ''
-    })
+    const request = new HttpRequestBuilder().withBody(data).build()
+    const response = await controller.handle(request)
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect((response.body as any).message).toBe('invalid credentials')
@@ -86,17 +72,10 @@ describe('LoginController', () => {
       password: 'admin'
     }
 
-    jest
-      .spyOn(authService, 'getJwtToken')
-      .mockRejectedValueOnce(new Error('jwt error'))
+    jest.spyOn(authService, 'getJwtToken').mockRejectedValueOnce(new Error())
 
-    const response = await controller.handle({
-      headers: {},
-      params: {},
-      query: {},
-      body: data,
-      url: ''
-    })
+    const request = new HttpRequestBuilder().withBody(data).build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(500)
   })

@@ -1,6 +1,7 @@
 import { DatabaseService } from '@database/database.service'
 import type { GamePrice } from '@localtypes/entities.type'
-import { randomUUID } from 'crypto'
+import { GameBuilder } from '@testing/builders/game.builder'
+import { GamePriceBuilder } from '@testing/builders/price.builder'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -24,24 +25,18 @@ describe('GetLowestHistoricalPriceRepository', () => {
   })
 
   it('should return a price', async () => {
-    const game = {
-      id: randomUUID(),
-      title: 'Kerbal Space Program',
-      steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url'
-    }
-    const price = {
-      id: randomUUID(),
-      game_id: game.id,
-      steam_price: 50.55,
-      nuuvem_price: 45.99
-    }
-    const price2 = {
-      id: randomUUID(),
-      game_id: game.id,
-      steam_price: 85.99,
-      nuuvem_price: 74.99
-    }
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder()
+      .withGame(game.id)
+      .withSteamPrice(50.55)
+      .withNuuvemPrice(45.99)
+      .build()
+    const price2 = new GamePriceBuilder()
+      .withGame(game.id)
+      .withSteamPrice(85.99)
+      .withNuuvemPrice(74.99)
+      .build()
+
     await db.getClient().insertInto('game').values(game).execute()
     await db.getClient().insertInto('game_price').values(price).execute()
     await db.getClient().insertInto('game_price').values(price2).execute()

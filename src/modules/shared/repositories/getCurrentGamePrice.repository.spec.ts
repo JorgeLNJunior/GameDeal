@@ -1,5 +1,6 @@
 import { DatabaseService } from '@database/database.service'
-import { randomUUID } from 'crypto'
+import { GameBuilder } from '@testing/builders/game.builder'
+import { GamePriceBuilder } from '@testing/builders/price.builder'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -22,24 +23,14 @@ describe('GetCurrentGamePriceRepository', () => {
   })
 
   it('should return the current game price', async () => {
-    const gameData = {
-      id: randomUUID(),
-      title: 'God of War',
-      steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url'
-    }
-    const priceData = {
-      id: randomUUID(),
-      game_id: gameData.id,
-      steam_price: 175.45,
-      nuuvem_price: 190.55
-    }
+    const gameData = new GameBuilder().build()
+    const priceData = new GamePriceBuilder().withGame(gameData.id).build()
     await db.getClient().insertInto('game').values(gameData).execute()
     await db.getClient().insertInto('game_price').values(priceData).execute()
 
     const price = await repository.getPrice(gameData.id)
 
-    expect(price?.steam_price).toBe(priceData.steam_price.toString())
-    expect(price?.nuuvem_price).toBe(priceData.nuuvem_price.toString())
+    expect(price?.steam_price).toBe(String(priceData.steam_price))
+    expect(price?.nuuvem_price).toBe(String(priceData.nuuvem_price))
   })
 })

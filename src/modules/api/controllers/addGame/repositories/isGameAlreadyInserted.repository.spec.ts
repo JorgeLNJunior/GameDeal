@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import { randomUUID } from 'crypto'
+import { GameBuilder } from '@testing/builders/game.builder'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -21,15 +21,8 @@ describe('IsGameAlreadyInsertedRepository', () => {
   })
 
   it('should return true if a game is already inserted', async () => {
-    await db
-      .getClient()
-      .insertInto('game')
-      .values({
-        id: randomUUID(),
-        title: 'God of War',
-        steam_url: 'https://steamcommunity.com/id/godofwar'
-      })
-      .execute()
+    const game = new GameBuilder().build()
+    await db.getClient().insertInto('game').values(game).execute()
 
     const isAlreadyInserted = await repository.handle('God of War')
     expect(isAlreadyInserted).toBe(true)

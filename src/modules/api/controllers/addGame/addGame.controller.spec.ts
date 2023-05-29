@@ -1,5 +1,7 @@
 import { PinoLogger } from '@infra/pino.logger'
 import { AuthService } from '@shared/services/auth.service'
+import { GameBuilder } from '@testing/builders/game.builder'
+import { HttpRequestBuilder } from '@testing/builders/http/http.request.builder'
 import { container } from 'tsyringe'
 
 import { AddGameController } from './addGame.controller'
@@ -33,81 +35,52 @@ describe('AddGameController', () => {
   })
 
   it('should return a CREATED response if it succeeds', async () => {
-    const game = {
-      id: 'id',
-      title: 'God of War',
-      steam_url: 'url',
-      nuuvem_url: 'url',
-      created_at: new Date(),
-      updated_at: null
-    }
-    jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: true })
-    jest
-      .spyOn(isGameAlreadyInsertedRepository, 'handle')
-      .mockResolvedValueOnce(false)
-    jest.spyOn(addGameRepository, 'add').mockResolvedValueOnce(game)
-    const token = await authService.getJwtToken()
+    const game = new GameBuilder().build()
 
-    const response = await controller.handle({
-      body: {},
-      headers: {
-        authorization: `Bearer ${token}`
-      },
-      params: {},
-      query: {},
-      url: ''
-    })
+    jest.spyOn(isGameAlreadyInsertedRepository, 'handle').mockResolvedValueOnce(false)
+    jest.spyOn(addGameRepository, 'add').mockResolvedValueOnce(game)
+
+    const token = await authService.getJwtToken()
+    const request = new HttpRequestBuilder()
+      .withHeaders({ authorization: `Bearer ${token}` })
+      .withBody(game)
+      .build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(201)
     expect(response.body).toEqual(game)
   })
 
   it('should return a BAD_REQUEST response if validation fails', async () => {
-    jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: false })
     const token = await authService.getJwtToken()
 
-    const response = await controller.handle({
-      body: {},
-      headers: {
-        authorization: `Bearer ${token}`
-      },
-      params: {},
-      query: {},
-      url: ''
-    })
+    const request = new HttpRequestBuilder()
+      .withHeaders({ authorization: `Bearer ${token}` })
+      .withBody({})
+      .build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(400)
   })
 
   it('should return a BAD_REQUEST response if the game is already inserted', async () => {
-    jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: true })
-    jest
-      .spyOn(isGameAlreadyInsertedRepository, 'handle')
-      .mockResolvedValueOnce(true)
-    jest.spyOn(addGameRepository, 'add').mockRejectedValueOnce({} as unknown)
-    const token = await authService.getJwtToken()
+    const game = new GameBuilder().build()
 
-    const response = await controller.handle({
-      body: {},
-      headers: {
-        authorization: `Bearer ${token}`
-      },
-      params: {},
-      query: {},
-      url: ''
-    })
+    jest.spyOn(isGameAlreadyInsertedRepository, 'handle').mockResolvedValueOnce(true)
+
+    const token = await authService.getJwtToken()
+    const request = new HttpRequestBuilder()
+      .withBody(game)
+      .withHeaders({ authorization: `Bearer ${token}` })
+      .build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(400)
   })
 
   it('should return UNAUTHORIZED if it did not receive an auth token', async () => {
-    const response = await controller.handle({
-      body: {},
-      params: {},
-      query: {},
-      headers: {},
-      url: ''
-    })
+    const request = new HttpRequestBuilder().build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(401)
   })
@@ -118,15 +91,10 @@ describe('AddGameController', () => {
       error: 'invalid token'
     })
 
-    const response = await controller.handle({
-      body: {},
-      params: {},
-      query: {},
-      headers: {
-        authorization: 'Bearer invalid.token'
-      },
-      url: ''
-    })
+    const request = new HttpRequestBuilder().withHeaders({
+      authorization: 'Bearer invalid.token'
+    }).build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(401)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -134,25 +102,13 @@ describe('AddGameController', () => {
   })
 
   it('should return a INTERNAL_ERROR response if something throw', async () => {
-    jest.spyOn(validator, 'validate').mockReturnValueOnce({ success: true })
-    jest
-      .spyOn(isGameAlreadyInsertedRepository, 'handle')
-      .mockResolvedValueOnce(false)
-    jest
-      .spyOn(addGameRepository, 'add')
-      .mockRejectedValueOnce(new Error('repository error'))
+    jest.spyOn(authService, 'verifyToken').mockRejectedValueOnce(new Error())
 
     const token = await authService.getJwtToken()
-
-    const response = await controller.handle({
-      body: {},
-      headers: {
-        authorization: `Bearer ${token}`
-      },
-      params: {},
-      query: {},
-      url: ''
-    })
+    const request = new HttpRequestBuilder().withHeaders({
+      authorization: `Bearer ${token}`
+    }).build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(500)
   })

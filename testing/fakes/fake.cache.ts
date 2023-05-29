@@ -1,15 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { ApplicationCache, CacheData } from '@localtypes/http/cache.type'
+import { type ApplicationCache, type CacheData } from '@localtypes/http/cache.type'
 
 export class FakeCache implements ApplicationCache {
-  async get(key: string): Promise<CacheData | undefined> {
+  async get (key: string): Promise<CacheData | undefined> {
     return undefined
   }
-  async set(
+
+  async set (
     key: string,
     value: unknown,
     expire?: number | undefined
   ): Promise<void> {
-    return
+
   }
 }

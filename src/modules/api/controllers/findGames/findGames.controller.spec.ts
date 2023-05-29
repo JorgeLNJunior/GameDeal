@@ -1,5 +1,7 @@
 import { PinoLogger } from '@infra/pino.logger'
 import type { ApplicationCache } from '@localtypes/http/cache.type'
+import { GameBuilder } from '@testing/builders/game.builder'
+import { HttpRequestBuilder } from '@testing/builders/http/http.request.builder'
 import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
@@ -18,24 +20,9 @@ describe('FindGamesController', () => {
   })
 
   it('should return a OK reponse and a list of games', async () => {
-    const games = [
-      {
-        title: 'title',
-        id: 'id',
-        steam_url: 'steam_url',
-        nuuvem_url: 'nuuvem_url',
-        created_at: new Date(),
-        updated_at: new Date()
-      }
-    ]
+    const games = [new GameBuilder().build()]
     const result = { results: games, pages: 1 }
-    const request = {
-      query: {},
-      headers: {},
-      body: {},
-      params: {},
-      url: ''
-    }
+    const request = new HttpRequestBuilder().build()
 
     jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
 
@@ -46,24 +33,9 @@ describe('FindGamesController', () => {
   })
 
   it('should return a OK if cache is enabled', async () => {
-    const games = [
-      {
-        title: 'title',
-        id: 'id',
-        steam_url: 'steam_url',
-        nuuvem_url: 'nuuvem_url',
-        created_at: new Date(),
-        updated_at: new Date()
-      }
-    ]
+    const games = [new GameBuilder().build()]
     const result = { results: games, pages: 1 }
-    const request = {
-      query: {},
-      headers: {},
-      body: {},
-      params: {},
-      url: ''
-    }
+    const request = new HttpRequestBuilder().build()
 
     jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
     const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
@@ -79,26 +51,11 @@ describe('FindGamesController', () => {
   })
 
   it('should return a OK if cache is disabled', async () => {
-    const games = [
-      {
-        title: 'title',
-        id: 'id',
-        steam_url: 'steam_url',
-        nuuvem_url: 'nuuvem_url',
-        created_at: new Date(),
-        updated_at: new Date()
-      }
-    ]
+    const games = [new GameBuilder().build()]
     const result = { results: games, pages: 1 }
-    const request = {
-      query: {},
-      headers: {
-        'cache-control': 'no-cache'
-      },
-      body: {},
-      params: {},
-      url: ''
-    }
+    const request = new HttpRequestBuilder()
+      .withHeaders({ 'cache-control': 'no-cache' })
+      .build()
 
     jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
     const cacheSpy = jest.spyOn(cache, 'get')
@@ -111,16 +68,9 @@ describe('FindGamesController', () => {
   })
 
   it('should return a INTERNAL_ERROR reponse if an exception was trown', async () => {
-    const request = {
-      query: {},
-      headers: {},
-      body: {},
-      params: {},
-      url: ''
-    }
-    jest
-      .spyOn(repository, 'find')
-      .mockRejectedValueOnce(new Error('repository error'))
+    const request = new HttpRequestBuilder().build()
+
+    jest.spyOn(repository, 'find').mockRejectedValueOnce(new Error())
 
     const response = await controller.handle(request)
 

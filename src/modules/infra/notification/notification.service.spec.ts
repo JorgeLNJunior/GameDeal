@@ -56,15 +56,9 @@ describe('NotificationService', () => {
 })
 
 class FakeNotifier implements Notifier {
-  async notify (): Promise<void> {
-    console.log('')
-  }
+  async notify (): Promise<void> {}
 
-  async start (): Promise<void> {
-    console.log('')
-  }
+  async start (): Promise<void> {}
 
-  async stop (): Promise<void> {
-    console.log('')
-  }
+  async stop (): Promise<void> {}
 }

@@ -1,6 +1,8 @@
 import { PinoLogger } from '@infra/pino.logger'
 import type { ApplicationCache } from '@localtypes/http/cache.type'
 import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
+import { GameBuilder } from '@testing/builders/game.builder'
+import { HttpRequestBuilder } from '@testing/builders/http/http.request.builder'
 import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
@@ -18,50 +20,32 @@ describe('FindGameByIdController', () => {
   })
 
   it('should return a OK reponse', async () => {
-    const game = {
-      id: 'id',
-      title: 'title',
-      steam_url: 'stem_url',
-      nuuvem_url: 'nuuvem_url',
-      created_at: new Date(),
-      updated_at: null
-    }
+    const game = new GameBuilder().build()
+
     jest.spyOn(repository, 'find').mockResolvedValueOnce(game)
 
-    const response = await controller.handle({
-      body: {},
-      headers: {},
-      query: {},
-      params: { id: game.id },
-      url: ''
-    })
+    const request = new HttpRequestBuilder()
+      .withParams({ id: game.id })
+      .build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual(game)
   })
 
   it('should return OK with cache enabled', async () => {
-    const game = {
-      id: 'id',
-      title: 'title',
-      steam_url: 'stem_url',
-      nuuvem_url: 'nuuvem_url',
-      created_at: new Date(),
-      updated_at: null
-    }
+    const game = new GameBuilder().build()
+
     jest.spyOn(repository, 'find').mockResolvedValueOnce(game)
     const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
       value: game,
       expires: 60
     })
 
-    const response = await controller.handle({
-      body: {},
-      headers: {},
-      query: {},
-      params: { id: game.id },
-      url: ''
-    })
+    const request = new HttpRequestBuilder()
+      .withParams({ id: game.id })
+      .build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual(game)
@@ -69,26 +53,16 @@ describe('FindGameByIdController', () => {
   })
 
   it('should return OK with cache disabled', async () => {
-    const game = {
-      id: 'id',
-      title: 'title',
-      steam_url: 'stem_url',
-      nuuvem_url: 'nuuvem_url',
-      created_at: new Date(),
-      updated_at: null
-    }
+    const game = new GameBuilder().build()
+
     jest.spyOn(repository, 'find').mockResolvedValueOnce(game)
     const cacheSpy = jest.spyOn(cache, 'get')
 
-    const response = await controller.handle({
-      body: {},
-      headers: {
-        'cache-control': 'no-cache'
-      },
-      query: {},
-      params: { id: game.id },
-      url: ''
-    })
+    const request = new HttpRequestBuilder()
+      .withParams({ id: game.id })
+      .withHeaders({ 'cache-control': 'no-cache' })
+      .build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(200)
     expect(response.body).toEqual(game)
@@ -98,13 +72,10 @@ describe('FindGameByIdController', () => {
   it('should return a NOT_FOUND response if the game was not found', async () => {
     jest.spyOn(repository, 'find').mockResolvedValueOnce(undefined)
 
-    const response = await controller.handle({
-      body: {},
-      headers: {},
-      query: {},
-      params: { id: 'id' },
-      url: ''
-    })
+    const request = new HttpRequestBuilder()
+      .withParams({ id: 'id' })
+      .build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(404)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,17 +83,12 @@ describe('FindGameByIdController', () => {
   })
 
   it('should return a INTERNAL_ERROR response if an exception was thrown', async () => {
-    jest
-      .spyOn(repository, 'find')
-      .mockRejectedValueOnce(new Error('repository error'))
+    jest.spyOn(repository, 'find').mockRejectedValueOnce(new Error())
 
-    const response = await controller.handle({
-      body: {},
-      headers: {},
-      query: {},
-      params: { id: 'id' },
-      url: ''
-    })
+    const request = new HttpRequestBuilder()
+      .withParams({ id: 'id ' })
+      .build()
+    const response = await controller.handle(request)
 
     expect(response.statusCode).toBe(500)
   })

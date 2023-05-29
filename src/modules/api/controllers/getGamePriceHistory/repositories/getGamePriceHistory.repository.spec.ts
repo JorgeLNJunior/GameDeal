@@ -1,5 +1,6 @@
 import { DatabaseService } from '@database/database.service'
-import { randomUUID } from 'crypto'
+import { GameBuilder } from '@testing/builders/game.builder'
+import { GamePriceBuilder } from '@testing/builders/price.builder'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -23,18 +24,8 @@ describe('GetGamePriceHistoryRepository', () => {
   })
 
   it('should return a list of prices', async () => {
-    const game = {
-      id: randomUUID(),
-      title: 'Kerbal Space Program',
-      steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url'
-    }
-    const price = {
-      id: randomUUID(),
-      game_id: game.id,
-      steam_price: 50.55,
-      nuuvem_price: 45.99
-    }
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder().withGame(game.id).build()
     await db.getClient().insertInto('game').values(game).execute()
     await db.getClient().insertInto('game_price').values(price).execute()
 

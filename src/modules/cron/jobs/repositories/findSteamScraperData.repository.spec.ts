@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import { randomUUID } from 'crypto'
+import { GameBuilder } from '@testing/builders/game.builder'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -21,12 +21,7 @@ describe('FindGameScraperDataRepository', () => {
   })
 
   it('should return a object with the game id, steam_url and nuuvem_url', async () => {
-    const game = {
-      id: randomUUID(),
-      title: 'Cyberpunk 2077',
-      steam_url: 'https://steam.com/id',
-      nuuvem_url: 'https://nuuvem.com/id'
-    }
+    const game = new GameBuilder().build()
 
     await db.getClient().insertInto('game').values(game).execute()
 

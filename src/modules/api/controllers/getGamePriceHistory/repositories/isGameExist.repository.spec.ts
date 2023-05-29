@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import { randomUUID } from 'crypto'
+import { GameBuilder } from '@testing/builders/game.builder'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -22,12 +22,7 @@ describe('IsGameExistRepository', () => {
   })
 
   it('should return true if a game exist', async () => {
-    const game = {
-      id: randomUUID(),
-      title: 'God of War',
-      steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url'
-    }
+    const game = new GameBuilder().build()
     await db.getClient().insertInto('game').values(game).execute()
 
     const isGameExist = await repository.get(game.id)

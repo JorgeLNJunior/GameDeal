@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import { randomUUID } from 'crypto'
+import { GameBuilder } from '@testing/builders/game.builder'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -22,12 +22,7 @@ describe('FindGamesRepository', () => {
   })
 
   it('should return a list of games', async () => {
-    const game = {
-      id: randomUUID(),
-      title: 'Cyberpunk 2077',
-      steam_url: 'https://steamcommunity.com/id',
-      nuuvem_url: 'https://nuuvem.com/id'
-    }
+    const game = new GameBuilder().build()
     await db.getClient().insertInto('game').values(game).execute()
 
     const games = await repository.find({})

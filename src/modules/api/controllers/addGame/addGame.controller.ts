@@ -1,4 +1,3 @@
-import type { AddGameDTO } from '@api/controllers/addGame/dto/addGame.dto'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import type { HttpController } from '@localtypes/http/http.controller.type'
 import type {
@@ -35,9 +34,8 @@ export class AddGameController implements HttpController {
         return ResponseBuilder.unauthorized('auth token not provided')
       }
 
-      const tokenValidation = await this.authService.verifyToken(
-        authToken.replace('Bearer ', '')
-      )
+      const token = authToken.replace('Bearer ', '')
+      const tokenValidation = await this.authService.verifyToken(token)
       if (!tokenValidation.isValid) {
         return ResponseBuilder.unauthorized(tokenValidation.error)
       }
@@ -45,10 +43,8 @@ export class AddGameController implements HttpController {
       const { success, errors } = this.validator.validate(request.body)
       if (!success) return ResponseBuilder.badRequest(errors)
 
-      const isAlreadyInserted =
-        await this.isGameAlreadyInsertedRepository.handle(
-          (request.body as AddGameDTO).title
-        )
+      const isAlreadyInserted = await this.isGameAlreadyInsertedRepository
+        .handle(request.body.title)
 
       if (isAlreadyInserted) {
         return ResponseBuilder.badRequest({
@@ -59,7 +55,7 @@ export class AddGameController implements HttpController {
         })
       }
 
-      const game = await this.addGameRepository.add(request.body as AddGameDTO)
+      const game = await this.addGameRepository.add(request.body)
 
       return ResponseBuilder.created(game)
     } catch (error) {

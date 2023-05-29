@@ -4,6 +4,8 @@ import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
 import { SteamScraper } from '@scrapers/steam.scraper'
 import { FindGameByIdRepository } from '@shared/repositories/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@shared/repositories/getCurrentGamePrice.repository'
+import { GameBuilder } from '@testing/builders/game.builder'
+import { GamePriceBuilder } from '@testing/builders/price.builder'
 import { container } from 'tsyringe'
 
 import { GameJobProcessor } from './game.job.processor'
@@ -38,22 +40,13 @@ describe('GameJobProcessor', () => {
 
   it('should notify if the current steam price is lower than the latest registered', async () => {
     const currentSteamPrice = 10
-    const game = {
-      id: 'id',
-      title: 'title',
-      steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url',
-      created_at: new Date(),
-      updated_at: new Date()
-    }
-    const price = {
-      id: 'id',
-      game_id: 'game_id',
-      steam_price: 20,
-      nuuvem_price: 30,
-      created_at: new Date(),
-      updated_at: null
-    }
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder()
+      .withGame(game.id)
+      .withSteamPrice(20)
+      .withNuuvemPrice(30)
+      .build()
+
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
     jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(30)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
@@ -78,22 +71,13 @@ describe('GameJobProcessor', () => {
 
   it('should notify if the current nuuvem price is lower than the latest registered (steam and nuuvem prices)', async () => {
     const currentNuuvemPrice = 10
-    const game = {
-      id: 'id',
-      title: 'title',
-      steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url',
-      created_at: new Date(),
-      updated_at: new Date()
-    }
-    const price = {
-      id: 'id',
-      game_id: 'game_id',
-      steam_price: 20,
-      nuuvem_price: 30,
-      created_at: new Date(),
-      updated_at: null
-    }
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder()
+      .withGame(game.id)
+      .withSteamPrice(20)
+      .withNuuvemPrice(30)
+      .build()
+
     jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(currentNuuvemPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
@@ -118,22 +102,13 @@ describe('GameJobProcessor', () => {
 
   it('should notify if the current steam price is lower than the latest registered (steam price only)', async () => {
     const currentSteamPrice = 10
-    const game = {
-      id: 'id',
-      title: 'title',
-      steam_url: 'steam_url',
-      nuuvem_url: null,
-      created_at: new Date(),
-      updated_at: new Date()
-    }
-    const price = {
-      id: 'id',
-      game_id: 'game_id',
-      steam_price: 20,
-      nuuvem_price: null,
-      created_at: new Date(),
-      updated_at: null
-    }
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder()
+      .withGame(game.id)
+      .withSteamPrice(20)
+      .withNuuvemPrice(null)
+      .build()
+
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
