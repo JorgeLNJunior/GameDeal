@@ -1,14 +1,14 @@
+import { ResponseBuilder } from '@api/responses/response.builder'
 import { PINO_LOGGER, REDIS_CACHE } from '@dependencies/dependency.tokens'
 import { ApplicationCache } from '@localtypes/http/cache.type'
-import { HttpController } from '@localtypes/http/http.controller.type'
+import { type HttpController } from '@localtypes/http/http.controller.type'
 import {
   HttpMethod,
-  HttpRequest,
-  HttpResponse
+  type HttpRequest,
+  type HttpResponse
 } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { ResponseBuilder } from '@modules/api/responses/response.builder'
-import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
+import { FindGameByIdRepository } from '@shared/findGameById.repository'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
@@ -16,20 +16,18 @@ export class FindGameByIdController implements HttpController {
   public method = HttpMethod.GET
   public url = '/games/:id'
 
-  constructor(
-    private repository: FindGameByIdRepository,
-    @inject(REDIS_CACHE) private cacheService: ApplicationCache,
-    @inject(PINO_LOGGER) private logger: ApplicationLogger
+  constructor (
+    private readonly repository: FindGameByIdRepository,
+    @inject(REDIS_CACHE) private readonly cacheService: ApplicationCache,
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  async handle(request: HttpRequest): Promise<HttpResponse> {
+  async handle (request: HttpRequest): Promise<HttpResponse> {
     try {
-      const noCache =
-        request.headers['cache-control'] &&
-        request.headers['cache-control'].includes('no-cache')
+      const noCache = request.headers['cache-control']?.includes('no-cache')
       if (!noCache) {
         const cache = await this.cacheService.get(request.url)
-        if (cache) {
+        if (cache != null) {
           const headers = {
             'Cache-Control': `max-age=${cache.expires}`
           }
@@ -38,9 +36,9 @@ export class FindGameByIdController implements HttpController {
       }
 
       const game = await this.repository.find(request.params.id)
-      if (!game) return ResponseBuilder.notFound('game not found')
+      if (game == null) return ResponseBuilder.notFound('game not found')
 
-      this.cacheService.set(request.url, game)
+      await this.cacheService.set(request.url, game)
       return ResponseBuilder.ok(game)
     } catch (error) {
       this.logger.error(error, '[FindGameByIdController] internal server error')

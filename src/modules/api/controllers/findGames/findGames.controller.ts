@@ -1,3 +1,4 @@
+import { ResponseBuilder } from '@api/responses/response.builder'
 import { PINO_LOGGER, REDIS_CACHE } from '@dependencies/dependency.tokens'
 import { ApplicationCache } from '@localtypes/http/cache.type'
 import { type HttpController } from '@localtypes/http/http.controller.type'
@@ -7,7 +8,6 @@ import {
   type HttpResponse
 } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { ResponseBuilder } from '@modules/api/responses/response.builder'
 import { inject, injectable } from 'tsyringe'
 
 import { FindGamesRepository } from './repositories/findGames.repository'

@@ -1,7 +1,7 @@
+import { ResponseBuilder } from '@api/responses/response.builder'
 import type { HttpController } from '@localtypes/http/http.controller.type'
 import type { HttpResponse } from '@localtypes/http/http.type'
 import { HttpMethod } from '@localtypes/http/http.type'
-import { ResponseBuilder } from '@modules/api/responses/response.builder'
 
 export class HealthController implements HttpController {
   public method = HttpMethod.HEAD

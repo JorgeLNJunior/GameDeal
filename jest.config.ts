@@ -26,6 +26,8 @@ const config: JestConfigWithTsJest = {
     '^@infra/(.*)$': '<rootDir>/src/modules/infra/$1',
     '^@queue/(.*)$': '<rootDir>/src/modules/queue/$1',
     '^@scrapers/(.*)$': '<rootDir>/src/modules/scrapers/$1',
+    '^@notification/(.*)$': '<rootDir>/src/modules/notification/$1',
+    '^@workers/(.*)$': '<rootDir>/src/modules/workers/$1',
     '^@shared/(.*)$': '<rootDir>/src/modules/shared/$1',
     '^@localtypes/(.*)$': '<rootDir>/src/types/$1'
   },

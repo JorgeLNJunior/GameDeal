@@ -1,3 +1,4 @@
+import { ResponseBuilder } from '@api/responses/response.builder'
 import { PINO_LOGGER, REDIS_CACHE } from '@dependencies/dependency.tokens'
 import { ApplicationCache } from '@localtypes/http/cache.type'
 import type { HttpController } from '@localtypes/http/http.controller.type'
@@ -7,9 +8,8 @@ import type {
 } from '@localtypes/http/http.type'
 import { HttpMethod } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { ResponseBuilder } from '@modules/api/responses/response.builder'
-import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
-import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
+import { FindGameByIdRepository } from '@shared/findGameById.repository'
+import { GetCurrentGamePriceRepository } from '@shared/getCurrentGamePrice.repository'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()

@@ -1,9 +1,9 @@
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { NotificationService } from '@infra/notification/notification.service'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import type { NotifyData } from '@localtypes/notifier.type'
 import { QueueName } from '@localtypes/queue.type'
+import { NotificationService } from '@notification/notification.service'
 import { Worker } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 

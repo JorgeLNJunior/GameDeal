@@ -1,3 +1,5 @@
+import { AuthService } from '@api/internal/auth.service'
+import { ResponseBuilder } from '@api/responses/response.builder'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import type { HttpController } from '@localtypes/http/http.controller.type'
 import type {
@@ -6,8 +8,6 @@ import type {
 } from '@localtypes/http/http.type'
 import { HttpMethod } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { ResponseBuilder } from '@modules/api/responses/response.builder'
-import { AuthService } from '@shared/services/auth.service'
 import { inject, injectable } from 'tsyringe'
 
 import { AddGameRepository } from './repositories/addGame.repository'

@@ -10,11 +10,8 @@
     "module": "CommonJS",
     "baseUrl": "./",
     "paths": {
-      "@config/*": [
-        "src/config/*"
-      ],
-      "@dependencies/*": [
-        "src/dependencies/*"
+      "@api/*": [
+        "src/modules/api/*"
       ],
       "@cron/*": [
         "src/modules/cron/*"
@@ -22,11 +19,11 @@
       "@database/*": [
         "src/modules/database/*"
       ],
-      "@api/*": [
-        "src/modules/api/*"
-      ],
       "@infra/*": [
         "src/modules/infra/*"
+      ],
+      "@notification/*": [
+        "src/modules/notification/*"
       ],
       "@queue/*": [
         "src/modules/queue/*"
@@ -37,8 +34,17 @@
       "@shared/*": [
         "src/modules/shared/*"
       ],
+      "@workers/*": [
+        "src/modules/workers/*"
+      ],
       "@modules/*": [
         "src/modules/*"
+      ],
+      "@config/*": [
+        "src/config/*"
+      ],
+      "@dependencies/*": [
+        "src/dependencies/*"
       ],
       "@localtypes/*": [
         "src/types/*"

@@ -1,11 +1,11 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import type { ScrapeGamePriceData } from '@localtypes/queue.type'
-import { FindGameByIdRepository } from '@modules/shared/repositories/findGameById.repository'
-import { GetCurrentGamePriceRepository } from '@modules/shared/repositories/getCurrentGamePrice.repository'
 import { NotificationQueue } from '@queue/notification.queue'
 import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
 import { SteamScraper } from '@scrapers/steam.scraper'
+import { FindGameByIdRepository } from '@shared/findGameById.repository'
+import { GetCurrentGamePriceRepository } from '@shared/getCurrentGamePrice.repository'
 import { inject, injectable } from 'tsyringe'
 
 import { InsertGamePriceRepository } from './repositories/insertGamePrice.repository'

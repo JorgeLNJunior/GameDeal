@@ -1,5 +1,5 @@
+import { AuthService } from '@api/internal/auth.service'
 import { PinoLogger } from '@infra/pino.logger'
-import { AuthService } from '@shared/services/auth.service'
 import { GameBuilder } from '@testing/builders/game.builder'
 import { HttpRequestBuilder } from '@testing/builders/http/http.request.builder'
 import { container } from 'tsyringe'
