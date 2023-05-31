@@ -5,6 +5,7 @@
       "ES2021",
       "DOM"
     ],
+    "typeRoots": ["types"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "module": "CommonJS",
