@@ -10,7 +10,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2021,
     sourceType: 'module',
-    project: path.join(__dirname, 'packages/tsconfig.eslint.json')
+    project: path.join(__dirname, 'apps/backend/tsconfig.json')
   },
   plugins: [
     'simple-import-sort'
