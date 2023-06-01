@@ -5,3 +5,7 @@ coverage
 .eslintcache
 .cache
 .env
+.turbo
+.vercel
+
+*.log

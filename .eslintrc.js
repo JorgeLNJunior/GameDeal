@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   env: {
     es2021: true,
@@ -8,7 +10,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 2021,
     sourceType: 'module',
-    project: './tsconfig.json'
+    project: path.join(__dirname, 'packages/tsconfig.eslint.json')
   },
   plugins: [
     'simple-import-sort'

@@ -10,22 +10,26 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
       - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - run: npm ci
-      - run: npm run build
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm build:backend
 
   test:
     name: 🧪 Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
       - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+          cache: 'pnpm'
       - name: Setup MySQL 8
         uses: mirromutth/mysql-action@v1.1
         with:
@@ -36,27 +40,29 @@ jobs:
         uses: supercharge/redis-github-action@1.5.0
         with:
           redis-version: 7
-      - run: npm ci
-      - run: npm run test:cov
+      - run: pnpm install
+      - run: pnpm test:cov:backend
         env:
           test: true
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./coverage/lcov.info
+          path-to-lcov: ./apps/backend/coverage/lcov.info
 
   lint:
     name: 🧹 Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
       - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
-      - run: npm ci
-      - run: npm run lint
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm lint:backend
 
   validate_swagger_file:
     name: 🧪 Validate Swagger File
@@ -66,7 +72,7 @@ jobs:
       - name: validate OpenAPI definition
         uses: char0n/swagger-editor-validate@v1
         with:
-          definition-file: ./src/modules/api/docs/swagger.yaml
+          definition-file: ./apps/backend/src/modules/api/docs/swagger.yaml
 
   deploy:
     name: 🚀 Deploy

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "lint": {
+      "inputs": ["src/**/*.ts", "src/**/*.spec.ts", "testing/**/*.ts"]
+    },
+    "lint:fix": {
+      "inputs": ["src/**/*.ts", "src/**/*.spec.ts", "testing/**/*.ts"]
+    },
+    "test": {
+      "inputs": ["src/**/*.ts", "src/**/*.spec.ts", "testing/**/*.ts"]
+    },
+    "test:cov": {
+      "inputs": ["src/**/*.ts", "src/**/*.spec.ts", "testing/**/*.ts"]
+    },
+    "start:watch": {
+      "cache": false,
+      "persistent": true
+    }
+  }
+}
