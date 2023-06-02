@@ -17,6 +17,11 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install
       - run: pnpm build:frontend
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: apps/frontend/dist
+          if-no-files-found: error
 
   test:
     name: 🧪 Tests
@@ -60,11 +65,15 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-      - uses: amondnet/vercel-action@v20
+      - uses: actions/download-artifact@v3
+        with:
+          name: build
+          path: apps/frontend/dist
+      - uses: amondnet/vercel-action@v25
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-args: '--prod'
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
-          working-directory: apps/frontend
+          working-directory: ./apps/frontend/dist
+          vercel-args: '--prod'
