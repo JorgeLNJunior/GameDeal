@@ -1,8 +1,7 @@
-name: CI
+name: Backend CI
 
 on:
   push:
-  pull_request:
 
 jobs:
   build:
@@ -45,10 +44,10 @@ jobs:
         env:
           test: true
       - name: Coveralls
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./apps/backend/coverage/lcov.info
+          path-base-path-lcov: apps/backend
 
   lint:
     name: 🧹 Lint
@@ -74,15 +73,15 @@ jobs:
         with:
           definition-file: ./apps/backend/src/modules/api/docs/swagger.yaml
 
-  deploy:
-    name: 🚀 Deploy
-    runs-on: ubuntu-latest
-    needs: [build, test, validate_swagger_file]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v3
-      - uses: JorgeLNJunior/render-deploy@v1.3.2
-        with:
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
-          api_key: ${{ secrets.RENDER_API_KEY }}
-          wait_deploy: true
+  # deploy:
+  #   name: 🚀 Deploy
+  #   runs-on: ubuntu-latest
+  #   needs: [build, test, lint, validate_swagger_file]
+  #   if: github.ref == 'refs/heads/main'
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: JorgeLNJunior/render-deploy@v1.3.2
+  #       with:
+  #         service_id: ${{ secrets.RENDER_SERVICE_ID }}
+  #         api_key: ${{ secrets.RENDER_API_KEY }}
+  #         wait_deploy: true

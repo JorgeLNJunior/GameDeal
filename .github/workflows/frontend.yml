@@ -1,0 +1,67 @@
+name: Frontend CI
+
+on:
+  push:
+
+jobs:
+  build:
+    name: 🔨 Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm build:frontend
+
+  test:
+    name: 🧪 Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm test:cov:frontend
+        env:
+          test: true
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-base-path-lcov: apps/frontend
+
+  lint:
+    name: 🧹 Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm lint:frontend
+
+  # deploy:
+  #   name: 🚀 Deploy
+  #   runs-on: ubuntu-latest
+  #   needs: [build, test, lint]
+  #   if: github.ref == 'refs/heads/main'
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: JorgeLNJunior/render-deploy@v1.3.2
+  #       with:
+  #         service_id: ${{ secrets.RENDER_SERVICE_ID }}
+  #         api_key: ${{ secrets.RENDER_API_KEY }}
+  #         wait_deploy: true
