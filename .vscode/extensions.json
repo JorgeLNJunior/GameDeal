@@ -4,6 +4,7 @@
         "mikestead.dotenv",
         "editorconfig.editorconfig",
         "42crunch.vscode-openapi",
-        "redhat.vscode-yaml"
+        "redhat.vscode-yaml",
+        "Vue.volar"
     ]
 }

@@ -6,18 +6,10 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
-    "lint": {
-      "inputs": ["src/**/*.ts", "src/**/*.spec.ts", "testing/**/*.ts"]
-    },
-    "lint:fix": {
-      "inputs": ["src/**/*.ts", "src/**/*.spec.ts", "testing/**/*.ts"]
-    },
-    "test": {
-      "inputs": ["src/**/*.ts", "src/**/*.spec.ts", "testing/**/*.ts"]
-    },
-    "test:cov": {
-      "inputs": ["src/**/*.ts", "src/**/*.spec.ts", "testing/**/*.ts"]
-    },
+    "lint": {},
+    "lint:fix": {},
+    "test": {},
+    "test:cov": {},
     "start:watch": {
       "cache": false,
       "persistent": true

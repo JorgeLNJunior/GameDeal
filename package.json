@@ -11,12 +11,16 @@
     "start:dev:backend": "turbo run dev --filter=backend --log-prefix=none",
     "start:watch": "turbo run start:watch",
     "start:watch:backend": "turbo run start:watch --filter=backend --log-prefix=none",
+    "start:watch:frontend": "turbo run start:watch --filter=frontend --log-prefix=none",
     "lint": "turbo run lint",
     "lint:backend": "turbo run lint --filter=backend",
+    "lint:frontend": "turbo run lint --filter=frontend",
     "lint:fix": "turbo run lint:fix",
     "lint:fix:backend": "turbo run lint:fix --filter=backend --log-prefix=none",
+    "lint:fix:frontend": "turbo run lint:fix --filter=frontend --log-prefix=none",
     "test": "turbo run test",
     "test:backend": "turbo run test --filter=backend",
+    "test:frontend": "turbo run test --filter=frontend",
     "test:cov": "turbo run test:cov",
     "test:cov:backend": "turbo run test:cov --filter=backend --log-prefix=none",
     "prepare": "husky install"
@@ -30,9 +34,11 @@
     "eslint-config-standard-with-typescript": "^34.0.1",
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-vue": "^9.14.1",
     "husky": "^8.0.0",
     "lint-staged": "^13.2.2",
-    "turbo": "^1.9.7"
+    "turbo": "^1.9.7",
+    "@vue/eslint-config-standard-with-typescript": "^8.0.0"
   },
   "lint-staged": {
     "*.{ts,js}": "eslint --cache --fix"
