@@ -19,10 +19,11 @@
     "lint:fix:backend": "turbo run lint:fix --filter=backend --log-prefix=none",
     "lint:fix:frontend": "turbo run lint:fix --filter=frontend --log-prefix=none",
     "test": "turbo run test",
-    "test:backend": "turbo run test --filter=backend",
-    "test:frontend": "turbo run test --filter=frontend",
+    "test:backend": "turbo run test --filter=backend --log-prefix=none",
+    "test:frontend": "turbo run test --filter=frontend --log-prefix=none",
     "test:cov": "turbo run test:cov",
     "test:cov:backend": "turbo run test:cov --filter=backend --log-prefix=none",
+    "test:cov:frontend": "turbo run test:cov --filter=frontend --log-prefix=none",
     "prepare": "husky install"
   },
   "devDependencies": {

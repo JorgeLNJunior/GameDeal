@@ -14,7 +14,14 @@ export default mergeConfig(
       root: fileURLToPath(new URL('./', import.meta.url)),
       transformMode: {
         web: [/\.[jt]sx$/]
-      }
+      },
+      coverage: {
+        all: true,
+        reporter: ['lcov'],
+        include: ['src/**/*.ts', 'src/**/*.vue'],
+        exclude: ['src/main.ts', 'src/router/index.ts', 'src/**/*.spec.ts']
+      },
+      passWithNoTests: true
     }
   })
 )
