@@ -7,10 +7,14 @@ const config: JestConfigWithTsJest = {
   collectCoverageFrom: [
     'src/**/*.(t|j)s',
     '!src/modules/database/migrations/**/*',
+    '!src/modules/database/scripts/**/*',
     '!src/dependencies/**/*',
-    '!**/*.dto.ts',
+    '!src/types/**/*',
     '!**/*.interface.ts',
-    '!**/*.type.ts'
+    '!**/*.dto.ts',
+    '!**/*.type.ts',
+    '!src/infra/newrelic.ts',
+    '!src/main.ts'
   ],
   coverageDirectory: 'coverage',
   coverageProvider: 'v8',
