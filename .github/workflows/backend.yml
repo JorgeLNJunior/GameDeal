@@ -80,7 +80,14 @@ jobs:
     if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            +src/backend/src/**/*.ts
+            +src/backend/package.json
+            !src/backend/**/*.spec.ts
       - uses: JorgeLNJunior/render-deploy@v1.3.2
+        if: env.GIT_DIFF
         with:
           service_id: ${{ secrets.RENDER_SERVICE_ID }}
           api_key: ${{ secrets.RENDER_API_KEY }}

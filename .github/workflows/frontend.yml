@@ -69,7 +69,15 @@ jobs:
         with:
           name: build
           path: apps/frontend/dist
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            +src/frontend/src/**/*.ts
+            +src/frontend/src/**/*.vue
+            +src/frontend/package.json
+            !src/frontend/**/*.spec.ts
       - uses: amondnet/vercel-action@v25
+        if: env.GIT_DIFF
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -89,7 +97,14 @@ jobs:
         with:
           name: build
           path: apps/frontend/dist
+      - uses: technote-space/get-diff-action@v6
+        with:
+          PATTERNS: |
+            +src/frontend/src/**/*.ts
+            +src/frontend/src/**/*.vue
+            +src/frontend/package.json
       - uses: amondnet/vercel-action@v25
+        if: env.GIT_DIFF
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
