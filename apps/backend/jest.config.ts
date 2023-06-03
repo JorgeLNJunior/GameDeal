@@ -12,6 +12,7 @@ const config: JestConfigWithTsJest = {
     '!src/types/**/*',
     '!**/*.interface.ts',
     '!**/*.dto.ts',
+    '!**/*.query.ts',
     '!**/*.type.ts',
     '!src/infra/newrelic.ts',
     '!src/main.ts'
@@ -36,7 +37,10 @@ const config: JestConfigWithTsJest = {
     '^@localtypes/(.*)$': '<rootDir>/src/types/$1'
   },
   verbose: true,
-  testTimeout: 15000
+  testTimeout: 15000,
+  globals: {
+    FORCE_COLOR: 1 // force turbo to show jest colors
+  }
 }
 
 export default config
