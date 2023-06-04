@@ -37,10 +37,7 @@ const config: JestConfigWithTsJest = {
     '^@localtypes/(.*)$': '<rootDir>/src/types/$1'
   },
   verbose: true,
-  testTimeout: 15000,
-  globals: {
-    FORCE_COLOR: 1 // force turbo to show jest colors
-  }
+  testTimeout: 15000
 }
 
 export default config
