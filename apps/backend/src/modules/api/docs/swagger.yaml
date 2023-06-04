@@ -38,12 +38,35 @@ paths:
         - "Game"
       security:
         - bearerAuth: []
-      
+
       requestBody:
         $ref: "#/components/requestBodies/add-game"
       responses:
         201:
           description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/game"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+
+    patch:
+      summary: Atualizar os dados de um jogo
+      tags:
+        - "Game"
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        $ref: "#/components/requestBodies/update-game"
+      responses:
+        200:
+          description: OK
           content:
             application/json:
               schema:
@@ -243,7 +266,7 @@ components:
           example: 2023-01-23T00:30:19.000Z
           nullable: true
 
-    game_price: 
+    game_price:
       type: object
       properties:
         id:
@@ -313,6 +336,26 @@ components:
                 example: https://www.nuuvem.com/br-en/item/god-of-war
                 description: "URL do jogo na Nuuvem"
 
+    update-game:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                example: "God of War"
+                description: "Título do jogo"
+              steam_url:
+                type: string
+                example: https://store.steampowered.com/app/1593500/God_of_War
+                description: "URL do jogo no Steam"
+              nuuvem_url:
+                type: string
+                example: https://www.nuuvem.com/br-en/item/god-of-war
+                description: "URL do jogo na Nuuvem"
+
   responses:
     400:
       description: Validation error
@@ -357,7 +400,7 @@ components:
                 default: Unauthorized
               message:
                 type: string
-                example: invalid credential         
+                example: invalid credential
     500:
       description: Internal error
       content:
