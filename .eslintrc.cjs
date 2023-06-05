@@ -52,7 +52,8 @@ module.exports = {
       files: ['apps/frontend/src/**/*.vue'],
       extends: [
         'plugin:vue/vue3-essential',
-        '@vue/eslint-config-standard-with-typescript'
+        '@vue/eslint-config-standard-with-typescript',
+        'plugin:tailwindcss/recommended'
       ],
       parserOptions: {
         ecmaVersion: 'latest',
