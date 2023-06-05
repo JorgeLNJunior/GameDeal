@@ -9,6 +9,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notFound',
+      component: async () => await import('../views/NotFound.vue')
     }
   ]
 })
