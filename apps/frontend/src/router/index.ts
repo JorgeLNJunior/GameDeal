@@ -8,14 +8,20 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: { title: 'Home' }
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
-      component: async () => await import('../views/NotFound.vue')
+      component: async () => await import('../views/NotFound.vue'),
+      meta: { title: '404 - Not Found' }
     }
   ]
+})
+
+router.afterEach((to) => {
+  document.title = to.meta.title ?? 'Game Price Tracker'
 })
 
 export default router
