@@ -44,7 +44,7 @@
     "turbo": "^1.10.1"
   },
   "lint-staged": {
-    "*.{ts,js}": "eslint --cache --fix"
+    "*.{ts,js,vue}": "eslint --cache --fix"
   },
   "config": {
     "commitizen": {
