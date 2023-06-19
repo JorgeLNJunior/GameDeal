@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import type { Game } from '@localtypes/entities.type'
+import type { Game } from '@shared/types'
 import { injectable } from 'tsyringe'
 
 import { type UpdateGameDTO } from '../dto/updateGame.dto'

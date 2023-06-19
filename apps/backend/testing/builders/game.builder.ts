@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-readonly */
-import type { Game } from '@localtypes/entities.type'
+import type { Game } from '@shared/types'
 import { randomUUID } from 'crypto'
 
 export class GameBuilder {

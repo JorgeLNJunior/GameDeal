@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import type { GamePrice } from '@localtypes/entities.type'
+import type { GamePrice } from '@shared/types'
 import { GameBuilder } from '@testing/builders/game.builder'
 import { GamePriceBuilder } from '@testing/builders/price.builder'
 import { sql } from 'kysely'

@@ -1,6 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import type { GamePrice } from '@localtypes/entities.type'
-import type { QueryData } from '@localtypes/http/queryData.type'
+import type { GamePrice, QueryData } from '@shared/types'
 import { sql } from 'kysely'
 import { injectable } from 'tsyringe'
 

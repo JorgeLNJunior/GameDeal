@@ -15,3 +15,8 @@ export interface GamePrice {
   created_at: Date
   updated_at: Date | null
 }
+
+export interface QueryData<T> {
+  results: T
+  pages: number
+}
