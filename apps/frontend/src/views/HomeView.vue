@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import GameList from '@/components/gameList/GameList.vue'
+
 </script>
 
 <template>
-  <main>
-    <h1>Hello World</h1>
+  <main class="flex items-center justify-center">
+    <GameList />
   </main>
 </template>
