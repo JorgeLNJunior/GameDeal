@@ -65,12 +65,21 @@ module.exports = {
     // frontend test files
     {
       files: ['apps/frontend/**/*.spec.ts'],
-      plugins: ['jest'],
       extends: ['standard-with-typescript'],
       parserOptions: {
         ecmaVersion: 2021,
         sourceType: 'module',
         project: path.join(__dirname, 'apps/frontend/tsconfig.vitest.json')
+      },
+    },
+    // packages .ts files
+    {
+      files: ['packages/**/*.ts'],
+      extends: ['standard-with-typescript'],
+      parserOptions: {
+        ecmaVersion: 2021,
+        sourceType: 'module',
+        project: path.join(__dirname, 'packages/tsconfig.json')
       }
     },
   ],
