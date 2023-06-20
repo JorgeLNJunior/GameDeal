@@ -6,8 +6,8 @@ import { SERVER_URL } from '@/constants/urls'
 export class ApiService {
   private readonly http = axios.create({ baseURL: SERVER_URL })
 
-  async getGames (): Promise<QueryData<Game[]>> {
-    const response = await this.http.get('/games')
+  async getGames (page = 1, limit = 8): Promise<QueryData<Game[]>> {
+    const response = await this.http.get(`/games?page=${page}&limit=${limit}`)
     return response.data as QueryData<Game[]>
   }
 

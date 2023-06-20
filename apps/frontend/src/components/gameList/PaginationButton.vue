@@ -13,11 +13,6 @@ const props = defineProps({
 
 const isFirstPage = computed(() => props.currentPage === 1)
 const isLastPage = computed(() => props.currentPage === props.totalPages)
-
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const previousPage = () => {}
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const nextPage = () => {}
 </script>
 
 <template>
@@ -26,7 +21,7 @@ const nextPage = () => {}
     <button
       href="#"
       class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
-      @click="previousPage()"
+      @click="$emit('previousPage')"
       :disabled="isFirstPage"
     >
       <svg
@@ -54,7 +49,7 @@ const nextPage = () => {}
     <button
       href="#"
       class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
-      @click="nextPage()"
+      @click="$emit('nextPage')"
       :disabled="isLastPage"
     >
       <svg

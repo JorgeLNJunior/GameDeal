@@ -18,11 +18,11 @@ const uiState = reactive({ isDataFetched: false })
 onBeforeMount(async () => await getGames())
 
 // functions
-async function getGames (): Promise<void> {
+async function getGames (page?: number): Promise<void> {
   uiState.isDataFetched = false
   const api = new ApiService()
 
-  const data = await api.getGames()
+  const data = await api.getGames(page)
   games = data.results
   pages.total = data.pages
 
@@ -37,11 +37,23 @@ async function getGames (): Promise<void> {
 
 function getGamePrice (gameID: string): string {
   const price = prices.find((v) => v.game_id === gameID)
-  if (price?.steam_price == null) return 'Nao registrado!'
+  if (price?.steam_price == null) return 'Não registrado!'
   if (price?.steam_price != null && price.nuuvem_price != null) {
     return Math.min(price.steam_price, price.nuuvem_price).toString()
   }
   return price.steam_price.toString()
+}
+
+async function previousPage (): Promise<void> {
+  const page = pages.current - 1
+  await getGames(page)
+  pages.current = page
+}
+
+async function nextPage (): Promise<void> {
+  const page = pages.current + 1
+  await getGames(page)
+  pages.current = page
 }
 </script>
 
@@ -49,7 +61,12 @@ function getGamePrice (gameID: string): string {
   <div class="flex w-1/3 flex-col justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md">
     <GameSearchInput />
     <div v-if="uiState.isDataFetched" class="flex flex-col justify-center space-y-4">
-      <PaginationButton :currentPage="pages.current" :totalPages="pages.total" />
+      <PaginationButton
+        @next-page="nextPage()"
+        @previous-page="previousPage()"
+        :currentPage="pages.current"
+        :totalPages="pages.total"
+      />
       <ul class="space-y-1">
         <GameListItem
           v-for="game in games"
@@ -59,6 +76,6 @@ function getGamePrice (gameID: string): string {
           :id="game.id"
         />
       </ul>
-  </div>
+    </div>
   </div>
 </template>
