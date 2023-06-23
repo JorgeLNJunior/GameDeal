@@ -50,7 +50,11 @@ export class NotificationWorker {
     )
 
     this.worker.on('failed', (job, err) => {
-      this.logger.error(err, `[NotificationWorker] job "${job?.id ?? 'unknow'}" failed`)
+      this.logger.error(
+        err,
+        `[NotificationWorker] job "${job?.id ?? 'unknow'}" failed`,
+        { data: job?.data, reason: job?.failedReason }
+      )
     })
     this.worker.on('error', (err) => {
       this.logger.error(err, '[NotificationWorker] worker failed')
