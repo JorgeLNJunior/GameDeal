@@ -34,17 +34,26 @@ export class TelegramNotifier implements Notifier {
     await this.bot.telegram.sendMessage(
       CHAT_ID,
       '⚠️ *Queda de preço* ⚠️ \n\n' +
-        `🎮 *${data.gameTitle} - ${data.platform}* \n\n` +
-        `💵 *Preço anterior:* R$ ${data.oldPrice} \n` +
-        `💵 *Preço atual:* R$ ${data.currentPrice} \n\n` +
+        `🎮 *${data.gameTitle} \\- ${data.platform}* \n\n` +
+        `💵 *Preço anterior:* R$ ${this.escapeSpecialChars(data.oldPrice.toString())} \n` +
+        `💵 *Preço atual:* R$ ${this.escapeSpecialChars(data.currentPrice.toString())} \n\n` +
         `*Loja:* ${data.platform} \n` +
-        `🔗 ${data.gameUrl}`,
+        `🔗 ${this.escapeSpecialChars(data.gameUrl)}`,
       {
-        parse_mode: 'Markdown',
+        parse_mode: 'MarkdownV2',
         reply_markup: {
           inline_keyboard: [[{ text: `R$ ${data.currentPrice}`, url: data.gameUrl }]]
         }
       }
     )
+  }
+
+  private escapeSpecialChars (text: string): string {
+    return text
+      .replaceAll('.', '\\.')
+      .replaceAll(',', '\\,')
+      .replaceAll('_', '\\_')
+      .replaceAll('-', '\\-')
+      .replaceAll('*', '\\*')
   }
 }
