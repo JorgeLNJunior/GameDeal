@@ -3,4 +3,5 @@ export interface GetGamePriceHistoryQuery {
   endDate?: Date
   page?: string
   limit?: string
+  order?: 'asc' | 'desc'
 }

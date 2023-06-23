@@ -98,6 +98,13 @@ paths:
           schema:
             type: number
             example: 10
+        - in: query
+          name: order
+          schema:
+            default: asc
+            enum:
+              - asc
+              - desc
       responses:
         200:
           description: OK
@@ -220,6 +227,13 @@ paths:
           schema:
             type: number
             example: 10
+        - in: query
+          name: order
+          schema:
+            default: asc
+            enum:
+              - asc
+              - desc
       responses:
         200:
           description: OK
