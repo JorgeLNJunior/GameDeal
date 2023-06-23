@@ -10,8 +10,8 @@ export class PinoLogger implements ApplicationLogger {
     this.pino.info(obj, msg)
   }
 
-  public error (obj: unknown, msg?: string): void {
-    this.pino.error(obj, msg)
+  public error (obj: unknown, msg?: string, ...args: unknown[]): void {
+    this.pino.error(obj, msg, args)
   }
 
   public fatal (obj: unknown, msg?: string): void {
