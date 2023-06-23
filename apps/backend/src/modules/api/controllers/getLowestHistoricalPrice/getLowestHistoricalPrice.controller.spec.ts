@@ -87,4 +87,13 @@ describe('GetLowestHistoricalPriceController', () => {
 
     expect(response.statusCode).toBe(404)
   })
+
+  it('should return INTERNAL_ERROR if something throw', async () => {
+    jest.spyOn(isGameExistRepo, 'get').mockRejectedValueOnce(new Error())
+
+    const request = new HttpRequestBuilder().withParams({ id: 'id' }).build()
+    const response = await controller.handle(request)
+
+    expect(response.statusCode).toBe(500)
+  })
 })

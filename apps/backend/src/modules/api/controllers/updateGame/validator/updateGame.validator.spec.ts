@@ -42,7 +42,7 @@ describe('UpdateGameValidator', () => {
     expect(errors).toBeDefined()
   })
 
-  it('should return false if steam_url validation fails', async () => {
+  it('should return false if steam_url is not a valid steam url', async () => {
     const data: UpdateGameDTO = {
       title: 'God of War',
       steam_url: 'invalid url'
@@ -54,7 +54,7 @@ describe('UpdateGameValidator', () => {
     expect(errors).toBeDefined()
   })
 
-  it('should return false if nuuvem_url validation fails', async () => {
+  it('should return false if nuuvem_url is not a valid nuuvem url', async () => {
     const data: UpdateGameDTO = {
       title: 'God of War',
       steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
@@ -62,6 +62,19 @@ describe('UpdateGameValidator', () => {
     }
 
     const { success, errors } = new UpdateGameValidator().validate(data)
+
+    expect(success).toBe(false)
+    expect(errors).toBeDefined()
+  })
+
+  it('should return false if nuuvem_url is not a string', async () => {
+    const data = {
+      title: 'God of War',
+      steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
+      nuuvem_url: 500
+    }
+
+    const { success, errors } = new UpdateGameValidator().validate(data as any)
 
     expect(success).toBe(false)
     expect(errors).toBeDefined()
