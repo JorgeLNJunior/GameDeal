@@ -19,6 +19,7 @@
     "@fastify/helmet": "^10.1.1",
     "@fastify/swagger": "^8.6.0",
     "@fastify/swagger-ui": "^1.9.0",
+    "@newrelic/mysql": "^6.1.0",
     "axios": "^1.4.0",
     "bullmq": "^4.1.0",
     "cheerio": "^1.0.0-rc.12",

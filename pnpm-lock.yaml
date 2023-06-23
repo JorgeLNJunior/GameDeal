@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -68,6 +68,9 @@ importers:
       '@fastify/swagger-ui':
         specifier: ^1.9.0
         version: 1.9.0
+      '@newrelic/mysql':
+        specifier: ^6.1.0
+        version: 6.1.0(newrelic@10.3.1)
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -2327,6 +2330,15 @@ packages:
   /@newrelic/koa@7.2.0(newrelic@10.3.1):
     resolution: {integrity: sha512-3y/CCOLJ6sEPTKyQAmBrBP5CfZ5ak8mWt+7mWjdbblOXQh20LEsrA/KQAh/ROcTh6rV8oxsubLZ3N13LIeIoVQ==}
     engines: {node: '>=14.0.0'}
+    peerDependencies:
+      newrelic: '>=6.11.0'
+    dependencies:
+      newrelic: 10.3.1
+    dev: false
+
+  /@newrelic/mysql@6.1.0(newrelic@10.3.1):
+    resolution: {integrity: sha512-V6LIg+XkaImj+y3LyMt+T4WYi9LCYPHTzOhF7q6SxcY4Tt1iWCsoJjD/HKXYDpPKHlOkvq0tNsR7+XJIoJqGhA==}
+    engines: {node: '>=14'}
     peerDependencies:
       newrelic: '>=6.11.0'
     dependencies:
