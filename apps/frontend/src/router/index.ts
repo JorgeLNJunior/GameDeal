@@ -10,6 +10,11 @@ const router = createRouter({
       meta: { title: 'Home' }
     },
     {
+      path: '/game/:id',
+      name: 'game',
+      component: async () => await import('@/views/GameView.vue')
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
       component: async () => await import('@/views/NotFound.vue'),
