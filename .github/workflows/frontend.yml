@@ -35,7 +35,7 @@ jobs:
           node-version: '18.x'
           cache: 'pnpm'
       - run: pnpm install
-      - run: pnpm test:cov:frontend
+      - run: pnpm test:frontend:cov
         env:
           test: true
       - name: Coveralls

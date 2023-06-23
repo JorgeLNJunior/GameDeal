@@ -40,7 +40,7 @@ jobs:
         with:
           redis-version: 7
       - run: pnpm install
-      - run: pnpm test:cov:backend
+      - run: pnpm test:backend:cov
         env:
           test: true
       - name: Coveralls
