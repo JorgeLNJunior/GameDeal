@@ -46,11 +46,6 @@
   "lint-staged": {
     "*.{ts,js,vue}": "eslint --cache --fix"
   },
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/JorgeLNJunior/game-price-tracker.git"
