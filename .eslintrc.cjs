@@ -65,7 +65,8 @@ module.exports = {
     // frontend test files
     {
       files: ['apps/frontend/**/*.spec.ts'],
-      extends: ['standard-with-typescript'],
+      extends: ['standard-with-typescript', 'plugin:vitest/recommended'],
+      plugins: ['vitest'],
       parserOptions: {
         ecmaVersion: 2021,
         sourceType: 'module',
