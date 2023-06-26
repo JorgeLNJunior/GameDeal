@@ -32,9 +32,9 @@ export class FindGamesRepository {
       .limit(perPage)
 
     if (query.title != null) dbQuery = dbQuery.where('title', 'like', `%${query.title}%`)
-    if (query.order === 'asc') dbQuery.orderBy('title', 'asc')
-    else if (query.order === 'desc') dbQuery.orderBy('title', 'desc')
-    else dbQuery.orderBy('title', 'asc')
+    if (query.order == null) dbQuery = dbQuery.orderBy('title', 'asc')
+    if (query.order === 'asc') dbQuery = dbQuery.orderBy('title', 'asc')
+    if (query.order === 'desc') dbQuery = dbQuery.orderBy('title', 'desc')
 
     const results = await dbQuery.execute()
 
