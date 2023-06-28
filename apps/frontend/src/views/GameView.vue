@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
 import PlatformPriceCard from '@/components/game/PlatformPriceCard.vue'
+import PriceHistoryChart from '@/components/game/PriceHistoryChart.vue'
 import { Platform } from '@/types/Platform'
 
 const route = useRoute()
@@ -18,8 +19,7 @@ const uiState = reactive({ isDataFetched: false })
 // hooks
 onBeforeMount(async () => {
   uiState.isDataFetched = false
-  // const promises = [getGame(), getGamePrice(), getGamePriceHistory()]
-  const promises = [getGame(), getGamePrice()]
+  const promises = [getGame(), getGamePrice(), getGamePriceHistory()]
   await Promise.all(promises)
   uiState.isDataFetched = true
 })
@@ -39,8 +39,11 @@ async function getGamePrice (): Promise<void> {
 
 <template>
   <div class="flex justify-center">
-    <div v-if="uiState.isDataFetched" class="flex w-1/3 flex-col justify-center space-y-4 rounded-md border border-gray-50 p-6 shadow-md">
+    <div v-if="uiState.isDataFetched" class="flex flex-col space-y-4 rounded-md border border-gray-50 p-6 shadow-md md:w-7/12">
+      <div class="flex flex-row justify-between">
+        <!-- Title -->
       <p class="select-none text-2xl font-medium">{{ game.title }}</p>
+        <!-- Current price -->
       <div class="flex flex-row space-x-6">
         <PlatformPriceCard
           :price="currentPrice.steam_price.toString()"
@@ -53,7 +56,10 @@ async function getGamePrice (): Promise<void> {
           :url="game.nuuvem_url"
           :platform="Platform.NUUVEM"
         />
+        </div>
       </div>
+      <!-- Price history chart -->
+      <PriceHistoryChart :price-history="priceHistory" />
     </div>
   </div>
 </template>
