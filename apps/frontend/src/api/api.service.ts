@@ -27,4 +27,9 @@ export class ApiService {
     )
     return response.data as QueryData<GamePrice[]>
   }
+
+  async getLowestPrice (gameID: string): Promise<GamePrice> {
+    const response = await this.http.get(`/games/${gameID}/price/historical`)
+    return response.data as GamePrice
+  }
 }
