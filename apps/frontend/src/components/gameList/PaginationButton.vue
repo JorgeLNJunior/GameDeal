@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 const props = defineProps({
   currentPage: {
     type: Number,
@@ -10,9 +11,17 @@ const props = defineProps({
     required: true
   }
 })
+const router = useRouter()
 
 const isFirstPage = computed(() => props.currentPage === 1)
 const isLastPage = computed(() => props.currentPage === props.totalPages)
+
+async function previousPage (): Promise<void> {
+  await router.push({ path: '/', query: { page: props.currentPage - 1 } })
+}
+async function nextPage (): Promise<void> {
+  await router.push({ path: '/', query: { page: props.currentPage + 1 } })
+}
 </script>
 
 <template>
@@ -21,7 +30,7 @@ const isLastPage = computed(() => props.currentPage === props.totalPages)
     <button
       href="#"
       class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
-      @click="$emit('previousPage')"
+      @click="previousPage()"
       :disabled="isFirstPage"
     >
       <svg
@@ -49,7 +58,7 @@ const isLastPage = computed(() => props.currentPage === props.totalPages)
     <button
       href="#"
       class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
-      @click="$emit('nextPage')"
+      @click="nextPage()"
       :disabled="isLastPage"
     >
       <svg

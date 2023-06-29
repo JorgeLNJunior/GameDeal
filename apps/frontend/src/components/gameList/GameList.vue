@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { Game, GamePrice } from '@shared/types'
 import { onBeforeMount, reactive } from 'vue'
+import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
 
@@ -8,21 +9,37 @@ import GameListItem from './GameListItem.vue'
 import GameSearchInput from './GameSearchInput.vue'
 import PaginationButton from './PaginationButton.vue'
 
+const route = useRoute()
+
 // data
 let games = reactive<Game[]>([])
 let prices = reactive<GamePrice[]>([])
-const pages = reactive({ current: 1, total: 1 })
-const uiState = reactive({ isDataFetched: false })
+const pages = reactive({
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  current: Number(route.query.page) || 1,
+  total: 1
+})
+const uiState = reactive({ isDataFetched: false, isUpdate: false })
 
 // hooks
 onBeforeMount(async () => await getGames())
 
+onBeforeRouteUpdate(async (guard) => {
+  const page = Number(guard.query.page)
+  if (!Number.isNaN(page) && page !== pages.current) {
+    pages.current = page
+    uiState.isUpdate = true
+    await getGames()
+    uiState.isUpdate = false
+  }
+})
+
 // functions
-async function getGames (page?: number): Promise<void> {
+async function getGames (): Promise<void> {
   uiState.isDataFetched = false
   const api = new ApiService()
 
-  const data = await api.getGames(page)
+  const data = await api.getGames(pages.current)
   games = data.results
   pages.total = data.pages
 
@@ -43,31 +60,18 @@ function getGamePrice (gameID: string): string {
   }
   return price.steam_price.toString()
 }
-
-async function previousPage (): Promise<void> {
-  const page = pages.current - 1
-  await getGames(page)
-  pages.current = page
-}
-
-async function nextPage (): Promise<void> {
-  const page = pages.current + 1
-  await getGames(page)
-  pages.current = page
-}
 </script>
 
 <template>
   <div class="flex w-1/3 flex-col justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md">
     <GameSearchInput />
-    <div v-if="uiState.isDataFetched" class="flex flex-col justify-center space-y-4">
+    <div class="flex flex-col justify-center space-y-4">
       <PaginationButton
-        @next-page="nextPage()"
-        @previous-page="previousPage()"
+        v-if="uiState.isDataFetched || uiState.isUpdate"
         :currentPage="pages.current"
         :totalPages="pages.total"
       />
-      <ul class="space-y-1">
+      <ul v-if="uiState.isDataFetched" class="space-y-1">
         <GameListItem
           v-for="game in games"
           :key="game.id"
