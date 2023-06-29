@@ -230,9 +230,9 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
-  /games/{id}/price/historical:
+  /games/{id}/price/lowest:
     get:
-      summary: Obter o menor preço histórico de um jogo
+      summary: Obter o menor preço já registrado em um jogo
       tags:
         - "Game"
       parameters:

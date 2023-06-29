@@ -5,15 +5,15 @@ import { GamePriceBuilder } from '@testing/builders/price.builder'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
-import { GetLowestHistoricalPriceRepository } from './getLowestHistoricalPrice.repository'
+import { GetLowestPriceRepository } from './getLowestPrice.repository'
 
-describe('GetLowestHistoricalPriceRepository', () => {
-  let repository: GetLowestHistoricalPriceRepository
+describe('GetLowestPriceRepository', () => {
+  let repository: GetLowestPriceRepository
   let db: DatabaseService
 
   beforeEach(async () => {
     db = container.resolve(DatabaseService)
-    repository = new GetLowestHistoricalPriceRepository(db)
+    repository = new GetLowestPriceRepository(db)
 
     await db.connect()
   })

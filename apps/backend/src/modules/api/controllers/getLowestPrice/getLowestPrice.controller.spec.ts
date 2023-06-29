@@ -6,23 +6,23 @@ import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
 import { IsGameExistRepository } from '../getGamePriceHistory/repositories/isGameExist.repository'
-import { GetLowestHistoricalPriceController } from './getLowestHistoricalPrice.controller'
-import { GetLowestHistoricalPriceRepository } from './repositories/getLowestHistoricalPrice.repository'
+import { GetLowestPriceController } from './getLowestPrice.controller'
+import { GetLowestPriceRepository } from './repositories/getLowestPrice.repository'
 
-describe('GetLowestHistoricalPriceController', () => {
-  let controller: GetLowestHistoricalPriceController
-  let getLowestHistoricalPriceRepo: GetLowestHistoricalPriceRepository
+describe('GetLowestPriceController', () => {
+  let controller: GetLowestPriceController
+  let getLowestPriceRepo: GetLowestPriceRepository
   let isGameExistRepo: IsGameExistRepository
   let cache: ApplicationCache
 
   beforeEach(async () => {
     cache = new FakeCache()
-    getLowestHistoricalPriceRepo = container.resolve(
-      GetLowestHistoricalPriceRepository
+    getLowestPriceRepo = container.resolve(
+      GetLowestPriceRepository
     )
     isGameExistRepo = container.resolve(IsGameExistRepository)
-    controller = new GetLowestHistoricalPriceController(
-      getLowestHistoricalPriceRepo,
+    controller = new GetLowestPriceController(
+      getLowestPriceRepo,
       isGameExistRepo,
       cache,
       new PinoLogger()
@@ -33,7 +33,7 @@ describe('GetLowestHistoricalPriceController', () => {
     const price = new GamePriceBuilder().build()
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
-    jest.spyOn(getLowestHistoricalPriceRepo, 'get').mockResolvedValueOnce(price)
+    jest.spyOn(getLowestPriceRepo, 'get').mockResolvedValueOnce(price)
 
     const request = new HttpRequestBuilder().withParams({ id: 'id' }).build()
     const response = await controller.handle(request)
@@ -64,7 +64,7 @@ describe('GetLowestHistoricalPriceController', () => {
     const price = new GamePriceBuilder().build()
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
-    jest.spyOn(getLowestHistoricalPriceRepo, 'get').mockResolvedValueOnce(price)
+    jest.spyOn(getLowestPriceRepo, 'get').mockResolvedValueOnce(price)
     const cacheSpy = jest.spyOn(cache, 'get')
 
     const request = new HttpRequestBuilder()

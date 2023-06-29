@@ -4,7 +4,7 @@ import { sql } from 'kysely'
 import { injectable } from 'tsyringe'
 
 @injectable()
-export class GetLowestHistoricalPriceRepository {
+export class GetLowestPriceRepository {
   constructor (private readonly databaseService: DatabaseService) {}
 
   async get (gameID: string): Promise<GamePrice | undefined> {

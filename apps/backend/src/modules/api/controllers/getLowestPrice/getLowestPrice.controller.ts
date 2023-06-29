@@ -11,15 +11,15 @@ import { ApplicationLogger } from '@localtypes/logger.type'
 import { inject, injectable } from 'tsyringe'
 
 import { IsGameExistRepository } from '../getGamePriceHistory/repositories/isGameExist.repository'
-import { GetLowestHistoricalPriceRepository } from './repositories/getLowestHistoricalPrice.repository'
+import { GetLowestPriceRepository } from './repositories/getLowestPrice.repository'
 
 @injectable()
-export class GetLowestHistoricalPriceController implements HttpController {
+export class GetLowestPriceController implements HttpController {
   public method = HttpMethod.GET
-  public url = '/games/:id/price/historical'
+  public url = '/games/:id/price/lowest'
 
   constructor (
-    private readonly getLowestPriceRepo: GetLowestHistoricalPriceRepository,
+    private readonly getLowestPriceRepo: GetLowestPriceRepository,
     private readonly isGameExistRepo: IsGameExistRepository,
     @inject(REDIS_CACHE) private readonly cacheService: ApplicationCache,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
@@ -47,7 +47,7 @@ export class GetLowestHistoricalPriceController implements HttpController {
     } catch (error) {
       this.logger.error(
         error,
-        '[GetLowestHistoricalPriceController] internal server error'
+        '[GetLowestPriceController] internal server error'
       )
       return ResponseBuilder.internalError()
     }

@@ -7,7 +7,7 @@ import { FindGameByIdController } from '@api/controllers/findGameById/findGameBy
 import { FindGamesController } from '@api/controllers/findGames/findGames.controller'
 import { GetGamePriceController } from '@api/controllers/getCurrentGamePrice/getCurrentGamePrice.controller'
 import { GetGamePriceHistoryController } from '@api/controllers/getGamePriceHistory/getGamePriceHistory.controller'
-import { GetLowestHistoricalPriceController } from '@api/controllers/getLowestHistoricalPrice/getLowestHistoricalPrice.controller'
+import { GetLowestPriceController } from '@api/controllers/getLowestPrice/getLowestPrice.controller'
 import { HealthController } from '@api/controllers/health/health.controller'
 import { LoginController } from '@api/controllers/login/login.controller'
 import { Server } from '@api/server'
@@ -62,7 +62,7 @@ export default class Main {
         container.resolve(FindGamesController),
         container.resolve(GetGamePriceController),
         container.resolve(GetGamePriceHistoryController),
-        container.resolve(GetLowestHistoricalPriceController),
+        container.resolve(GetLowestPriceController),
         container.resolve(LoginController),
         container.resolve(HealthController)
       )
