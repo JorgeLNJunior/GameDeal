@@ -32,7 +32,7 @@ const steamDataset: ChartDataset<'line'> = {
 
 const labels: string[] = props.priceHistory.map((price) => {
   const createdAt = new Date(price.created_at)
-  return `${createdAt.getUTCDate()}/${createdAt.getUTCMonth()}`
+  return `${createdAt.getUTCDate()}/${createdAt.getUTCMonth() + 1}` // getMonth starts from 0
 }).reverse()
 
 const chartData: ChartData = {
