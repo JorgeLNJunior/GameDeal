@@ -29,7 +29,7 @@ export class ApiService {
   }
 
   async getLowestPrice (gameID: string): Promise<GamePrice> {
-    const response = await this.http.get(`/games/${gameID}/price/historical`)
+    const response = await this.http.get(`/games/${gameID}/price/lowest`)
     return response.data as GamePrice
   }
 }
