@@ -5,6 +5,9 @@
         "editorconfig.editorconfig",
         "42crunch.vscode-openapi",
         "redhat.vscode-yaml",
-        "Vue.volar"
+        "Vue.volar",
+        "csstools.postcss",
+        "bradlc.vscode-tailwindcss",
+        "wix.vscode-import-cost"
     ]
 }
