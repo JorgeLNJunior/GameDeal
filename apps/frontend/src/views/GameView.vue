@@ -49,6 +49,7 @@ onBeforeMount(async () => {
   const promises = [getGame(), getGamePrice(), getLowestPrice(), getGamePriceHistory()]
   await Promise.all(promises)
   uiState.isDataFetched = true
+  document.title = `${game.title} | Game Price Tracker`
 })
 
 // functions
