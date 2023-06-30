@@ -7,7 +7,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: async () => await import('@/views/HomeView.vue'),
-      meta: { title: 'Home' }
+      meta: { title: 'Home | Game Price Tracker' }
     },
     {
       path: '/game/:id',
