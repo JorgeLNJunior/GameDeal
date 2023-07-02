@@ -36,11 +36,11 @@ export class DatabaseService {
     this.client = new Kysely<Database>({
       dialect: new MysqlDialect({
         pool: createPool({
-          host: this.config.getEnv('DB_HOST'),
-          database: this.config.getEnv('DB_NAME'),
-          port: this.config.getEnv('DB_PORT'),
-          user: this.config.getEnv('DB_USER'),
-          password: this.config.getEnv('DB_PASSWORD')
+          host: this.config.getEnv<string>('DB_HOST'),
+          database: this.config.getEnv<string>('DB_NAME'),
+          port: this.config.getEnv<number>('DB_PORT'),
+          user: this.config.getEnv<string>('DB_USER'),
+          password: this.config.getEnv<string>('DB_PASSWORD')
         })
       })
     })
