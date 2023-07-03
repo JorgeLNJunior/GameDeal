@@ -26,7 +26,7 @@ describe('SteamScraper', () => {
   it('should return null if it did not find a price', async () => {
     const gameUrl = 'https://store.steampowered.com/app/1245620/ELDEN_RING'
 
-    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce(undefined)
+    jest.spyOn(parser, 'getElementValue').mockReturnValue(undefined)
 
     const price = await scraper.getGamePrice(gameUrl)
 
@@ -36,7 +36,7 @@ describe('SteamScraper', () => {
   it('should log if it did not find a price', async () => {
     const gameUrl = 'https://store.steampowered.com/app/1245620/ELDEN_RING'
 
-    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce(undefined)
+    jest.spyOn(parser, 'getElementValue').mockReturnValue(undefined)
     const logSpy = jest.spyOn(logger, 'error')
 
     await scraper.getGamePrice(gameUrl)
