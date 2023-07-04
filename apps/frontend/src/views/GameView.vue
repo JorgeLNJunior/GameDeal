@@ -4,6 +4,7 @@ import { computed, onBeforeMount, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
+import GamePriceCardSkeleton from '@/components/game/GamePriceCardSkeleton.vue'
 import LowestPrice from '@/components/game/LowestPrice.vue'
 import PlatformPriceCardGroup from '@/components/game/PlatformPriceCardGroup.vue'
 import PriceHistoryChart from '@/components/game/PriceHistoryChart.vue'
@@ -70,21 +71,27 @@ async function getGamePriceHistory (): Promise<void> {
 
 <template>
   <div class="flex justify-center">
-    <div v-if="uiState.isDataFetched" class="flex flex-col space-y-4 rounded-md border border-gray-50 p-6 shadow-md md:w-7/12">
+    <div
+      v-if="uiState.isDataFetched"
+      class="flex flex-col space-y-4 rounded-md border border-gray-50 p-6 shadow-md md:w-7/12"
+    >
       <div class="flex flex-row justify-between">
         <!-- Title -->
         <p class="select-none text-2xl font-medium">{{ game.title }}</p>
         <!-- Current price -->
         <PlatformPriceCardGroup :game="game" :current-price="currentPrice" />
       </div>
+
       <!-- Lowest price -->
       <LowestPrice
         :platform="formatedLowestPrice.platform"
         :price="formatedLowestPrice.price"
         :date="formatedLowestPrice.date"
       />
+
       <!-- Price history chart -->
       <PriceHistoryChart :price-history="priceHistory" />
     </div>
+    <GamePriceCardSkeleton v-else />
   </div>
 </template>
