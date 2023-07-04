@@ -4,6 +4,7 @@ import { computed, onBeforeMount, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
+import LowestPrice from '@/components/game/LowestPrice.vue'
 import PlatformPriceCard from '@/components/game/PlatformPriceCard.vue'
 import PriceHistoryChart from '@/components/game/PriceHistoryChart.vue'
 import { DataFormater } from '@/helpers/DataFormater'
@@ -19,7 +20,7 @@ let priceHistory = reactive<GamePrice[]>([])
 const uiState = reactive({ isDataFetched: false })
 
 // computeds
-const lowestPriceWithCurrency = computed(() => {
+const formatedLowestPrice = computed(() => {
   const formater = new DataFormater()
   const date = formater.formatDate(lowestPrice.created_at)
   if (lowestPrice.nuuvem_price != null) {
@@ -90,23 +91,11 @@ async function getGamePriceHistory (): Promise<void> {
         </div>
       </div>
       <!-- Lowest price -->
-      <div>
-        <p class="text-center font-medium">Menor preço:</p>
-        <div class="flex justify-center space-x-3">
-          <p>
-            <span class="font-medium">Plataforma: </span>
-            {{ lowestPriceWithCurrency.platform }}
-          </p>
-          <p class="">
-            <span class="font-medium">Preço: </span>
-            {{ lowestPriceWithCurrency.price }}
-          </p>
-          <p>
-            <span class="font-medium">Data: </span>
-            {{ lowestPriceWithCurrency.date }}
-          </p>
-        </div>
-      </div>
+      <LowestPrice
+        :platform="formatedLowestPrice.platform"
+        :price="formatedLowestPrice.price"
+        :date="formatedLowestPrice.date"
+      />
       <!-- Price history chart -->
       <PriceHistoryChart :price-history="priceHistory" />
     </div>
