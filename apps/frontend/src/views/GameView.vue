@@ -5,10 +5,9 @@ import { useRoute } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
 import LowestPrice from '@/components/game/LowestPrice.vue'
-import PlatformPriceCard from '@/components/game/PlatformPriceCard.vue'
+import PlatformPriceCardGroup from '@/components/game/PlatformPriceCardGroup.vue'
 import PriceHistoryChart from '@/components/game/PriceHistoryChart.vue'
 import { DataFormater } from '@/helpers/DataFormater'
-import { Platform } from '@/types/Platform'
 
 const route = useRoute()
 
@@ -76,19 +75,7 @@ async function getGamePriceHistory (): Promise<void> {
         <!-- Title -->
         <p class="select-none text-2xl font-medium">{{ game.title }}</p>
         <!-- Current price -->
-        <div class="flex flex-row space-x-6">
-          <PlatformPriceCard
-            :price="currentPrice.steam_price.toString()"
-            :url="game.steam_url"
-            :platform="Platform.STEAM"
-          />
-          <PlatformPriceCard
-            v-if="game.nuuvem_url && currentPrice.nuuvem_price"
-            :price="currentPrice.nuuvem_price.toString()"
-            :url="game.nuuvem_url"
-            :platform="Platform.NUUVEM"
-          />
-        </div>
+        <PlatformPriceCardGroup :game="game" :current-price="currentPrice" />
       </div>
       <!-- Lowest price -->
       <LowestPrice
