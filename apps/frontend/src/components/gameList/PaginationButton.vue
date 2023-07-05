@@ -32,6 +32,7 @@ async function nextPage (): Promise<void> {
       class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
       @click="previousPage()"
       :disabled="isFirstPage"
+      test-data="previous-button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +49,7 @@ async function nextPage (): Promise<void> {
     </button>
 
     <!-- Current page / Total pages -->
-    <p class="select-none text-sm text-gray-900">
+    <p class="select-none text-sm text-gray-900" test-data="pages">
       {{ currentPage }}
       <span class="mx-1">/</span>
       {{ totalPages }}
@@ -60,6 +61,7 @@ async function nextPage (): Promise<void> {
       class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
       @click="nextPage()"
       :disabled="isLastPage"
+      test-data="next-button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

@@ -30,7 +30,11 @@ describe('NotFound', () => {
 
   describe('Warn message', () => {
     it('should contain a warn message', async () => {
-      const wrapper = mount(NotFound)
+      const wrapper = mount(NotFound, {
+        global: {
+          plugins: [router]
+        }
+      })
       const messageElement = wrapper.get('[data-test="warn-message"]')
       expect(messageElement.text()).toBe('Não conseguimos encontrar esta página.')
     })
