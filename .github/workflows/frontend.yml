@@ -74,10 +74,9 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            +src/frontend/src/**/*.ts
-            +src/frontend/src/**/*.vue
-            +src/frontend/package.json
-            !src/frontend/**/*.spec.ts
+            +apps/frontend/src/**/*.ts
+            +apps/frontend/src/**/*.vue
+            +apps/frontend/package.json
       - uses: amondnet/vercel-action@v25
         if: env.GIT_DIFF
         with:
@@ -102,9 +101,10 @@ jobs:
       - uses: technote-space/get-diff-action@v6
         with:
           PATTERNS: |
-            +src/frontend/src/**/*.ts
-            +src/frontend/src/**/*.vue
-            +src/frontend/package.json
+            +apps/frontend/src/**/*.ts
+            +apps/frontend/src/**/*.vue
+            +apps/frontend/package.json
+            !apps/frontend/**/*spec.ts
       - uses: amondnet/vercel-action@v25
         if: env.GIT_DIFF
         with:
