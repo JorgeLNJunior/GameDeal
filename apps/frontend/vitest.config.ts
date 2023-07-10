@@ -17,7 +17,7 @@ export default mergeConfig(
       },
       coverage: {
         all: true,
-        reporter: ['lcov'],
+        reporter: ['clover', 'json', 'lcov', 'text'],
         include: ['src/**/*.ts', 'src/**/*.vue'],
         exclude: ['src/main.ts', 'src/router/index.ts', 'src/**/*.spec.ts']
       },
