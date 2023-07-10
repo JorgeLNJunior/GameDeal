@@ -28,7 +28,7 @@
     "fastify": "^4.19.2",
     "ioredis": "^5.3.2",
     "jsonwebtoken": "^9.0.1",
-    "kysely": "^0.25.0",
+    "kysely": "^0.26.1",
     "mysql2": "^3.5.0",
     "newrelic": "^10.4.0",
     "pino": "^8.14.1",
