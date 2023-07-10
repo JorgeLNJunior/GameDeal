@@ -5,6 +5,8 @@
   "private": true,
   "packageManager": "pnpm@8.6.0",
   "scripts": {
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
     "build": "turbo run build",
     "build:backend": "turbo run build --filter=backend --log-prefix=none",
     "build:frontend": "turbo run build --filter=frontend --log-prefix=none",
