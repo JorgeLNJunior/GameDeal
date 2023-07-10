@@ -9,3 +9,5 @@ coverage
 .vercel
 
 *.log
+
+compose/mysql-data

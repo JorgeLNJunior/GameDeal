@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: game_price_tracker
+    volumes:
+      - ./compose/mysql-data:/var/lib/mysql
+      - ./compose/init:/docker-entrypoint-initdb.d
+
+  redis:
+    image: bitnami/redis
+    restart: always
+    ports:
+      - 6379:6379
+    environment:
+      ALLOW_EMPTY_PASSWORD: yes
+
+  redis-ui:
+    image: patrikx3/p3x-redis-ui
+    restart: always
+    ports:
+      - 7843:7843
+    volumes:
+      - ./compose/redis-ui-data:/settings

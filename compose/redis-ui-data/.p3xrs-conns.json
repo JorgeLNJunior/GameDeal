@@ -1,0 +1,14 @@
+{
+    "list": [
+        {
+            "name": "Game Price Tracker",
+            "host": "game-price-tracker-redis-1",
+            "port": 6379,
+            "id": "P3Xid6ef63214981010000717d95de8d72d",
+            "tlsWithoutCert": false,
+            "tlsRejectUnauthorized": false,
+            "cluster": false,
+            "nodes": []
+        }
+    ]
+}
