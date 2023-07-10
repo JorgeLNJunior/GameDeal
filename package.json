@@ -33,7 +33,7 @@
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
     "@turbo/gen": "^1.10.7",
-    "@typescript-eslint/eslint-plugin": "^5.61.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@vue/eslint-config-standard-with-typescript": "^8.0.0",
     "eslint": "^8.44.0",
     "eslint-config-standard-with-typescript": "^36.0.0",
@@ -56,5 +56,12 @@
   "bugs": {
     "url": "https://github.com/JorgeLNJunior/game-price-tracker/issues"
   },
-  "homepage": "https://github.com/JorgeLNJunior/game-price-tracker#readme"
+  "homepage": "https://github.com/JorgeLNJunior/game-price-tracker#readme",
+  "pnpm": {
+    "overrides": {
+      "semver@<7.5.2": ">=7.5.2",
+      "protobufjs@>=6.10.0 <7.2.4": ">=7.2.4",
+      "tough-cookie@<4.1.3": ">=4.1.3"
+    }
+  }
 }
