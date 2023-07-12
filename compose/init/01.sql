@@ -1,1 +1,1 @@
-CREATE DATABASE IF NOT EXISTS `game_price_tracker_test`;
+CREATE DATABASE IF NOT EXISTS `lazy_tracker_test`;

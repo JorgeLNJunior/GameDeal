@@ -1,5 +1,5 @@
 {
-  "name": "game-price-tracker",
+  "name": "lazy-tracker",
   "author": "JorgeLNJunior",
   "license": "MIT",
   "private": true,
@@ -51,12 +51,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/JorgeLNJunior/game-price-tracker.git"
+    "url": "git+ssh://git@github.com/JorgeLNJunior/LazyTracker.git"
   },
   "bugs": {
-    "url": "https://github.com/JorgeLNJunior/game-price-tracker/issues"
+    "url": "https://github.com/JorgeLNJunior/LazyTracker/issues"
   },
-  "homepage": "https://github.com/JorgeLNJunior/game-price-tracker#readme",
+  "homepage": "https://github.com/JorgeLNJunior/LazyTracker#readme",
   "pnpm": {
     "overrides": {
       "semver@<7.5.2": ">=7.5.2",
