@@ -33,7 +33,7 @@ jobs:
         uses: mirromutth/mysql-action@v1.1
         with:
           mysql version: '8.0'
-          mysql database: 'game_price_tracker_test'
+          mysql database: 'lazy_tracker_test'
           mysql root password: 'root'
       - name: Setup Redis 7
         uses: supercharge/redis-github-action@1.5.0
