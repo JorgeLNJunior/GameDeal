@@ -6,11 +6,8 @@ export class UpdateGameValidator implements Validator {
   public validate (data: UpdateGameDTO): ValidationResult {
     const errors: string[] = []
 
-    if (typeof data.title !== 'string') {
+    if (data.title != null && typeof data.title !== 'string') {
       errors.push('"title" must be a string')
-    }
-    if (typeof data.steam_url !== 'string') {
-      errors.push('"steam_url" must be a string')
     }
     if (data.steam_url != null) {
       const STEAM_REGEX = /^https:\/\/store\.steampowered\.com\/app\/[0-9]{1,7}\/\w+\/?$/
