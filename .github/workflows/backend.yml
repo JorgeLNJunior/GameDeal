@@ -79,18 +79,8 @@ jobs:
     needs: [build, test, lint, validate_swagger_file]
     if: github.ref == 'refs/heads/main'
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      # - uses: technote-space/get-diff-action@v6
-      #   with:
-      #     PATTERNS: |
-      #       +apps/backend/src/**/*.ts
-      #       +apps/backend/package.json
-      #       !apps/backend/**/*.spec.ts
       - uses: JorgeLNJunior/render-deploy@v1.3.2
-        # if: env.GIT_DIFF
         with:
-          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+          service_id: ${{ secrets.BACKEND_RENDER_SERVICE_ID }}
           api_key: ${{ secrets.RENDER_API_KEY }}
           wait_deploy: true

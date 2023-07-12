@@ -62,54 +62,11 @@ jobs:
     name: 🚀 Deploy
     runs-on: ubuntu-latest
     needs: [build, test, lint]
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: apps/frontend/dist
-      # - uses: technote-space/get-diff-action@v6
-      #   with:
-      #     PATTERNS: |
-      #       +apps/frontend/src/**/*.ts
-      #       +apps/frontend/src/**/*.vue
-      #       +apps/frontend/package.json
-      - uses: amondnet/vercel-action@v25
-        # if: env.GIT_DIFF
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
-          working-directory: ./apps/frontend/dist
-          vercel-args: '--prod'
-
-  deploy-preview:
-    name: 🚀 Deploy Preview
-    runs-on: ubuntu-latest
-    needs: [build, test, lint]
     if: github.ref != 'refs/heads/main'
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v3
+      - uses: JorgeLNJunior/render-deploy@v1.3.2
         with:
-          name: build
-          path: apps/frontend/dist
-      # - uses: technote-space/get-diff-action@v6
-      #   with:
-      #     PATTERNS: |
-      #       +apps/frontend/src/**/*.ts
-      #       +apps/frontend/src/**/*.vue
-      #       +apps/frontend/package.json
-      #       !apps/frontend/**/*spec.ts
-      - uses: amondnet/vercel-action@v25
-        # if: env.GIT_DIFF
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID}}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}}
-          working-directory: ./apps/frontend/dist
+          service_id: ${{ secrets.FRONTEND_RENDER_SERVICE_ID }}
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          wait_deploy: true
