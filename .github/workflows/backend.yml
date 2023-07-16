@@ -87,5 +87,5 @@ jobs:
           api_key: ${{ secrets.RENDER_API_KEY }}
           wait_deploy: true
           github_deployment: true
-          deployment_environment: 'backend'
+          deployment_environment: 'production'
           github_token: ${{ secrets.GITHUB_TOKEN }}
