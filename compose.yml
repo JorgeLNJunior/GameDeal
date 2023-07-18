@@ -10,7 +10,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: lazy_tracker
     volumes:
-      - ./compose/mysql-data:/var/lib/mysql
       - ./compose/init:/docker-entrypoint-initdb.d
 
   redis:
