@@ -1,5 +1,5 @@
 import { ResponseBuilder } from '@api/responses/response.builder'
-import { PINO_LOGGER, REDIS_CACHE } from '@dependencies/dependency.tokens'
+import { MEMORY_CACHE, PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationCache } from '@localtypes/http/cache.type'
 import type { HttpController } from '@localtypes/http/http.controller.type'
 import type {
@@ -21,7 +21,7 @@ export class GetLowestPriceController implements HttpController {
   constructor (
     private readonly getLowestPriceRepo: GetLowestPriceRepository,
     private readonly isGameExistRepo: IsGameExistRepository,
-    @inject(REDIS_CACHE) private readonly cacheService: ApplicationCache,
+    @inject(MEMORY_CACHE) private readonly cacheService: ApplicationCache,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 

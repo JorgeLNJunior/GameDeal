@@ -5,4 +5,4 @@ export const NOTIFIERS = 'Notificators'
 /** Notifiers injection token */
 export const CHEERIO_PARSER = 'CheerioParser'
 /** Notifiers injection token */
-export const REDIS_CACHE = 'RedisCache'
+export const MEMORY_CACHE = 'RedisCache'
