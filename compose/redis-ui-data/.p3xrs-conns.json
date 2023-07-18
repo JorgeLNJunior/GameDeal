@@ -1,8 +1,8 @@
 {
     "list": [
         {
-            "name": "Lazy Tracker",
-            "host": "lazytracker-redis-1",
+            "name": "Game Deal",
+            "host": "gamedeal-redis-1",
             "port": 6379,
             "id": "P3Xid6ef63214981010000717d95de8d72d",
             "tlsWithoutCert": false,

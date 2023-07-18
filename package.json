@@ -1,5 +1,5 @@
 {
-  "name": "lazy-tracker",
+  "name": "game-deal",
   "author": "JorgeLNJunior",
   "license": "MIT",
   "private": true,
@@ -51,12 +51,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/JorgeLNJunior/LazyTracker.git"
+    "url": "git+ssh://git@github.com/JorgeLNJunior/GameDeal.git"
   },
   "bugs": {
-    "url": "https://github.com/JorgeLNJunior/LazyTracker/issues"
+    "url": "https://github.com/JorgeLNJunior/GameDeal/issues"
   },
-  "homepage": "https://github.com/JorgeLNJunior/LazyTracker#readme",
+  "homepage": "https://github.com/JorgeLNJunior/GameDeal#readme",
   "pnpm": {
     "overrides": {
       "semver@<7.5.2": ">=7.5.2",

@@ -1,6 +1,6 @@
 openapi: "3.0.2"
 info:
-  title: Lazy Tracker API
+  title: Game Deal API
   version: "0.0.0"
   license:
     name: MIT

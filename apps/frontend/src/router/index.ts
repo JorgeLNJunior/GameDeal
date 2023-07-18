@@ -7,7 +7,7 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: async () => await import('@/views/HomeView.vue'),
-      meta: { title: 'Home | Lazy Tracker' }
+      meta: { title: 'Home | Game Deal' }
     },
     {
       path: '/game/:id',
@@ -24,7 +24,7 @@ const router = createRouter({
 })
 
 router.afterEach((to) => {
-  document.title = to.meta.title ?? 'Lazy Tracker'
+  document.title = to.meta.title ?? 'Game Deal'
 })
 
 export default router
