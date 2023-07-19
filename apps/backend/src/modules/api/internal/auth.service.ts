@@ -9,7 +9,7 @@ export class AuthService {
   constructor (private readonly config: ConfigService) {}
 
   /**
-   * Generates a new JWT Token token.
+   * Generates a new JWT token.
    * @returns - A JWT token.
    */
   async getJwtToken (): Promise<string> {
