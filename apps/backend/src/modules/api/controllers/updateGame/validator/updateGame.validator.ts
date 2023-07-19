@@ -6,7 +6,7 @@ export class UpdateGameValidator implements Validator {
   public validate (data: UpdateGameDTO): ValidationResult {
     const errors: string[] = []
 
-    if (data.title != null && typeof data.title !== 'string') {
+    if (data.title !== undefined && typeof data.title !== 'string') {
       errors.push('"title" must be a string')
     }
     if (data.steam_url != null) {

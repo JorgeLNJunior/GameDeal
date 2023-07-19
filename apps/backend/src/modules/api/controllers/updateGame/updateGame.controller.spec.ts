@@ -53,7 +53,7 @@ describe('UpdateGameController', () => {
     const token = await authService.getJwtToken()
     const request = new HttpRequestBuilder()
       .withHeaders({ authorization: `Bearer ${token}` })
-      .withBody({})
+      .withBody({ title: null })
       .build()
     const response = await controller.handle(request)
 
