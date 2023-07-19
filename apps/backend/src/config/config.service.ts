@@ -22,15 +22,32 @@ export default class ConfigService {
    * @param key - The environment variable key.
    * @returns The environment variable value.
    */
-  public getEnv<T>(key: string): T | undefined {
+  public getEnv<T>(key: EnvironmentVariable): T | undefined {
     if (process.env[key] != null) {
       return process.env[key] as unknown as T
     }
 
     this.logger.warn(
-      `[ConfigService] the enviroment variable "${key}" is undefined`
+      `[ConfigService] the environment variable "${key}" is undefined`
     )
 
     return undefined
   }
 }
+
+type EnvironmentVariable =
+  'ADMIN_USER' |
+  'ADMIN_PASSWORD' |
+  'DB_HOST' |
+  'DB_NAME' |
+  'DB_PORT' |
+  'DB_USER' |
+  'DB_PASSWORD' |
+  'HOST' |
+  'JWT_SECRET' |
+  'PORT' |
+  'REDIS_HOST' |
+  'REDIS_PORT' |
+  'REDIS_PASSWORD' |
+  'TELEGRAM_BOT_TOKEN' |
+  'TELEGRAM_CHAT_ID'

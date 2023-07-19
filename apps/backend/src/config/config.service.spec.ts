@@ -10,11 +10,13 @@ describe('ConfigService', () => {
   })
 
   it('should return a env var value', async () => {
-    process.env.FOO = 'bar'
-    expect(configService.getEnv<string>('FOO')).toBe('bar')
+    const HOST = 'loacalhost'
+    process.env.HOST = HOST
+    expect(configService.getEnv('HOST')).toBe(HOST)
   })
 
   it('should return undefined if the env var is not set', async () => {
-    expect(configService.getEnv<string>('BAR')).toBe(undefined)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect(configService.getEnv('FOO' as any)).toBe(undefined)
   })
 })
