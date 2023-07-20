@@ -1,5 +1,5 @@
 {
-  "name": "@shared/types",
+  "name": "@packages/types",
   "main": "index.ts",
   "types": "index.ts"
 }

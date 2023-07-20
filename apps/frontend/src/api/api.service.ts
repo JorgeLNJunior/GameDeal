@@ -1,4 +1,4 @@
-import type { Game, GamePrice, QueryData } from '@shared/types'
+import type { Game, GamePrice, QueryData } from '@packages/types'
 import axios from 'axios'
 
 import { SERVER_URL } from '@/constants/urls'

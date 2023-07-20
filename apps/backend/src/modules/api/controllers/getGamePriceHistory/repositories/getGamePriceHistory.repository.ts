@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import type { GamePrice, QueryData } from '@shared/types'
+import type { GamePrice, QueryData } from '@packages/types'
 import { sql } from 'kysely'
 import { injectable } from 'tsyringe'
 

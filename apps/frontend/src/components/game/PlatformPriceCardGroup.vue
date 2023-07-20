@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Game, GamePrice } from '@shared/types'
+import type { Game, GamePrice } from '@packages/types'
 import type { PropType } from 'vue'
 
 import { Platform } from '@/types/Platform'

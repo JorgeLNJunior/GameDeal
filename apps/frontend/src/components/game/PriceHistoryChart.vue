@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { GamePrice } from '@shared/types'
+import type { GamePrice } from '@packages/types'
 import {
   CategoryScale,
   Chart as ChartJS,

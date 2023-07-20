@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Game, GamePrice } from '@shared/types'
+import type { Game, GamePrice } from '@packages/types'
 import { onBeforeMount, reactive } from 'vue'
 import { onBeforeRouteUpdate, useRoute } from 'vue-router'
 

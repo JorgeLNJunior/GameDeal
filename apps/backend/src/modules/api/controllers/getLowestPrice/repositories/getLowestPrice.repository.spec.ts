@@ -1,6 +1,6 @@
 import { DatabaseService } from '@database/database.service'
 import { GameBuilder, GamePriceBuilder } from '@packages/testing'
-import type { GamePrice } from '@shared/types'
+import type { GamePrice } from '@packages/types'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
