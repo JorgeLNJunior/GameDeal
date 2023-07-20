@@ -1,8 +1,8 @@
 import { AuthService } from '@api/internal/auth.service'
 import ConfigService from '@config/config.service'
 import { PinoLogger } from '@infra/pino.logger'
-import { GameBuilder } from '@testing/builders/game.builder'
-import { HttpRequestBuilder } from '@testing/builders/http/http.request.builder'
+import { GameBuilder } from '@packages/testing'
+import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { container } from 'tsyringe'
 
 import { IsGameExistRepository } from '../getGamePriceHistory/repositories/isGameExist.repository'

@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@shared/types": "workspace:*",
+    "@packages/testing": "workspace:*",
     "@types/cron": "^2.0.1",
     "@types/jest": "^29.5.3",
     "@types/jsonwebtoken": "^9.0.2",

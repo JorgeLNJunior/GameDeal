@@ -1,0 +1,9 @@
+{
+  "name": "@packages/testing",
+  "main": "index.ts",
+  "types": "index.ts",
+  "devDependencies": {
+    "@shared/types": "workspace:*",
+    "@types/node": "^18.16.8"
+  }
+}

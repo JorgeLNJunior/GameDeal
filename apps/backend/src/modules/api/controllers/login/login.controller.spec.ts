@@ -1,7 +1,7 @@
 import { AuthService } from '@api/internal/auth.service'
 import ConfigService from '@config/config.service'
 import { PinoLogger } from '@infra/pino.logger'
-import { HttpRequestBuilder } from '@testing/builders/http/http.request.builder'
+import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { container } from 'tsyringe'
 
 import { LoginController } from './login.controller'

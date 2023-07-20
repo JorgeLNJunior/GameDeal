@@ -1,11 +1,10 @@
 import { PinoLogger } from '@infra/pino.logger'
+import { GameBuilder, GamePriceBuilder } from '@packages/testing'
 import { NotificationQueue } from '@queue/notification.queue'
 import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
 import { SteamScraper } from '@scrapers/steam.scraper'
 import { FindGameByIdRepository } from '@shared/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@shared/getCurrentGamePrice.repository'
-import { GameBuilder } from '@testing/builders/game.builder'
-import { GamePriceBuilder } from '@testing/builders/price.builder'
 import { container } from 'tsyringe'
 
 import { GameJobProcessor } from './game.job.processor'

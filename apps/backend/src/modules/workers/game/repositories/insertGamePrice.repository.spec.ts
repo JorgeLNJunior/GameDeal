@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import { GameBuilder } from '@testing/builders/game.builder'
+import { GameBuilder } from '@packages/testing'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 

@@ -1,8 +1,8 @@
 import { PinoLogger } from '@infra/pino.logger'
 import type { ApplicationCache } from '@localtypes/http/cache.type'
+import { GameBuilder } from '@packages/testing'
 import { FindGameByIdRepository } from '@shared/findGameById.repository'
-import { GameBuilder } from '@testing/builders/game.builder'
-import { HttpRequestBuilder } from '@testing/builders/http/http.request.builder'
+import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 

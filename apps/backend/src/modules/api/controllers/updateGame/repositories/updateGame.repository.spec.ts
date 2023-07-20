@@ -1,7 +1,7 @@
 import ConfigService from '@config/config.service'
 import { DatabaseService } from '@database/database.service'
 import { PinoLogger } from '@infra/pino.logger'
-import { GameBuilder } from '@testing/builders/game.builder'
+import { GameBuilder } from '@packages/testing'
 import { sql } from 'kysely'
 
 import { UpdateGameRepository } from './updateGame.repository'
