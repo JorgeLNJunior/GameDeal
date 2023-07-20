@@ -64,4 +64,22 @@ describe('SteamScraper', () => {
 
     expect(logSpy).toHaveBeenCalled()
   })
+
+  it('should suport games with subscriptions', async () => {
+    const price = await scraper.getGamePrice(
+      'https://store.steampowered.com/app/1237970/Titanfall_2'
+    )
+
+    expect(price).toBeDefined()
+    expect(typeof price).toBe('number')
+  })
+
+  it('should suport games with bundles', async () => {
+    const price = await scraper.getGamePrice(
+      'https://store.steampowered.com/app/271590/Grand_Theft_Auto_V'
+    )
+
+    expect(price).toBeDefined()
+    expect(typeof price).toBe('number')
+  })
 })
