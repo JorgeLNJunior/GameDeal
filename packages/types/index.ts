@@ -16,6 +16,11 @@ export interface GamePrice {
   updated_at: Date | null
 }
 
+export interface LowestPrice {
+  steam?: GamePrice
+  nuuvem?: GamePrice
+}
+
 export interface QueryData<T> {
   results: T
   pages: number

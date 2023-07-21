@@ -248,7 +248,15 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/game_price"
+                type: object
+                properties:
+                  steam:
+                    nullable: true
+                    $ref: "#/components/schemas/game_price"
+                  nuuvem:
+                    nullable: true
+                    $ref: "#/components/schemas/game_price"
+
         404:
           $ref: "#/components/responses/404"
         500:
