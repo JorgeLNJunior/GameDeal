@@ -1,4 +1,4 @@
-import type { Game, GamePrice, QueryData } from '@packages/types'
+import type { Game, GamePrice, LowestPrice, QueryData } from '@packages/types'
 import axios from 'axios'
 
 import { SERVER_URL } from '@/constants/urls'
@@ -28,8 +28,8 @@ export class ApiService {
     return response.data as QueryData<GamePrice[]>
   }
 
-  async getLowestPrice (gameID: string): Promise<GamePrice> {
+  async getLowestPrice (gameID: string): Promise<LowestPrice> {
     const response = await this.http.get(`/games/${gameID}/price/lowest`)
-    return response.data as GamePrice
+    return response.data as LowestPrice
   }
 }

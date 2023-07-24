@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Game, GamePrice } from '@packages/types'
+import type { Game, GamePrice, LowestPrice as ILowestPrice } from '@packages/types'
 import { computed, onBeforeMount, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 
@@ -15,32 +15,33 @@ const route = useRoute()
 // data
 let game = reactive<Game>({} as any)
 let currentPrice = reactive<GamePrice>({} as any)
-let lowestPrice = reactive<GamePrice>({} as any)
+let lowestPrice = reactive<ILowestPrice>({} as any)
 let priceHistory = reactive<GamePrice[]>([])
 const uiState = reactive({ isDataFetched: false })
 
 // computeds
 const formatedLowestPrice = computed(() => {
   const formater = new DataFormater()
-  const date = formater.formatDate(lowestPrice.created_at)
-  if (lowestPrice.nuuvem_price != null) {
-    if (lowestPrice.steam_price < lowestPrice.nuuvem_price) {
-      return {
-        platform: 'Steam',
-        price: formater.formatPriceWithCurrency(lowestPrice.steam_price),
-        date
-      }
-    }
+  if (
+    (lowestPrice.steam?.steam_price != null && lowestPrice.nuuvem?.nuuvem_price != null) &&
+    (lowestPrice.nuuvem?.nuuvem_price < lowestPrice.steam?.steam_price)) {
     return {
       platform: 'Nuuvem',
-      price: `R$ ${formater.formatPriceWithCurrency(lowestPrice.nuuvem_price)}`,
-      date
+      price: formater.formatPriceWithCurrency(lowestPrice.nuuvem?.nuuvem_price),
+      date: formater.formatDate(String(lowestPrice.nuuvem?.created_at))
+    }
+  }
+  if (lowestPrice.steam != null) {
+    return {
+      platform: 'Steam',
+      price: `R$ ${formater.formatPriceWithCurrency(lowestPrice.steam?.steam_price)}`,
+      date: formater.formatDate(String(lowestPrice.steam?.created_at))
     }
   }
   return {
-    platform: 'Steam',
-    price: `R$ ${formater.formatPriceWithCurrency(lowestPrice.steam_price)}`,
-    date
+    platform: 'Sem registro',
+    price: 'R$ 0.00',
+    date: formater.formatDate(new Date())
   }
 })
 
