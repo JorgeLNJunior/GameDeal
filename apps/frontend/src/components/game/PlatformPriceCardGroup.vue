@@ -24,12 +24,14 @@ const props = defineProps({
       :price="props.currentPrice.steam_price.toString()"
       :url="game.steam_url"
       :platform="Platform.STEAM"
+      test-data="steam-card"
     />
     <PlatformPriceCard
       v-if="props.game.nuuvem_url && props.currentPrice.nuuvem_price"
       :price="props.currentPrice.nuuvem_price.toString()"
       :url="props.game.nuuvem_url"
       :platform="Platform.NUUVEM"
+      test-data="nuuvem-card"
     />
   </div>
 </template>
