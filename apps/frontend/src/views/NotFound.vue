@@ -1,8 +1,8 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="grid h-screen place-content-center bg-white px-4">
-    <div class="text-center">
+  <div class="grid bg-white px-4">
+    <div class="pt-20 text-center">
       <h1 class="text-9xl font-black text-gray-200">404</h1>
 
       <p class="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
