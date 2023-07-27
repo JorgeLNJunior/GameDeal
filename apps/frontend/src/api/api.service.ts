@@ -2,16 +2,9 @@ import type { Game, GamePrice, LowestPrice, QueryData } from '@packages/types'
 import axios from 'axios'
 
 import { SERVER_URL } from '@/constants/urls'
-import router from '@/router'
 
 export class ApiService {
   private readonly http = axios.create({ baseURL: SERVER_URL })
-
-  constructor () {
-    this.http.interceptors.response.use(undefined, async (error) => {
-      if (error.response.status === 404) return await router.push({ name: 'notFound' })
-    })
-  }
 
   async getGames (title?: string, page = 1, limit = 8): Promise<QueryData<Game[]>> {
     let url = `/games?page=${page}&limit=${limit}`
