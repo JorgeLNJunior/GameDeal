@@ -37,11 +37,11 @@ onBeforeRouteUpdate(async (guard) => {
 })
 
 // functions
-async function getGames (): Promise<void> {
+async function getGames (title?: string): Promise<void> {
   uiState.isDataFetched = false
   const api = new ApiService()
 
-  const data = await api.getGames(pages.current)
+  const data = await api.getGames(title, pages.current)
   games = data.results
   pages.total = data.pages
 
@@ -67,7 +67,7 @@ function getGamePrice (gameID: string): string {
 <template>
   <div class="flex w-1/3 flex-col justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md">
     <!-- Search -->
-    <GameSearchInput />
+    <GameSearchInput @search="getGames" />
 
     <div class="flex flex-col justify-center space-y-4">
       <!-- Pagination -->
