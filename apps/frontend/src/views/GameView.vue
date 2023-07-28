@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { Game, GamePrice, LowestPrice as ILowestPrice } from '@packages/types'
+import { AxiosError } from 'axios'
 import { computed, onBeforeMount, reactive } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
 import GamePriceCardSkeleton from '@/components/game/GamePriceCardSkeleton.vue'
@@ -11,6 +12,7 @@ import PriceHistoryChart from '@/components/game/PriceHistoryChart.vue'
 import { DataFormater } from '@/helpers/DataFormater'
 
 const route = useRoute()
+const router = useRouter()
 
 // data
 let game = reactive<Game>({} as any)
@@ -47,11 +49,19 @@ const formatedLowestPrice = computed(() => {
 
 // hooks
 onBeforeMount(async () => {
-  uiState.isDataFetched = false
-  const promises = [getGame(), getGamePrice(), getLowestPrice(), getGamePriceHistory()]
-  await Promise.all(promises)
-  uiState.isDataFetched = true
-  document.title = `${game.title} | Game Deal`
+  try {
+    uiState.isDataFetched = false
+    const promises = [getGame(), getGamePrice(), getLowestPrice(), getGamePriceHistory()]
+    await Promise.all(promises)
+    uiState.isDataFetched = true
+    document.title = `${game.title} | Game Deal`
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 404) {
+      await router.push({ name: 'notFound' })
+      return
+    }
+    await router.push('/error')
+  }
 })
 
 // functions

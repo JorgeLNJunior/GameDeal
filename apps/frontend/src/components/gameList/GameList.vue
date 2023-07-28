@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import type { Game, GamePrice } from '@packages/types'
+import { AxiosError } from 'axios'
 import { onBeforeMount, reactive } from 'vue'
-import { onBeforeRouteUpdate, useRoute } from 'vue-router'
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
 
@@ -12,6 +13,7 @@ import PaginationButton from './PaginationButton.vue'
 import PaginationButtonSkeleton from './PaginationButtonSkeleton.vue'
 
 const route = useRoute()
+const router = useRouter()
 
 // data
 let games = reactive<Game[]>([])
@@ -38,20 +40,28 @@ onBeforeRouteUpdate(async (guard) => {
 
 // functions
 async function getGames (title?: string): Promise<void> {
-  uiState.isDataFetched = false
-  const api = new ApiService()
+  try {
+    uiState.isDataFetched = false
+    const api = new ApiService()
 
-  const data = await api.getGames(title, pages.current)
-  games = data.results
-  pages.total = data.pages
+    const data = await api.getGames(title, pages.current)
+    games = data.results
+    pages.total = data.pages
 
-  const promises: Array<Promise<GamePrice>> = []
-  for (const game of games) {
-    promises.push(api.getGamePrice(game.id))
+    const promises: Array<Promise<GamePrice>> = []
+    for (const game of games) {
+      promises.push(api.getGamePrice(game.id))
+    }
+    prices = await Promise.all(promises)
+
+    uiState.isDataFetched = true
+  } catch (error) {
+    if (error instanceof AxiosError && error.response?.status === 404) {
+      await router.push({ name: 'notFound' })
+      return
+    }
+    await router.push('/error')
   }
-  prices = await Promise.all(promises)
-
-  uiState.isDataFetched = true
 }
 
 function getGamePrice (gameID: string): string {
