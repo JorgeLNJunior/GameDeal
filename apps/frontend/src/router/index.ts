@@ -15,6 +15,11 @@ const router = createRouter({
       component: async () => await import('@/views/GameView.vue')
     },
     {
+      path: '/error',
+      component: async () => await import('@/views/InternalError.vue'),
+      meta: { title: '500 - Internal Error' }
+    },
+    {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
       component: async () => await import('@/views/NotFound.vue'),
