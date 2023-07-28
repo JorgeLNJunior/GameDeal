@@ -1,6 +1,7 @@
 import { PinoLogger } from '@infra/pino.logger'
 import type { ApplicationCache } from '@localtypes/http/cache.type'
 import { GamePriceBuilder } from '@packages/testing'
+import { type LowestPrice } from '@packages/types'
 import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
@@ -30,7 +31,9 @@ describe('GetLowestPriceController', () => {
   })
 
   it('should return OK and a price', async () => {
-    const price = new GamePriceBuilder().build()
+    const steam = new GamePriceBuilder().build()
+    const nuuvem = new GamePriceBuilder().build()
+    const price: LowestPrice = { steam, nuuvem }
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
     jest.spyOn(getLowestPriceRepo, 'get').mockResolvedValueOnce(price)
@@ -44,7 +47,9 @@ describe('GetLowestPriceController', () => {
   })
 
   it('should return OK if cache is enabled', async () => {
-    const price = new GamePriceBuilder().build()
+    const steam = new GamePriceBuilder().build()
+    const nuuvem = new GamePriceBuilder().build()
+    const price: LowestPrice = { steam, nuuvem }
 
     const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
       value: price,
@@ -61,7 +66,9 @@ describe('GetLowestPriceController', () => {
   })
 
   it('should return OK if cache is disabled', async () => {
-    const price = new GamePriceBuilder().build()
+    const steam = new GamePriceBuilder().build()
+    const nuuvem = new GamePriceBuilder().build()
+    const price: LowestPrice = { steam, nuuvem }
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
     jest.spyOn(getLowestPriceRepo, 'get').mockResolvedValueOnce(price)
