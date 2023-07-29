@@ -60,6 +60,11 @@ module.exports = {
         project: [
           path.join(__dirname, 'apps/frontend/tsconfig.json'),
         ]
+      },
+      rules: {
+        'tailwindcss/no-custom-classname': ['error', {
+          config: 'apps/frontend/tailwind.config.js'
+        }]
       }
     },
     // frontend test files
