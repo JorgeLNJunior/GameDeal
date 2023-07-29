@@ -7,16 +7,13 @@ const props = defineProps({
   title: { type: String, required: true }
 })
 const priceWithCurrency = computed(() => `R$ ${props.price.replace('.', ',')}`)
-const cropedText = computed(() => {
-  return props.title.length > 33 ? (props.title.slice(0, 33) + '...') : props.title
-})
 </script>
 
 <template>
   <li>
-    <RouterLink class="group flex items-center justify-between rounded-lg px-4 py-2 hover:bg-gray-100 hover:text-gray-800" :to="`/game/${props.id}`">
-      <span test-data="title">{{ cropedText }}</span>
-      <span test-data="price">{{ priceWithCurrency }}</span>
+    <RouterLink class="flex content-end justify-between space-x-6 rounded-lg p-2 hover:bg-gray-100 hover:text-gray-800 md:px-4" :to="`/game/${props.id}`">
+      <span class="line-clamp-1 w-full" test-data="title">{{ props.title }}</span>
+      <span class="md:w-18 line-clamp-1 w-1/4 shrink-0" test-data="price">{{ priceWithCurrency }}</span>
     </RouterLink>
   </li>
 </template>

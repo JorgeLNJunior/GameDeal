@@ -75,7 +75,7 @@ function getGamePrice (gameID: string): string {
 </script>
 
 <template>
-  <div class="flex w-1/3 flex-col justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md">
+  <div class="my-6 flex w-11/12 flex-col justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md md:mt-0 md:w-3/4 lg:w-2/5">
     <!-- Search -->
     <GameSearchInput @search="getGames" />
 
