@@ -10,7 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: game_deal
     volumes:
-      - ./compose/init:/docker-entrypoint-initdb.d
+      - ./compose/mysql:/docker-entrypoint-initdb.d
 
   redis:
     image: bitnami/redis
