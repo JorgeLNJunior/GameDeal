@@ -1,6 +1,5 @@
 import { DatabaseService } from '@database/database.service'
 import { GameBuilder, GamePriceBuilder } from '@packages/testing'
-import type { GamePrice } from '@packages/types'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -25,26 +24,36 @@ describe('GetLowestPriceRepository', () => {
 
   it('should return a price', async () => {
     const game = new GameBuilder().build()
-    const price = new GamePriceBuilder()
+    const steam = new GamePriceBuilder()
+      .withGame(game.id)
+      .withSteamPrice(50.55)
+      .withNuuvemPrice(60.99)
+      .build()
+    const steamLowest = new GamePriceBuilder()
+      .withGame(game.id)
+      .withSteamPrice(45.99)
+      .withNuuvemPrice(74.99)
+      .build()
+    const nuuvem = new GamePriceBuilder()
       .withGame(game.id)
       .withSteamPrice(50.55)
       .withNuuvemPrice(45.99)
       .build()
-    const price2 = new GamePriceBuilder()
+    const nuuvemLowest = new GamePriceBuilder()
       .withGame(game.id)
-      .withSteamPrice(85.99)
-      .withNuuvemPrice(74.99)
+      .withSteamPrice(48.65)
+      .withNuuvemPrice(40.99)
       .build()
 
     await db.getClient().insertInto('game').values(game).execute()
-    await db.getClient().insertInto('game_price').values(price).execute()
-    await db.getClient().insertInto('game_price').values(price2).execute()
+    await db.getClient().insertInto('game_price').values(steam).execute()
+    await db.getClient().insertInto('game_price').values(steamLowest).execute()
+    await db.getClient().insertInto('game_price').values(nuuvem).execute()
+    await db.getClient().insertInto('game_price').values(nuuvemLowest).execute()
 
     const data = await repository.get(game.id)
 
-    expect((data as GamePrice).id).toBe(price.id)
-    expect((data as GamePrice).game_id).toBe(price.game_id)
-    expect((data as GamePrice).steam_price).toBe(String(price.steam_price))
-    expect((data as GamePrice).nuuvem_price).toBe(String(price.nuuvem_price))
+    expect(data.steam?.steam_price).toBe(steamLowest.steam_price.toString())
+    expect(data.nuuvem?.nuuvem_price).toBe(nuuvemLowest.nuuvem_price?.toString())
   })
 })
