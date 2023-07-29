@@ -25,14 +25,14 @@ import TelegramIcon from '@/icons/TelegramIcon.vue'
     <div class="flex flex-1 items-center justify-end">
       <div class="flex items-center gap-4">
         <div class="sm:flex sm:gap-4">
-          <button
+          <a
             class="flex flex-row items-center gap-2 rounded-md bg-cyan-600 px-5 py-2.5 text-center text-sm font-medium text-white transition hover:bg-cyan-700"
             :href="TELEGRAM_CHANNEL_URL" target="_blank"
             test-data="telegram_channel_btn"
           >
             <TelegramIcon class="h-4"/>
             <span class="hidden sm:block">Telegram</span>
-        </button>
+        </a>
         </div>
       </div>
     </div>
