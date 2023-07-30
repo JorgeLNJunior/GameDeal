@@ -29,7 +29,7 @@ async function nextPage (): Promise<void> {
     <!-- Previous button -->
     <button
       href="#"
-      class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
+      class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 hover:bg-gray-100 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
       @click="previousPage()"
       :disabled="isFirstPage"
       test-data="previous-button"
@@ -58,7 +58,7 @@ async function nextPage (): Promise<void> {
     <!-- Next page button -->
     <button
       href="#"
-      class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
+      class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 hover:bg-gray-100 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
       @click="nextPage()"
       :disabled="isLastPage"
       test-data="next-button"
