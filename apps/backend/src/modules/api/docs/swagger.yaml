@@ -280,6 +280,10 @@ components:
           type: string
           example: https://www.nuuvem.com/br-en/item/god-of-war
           nullable: true
+        green_man_gaming_url:
+          type: string
+          example: https://www.greenmangaming.com/games/god-of-war-pc
+          nullable: true
         created_at:
           type: string
           example: 2023-01-23T00:30:19.000Z
@@ -303,6 +307,10 @@ components:
         nuuvem_price:
           type: string
           example: "145.99"
+          nullable: true
+        green_man_gaming_price:
+          type: string
+          example: "160.45"
           nullable: true
         created_at:
           type: string
@@ -357,6 +365,10 @@ components:
                 type: string
                 example: https://www.nuuvem.com/br-en/item/god-of-war
                 description: "URL do jogo na Nuuvem"
+              green_man_gaming_url:
+                type: string
+                example: https://www.greenmangaming.com/games/god-of-war-pc
+                description: "URL do jogo na Green Man Gaming"
 
     update-game:
       required: true
@@ -377,6 +389,10 @@ components:
                 type: string
                 example: https://www.nuuvem.com/br-en/item/god-of-war
                 description: "URL do jogo na Nuuvem"
+              green_man_gaming_url:
+                type: string
+                example: https://www.greenmangaming.com/games/god-of-war-pc
+                description: "URL do jogo na Green Man Gaming"
 
   responses:
     400:

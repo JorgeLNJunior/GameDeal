@@ -16,7 +16,7 @@ describe('UpdateGameValidator', () => {
     expect(errors).toBeUndefined()
   })
 
-  it('should return false if title is not a string', async () => {
+  it('should return false if "title" is not a string', async () => {
     const data = {
       title: 10,
       steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
@@ -29,7 +29,7 @@ describe('UpdateGameValidator', () => {
     expect(errors).toBeDefined()
   })
 
-  it('should return false if steam_url is not a string', async () => {
+  it('should return false if "steam_url" is not a string', async () => {
     const data = {
       title: 'God of War',
       steam_url: 10,
@@ -42,7 +42,7 @@ describe('UpdateGameValidator', () => {
     expect(errors).toBeDefined()
   })
 
-  it('should return false if steam_url is not a valid steam url', async () => {
+  it('should return false if "steam_url" is not a valid steam game url', async () => {
     const data: UpdateGameDTO = {
       title: 'God of War',
       steam_url: 'invalid url'
@@ -54,7 +54,7 @@ describe('UpdateGameValidator', () => {
     expect(errors).toBeDefined()
   })
 
-  it('should return false if nuuvem_url is not a valid nuuvem url', async () => {
+  it('should return false if "nuuvem_url" is not a valid nuuvem game url', async () => {
     const data: UpdateGameDTO = {
       title: 'God of War',
       steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
@@ -67,11 +67,37 @@ describe('UpdateGameValidator', () => {
     expect(errors).toBeDefined()
   })
 
-  it('should return false if nuuvem_url is not a string', async () => {
+  it('should return false if "nuuvem_url" is not a string', async () => {
     const data = {
       title: 'God of War',
       steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
       nuuvem_url: 500
+    }
+
+    const { success, errors } = new UpdateGameValidator().validate(data as any)
+
+    expect(success).toBe(false)
+    expect(errors).toBeDefined()
+  })
+
+  it('should return false if "green_man_gaming_url" is not a valid green man gaming game url', async () => {
+    const data: UpdateGameDTO = {
+      title: 'God of War',
+      steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
+      green_man_gaming_url: 'invalid url'
+    }
+
+    const { success, errors } = new UpdateGameValidator().validate(data)
+
+    expect(success).toBe(false)
+    expect(errors).toBeDefined()
+  })
+
+  it('should return false if "green_man_gaming_url" is not a string', async () => {
+    const data = {
+      title: 'God of War',
+      steam_url: 'https://store.steampowered.com/app/1593500/God_of_War',
+      green_man_gaming_url: 500
     }
 
     const { success, errors } = new UpdateGameValidator().validate(data as any)

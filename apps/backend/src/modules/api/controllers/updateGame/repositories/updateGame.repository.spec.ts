@@ -4,6 +4,7 @@ import { PinoLogger } from '@infra/pino.logger'
 import { GameBuilder } from '@packages/testing'
 import { sql } from 'kysely'
 
+import { type UpdateGameDTO } from '../dto/updateGame.dto'
 import { UpdateGameRepository } from './updateGame.repository'
 
 describe('UpdateGameRepository', () => {
@@ -27,10 +28,11 @@ describe('UpdateGameRepository', () => {
     const game = new GameBuilder().build()
     await db.getClient().insertInto('game').values(game).execute()
 
-    const data = {
+    const data: UpdateGameDTO = {
       title: 'title',
       steam_url: 'steam_url',
-      nuuvem_url: 'nuuvem_url'
+      nuuvem_url: 'nuuvem_url',
+      green_man_gaming_url: 'green_man_gaming_url'
     }
     const result = await repository.update(game.id, data)
 

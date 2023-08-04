@@ -38,6 +38,16 @@ export class AddGameValidator implements Validator {
         errors.push('"nuuvem_url" must be a string')
       }
     }
+    if (data.green_man_gaming_url != null) {
+      const GMG_REGEX = /^https:\/\/www.greenmangaming.com\/games\/[\w-]+\/?$/
+      const isValidUrl = GMG_REGEX.test(data.green_man_gaming_url)
+      if (!isValidUrl) {
+        errors.push('"green_man_gaming_url" is not a valid game url')
+      }
+      if (typeof data.nuuvem_url !== 'string') {
+        errors.push('"green_man_gaming_url" must be a string')
+      }
+    }
 
     if (errors.length === 0) return { success: true }
 

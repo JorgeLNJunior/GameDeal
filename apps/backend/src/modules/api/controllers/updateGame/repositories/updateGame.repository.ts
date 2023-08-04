@@ -24,7 +24,8 @@ export class UpdateGameRepository {
       .set({
         title: dto.title,
         steam_url: dto.steam_url,
-        nuuvem_url: dto.nuuvem_url
+        nuuvem_url: dto.nuuvem_url,
+        green_man_gaming_url: dto.green_man_gaming_url
       })
       .where('id', '=', id)
       .execute()

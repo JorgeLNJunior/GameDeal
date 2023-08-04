@@ -24,7 +24,8 @@ describe('AddGameRepository', () => {
     const data: AddGameDTO = {
       title: 'Cyberpunk 2077',
       steam_url: 'https://steamcommunity.com/id',
-      nuuvem_url: 'https://nuuvem.com/id'
+      nuuvem_url: 'https://nuuvem.com/id',
+      green_man_gaming_url: 'https://greenmangaming.com/id'
     }
 
     const game = await repository.add(data)
