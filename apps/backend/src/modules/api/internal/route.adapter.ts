@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { type HttpController } from '@localtypes/http/http.controller.type'
-import { type HttpRequest } from '@localtypes/http/http.type'
+import { type HttpRedirect, type HttpRequest, type HttpResponse } from '@localtypes/http/http.type'
 import { type FastifyReply, type FastifyRequest, type RouteHandler } from 'fastify'
 
 /**
- * Adapt an application route to a fastify route.
+ * Adapt a http controller to a fastify route.
  *
  * ```
  * fastify.route({
@@ -13,8 +13,8 @@ import { type FastifyReply, type FastifyRequest, type RouteHandler } from 'fasti
  * handler: adaptRoute(controller)
  * })
  * ```
- * @param controller - A class wich implements `HttpController`.
- * @returns A fastify `RouteHandler`
+ * @param controller - A implementation of `HttpController`.
+ * @returns A fastify `RouteHandler`.
  */
 export function adaptRoute (controller: HttpController): RouteHandler {
   return async (req: FastifyRequest, res: FastifyReply) => {
@@ -27,9 +27,17 @@ export function adaptRoute (controller: HttpController): RouteHandler {
     }
     const response = await controller.handle(request)
 
+    if (isRedirect(response)) {
+      return await res.redirect(response.statusCode, response.to)
+    }
+
     return await res
       .status(response.statusCode)
       .headers(response.headers ?? {})
       .send(response.body)
   }
+}
+
+function isRedirect (res: HttpResponse | HttpRedirect): res is HttpRedirect {
+  return 'to' in res
 }

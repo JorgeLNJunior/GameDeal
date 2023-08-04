@@ -1,4 +1,4 @@
-import type { HttpMethod, HttpRequest, HttpResponse } from './http.type'
+import type { HttpMethod, HttpRedirect, HttpRequest, HttpResponse } from './http.type'
 
 export interface HttpController {
   /** The route HTTP method. */
@@ -10,5 +10,5 @@ export interface HttpController {
    * Handle a server route.
    * @param request - A `HttpRequest` object.
    */
-  handle: (request: HttpRequest) => HttpResponse | Promise<HttpResponse>
+  handle: (request: HttpRequest) => HttpResponse | Promise<HttpResponse> | HttpRedirect
 }

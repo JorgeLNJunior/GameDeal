@@ -13,6 +13,11 @@ export interface HttpResponse {
   headers?: Record<string, unknown>
 }
 
+export interface HttpRedirect {
+  statusCode: number
+  to: string
+}
+
 export enum HttpMethod {
   GET = 'GET',
   POST = 'POST',
