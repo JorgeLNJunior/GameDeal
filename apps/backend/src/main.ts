@@ -9,6 +9,7 @@ import { GetGamePriceController } from '@api/controllers/getCurrentGamePrice/get
 import { GetGamePriceHistoryController } from '@api/controllers/getGamePriceHistory/getGamePriceHistory.controller'
 import { GetLowestPriceController } from '@api/controllers/getLowestPrice/getLowestPrice.controller'
 import { LoginController } from '@api/controllers/login/login.controller'
+import { RedirectToDocsController } from '@api/controllers/redirectToDocs/redirectToDocs.controller'
 import { UpdateGameController } from '@api/controllers/updateGame/updateGame.controller'
 import { Server } from '@api/server'
 import { CronService } from '@cron/cron.service'
@@ -64,7 +65,8 @@ export default class Main {
         container.resolve(GetGamePriceHistoryController),
         container.resolve(GetLowestPriceController),
         container.resolve(UpdateGameController),
-        container.resolve(LoginController)
+        container.resolve(LoginController),
+        container.resolve(RedirectToDocsController)
       )
       this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
