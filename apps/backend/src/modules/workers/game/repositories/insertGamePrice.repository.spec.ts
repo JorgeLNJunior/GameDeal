@@ -28,7 +28,8 @@ describe('InsertGamePriceRepository', () => {
 
     const price = await repository.insert(game.id, {
       steam_price: 120.5,
-      nuuvem_price: 110.99
+      nuuvem_price: 110.99,
+      green_man_gaming_price: 115.10
     })
 
     expect(price.steam_price).toBe('120.50')

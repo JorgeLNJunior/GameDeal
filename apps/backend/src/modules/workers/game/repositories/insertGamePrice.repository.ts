@@ -34,7 +34,8 @@ export class InsertGamePriceRepository {
             id: uuid,
             game_id: gameId,
             steam_price: prices.steam_price,
-            nuuvem_price: prices.nuuvem_price
+            nuuvem_price: prices.nuuvem_price,
+            green_man_gaming_price: prices.green_man_gaming_price
           })
           .execute()
 
@@ -50,4 +51,5 @@ export class InsertGamePriceRepository {
 interface PlatformPrices {
   steam_price: number
   nuuvem_price: number | null
+  green_man_gaming_price: number | null
 }

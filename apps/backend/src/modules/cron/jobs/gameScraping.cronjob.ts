@@ -31,7 +31,8 @@ export class GameScrapingCronJob implements ApplicationCronJob {
       await this.gameQueue.add({
         gameId: game.id,
         steamUrl: game.steam_url,
-        nuuvemUrl: game.nuuvem_url
+        nuuvemUrl: game.nuuvem_url,
+        green_man_gaming_url: game.green_man_gaming_url
       })
     })
 

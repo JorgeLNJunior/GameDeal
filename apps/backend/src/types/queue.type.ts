@@ -2,6 +2,7 @@ export interface ScrapeGamePriceData {
   gameId: string
   steamUrl: string
   nuuvemUrl: string | null
+  green_man_gaming_url: string | null
 }
 
 export enum QueueName {

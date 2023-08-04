@@ -17,7 +17,7 @@ export class FindGameScraperDataRepository {
     return await this.databaseService
       .getClient()
       .selectFrom('game')
-      .select(['id', 'steam_url', 'nuuvem_url'])
+      .select(['id', 'steam_url', 'nuuvem_url', 'green_man_gaming_url'])
       .execute()
   }
 }
@@ -26,4 +26,5 @@ interface GameScrapeData {
   id: string
   steam_url: string
   nuuvem_url: string | null
+  green_man_gaming_url: string | null
 }
