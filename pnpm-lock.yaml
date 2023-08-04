@@ -27,7 +27,7 @@ importers:
         version: 5.61.0(@typescript-eslint/parser@5.59.8)(eslint@8.46.0)(typescript@5.1.6)
       '@vue/eslint-config-standard-with-typescript':
         specifier: ^8.0.0
-        version: 8.0.0(eslint-plugin-vue@9.15.1)(eslint@8.46.0)(typescript@5.1.6)
+        version: 8.0.0(eslint-plugin-vue@9.16.1)(eslint@8.46.0)(typescript@5.1.6)
       eslint:
         specifier: ^8.46.0
         version: 8.46.0
@@ -47,8 +47,8 @@ importers:
         specifier: ^0.2.8
         version: 0.2.8(eslint@8.46.0)(typescript@5.1.6)(vitest@0.33.0)
       eslint-plugin-vue:
-        specifier: ^9.15.1
-        version: 9.15.1(eslint@8.46.0)
+        specifier: ^9.16.1
+        version: 9.16.1(eslint@8.46.0)
       husky:
         specifier: ^8.0.3
         version: 8.0.3
@@ -78,13 +78,13 @@ importers:
         version: 1.9.3
       '@newrelic/mysql':
         specifier: ^6.1.0
-        version: 6.1.0(newrelic@10.6.0)
+        version: 6.1.0(newrelic@10.6.1)
       axios:
         specifier: ^1.4.0
         version: 1.4.0
       bullmq:
-        specifier: ^4.6.3
-        version: 4.6.3
+        specifier: ^4.7.0
+        version: 4.7.0
       cheerio:
         specifier: ^1.0.0-rc.12
         version: 1.0.0-rc.12
@@ -104,17 +104,17 @@ importers:
         specifier: ^0.26.1
         version: 0.26.1
       mysql2:
-        specifier: ^3.5.2
-        version: 3.5.2
+        specifier: ^3.6.0
+        version: 3.6.0
       newrelic:
-        specifier: ^10.6.0
-        version: 10.6.0
+        specifier: ^10.6.1
+        version: 10.6.1
       node-cache:
         specifier: ^5.1.2
         version: 5.1.2
       pino:
-        specifier: ^8.14.2
-        version: 8.14.2
+        specifier: ^8.15.0
+        version: 8.15.0
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.13
@@ -180,14 +180,14 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       chart.js:
-        specifier: ^4.3.2
-        version: 4.3.2
+        specifier: ^4.3.3
+        version: 4.3.3
       vue:
         specifier: ^3.3.4
         version: 3.3.4
       vue-chartjs:
         specifier: ^5.2.0
-        version: 5.2.0(chart.js@4.3.2)(vue@3.3.4)
+        version: 5.2.0(chart.js@4.3.3)(vue@3.3.4)
       vue-router:
         specifier: ^4.2.4
         version: 4.2.4(vue@3.3.4)
@@ -1106,7 +1106,7 @@ packages:
       debug: 4.3.4
       gensync: 1.0.0-beta.2
       json5: 2.2.3
-      semver: 7.5.3
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -1132,7 +1132,7 @@ packages:
       '@babel/helper-validator-option': 7.21.0
       browserslist: 4.21.7
       lru-cache: 5.1.1
-      semver: 7.5.3
+      semver: 7.5.4
     dev: true
 
   /@babel/helper-environment-visitor@7.22.1:
@@ -2366,31 +2366,31 @@ packages:
     dev: false
     optional: true
 
-  /@newrelic/aws-sdk@6.0.0(newrelic@10.6.0):
+  /@newrelic/aws-sdk@6.0.0(newrelic@10.6.1):
     resolution: {integrity: sha512-17DwEvyDS9pAkV5kBSGtm2oIQbII0qOSAXSlU51MLA0Vp/PxNDTCBBFVgpKbGyKpPfudIJMGvh4jAmlzH3xIng==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       newrelic: '>=8.7.0'
     dependencies:
-      newrelic: 10.6.0
+      newrelic: 10.6.1
     dev: false
 
-  /@newrelic/koa@7.2.0(newrelic@10.6.0):
+  /@newrelic/koa@7.2.0(newrelic@10.6.1):
     resolution: {integrity: sha512-3y/CCOLJ6sEPTKyQAmBrBP5CfZ5ak8mWt+7mWjdbblOXQh20LEsrA/KQAh/ROcTh6rV8oxsubLZ3N13LIeIoVQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       newrelic: '>=6.11.0'
     dependencies:
-      newrelic: 10.6.0
+      newrelic: 10.6.1
     dev: false
 
-  /@newrelic/mysql@6.1.0(newrelic@10.6.0):
+  /@newrelic/mysql@6.1.0(newrelic@10.6.1):
     resolution: {integrity: sha512-V6LIg+XkaImj+y3LyMt+T4WYi9LCYPHTzOhF7q6SxcY4Tt1iWCsoJjD/HKXYDpPKHlOkvq0tNsR7+XJIoJqGhA==}
     engines: {node: '>=14'}
     peerDependencies:
       newrelic: '>=6.11.0'
     dependencies:
-      newrelic: 10.6.0
+      newrelic: 10.6.1
     dev: false
 
   /@newrelic/native-metrics@9.0.1:
@@ -2400,7 +2400,7 @@ packages:
     dependencies:
       https-proxy-agent: 5.0.1
       nan: 2.17.0
-      semver: 7.5.3
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -2425,7 +2425,7 @@ packages:
       pretty-bytes: 5.6.0
       request-ip: 3.3.0
       ringbufferjs: 2.0.0
-      semver: 7.5.3
+      semver: 7.5.4
       sync-request: 6.1.0
       unescape: 1.0.1
       unescape-js: 1.1.4
@@ -2439,13 +2439,13 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@newrelic/superagent@6.0.0(newrelic@10.6.0):
+  /@newrelic/superagent@6.0.0(newrelic@10.6.1):
     resolution: {integrity: sha512-5nClQp9ACd4BvLusAgFHjjKLDgAaC+dKmIsRNOPC82LOLFaoOgxxtbecnDIJ0NWCKQS+WOdmXdgYutwH+e5dsA==}
     engines: {node: '>=14.0'}
     peerDependencies:
       newrelic: '>=6.11.0'
     dependencies:
-      newrelic: 10.6.0
+      newrelic: 10.6.1
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
@@ -2946,7 +2946,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.5.3
+      semver: 7.5.4
       tsutils: 3.21.0(typescript@5.1.6)
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -2967,7 +2967,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.5.3
+      semver: 7.5.4
       tsutils: 3.21.0(typescript@5.1.6)
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -3009,7 +3009,7 @@ packages:
       '@typescript-eslint/typescript-estree': 5.61.0(typescript@5.1.6)
       eslint: 8.46.0
       eslint-scope: 5.1.1
-      semver: 7.5.3
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -3039,7 +3039,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       '@typescript-eslint/types': 5.59.8
-      eslint-visitor-keys: 3.4.1
+      eslint-visitor-keys: 3.4.2
     dev: true
 
   /@typescript-eslint/visitor-keys@5.61.0:
@@ -3047,7 +3047,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dependencies:
       '@typescript-eslint/types': 5.61.0
-      eslint-visitor-keys: 3.4.1
+      eslint-visitor-keys: 3.4.2
     dev: true
 
   /@typescript-eslint/visitor-keys@6.2.0:
@@ -3055,7 +3055,7 @@ packages:
     engines: {node: ^16.0.0 || >=18.0.0}
     dependencies:
       '@typescript-eslint/types': 6.2.0
-      eslint-visitor-keys: 3.4.1
+      eslint-visitor-keys: 3.4.2
     dev: true
 
   /@tyriar/fibonacci-heap@2.0.9:
@@ -3188,7 +3188,7 @@ packages:
     resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
     dev: false
 
-  /@vue/eslint-config-standard-with-typescript@8.0.0(eslint-plugin-vue@9.15.1)(eslint@8.46.0)(typescript@5.1.6):
+  /@vue/eslint-config-standard-with-typescript@8.0.0(eslint-plugin-vue@9.16.1)(eslint@8.46.0)(typescript@5.1.6):
     resolution: {integrity: sha512-7oHFHia1GSFEr4iRwXjCXKIZ7vCM20HqpbjyQnPovtscxPBHn3uVfYTDVXSbzFLSCJqGWBapU6XS6jcfKOPbOw==}
     peerDependencies:
       eslint: ^8.0.1
@@ -3205,7 +3205,7 @@ packages:
       eslint-plugin-import: 2.27.5(@typescript-eslint/parser@5.59.8)(eslint-import-resolver-typescript@3.5.5)(eslint@8.46.0)
       eslint-plugin-n: 15.7.0(eslint@8.46.0)
       eslint-plugin-promise: 6.1.1(eslint@8.46.0)
-      eslint-plugin-vue: 9.15.1(eslint@8.46.0)
+      eslint-plugin-vue: 9.16.1(eslint@8.46.0)
       typescript: 5.1.6
       vue-eslint-parser: 9.3.0(eslint@8.46.0)
     transitivePeerDependencies:
@@ -3802,11 +3802,11 @@ packages:
   /builtins@5.0.1:
     resolution: {integrity: sha512-qwVpFEHNfhYJIzNRBvd2C1kyo6jz3ZSMPyyuR47OPdiKWlbYnZNyDWuyR175qDnAJLiCo5fBBqPb3RiXgWlkOQ==}
     dependencies:
-      semver: 7.5.3
+      semver: 7.5.4
     dev: true
 
-  /bullmq@4.6.3:
-    resolution: {integrity: sha512-i5W9gIRy/WBrlzz+W1V5cCX/ILmMHvjBljOVYoxFd032xpHcKQFN2my9uija7uETwskFBDAGcps6CE27fdka8w==}
+  /bullmq@4.7.0:
+    resolution: {integrity: sha512-xs6P4CWdYK5zb7Z1v95eLYtD3sOAARYmo860Zpk8mZgcrPXVjR4qT2sXdUU+uSoAVPB8t1OXr1OVoAkX0HgFKA==}
     dependencies:
       cron-parser: 4.8.1
       glob: 8.1.0
@@ -3949,8 +3949,8 @@ packages:
     resolution: {integrity: sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==}
     dev: true
 
-  /chart.js@4.3.2:
-    resolution: {integrity: sha512-pvQNyFOY1QmbmIr8oDORL16/FFivfxj8V26VFpFilMo4cNvkV5WXLJetDio365pd9gKUHGdirUTbqJfw8tr+Dg==}
+  /chart.js@4.3.3:
+    resolution: {integrity: sha512-aTk7pBw+x6sQYhon/NR3ikfUJuym/LdgpTlgZRe2PaEhjUMKBKyNaFCMVRAyTEWYFNO7qRu7iQVqOw/OqzxZxQ==}
     engines: {pnpm: '>=7'}
     dependencies:
       '@kurkle/color': 0.3.2
@@ -4295,7 +4295,7 @@ packages:
     dependencies:
       nice-try: 1.0.5
       path-key: 2.0.1
-      semver: 7.5.3
+      semver: 7.5.4
       shebang-command: 1.2.0
       which: 1.3.1
     dev: true
@@ -4653,7 +4653,7 @@ packages:
       '@one-ini/wasm': 0.1.1
       commander: 10.0.1
       minimatch: 9.0.1
-      semver: 7.5.3
+      semver: 7.5.4
     dev: true
 
   /electron-to-chromium@1.4.416:
@@ -5002,7 +5002,7 @@ packages:
       minimatch: 3.1.2
       object.values: 1.1.6
       resolve: 1.22.2
-      semver: 7.5.3
+      semver: 7.5.4
       tsconfig-paths: 3.14.2
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
@@ -5045,7 +5045,7 @@ packages:
       is-core-module: 2.12.1
       minimatch: 3.1.2
       resolve: 1.22.2
-      semver: 7.5.3
+      semver: 7.5.4
     dev: true
 
   /eslint-plugin-promise@6.1.1(eslint@8.46.0):
@@ -5095,8 +5095,8 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-vue@9.15.1(eslint@8.46.0):
-    resolution: {integrity: sha512-CJE/oZOslvmAR9hf8SClTdQ9JLweghT6JCBQNrT2Iel1uVw0W0OLJxzvPd6CxmABKCvLrtyDnqGV37O7KQv6+A==}
+  /eslint-plugin-vue@9.16.1(eslint@8.46.0):
+    resolution: {integrity: sha512-2FtnTqazA6aYONfDuOZTk0QzwhAwi7Z4+uJ7+GHeGxcKapjqWlDsRWDenvyG/utyOfAS5bVRmAG3cEWiYEz2bA==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.2.0 || ^7.0.0 || ^8.0.0
@@ -5106,8 +5106,8 @@ packages:
       natural-compare: 1.4.0
       nth-check: 2.1.1
       postcss-selector-parser: 6.0.13
-      semver: 7.5.3
-      vue-eslint-parser: 9.3.0(eslint@8.46.0)
+      semver: 7.5.4
+      vue-eslint-parser: 9.3.1(eslint@8.46.0)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - supports-color
@@ -5119,14 +5119,6 @@ packages:
     dependencies:
       esrecurse: 4.3.0
       estraverse: 4.3.0
-    dev: true
-
-  /eslint-scope@7.2.0:
-    resolution: {integrity: sha512-DYj5deGlHBfMt15J7rdtyKNq/Nqlv5KfU4iodrQ019XESsRnwXH9KAE0y3cwtUHDo2ob7CypAnCqefh6vioWRw==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dependencies:
-      esrecurse: 4.3.0
-      estraverse: 5.3.0
     dev: true
 
   /eslint-scope@7.2.2:
@@ -5162,11 +5154,6 @@ packages:
   /eslint-visitor-keys@2.1.0:
     resolution: {integrity: sha512-0rSmRBzXgDzIsD6mGdJgevzgezI534Cer5L/vyMX0kHzT/jiB43jRhd9YUlMGYLQy2zprNmoT8qasCGtY+QaKw==}
     engines: {node: '>=10'}
-    dev: true
-
-  /eslint-visitor-keys@3.4.1:
-    resolution: {integrity: sha512-pZnmmLwYzf+kWaM/Qgrvpen51upAktaaiI01nsJD/Yr3lMOdNtq0cxkrrg16w64VtisN6okbs7Q8AfGqj4c9fA==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
   /eslint-visitor-keys@3.4.2:
@@ -5218,15 +5205,6 @@ packages:
       text-table: 0.2.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /espree@9.6.0:
-    resolution: {integrity: sha512-1FH/IiruXZ84tpUlm0aCUEwMl2Ho5ilqVh0VvQXw+byAz/4SAciyHLlfmL5WYqsvD38oymdUwBss0LtK8m4s/A==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dependencies:
-      acorn: 8.9.0
-      acorn-jsx: 5.3.2(acorn@8.9.0)
-      eslint-visitor-keys: 3.4.1
     dev: true
 
   /espree@9.6.1:
@@ -5445,7 +5423,7 @@ packages:
       fast-json-stringify: 5.7.0
       find-my-way: 7.6.2
       light-my-request: 5.9.1
-      pino: 8.14.2
+      pino: 8.15.0
       process-warning: 2.2.0
       proxy-addr: 2.0.7
       rfdc: 1.3.0
@@ -6482,7 +6460,7 @@ packages:
       '@babel/parser': 7.22.4
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.0
-      semver: 7.5.3
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -6896,7 +6874,7 @@ packages:
       jest-util: 29.6.2
       natural-compare: 1.4.0
       pretty-format: 29.6.2
-      semver: 7.5.3
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -7469,7 +7447,7 @@ packages:
     resolution: {integrity: sha512-g3FeP20LNwhALb/6Cz6Dd4F2ngze0jz7tbzrD2wAV+o9FeNHe4rL+yK2md0J/fiSf1sa1ADhXqi5+oVwOM/eGw==}
     engines: {node: '>=8'}
     dependencies:
-      semver: 7.5.3
+      semver: 7.5.4
     dev: true
 
   /make-error@1.3.6:
@@ -7676,8 +7654,8 @@ packages:
     engines: {node: '>=12.0.0'}
     dev: true
 
-  /mysql2@3.5.2:
-    resolution: {integrity: sha512-cptobmhYkYeTBIFp2c0piw2+gElpioga1rUw5UidHvo8yaHijMZoo8A3zyBVoo/K71f7ZFvrShA9iMIy9dCzCA==}
+  /mysql2@3.6.0:
+    resolution: {integrity: sha512-EWUGAhv6SphezurlfI2Fpt0uJEWLmirrtQR7SkbTHFC+4/mJBrPiSzHESHKAWKG7ALVD6xaG/NBjjd1DGJGQQQ==}
     engines: {node: '>= 8.0'}
     dependencies:
       denque: 2.1.0
@@ -7707,6 +7685,7 @@ packages:
 
   /nan@2.17.0:
     resolution: {integrity: sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ==}
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -7732,25 +7711,25 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: true
 
-  /newrelic@10.6.0:
-    resolution: {integrity: sha512-O4O1pEg4x0UnTBCReiVIZHNIq/6bl8/EPgtL0FQrHThQ8tLiS1jUSzyLiTGpH7WGvRy5ol8CFTmHEe1yfnWvqg==}
+  /newrelic@10.6.1:
+    resolution: {integrity: sha512-jtBOCcTDqEp7oWWpuFQQDhe4DEydxm6NzuloNzJANawWc94PT7abHknhXq+f4wtP6Ydzs8Uq9MdQBHkS9nQ2wQ==}
     engines: {node: '>=14', npm: '>=6.0.0'}
     hasBin: true
     dependencies:
       '@grpc/grpc-js': 1.8.14
       '@grpc/proto-loader': 0.7.7
       '@mrleebo/prisma-ast': 0.5.2
-      '@newrelic/aws-sdk': 6.0.0(newrelic@10.6.0)
-      '@newrelic/koa': 7.2.0(newrelic@10.6.0)
+      '@newrelic/aws-sdk': 6.0.0(newrelic@10.6.1)
+      '@newrelic/koa': 7.2.0(newrelic@10.6.1)
       '@newrelic/security-agent': 0.2.0
-      '@newrelic/superagent': 6.0.0(newrelic@10.6.0)
+      '@newrelic/superagent': 6.0.0(newrelic@10.6.1)
       '@tyriar/fibonacci-heap': 2.0.9
       concat-stream: 2.0.0
       https-proxy-agent: 5.0.1
       json-bigint: 1.0.0
       json-stringify-safe: 5.0.1
       readable-stream: 3.6.2
-      semver: 7.5.3
+      semver: 7.5.4
       winston-transport: 4.5.0
     optionalDependencies:
       '@contrast/fn-inspect': 3.3.1
@@ -7795,12 +7774,14 @@ packages:
   /node-gyp-build-optional-packages@5.0.7:
     resolution: {integrity: sha512-YlCCc6Wffkx0kHkmam79GKvDQ6x+QZkMjFGrIMxgFNILFvGSbCp2fCBC55pGTT9gVaz8Na5CLmxt/urtzRv36w==}
     hasBin: true
+    requiresBuild: true
     dev: false
     optional: true
 
   /node-gyp-build@4.6.0:
     resolution: {integrity: sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==}
     hasBin: true
+    requiresBuild: true
     dev: false
     optional: true
 
@@ -7842,7 +7823,7 @@ packages:
     dependencies:
       hosted-git-info: 2.8.9
       resolve: 1.22.2
-      semver: 7.5.3
+      semver: 7.5.4
       validate-npm-package-license: 3.0.4
     dev: true
 
@@ -7852,7 +7833,7 @@ packages:
     dependencies:
       hosted-git-info: 4.1.0
       is-core-module: 2.12.1
-      semver: 7.5.3
+      semver: 7.5.4
       validate-npm-package-license: 3.0.4
     dev: true
 
@@ -8287,8 +8268,8 @@ packages:
     resolution: {integrity: sha512-wHuWB+CvSVb2XqXM0W/WOYUkVSPbiJb9S5fNB7TBhd8s892Xq910bRxwHtC4l71hgztObTjXL6ZheZXFjhDrDQ==}
     dev: false
 
-  /pino@8.14.2:
-    resolution: {integrity: sha512-zKu9aWeSWTy1JgvxIpZveJKKsAr4+6uNMZ0Vf0KRwzl/UNZA3XjHiIl/0WwqLMkDwuHuDkT5xAgPA2jpKq4whA==}
+  /pino@8.15.0:
+    resolution: {integrity: sha512-olUADJByk4twxccmAxb1RiGKOSvddHugCV3wkqjyv+3Sooa2KLrmXrKEWOKi0XPCLasRR5jBXxioE1jxUa4KzQ==}
     hasBin: true
     dependencies:
       atomic-sleep: 1.0.0
@@ -10152,13 +10133,13 @@ packages:
       - terser
     dev: true
 
-  /vue-chartjs@5.2.0(chart.js@4.3.2)(vue@3.3.4):
+  /vue-chartjs@5.2.0(chart.js@4.3.3)(vue@3.3.4):
     resolution: {integrity: sha512-d3zpKmGZr2OWHQ1xmxBcAn5ShTG917+/UCLaSpaCDDqT0U7DBsvFzTs69ZnHCgKoXT55GZDW8YEj9Av+dlONLA==}
     peerDependencies:
       chart.js: ^4.1.1
       vue: ^3.0.0-0 || ^2.7.0
     dependencies:
-      chart.js: 4.3.2
+      chart.js: 4.3.3
       vue: 3.3.4
     dev: false
 
@@ -10174,12 +10155,30 @@ packages:
     dependencies:
       debug: 4.3.4
       eslint: 8.46.0
-      eslint-scope: 7.2.0
-      eslint-visitor-keys: 3.4.1
-      espree: 9.6.0
+      eslint-scope: 7.2.2
+      eslint-visitor-keys: 3.4.2
+      espree: 9.6.1
       esquery: 1.5.0
       lodash: 4.17.21
-      semver: 7.5.3
+      semver: 7.5.4
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /vue-eslint-parser@9.3.1(eslint@8.46.0):
+    resolution: {integrity: sha512-Clr85iD2XFZ3lJ52/ppmUDG/spxQu6+MAeHXjjyI4I1NUYZ9xmenQp4N0oaHJhrA8OOxltCVxMRfANGa70vU0g==}
+    engines: {node: ^14.17.0 || >=16.0.0}
+    peerDependencies:
+      eslint: '>=6.0.0'
+    dependencies:
+      debug: 4.3.4
+      eslint: 8.46.0
+      eslint-scope: 7.2.2
+      eslint-visitor-keys: 3.4.2
+      espree: 9.6.1
+      esquery: 1.5.0
+      lodash: 4.17.21
+      semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
     dev: true

@@ -41,7 +41,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
     "eslint-plugin-vitest": "^0.2.8",
-    "eslint-plugin-vue": "^9.15.1",
+    "eslint-plugin-vue": "^9.16.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3",
     "turbo": "^1.10.12"
