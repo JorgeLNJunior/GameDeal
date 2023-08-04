@@ -5,6 +5,8 @@ info:
   license:
     name: MIT
 servers:
+  - url: https://api.gamedeal.cloudns.nz
+    description: production
   - url: http://localhost:3000
     description: localhost
 paths:
