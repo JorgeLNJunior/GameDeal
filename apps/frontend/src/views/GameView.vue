@@ -37,7 +37,7 @@ const formatedLowestPrice = computed(() => {
   if (lowestPrice.steam != null) {
     return {
       platform: 'Steam',
-      price: `R$ ${formater.formatPriceWithCurrency(lowestPrice.steam?.steam_price)}`,
+      price: formater.formatPriceWithCurrency(lowestPrice.steam?.steam_price),
       date: formater.formatDate(String(lowestPrice.steam?.created_at))
     }
   }
