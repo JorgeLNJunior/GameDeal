@@ -1,3 +1,4 @@
+<!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts" setup>
 import type { Game, GamePrice, LowestPrice as ILowestPrice } from '@packages/types'
 import { AxiosError } from 'axios'

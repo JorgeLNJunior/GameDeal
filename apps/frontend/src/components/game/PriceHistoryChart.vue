@@ -11,7 +11,7 @@ import {
   LineElement,
   PointElement
 } from 'chart.js'
-import { type PropType } from 'vue'
+import { computed, type PropType } from 'vue'
 import { Line } from 'vue-chartjs'
 
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Legend)
@@ -23,20 +23,23 @@ const props = defineProps({
   }
 })
 
+const steamPrices = computed(() => props.priceHistory.map((price) => price.steam_price).reverse())
+const labels = computed(() => {
+  return props.priceHistory.map(price => {
+    const createdAt = new Date(price.created_at)
+    return `${createdAt.getUTCDate()}/${createdAt.getUTCMonth() + 1}` // getMonth starts from 0
+  }).reverse()
+})
+
 const steamDataset: ChartDataset<'line'> = {
   label: 'Steam',
-  data: props.priceHistory.map((price) => price.steam_price).reverse(),
+  data: steamPrices.value,
   borderColor: 'rgb(6, 182, 212)',
   backgroundColor: 'rgb(6, 182, 212)'
 }
 
-const labels: string[] = props.priceHistory.map((price) => {
-  const createdAt = new Date(price.created_at)
-  return `${createdAt.getUTCDate()}/${createdAt.getUTCMonth() + 1}` // getMonth starts from 0
-}).reverse()
-
 const chartData: ChartData = {
-  labels,
+  labels: labels.value,
   datasets: [steamDataset]
 }
 const chartOptions: ChartOptions = {
@@ -49,9 +52,10 @@ const chartOptions: ChartOptions = {
 }
 
 if (props.priceHistory[0].nuuvem_price != null) {
+  const nuuvemPrices = computed(() => props.priceHistory.map((price) => price.nuuvem_price).reverse())
   const nuuvemDataset: ChartDataset<'line'> = {
     label: 'Nuuvem',
-    data: props.priceHistory.map((price) => price.nuuvem_price).reverse(),
+    data: nuuvemPrices.value,
     borderColor: 'rgb(220, 38, 38)',
     backgroundColor: 'rgb(220, 38, 38)'
   }
