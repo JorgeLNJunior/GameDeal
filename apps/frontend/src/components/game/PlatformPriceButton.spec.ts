@@ -3,16 +3,16 @@ import { describe, expect, it } from 'vitest'
 
 import { Platform } from '@/types/Platform'
 
-import PlatformPriceCard from './PlatformPriceCard.vue'
+import PlatformPriceButton from './PlatformPriceButton.vue'
 
-describe('PlatformPriceCard', () => {
+describe('PlatformPriceButton', () => {
   it('should render the price', async () => {
     const url = 'https://google.com'
     const platform = Platform.STEAM
     const price = '30.15'
     const priceWithCurrency = 'R$ 30,15'
 
-    const wrapper = mount(PlatformPriceCard, {
+    const wrapper = mount(PlatformPriceButton, {
       props: { url, platform, price }
     })
 
@@ -26,7 +26,7 @@ describe('PlatformPriceCard', () => {
     const platform = Platform.STEAM
     const price = '30.15'
 
-    const wrapper = mount(PlatformPriceCard, {
+    const wrapper = mount(PlatformPriceButton, {
       props: { url, platform, price }
     })
 
@@ -40,7 +40,7 @@ describe('PlatformPriceCard', () => {
     const platform = Platform.NUUVEM
     const price = '30.15'
 
-    const wrapper = mount(PlatformPriceCard, {
+    const wrapper = mount(PlatformPriceButton, {
       props: { url, platform, price }
     })
 

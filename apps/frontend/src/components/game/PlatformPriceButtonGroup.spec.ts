@@ -2,13 +2,13 @@ import { GameBuilder, GamePriceBuilder } from '@packages/testing'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
-import PlatformPriceCardGroup from './PlatformPriceCardGroup.vue'
+import PlatformPriceButtonGroup from './PlatformPriceButtonGroup.vue'
 
-describe('PlatformPriceCardGroup', () => {
+describe('PlatformPriceButtonGroup', () => {
   it('should render a price card for each platform', async () => {
     const game = new GameBuilder().build()
     const currentPrice = new GamePriceBuilder().build()
-    const wrapper = mount(PlatformPriceCardGroup, {
+    const wrapper = mount(PlatformPriceButtonGroup, {
       props: { game, currentPrice }
     })
 
@@ -22,7 +22,7 @@ describe('PlatformPriceCardGroup', () => {
   it('should not render a nuuvem price card if there is no nuuvem price', async () => {
     const game = new GameBuilder().build()
     const currentPrice = new GamePriceBuilder().withNuuvemPrice(null).build()
-    const wrapper = mount(PlatformPriceCardGroup, {
+    const wrapper = mount(PlatformPriceButtonGroup, {
       props: { game, currentPrice }
     })
 
