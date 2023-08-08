@@ -48,6 +48,17 @@ export class TelegramNotifier implements Notifier {
     )
   }
 
+  /**
+   * Escape some special characteres in a text.
+   * It's necessary due markdown sintax conflicts.
+   *
+   * @example
+   * ```
+   * const escaped = this.escapeSpecialChars(text)
+   * ```
+   *
+   * @param text - The text to escape.
+   */
   private escapeSpecialChars (text: string): string {
     return text
       .replaceAll('.', '\\.')
@@ -55,5 +66,13 @@ export class TelegramNotifier implements Notifier {
       .replaceAll('_', '\\_')
       .replaceAll('-', '\\-')
       .replaceAll('*', '\\*')
+      .replaceAll('+', '\\+')
+      .replaceAll('=', '\\=')
+      .replaceAll('|', '\\|')
+      .replaceAll('!', '\\!')
+      .replaceAll(']', '\\]')
+      .replaceAll('[', '\\[')
+      .replaceAll('{', '\\{')
+      .replaceAll('}', '\\}')
   }
 }
