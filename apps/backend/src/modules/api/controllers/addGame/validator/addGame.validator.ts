@@ -29,7 +29,7 @@ export class AddGameValidator implements Validator {
       }
     }
     if (data.nuuvem_url != null) {
-      const NUUVEM_REGEX = /^https:\/\/www.nuuvem.com\/(br-en|br-pt)\/item\/[\w-]+\/?$/
+      const NUUVEM_REGEX = /^https:\/\/www\.nuuvem\.com\/(br-en|br-pt)\/item\/[\w-]+\/?$/
       const isValidUrl = NUUVEM_REGEX.test(data.nuuvem_url)
       if (!isValidUrl) {
         errors.push('"nuuvem_url" is not a valid game url')
@@ -39,7 +39,7 @@ export class AddGameValidator implements Validator {
       }
     }
     if (data.green_man_gaming_url != null) {
-      const GMG_REGEX = /^https:\/\/www.greenmangaming.com\/games\/[\w-]+\/?$/
+      const GMG_REGEX = /^https:\/\/www\.greenmangaming\.com\/games\/[\w-]+\/?$/
       const isValidUrl = GMG_REGEX.test(data.green_man_gaming_url)
       if (!isValidUrl) {
         errors.push('"green_man_gaming_url" is not a valid game url')
