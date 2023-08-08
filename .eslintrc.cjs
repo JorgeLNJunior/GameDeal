@@ -36,7 +36,7 @@ module.exports = {
     },
     // frontend .ts files
     {
-      files: ['apps/frontend/**/*.ts'],
+      files: ['apps/frontend/src/**/*.ts'],
       extends: ['standard-with-typescript'],
       parserOptions: {
         ecmaVersion: 2021,
@@ -63,13 +63,13 @@ module.exports = {
       },
       rules: {
         'tailwindcss/no-custom-classname': ['error', {
-          config: 'apps/frontend/tailwind.config.js'
+          config: path.join(__dirname, 'apps/frontend/tailwind.config.js')
         }]
       }
     },
     // frontend test files
     {
-      files: ['apps/frontend/**/*.spec.ts'],
+      files: ['apps/frontend/src/**/*.spec.ts'],
       extends: ['standard-with-typescript', 'plugin:vitest/recommended'],
       plugins: ['vitest'],
       parserOptions: {
