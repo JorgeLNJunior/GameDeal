@@ -26,7 +26,10 @@ export class SteamScraper implements Scraper {
       .getElementValue(
         response.data,
         'div.game_area_purchase_game_wrapper:first div.game_purchase_price',
-        ['div.game_purchase_sub_dropdown'] // remove subscription and bundles
+        [
+          'div.game_purchase_sub_dropdown',
+          'div.master_sub_trial'
+        ] // remove subscription and bundles
       )
       ?.replace('R$', '')
       .replace(',', '.')
@@ -47,7 +50,10 @@ export class SteamScraper implements Scraper {
       .getElementValue(
         response.data,
         'div.game_area_purchase_game_wrapper:first div.discount_final_price',
-        ['div.game_purchase_sub_dropdown'] // remove subscription and bundles
+        [
+          'div.game_purchase_sub_dropdown',
+          'div.master_sub_trial'
+        ] // remove subscription and bundles
       )
       ?.replace('R$', '')
       .replace(',', '.')
