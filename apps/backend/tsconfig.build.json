@@ -8,5 +8,5 @@
         "testing/**",
         "**/*.spec.ts",
         "**/*.test.ts"
-    ],
+    ]
 }
