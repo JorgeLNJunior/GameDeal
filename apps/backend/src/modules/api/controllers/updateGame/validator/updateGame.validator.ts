@@ -30,7 +30,7 @@ export class UpdateGameValidator implements Validator {
       }
     }
     if (data.green_man_gaming_url != null) {
-      const GMG_REGEX = /^https:\/\/www\.greenmangamine\.com\/games\/[\w-]+\/?$/
+      const GMG_REGEX = /^https:\/\/www\.greenmangaming\.com\/games\/[\w-]+\/?$/
       const isValidUrl = GMG_REGEX.test(data.green_man_gaming_url)
       if (!isValidUrl) {
         errors.push('"green_man_gaming_url" is not a valid game url')
