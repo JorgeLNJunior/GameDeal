@@ -8,7 +8,7 @@ describe('CheerioParser', () => {
     const elementValue = 'this is a div'
     const content = `<div class="${elementClass}">${elementValue}</div>`
 
-    const value = parser.getElementValue(content, '.invalid-class')
+    const value = parser.getSelectorValue(content, '.invalid-class')
 
     expect(value).toBeUndefined()
   })
@@ -18,7 +18,7 @@ describe('CheerioParser', () => {
     const elementValue = 'this is a div'
     const content = `<div class="${elementClass}">${elementValue}</div>`
 
-    const value = parser.getElementValue(content, `.${elementClass}`)
+    const value = parser.getSelectorValue(content, `.${elementClass}`)
 
     expect(value).toBe(elementValue)
   })
@@ -32,10 +32,10 @@ describe('CheerioParser', () => {
             <p class=${elementClassToRemove}>Remove it</p>
             ${elementValue}
         </div>
-        
+
     `
 
-    const value = parser.getElementValue(content, `.${elementClass}`, [
+    const value = parser.getSelectorValue(content, `.${elementClass}`, [
       `.${elementClassToRemove}`
     ])
 

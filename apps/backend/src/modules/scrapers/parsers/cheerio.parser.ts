@@ -2,18 +2,18 @@ import type { HTMLParser } from '@localtypes/html.parser'
 import * as cheerio from 'cheerio'
 
 export class CheerioParser implements HTMLParser {
-  getElementValue (
-    content: string,
-    element: string,
-    removeElements?: string[]
+  getSelectorValue (
+    html: string,
+    selector: string,
+    removeSelectors?: string[]
   ): string | undefined {
-    const selector = cheerio.load(content)
+    const wrapper = cheerio.load(html)
 
-    removeElements?.forEach((element) => {
-      selector(element).remove()
+    removeSelectors?.forEach((selector) => {
+      wrapper(selector).remove()
     })
 
-    const value = selector(element)
+    const value = wrapper(selector)
     if (value.html() === null) return undefined
 
     return value.text().trim()

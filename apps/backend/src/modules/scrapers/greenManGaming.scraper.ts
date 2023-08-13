@@ -13,17 +13,16 @@ export class GreenManGamingScraper implements Scraper {
   ) {}
 
   async getGamePrice (gameUrl: string): Promise<number | null> {
-    const response = await axios.get(gameUrl, {
+    const { data } = await axios.get(gameUrl, {
       headers: {
-        // Brazilian prices.
+        // Request Brazilian prices.
         Cookie: 'CountryKey=BR; GlobalCacheKey=LoggedOut:BR:VIP Visitor GroupFalse'
       }
     })
 
-    const priceString = this.parser.getElementValue(
-      response.data,
-      'gmgprice.current-price:first'
-    )
+    const priceSelector = 'gmgprice.current-price:first'
+
+    const priceString = this.parser.getSelectorValue(data, priceSelector)
     if (priceString == null) {
       this.logger.error(`[GreenManGamingScraper] no price found for "${gameUrl}"`)
       return null

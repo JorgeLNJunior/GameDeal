@@ -28,7 +28,7 @@ describe('NuuvemScraper', () => {
   it('should return null if it did not find a price', async () => {
     const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
 
-    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce(undefined)
+    jest.spyOn(parser, 'getSelectorValue').mockReturnValueOnce(undefined)
 
     const price = await scraper.getGamePrice(gameUrl)
 
@@ -38,7 +38,7 @@ describe('NuuvemScraper', () => {
   it('should log if it did not find a price', async () => {
     const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
 
-    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce(undefined)
+    jest.spyOn(parser, 'getSelectorValue').mockReturnValueOnce(undefined)
     const logSpy = jest.spyOn(logger, 'error')
 
     await scraper.getGamePrice(gameUrl)
@@ -49,7 +49,7 @@ describe('NuuvemScraper', () => {
   it('should return null if it fails to parse a price', async () => {
     const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
 
-    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce('invalid-price')
+    jest.spyOn(parser, 'getSelectorValue').mockReturnValueOnce('invalid-price')
 
     const price = await scraper.getGamePrice(gameUrl)
 
@@ -59,7 +59,7 @@ describe('NuuvemScraper', () => {
   it('should log if it fails to parse a price', async () => {
     const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
 
-    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce('invalid-price')
+    jest.spyOn(parser, 'getSelectorValue').mockReturnValueOnce('invalid-price')
     const logSpy = jest.spyOn(logger, 'error')
 
     await scraper.getGamePrice(gameUrl)
@@ -70,7 +70,7 @@ describe('NuuvemScraper', () => {
   it('should return null if a game is unavailable (br-en)', async () => {
     const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
 
-    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce('Unavailable')
+    jest.spyOn(parser, 'getSelectorValue').mockReturnValueOnce('Unavailable')
 
     const price = await scraper.getGamePrice(gameUrl)
 
@@ -80,7 +80,7 @@ describe('NuuvemScraper', () => {
   it('should return null if a game is unavailable (br-pt)', async () => {
     const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
 
-    jest.spyOn(parser, 'getElementValue').mockReturnValueOnce('Indisponível')
+    jest.spyOn(parser, 'getSelectorValue').mockReturnValueOnce('Indisponível')
 
     const price = await scraper.getGamePrice(gameUrl)
 
