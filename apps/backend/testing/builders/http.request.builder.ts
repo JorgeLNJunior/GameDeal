@@ -17,7 +17,7 @@ export class HttpRequestBuilder {
     this.url = '/status'
   }
 
-  withBody (body: unknown): HttpRequestBuilder {
+  withBody <Type>(body: Type): HttpRequestBuilder {
     this.body = body
     return this
   }

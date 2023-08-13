@@ -6,6 +6,7 @@ import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { container } from 'tsyringe'
 
 import { IsGameExistRepository } from '../getGamePriceHistory/repositories/isGameExist.repository'
+import { type UpdateGameDTO } from './dto/updateGame.dto'
 import { UpdateGameRepository } from './repositories/updateGame.repository'
 import { UpdateGameController } from './updateGame.controller'
 import { UpdateGameValidator } from './validator/updateGame.validator'
@@ -33,6 +34,8 @@ describe('UpdateGameController', () => {
 
   it('should return a OK response if it succeeds', async () => {
     const game = new GameBuilder().build()
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { id, steam_url, nuuvem_url, green_man_gaming_url } = game
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
     jest.spyOn(updateGameRepo, 'update').mockResolvedValueOnce(game)
@@ -40,8 +43,8 @@ describe('UpdateGameController', () => {
     const token = await authService.getJwtToken()
     const request = new HttpRequestBuilder()
       .withHeaders({ authorization: `Bearer ${token}` })
-      .withParams({ id: game.id })
-      .withBody(game)
+      .withParams({ id })
+      .withBody<UpdateGameDTO>({ steam_url, nuuvem_url, green_man_gaming_url })
       .build()
     const response = await controller.handle(request)
 
