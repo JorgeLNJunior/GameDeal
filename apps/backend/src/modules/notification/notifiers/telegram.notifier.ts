@@ -1,18 +1,13 @@
 import ConfigService from '@config/config.service'
-import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { ApplicationLogger } from '@localtypes/logger.type'
-import { type Notifier, type NotifyData } from '@localtypes/notifier.type'
+import type { Notifier, NotifyData } from '@localtypes/notifier.type'
 import { Telegraf } from 'telegraf'
-import { inject, singleton } from 'tsyringe'
+import { singleton } from 'tsyringe'
 
 @singleton()
 export class TelegramNotifier implements Notifier {
   private bot!: Telegraf
 
-  constructor (
-    private readonly configService: ConfigService,
-    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  constructor (private readonly configService: ConfigService) {}
 
   async start (): Promise<void> {
     const BOT_TOKEN = this.configService.getEnv<string>('TELEGRAM_BOT_TOKEN')
@@ -31,18 +26,26 @@ export class TelegramNotifier implements Notifier {
     const CHAT_ID = this.configService.getEnv<number>('TELEGRAM_CHAT_ID')
     if (CHAT_ID === undefined) throw new Error('CHAT_ID is not defined')
 
+    const formatedCurrentPrice = this.formatPriceToBRL(data.currentPrice)
+    const formatedOldPrice = this.formatPriceToBRL(data.oldPrice)
+
+    const escapedCurrentPrice = this.escapeSpecialChars(formatedCurrentPrice)
+    const escapedOldPrice = this.escapeSpecialChars(formatedOldPrice)
+    const escapedGameTitle = this.escapeSpecialChars(data.gameTitle)
+    const escapedGameUrl = this.escapeSpecialChars(data.gameUrl)
+
     await this.bot.telegram.sendMessage(
       CHAT_ID,
       '⚠️ *Queda de preço* ⚠️ \n\n' +
-        `🎮 *${this.escapeSpecialChars(data.gameTitle)} \\- ${data.platform}* \n\n` +
-        `💵 *Preço anterior:* R$ ${this.escapeSpecialChars(data.oldPrice.toString())} \n` +
-        `💵 *Preço atual:* R$ ${this.escapeSpecialChars(data.currentPrice.toString())} \n\n` +
+        `🎮 *${escapedGameTitle} \\- ${data.platform}* \n\n` +
+        `💵 *Preço anterior:* ${escapedOldPrice} \n` +
+        `💵 *Preço atual:* ${escapedCurrentPrice} \n\n` +
         `*Loja:* ${data.platform} \n` +
-        `🔗 ${this.escapeSpecialChars(data.gameUrl)}`,
+        `🔗 ${escapedGameUrl}`,
       {
         parse_mode: 'MarkdownV2',
         reply_markup: {
-          inline_keyboard: [[{ text: `R$ ${data.currentPrice}`, url: data.gameUrl }]]
+          inline_keyboard: [[{ text: formatedCurrentPrice, url: data.gameUrl }]]
         }
       }
     )
@@ -74,5 +77,19 @@ export class TelegramNotifier implements Notifier {
       .replaceAll('[', '\\[')
       .replaceAll('{', '\\{')
       .replaceAll('}', '\\}')
+  }
+
+  /**
+   * Format a number to BRL currency.
+   *
+   * @example
+   * ```
+   * const brl = this.formatPriceToBRL(50.95) // R$ 50,95
+   * ```
+   *
+   * @param price - The price to be converted.
+   */
+  private formatPriceToBRL (price: number): string {
+    return `R$ ${String(price).replace('.', ',')}`
   }
 }
