@@ -21,7 +21,7 @@
     "@fastify/swagger-ui": "^1.9.3",
     "@newrelic/mysql": "^6.1.0",
     "axios": "^1.4.0",
-    "bullmq": "^4.7.0",
+    "bullmq": "^4.7.2",
     "cheerio": "^1.0.0-rc.12",
     "cron": "^2.4.0",
     "dotenv": "^16.3.1",
