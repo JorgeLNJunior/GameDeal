@@ -48,4 +48,18 @@ describe('PlatformPriceButton', () => {
 
     expect(icon).toBeDefined()
   })
+
+  it('should render a green man gaming icon if it receives green man gaming as platform', async () => {
+    const url = 'https://google.com'
+    const platform = Platform.GREEN_MAN_GAMING
+    const price = '30.15'
+
+    const wrapper = mount(PlatformPriceButton, {
+      props: { url, platform, price }
+    })
+
+    const icon = wrapper.get('[test-data="gmg-icon"]')
+
+    expect(icon).toBeDefined()
+  })
 })

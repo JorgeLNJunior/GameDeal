@@ -25,22 +25,36 @@ const uiState = reactive({ isDataFetched: false })
 // computeds
 const formatedLowestPrice = computed(() => {
   const formater = new DataFormater()
-  if (
-    (lowestPrice.steam?.steam_price != null && lowestPrice.nuuvem?.nuuvem_price != null) &&
-    (lowestPrice.nuuvem?.nuuvem_price < lowestPrice.steam?.steam_price)) {
-    return {
-      platform: 'Nuuvem',
-      price: formater.formatPriceWithCurrency(lowestPrice.nuuvem?.nuuvem_price),
-      date: formater.formatDate(String(lowestPrice.nuuvem?.created_at))
-    }
-  }
-  if (lowestPrice.steam != null) {
+
+  const prices = [
+    lowestPrice.steam.price,
+    lowestPrice.nuuvem.price,
+    lowestPrice.green_man_gaming.price
+  ].filter((v) => v != null)
+  const min = Math.min(...prices as number[]).toString()
+
+  if (String(lowestPrice.steam.price) === min) {
     return {
       platform: 'Steam',
-      price: formater.formatPriceWithCurrency(lowestPrice.steam?.steam_price),
-      date: formater.formatDate(String(lowestPrice.steam?.created_at))
+      price: formater.formatPriceWithCurrency(lowestPrice.steam.price as number),
+      date: formater.formatDate(String(lowestPrice.steam.date))
     }
   }
+  if (String(lowestPrice.nuuvem.price) === min) {
+    return {
+      platform: 'Nuuvem',
+      price: formater.formatPriceWithCurrency(lowestPrice.nuuvem.price as number),
+      date: formater.formatDate(String(lowestPrice.nuuvem.date))
+    }
+  }
+  if (String(lowestPrice.green_man_gaming.price) === min) {
+    return {
+      platform: 'Green Man Gaming',
+      price: formater.formatPriceWithCurrency(lowestPrice.green_man_gaming.price as number),
+      date: formater.formatDate(String(lowestPrice.green_man_gaming.date))
+    }
+  }
+
   return {
     platform: 'Sem registro',
     price: 'R$ 0.00',

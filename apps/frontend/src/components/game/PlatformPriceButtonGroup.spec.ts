@@ -5,31 +5,47 @@ import { describe, expect, it } from 'vitest'
 import PlatformPriceButtonGroup from './PlatformPriceButtonGroup.vue'
 
 describe('PlatformPriceButtonGroup', () => {
-  it('should render a price card for each platform', async () => {
+  it('should render a price button for each platform', async () => {
     const game = new GameBuilder().build()
     const currentPrice = new GamePriceBuilder().build()
     const wrapper = mount(PlatformPriceButtonGroup, {
       props: { game, currentPrice }
     })
 
-    const steamCardExists = wrapper.find('[test-data="steam-card"]').exists()
-    const nuuvemCardExists = wrapper.find('[test-data="nuuvem-card"]').exists()
+    const steamButtonExists = wrapper.find('[test-data="steam-button"]').exists()
+    const nuuvemButtonExists = wrapper.find('[test-data="nuuvem-button"]').exists()
+    const gmgButtonExists = wrapper.find('[test-data="gmg-button"]').exists()
 
-    expect(steamCardExists).toBeDefined()
-    expect(nuuvemCardExists).toBeDefined()
+    expect(steamButtonExists).toBeDefined()
+    expect(nuuvemButtonExists).toBeDefined()
+    expect(gmgButtonExists).toBeDefined()
   })
 
-  it('should not render a nuuvem price card if there is no nuuvem price', async () => {
+  it('should not render a nuuvem price button if there is no nuuvem price', async () => {
     const game = new GameBuilder().build()
     const currentPrice = new GamePriceBuilder().withNuuvemPrice(null).build()
     const wrapper = mount(PlatformPriceButtonGroup, {
       props: { game, currentPrice }
     })
 
-    const steamCardExists = wrapper.find('[test-data="steam-card"]').exists()
-    const nuuvemCardExists = wrapper.find('[test-data="nuuvem-card"]').exists()
+    const steamButtonExists = wrapper.find('[test-data="steam-button"]').exists()
+    const nuuvemButtonExists = wrapper.find('[test-data="nuuvem-button"]').exists()
 
-    expect(steamCardExists).toBe(true)
-    expect(nuuvemCardExists).toBe(false)
+    expect(steamButtonExists).toBe(true)
+    expect(nuuvemButtonExists).toBe(false)
+  })
+
+  it('should not render a green man gaming price button if there is no green man gaming price', async () => {
+    const game = new GameBuilder().build()
+    const currentPrice = new GamePriceBuilder().withGreenManGamingPrice(null).build()
+    const wrapper = mount(PlatformPriceButtonGroup, {
+      props: { game, currentPrice }
+    })
+
+    const steamButtonExists = wrapper.find('[test-data="steam-button"]').exists()
+    const gmgButtonExists = wrapper.find('[test-data="gmg-button"]').exists()
+
+    expect(steamButtonExists).toBe(true)
+    expect(gmgButtonExists).toBe(false)
   })
 })

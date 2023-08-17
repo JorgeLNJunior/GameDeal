@@ -67,10 +67,11 @@ async function getGames (title?: string): Promise<void> {
 function getGamePrice (gameID: string): string {
   const price = prices.find((v) => v.game_id === gameID)
   if (price?.steam_price == null) return 'Não registrado!'
-  if (price?.steam_price != null && price.nuuvem_price != null) {
-    return Math.min(price.steam_price, price.nuuvem_price).toString()
-  }
-  return price.steam_price.toString()
+
+  if (price.nuuvem_price === null) price.nuuvem_price = Infinity
+  if (price.green_man_gaming_price === null) price.green_man_gaming_price = Infinity
+
+  return Math.min(price.steam_price, price.nuuvem_price, price.green_man_gaming_price).toString()
 }
 </script>
 
