@@ -1,12 +1,24 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 import { debounce } from '@/helpers/debounce'
+
+const router = useRouter()
+const route = useRoute()
+
+onBeforeMount(() => {
+  const queryTitle = route.query.title
+  if (queryTitle != null) title.value = queryTitle as string
+})
 
 const title = ref('')
 const emit = defineEmits(['search'])
 
-const debouncedInput = debounce(() => emit('search', title.value), 800)
+const debouncedInput = debounce(async () => {
+  await router.replace({ query: { title: title.value } })
+  emit('search', title.value)
+}, 800)
 </script>
 
 <template>

@@ -44,6 +44,9 @@ async function getGames (title?: string): Promise<void> {
     uiState.isDataFetched = false
     const api = new ApiService()
 
+    const routeTitle = route.query.title
+    if (routeTitle != null) title = routeTitle as string
+
     const data = await api.getGames(title, pages.current)
     games = data.results
     pages.total = data.pages
