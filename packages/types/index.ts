@@ -19,8 +19,9 @@ export interface GamePrice {
 }
 
 export interface LowestPrice {
-  steam?: GamePrice
-  nuuvem?: GamePrice
+  steam: { price: number | null, date: string | null }
+  nuuvem: { price: number | null, date: string | null }
+  green_man_gaming: { price: number | null, date: string | null }
 }
 
 export interface QueryData<T> {

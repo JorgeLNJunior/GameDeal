@@ -31,9 +31,12 @@ describe('GetLowestPriceController', () => {
   })
 
   it('should return OK and a price', async () => {
-    const steam = new GamePriceBuilder().build()
-    const nuuvem = new GamePriceBuilder().build()
-    const price: LowestPrice = { steam, nuuvem }
+    const data = new GamePriceBuilder().build()
+    const price: LowestPrice = {
+      steam: { price: data.steam_price, date: String(data.created_at) },
+      nuuvem: { price: data.nuuvem_price, date: String(data.created_at) },
+      green_man_gaming: { price: data.green_man_gaming_price, date: String(data.created_at) }
+    }
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
     jest.spyOn(getLowestPriceRepo, 'get').mockResolvedValueOnce(price)
@@ -47,9 +50,12 @@ describe('GetLowestPriceController', () => {
   })
 
   it('should return OK if cache is enabled', async () => {
-    const steam = new GamePriceBuilder().build()
-    const nuuvem = new GamePriceBuilder().build()
-    const price: LowestPrice = { steam, nuuvem }
+    const data = new GamePriceBuilder().build()
+    const price: LowestPrice = {
+      steam: { price: data.steam_price, date: String(data.created_at) },
+      nuuvem: { price: data.nuuvem_price, date: String(data.created_at) },
+      green_man_gaming: { price: data.green_man_gaming_price, date: String(data.created_at) }
+    }
 
     const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
       value: price,
@@ -66,9 +72,12 @@ describe('GetLowestPriceController', () => {
   })
 
   it('should return OK if cache is disabled', async () => {
-    const steam = new GamePriceBuilder().build()
-    const nuuvem = new GamePriceBuilder().build()
-    const price: LowestPrice = { steam, nuuvem }
+    const data = new GamePriceBuilder().build()
+    const price: LowestPrice = {
+      steam: { price: data.steam_price, date: String(data.created_at) },
+      nuuvem: { price: data.nuuvem_price, date: String(data.created_at) },
+      green_man_gaming: { price: data.green_man_gaming_price, date: String(data.created_at) }
+    }
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
     jest.spyOn(getLowestPriceRepo, 'get').mockResolvedValueOnce(price)

@@ -253,12 +253,38 @@ paths:
                 type: object
                 properties:
                   steam:
-                    nullable: true
-                    $ref: "#/components/schemas/game_price"
+                    type: object
+                    properties:
+                      price:
+                        type: number
+                        nullable: true
+                        example: 150.99
+                      date:
+                        type: string
+                        nullable: true
+                        example: 2023-01-23T00:30:19.000Z
                   nuuvem:
-                    nullable: true
-                    $ref: "#/components/schemas/game_price"
-
+                    type: object
+                    properties:
+                      price:
+                        type: number
+                        nullable: true
+                        example: 150.99
+                      date:
+                        type: string
+                        nullable: true
+                        example: 2023-01-23T00:30:19.000Z
+                  green_man_gaming:
+                    type: object
+                    properties:
+                      price:
+                        type: number
+                        nullable: true
+                        example: 150.99
+                      date:
+                        type: string
+                        nullable: true
+                        example: 2023-01-23T00:30:19.000Z
         404:
           $ref: "#/components/responses/404"
         500:
@@ -415,19 +441,6 @@ components:
                 items:
                   type: string
                   example: '"url" is undefined'
-    404:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              error:
-                type: string
-                default: Not Found
-              message:
-                type: string
-                example: Object not found
     401:
       description: Unauthorized
       content:
@@ -441,6 +454,19 @@ components:
               message:
                 type: string
                 example: invalid credential
+    404:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                default: Not Found
+              message:
+                type: string
+                example: Object not found
     500:
       description: Internal error
       content:
