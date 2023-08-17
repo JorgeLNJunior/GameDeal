@@ -11,7 +11,9 @@ export class FindGamesRepository {
 
   /**
    * Gets a list of games.
+   *
    * @param query - A query object to filter games.
+   *
    * @example
    * ```
    * const games = await gameRepository.find(query)
@@ -28,6 +30,14 @@ export class FindGamesRepository {
       .getClient()
       .selectFrom('game')
       .selectAll()
+      .where(({ selectFrom, exists }) =>
+        exists(
+          selectFrom('game_price')
+            .select('id')
+            .whereRef('game.id', '=', 'game_price.game_id')
+            .limit(1)
+        )
+      )
       .offset(offset)
       .limit(perPage)
 
