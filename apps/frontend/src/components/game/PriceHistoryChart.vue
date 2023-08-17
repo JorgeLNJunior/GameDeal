@@ -9,12 +9,13 @@ import {
   Legend,
   LinearScale,
   LineElement,
-  PointElement
+  PointElement,
+  Tooltip
 } from 'chart.js'
 import { computed, type PropType } from 'vue'
 import { Line } from 'vue-chartjs'
 
-ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Legend)
+ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Legend, Tooltip)
 
 const props = defineProps({
   priceHistory: {
@@ -60,6 +61,16 @@ if (props.priceHistory[0].nuuvem_price != null) {
     backgroundColor: 'rgb(220, 38, 38)'
   }
   chartData.datasets.push(nuuvemDataset)
+}
+if (props.priceHistory[0].green_man_gaming_price != null) {
+  const gmgPrices = computed(() => props.priceHistory.map((price) => price.green_man_gaming_price).reverse())
+  const gmgDataset: ChartDataset<'line'> = {
+    label: 'Green Man Gaming',
+    data: gmgPrices.value,
+    borderColor: 'rgb(22, 163, 74)',
+    backgroundColor: 'rgb(22, 163, 74)'
+  }
+  chartData.datasets.push(gmgDataset)
 }
 </script>
 
