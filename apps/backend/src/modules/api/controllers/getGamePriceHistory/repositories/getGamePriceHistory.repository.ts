@@ -34,7 +34,12 @@ export class GetGamePriceHistoryRepository {
 
     const results = await dbQuery.execute()
 
-    return { results, pages }
+    return {
+      results,
+      totalPages: pages,
+      count: total,
+      page: !Number.isNaN(Number(query.page)) ? Number(query.page) : 1
+    }
   }
 
   private async getRegistersCount (gameID: string): Promise<number> {

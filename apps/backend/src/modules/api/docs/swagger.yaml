@@ -119,9 +119,15 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/game"
-                  pages:
+                  count:
                     type: number
-                    example: 15
+                    example: 120
+                  page:
+                    type: number
+                    example: 5
+                  totalPages:
+                    type: number
+                    example: 12
         500:
           $ref: "#/components/responses/500"
 
@@ -224,9 +230,15 @@ paths:
                     type: array
                     items:
                       $ref: "#/components/schemas/game_price"
+                  count:
+                    type: number
+                    example: 120
                   page:
                     type: number
-                    example: 10
+                    example: 5
+                  totalPages:
+                    type: number
+                    example: 12
         404:
           $ref: "#/components/responses/404"
         500:

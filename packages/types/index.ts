@@ -26,5 +26,7 @@ export interface LowestPrice {
 
 export interface QueryData<T> {
   results: T
-  pages: number
+  count: number
+  page: number
+  totalPages: number
 }
