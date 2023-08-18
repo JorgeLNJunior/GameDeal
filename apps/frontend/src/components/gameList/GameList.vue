@@ -39,7 +39,7 @@ onBeforeRouteUpdate(async (guard) => {
 })
 
 // functions
-async function getGames (title?: string): Promise<void> {
+async function getGames (title?: string, page?: number): Promise<void> {
   try {
     uiState.isDataFetched = false
     const api = new ApiService()
@@ -47,9 +47,10 @@ async function getGames (title?: string): Promise<void> {
     const routeTitle = route.query.title
     if (routeTitle != null) title = routeTitle as string
 
-    const data = await api.getGames(title, pages.current)
+    const data = await api.getGames(title, page ?? pages.current)
     games = data.results
-    pages.total = data.pages
+    pages.total = data.totalPages
+    pages.current = data.page
 
     const promises: Array<Promise<GamePrice>> = []
     for (const game of games) {

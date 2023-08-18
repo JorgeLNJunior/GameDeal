@@ -17,7 +17,7 @@ const emit = defineEmits(['search'])
 
 const debouncedInput = debounce(async () => {
   await router.replace({ query: { title: title.value } })
-  emit('search', title.value)
+  emit('search', title.value, 1)
 }, 800)
 </script>
 
