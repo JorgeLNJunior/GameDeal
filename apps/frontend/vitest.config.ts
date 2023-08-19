@@ -12,9 +12,6 @@ export default mergeConfig(
       environment: 'jsdom',
       exclude: [...configDefaults.exclude, 'e2e/*', 'src/types/**'],
       root: fileURLToPath(new URL('./', import.meta.url)),
-      transformMode: {
-        web: [/\.[jt]sx$/]
-      },
       coverage: {
         all: true,
         reporter: ['clover', 'json', 'lcov', 'text'],
