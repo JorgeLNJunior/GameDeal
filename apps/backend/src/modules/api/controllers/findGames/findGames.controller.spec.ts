@@ -1,6 +1,7 @@
 import { PinoLogger } from '@infra/pino.logger'
 import type { ApplicationCache } from '@localtypes/http/cache.type'
 import { GameBuilder } from '@packages/testing'
+import { type Game, type QueryData } from '@packages/types'
 import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
@@ -21,7 +22,12 @@ describe('FindGamesController', () => {
 
   it('should return a OK reponse and a list of games', async () => {
     const games = [new GameBuilder().build()]
-    const result = { results: games, pages: 1 }
+    const result: QueryData<Game[]> = {
+      results: games,
+      page: 1,
+      totalPages: 10,
+      count: 50
+    }
     const request = new HttpRequestBuilder().build()
 
     jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
@@ -34,7 +40,12 @@ describe('FindGamesController', () => {
 
   it('should return a OK if cache is enabled', async () => {
     const games = [new GameBuilder().build()]
-    const result = { results: games, pages: 1 }
+    const result: QueryData<Game[]> = {
+      results: games,
+      page: 1,
+      totalPages: 10,
+      count: 50
+    }
     const request = new HttpRequestBuilder().build()
 
     jest.spyOn(repository, 'find').mockResolvedValueOnce(result)
@@ -52,7 +63,12 @@ describe('FindGamesController', () => {
 
   it('should return a OK if cache is disabled', async () => {
     const games = [new GameBuilder().build()]
-    const result = { results: games, pages: 1 }
+    const result: QueryData<Game[]> = {
+      results: games,
+      page: 1,
+      totalPages: 10,
+      count: 50
+    }
     const request = new HttpRequestBuilder()
       .withHeaders({ 'cache-control': 'no-cache' })
       .build()

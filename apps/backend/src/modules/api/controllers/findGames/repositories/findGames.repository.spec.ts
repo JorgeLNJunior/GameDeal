@@ -1,5 +1,5 @@
 import { DatabaseService } from '@database/database.service'
-import { GameBuilder } from '@packages/testing'
+import { GameBuilder, GamePriceBuilder } from '@packages/testing'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -18,12 +18,15 @@ describe('FindGamesRepository', () => {
 
   afterEach(async () => {
     await sql`DELETE FROM game`.execute(db.getClient())
+    await sql`DELETE FROM game_price`.execute(db.getClient())
     await db.disconnect()
   })
 
   it('should return a list of games', async () => {
     const game = new GameBuilder().build()
+    const price = new GamePriceBuilder().withGame(game.id).build()
     await db.getClient().insertInto('game').values(game).execute()
+    await db.getClient().insertInto('game_price').values(price).execute()
 
     const games = await repository.find({})
 

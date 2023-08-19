@@ -1,6 +1,7 @@
 import { PinoLogger } from '@infra/pino.logger'
 import type { ApplicationCache } from '@localtypes/http/cache.type'
 import { GamePriceBuilder } from '@packages/testing'
+import { type GamePrice, type QueryData } from '@packages/types'
 import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
@@ -29,9 +30,11 @@ describe('GetGamePriceHistoryController', () => {
 
   it('should return OK and the price history of a game', async () => {
     const price = new GamePriceBuilder().build()
-    const data = {
+    const data: QueryData<GamePrice[]> = {
       results: [price],
-      pages: 10
+      totalPages: 10,
+      page: 1,
+      count: 50
     }
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
     jest.spyOn(getGamePriceHistoryRepo, 'get').mockResolvedValueOnce(data)
@@ -67,9 +70,11 @@ describe('GetGamePriceHistoryController', () => {
 
   it('should return OK if cache is disabled', async () => {
     const price = new GamePriceBuilder().build()
-    const data = {
+    const data: QueryData<GamePrice[]> = {
       results: [price],
-      pages: 10
+      totalPages: 10,
+      page: 1,
+      count: 50
     }
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
     jest.spyOn(getGamePriceHistoryRepo, 'get').mockResolvedValueOnce(data)
