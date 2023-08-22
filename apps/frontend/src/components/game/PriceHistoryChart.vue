@@ -12,8 +12,20 @@ import {
   PointElement,
   Tooltip
 } from 'chart.js'
-import { computed, type PropType } from 'vue'
+import { computed, type PropType, ref, watch } from 'vue'
 import { Line } from 'vue-chartjs'
+
+import { useBreakPoint } from '@/composables/useBreakPoint'
+
+const breakPoint = useBreakPoint()
+const chartKey = ref(1) // used to force the chart to re-render
+
+watch(breakPoint, async (newBP, oldBP) => {
+  if (newBP !== oldBP) { // change the axis and re-render the chart
+    chartOptions.indexAxis = newBP === 'sm' ? 'y' : 'x'
+    chartKey.value = ++chartKey.value
+  }
+})
 
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Legend, Tooltip)
 
@@ -45,11 +57,13 @@ const chartData: ChartData = {
 }
 const chartOptions: ChartOptions = {
   elements: {
-    line: { borderCapStyle: 'round', borderJoinStyle: 'round' }
+    line: { borderCapStyle: 'round', borderJoinStyle: 'round', tension: 0.1 }
   },
   plugins: {
     legend: { position: 'top' }
-  }
+  },
+  maintainAspectRatio: false,
+  indexAxis: breakPoint.value === 'sm' ? 'y' : 'x'
 }
 
 if (props.priceHistory[0].nuuvem_price != null) {
@@ -75,5 +89,7 @@ if (props.priceHistory[0].green_man_gaming_price != null) {
 </script>
 
 <template>
-  <Line id="chart" :data="(chartData as any)" :options="(chartOptions as any)" />
+  <div class="h-120 w-full md:h-64">
+    <Line :key="chartKey" id="chart" :data="(chartData as any)" :options="(chartOptions as any)" />
+  </div>
 </template>

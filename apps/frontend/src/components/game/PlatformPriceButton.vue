@@ -30,7 +30,7 @@ const priceWithCurrency = computed(() => `R$ ${props.price.replace('.', ',')}`)
       <NuuvemIcon v-if="props.platform === Platform.NUUVEM" test-data="nuuvem-icon" />
       <SteamIcon v-if="props.platform === Platform.STEAM" test-data="steam-icon" />
       <GMGIcon v-if="props.platform === Platform.GREEN_MAN_GAMING" test-data="gmg-icon" />
-      <p class="text-sm" test-data="price">{{ priceWithCurrency }}</p>
+      <p class="whitespace-nowrap text-xs md:text-sm" test-data="price">{{ priceWithCurrency }}</p>
     </div>
   </a>
 </template>

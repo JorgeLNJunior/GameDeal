@@ -16,19 +16,19 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="select-none">
-    <p class="text-center font-medium">Menor preço:</p>
-    <div class="flex justify-center space-x-3">
-      <p test-data="platform">
-        <span class="font-medium">Plataforma:</span>
+  <div class="flex select-none flex-col space-y-1 text-center">
+    <p class="text-sm font-medium md:text-base">Menor preço:&nbsp;</p>
+    <div class="flex flex-row justify-evenly md:justify-center md:space-x-5">
+      <p class="flex flex-col text-sm md:flex-row md:text-base" test-data="platform">
+        <span class="font-medium">Plataforma:&nbsp;</span>
         {{ props.platform }}
       </p>
-      <p test-data="price">
-        <span class="font-medium">Preço:</span>
+      <p class="flex flex-col text-sm md:flex-row md:text-base" test-data="price">
+        <span class="font-medium">Preço:&nbsp;</span>
         {{ props.price }}
       </p>
-      <p test-data="date">
-        <span class="font-medium">Data:</span>
+      <p class="flex flex-col text-sm md:flex-row md:text-base" test-data="date">
+        <span class="font-medium">Data:&nbsp;</span>
         {{ props.date }}
       </p>
     </div>

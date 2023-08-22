@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-    <svg class="h-5" viewBox="0 0 135.56919 135.7" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    <svg class="h-4 md:h-5" viewBox="0 0 135.56919 135.7" version="1.1" xmlns="http://www.w3.org/2000/svg"
         xmlns:svg="http://www.w3.org/2000/svg">
         <defs id="defs2" />
         <path

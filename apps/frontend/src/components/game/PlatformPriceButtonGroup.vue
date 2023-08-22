@@ -19,7 +19,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex flex-row space-x-6">
+  <div class="flex flex-row space-x-3 md:space-x-6">
     <PlatformPriceButton
       :price="props.currentPrice.steam_price.toString()"
       :url="game.steam_url"
