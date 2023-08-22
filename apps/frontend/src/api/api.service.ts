@@ -23,7 +23,7 @@ export class ApiService {
     return response.data as GamePrice
   }
 
-  async getGamePriceHistory (gameID: string, page = 1, limit = 10): Promise<QueryData<GamePrice[]>> {
+  async getGamePriceHistory (gameID: string, page = 1, limit = 15): Promise<QueryData<GamePrice[]>> {
     const response = await this.http.get(
       `/games/${gameID}/price/history?page=${page}&limit=${limit}&order=desc`
     )
