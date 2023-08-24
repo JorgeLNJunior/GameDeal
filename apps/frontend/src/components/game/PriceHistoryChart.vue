@@ -16,6 +16,7 @@ import { computed, type PropType, ref, watch } from 'vue'
 import { Line } from 'vue-chartjs'
 
 import { useBreakPoint } from '@/composables/useBreakPoint'
+import { DataFormater } from '@/helpers/DataFormater'
 
 const breakPoint = useBreakPoint()
 const chartKey = ref(1) // used to force the chart to re-render
@@ -38,9 +39,10 @@ const props = defineProps({
 
 const steamPrices = computed(() => props.priceHistory.map((price) => price.steam_price).reverse())
 const labels = computed(() => {
+  const formater = new DataFormater()
   return props.priceHistory.map(price => {
     const createdAt = new Date(price.created_at)
-    return `${createdAt.getUTCDate()}/${createdAt.getUTCMonth() + 1}` // getMonth starts from 0
+    return formater.formatShortDate(createdAt)
   }).reverse()
 })
 

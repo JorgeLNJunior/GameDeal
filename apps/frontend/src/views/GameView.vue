@@ -37,28 +37,28 @@ const formatedLowestPrice = computed(() => {
     return {
       platform: 'Steam',
       price: formater.formatPriceWithCurrency(lowestPrice.steam.price as number),
-      date: formater.formatDate(String(lowestPrice.steam.date))
+      date: formater.formatFullDate(String(lowestPrice.steam.date))
     }
   }
   if (String(lowestPrice.nuuvem.price) === min) {
     return {
       platform: 'Nuuvem',
       price: formater.formatPriceWithCurrency(lowestPrice.nuuvem.price as number),
-      date: formater.formatDate(String(lowestPrice.nuuvem.date))
+      date: formater.formatFullDate(String(lowestPrice.nuuvem.date))
     }
   }
   if (String(lowestPrice.green_man_gaming.price) === min) {
     return {
       platform: 'Green Man Gaming',
       price: formater.formatPriceWithCurrency(lowestPrice.green_man_gaming.price as number),
-      date: formater.formatDate(String(lowestPrice.green_man_gaming.date))
+      date: formater.formatFullDate(String(lowestPrice.green_man_gaming.date))
     }
   }
 
   return {
     platform: 'Sem registro',
     price: 'R$ 0.00',
-    date: formater.formatDate(new Date())
+    date: formater.formatFullDate(new Date())
   }
 })
 
