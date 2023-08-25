@@ -36,8 +36,7 @@ describe('GameJobProcessor', () => {
       insertPriceRepo,
       getPriceRepo,
       findGameByIdRepo,
-      notificationQueue,
-      new PinoLogger()
+      notificationQueue
     )
   })
 

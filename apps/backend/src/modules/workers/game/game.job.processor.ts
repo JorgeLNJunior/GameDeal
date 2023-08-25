@@ -21,8 +21,7 @@ export class GameJobProcessor {
     private readonly insertGamePriceRepository: InsertGamePriceRepository,
     private readonly getCurrentGamePriceRepository: GetCurrentGamePriceRepository,
     private readonly findGameByIdRepository: FindGameByIdRepository,
-    private readonly notificationQueue: NotificationQueue,
-    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
+    private readonly notificationQueue: NotificationQueue
   ) {}
 
   /**
