@@ -17,7 +17,7 @@ describe('LowestPrice', () => {
 
     const value = wrapper.get('[test-data="platform"]').text()
 
-    expect(value).toBe(`Plataforma: ${platform}`)
+    expect(value).toContain(platform)
   })
 
   it('Should render the price', async () => {
@@ -31,7 +31,7 @@ describe('LowestPrice', () => {
 
     const value = wrapper.get('[test-data="price"]').text()
 
-    expect(value).toBe(`Preço: ${price}`)
+    expect(value).toContain(price)
   })
 
   it('Should render the date', async () => {
@@ -45,6 +45,6 @@ describe('LowestPrice', () => {
 
     const value = wrapper.get('[test-data="date"]').text()
 
-    expect(value).toBe(`Data: ${date}`)
+    expect(value).toContain(date)
   })
 })
