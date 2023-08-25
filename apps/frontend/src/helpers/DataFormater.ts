@@ -26,7 +26,7 @@ export class DataFormater {
   formatShortDate (date: Date | string): string {
     const d = new Date(date)
     const weekDay = d.getUTCDate()
-    const month = this.numberToMonthName(d.getUTCMonth()).substring(0, 3)
+    const month = this.numberToMonthName(d.getUTCMonth())
     return `${weekDay}/${month}`
   }
 
@@ -43,7 +43,7 @@ export class DataFormater {
   formatFullDate (date: Date | string): string {
     const d = new Date(date)
     const day = d.getUTCDate()
-    const month = this.numberToMonthName(d.getUTCMonth()).substring(0, 3)
+    const month = this.numberToMonthName(d.getUTCMonth())
     const year = d.getUTCFullYear()
 
     return `${day} ${month} de ${year}`
@@ -55,18 +55,18 @@ export class DataFormater {
 }
 
 const months = [
-  'Janeiro',
-  'Fevereiro',
-  'Março',
-  'Abril',
-  'Maio',
-  'Junho',
-  'Julho',
-  'Agosto',
-  'Setembro',
-  'Outubro',
-  'Novembro',
-  'Dezembro'
+  'Jan',
+  'Fev',
+  'Mar',
+  'Abr',
+  'Mai',
+  'Jun',
+  'Jul',
+  'Ago',
+  'Set',
+  'Out',
+  'Nov',
+  'Dez'
 ] as const
 
 type Month = typeof months[number]
