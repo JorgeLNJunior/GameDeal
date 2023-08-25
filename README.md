@@ -1,65 +1,57 @@
 <div align="center" id="short-description-and-logo">
 
-<img src="https://277969009-files.gitbook.io/~/files/v0/b/gitbook-legacy-files/o/spaces%2F-Lf4a7JZE8Gwa4Y0EaRf%2Favatar.png?generation=1559220593217278&alt=media" width="150px">
+<h1>Game Deal</h1>
 
-<h1>Typescript Boilerplate</h1>
-
-Simples boilerplate para projetos Typescript.
+Saiba quando o preço de um jogo cair.
 
 </div>
 
 <div align="center" id="badges">
 
-[![Actions Build And Test](https://img.shields.io/github/actions/workflow/status/JorgeLNJUnior/typescript-boilerplate/ci.yml?branch=main&label=CI)](https://github.com/JorgeLNJunior/typescript-boilerplate/actions/workflows/ci.yml)
-[![Coverage Status](https://coveralls.io/repos/github/JorgeLNJunior/typescript-boilerplate/badge.svg?branch=main)](https://coveralls.io/github/JorgeLNJunior/typescript-boilerplate?branch=main)
-[![License](https://img.shields.io/github/license/JorgeLNJunior/typescript-boilerplate)](https://github.com/JorgeLNJunior/typescript-boilerplate/blob/main/LICENSE.md)
-[![Release](https://img.shields.io/github/v/release/JorgeLNJunior/typescript-boilerplate?color=lgreen)](https://github.com/JorgeLNJunior/typescript-boilerplate/releases)
+[![Backend CI](https://img.shields.io/github/actions/workflow/status/JorgeLNJUnior/GameDeal/frontend.yml?branch=main&label=Backend+CI)](https://github.com/JorgeLNJunior/GameDeal/actions/workflows/backend.yml)
+[![Frontend CI](https://img.shields.io/github/actions/workflow/status/JorgeLNJUnior/GameDeal/frontend.yml?branch=main&label=Frontend+CI)](https://github.com/JorgeLNJunior/GameDeal/actions/workflows/frontend.yml)
+[![Coverage Status](https://coveralls.io/repos/github/JorgeLNJunior/GameDeal/badge.svg?branch=main)](https://coveralls.io/github/JorgeLNJunior/GameDeal?branch=main)
+[![License](https://img.shields.io/github/license/JorgeLNJunior/GameDeal)](https://github.com/JorgeLNJunior/GameDeal/blob/main/LICENSE.md)
 
 </div>
 
-<div align="center">
+<div align="center" id="links">
 
-[Link 1](https://stackoverflow.com/) |
-[Link 2](https://github.com/)
+[APP](https://app.gamedeal.cloudns.app) |
+[API](https://api.gamedeal.cloudns.nz) |
+[Trello](https://trello.com/b/LZk67XmB)
 
 </div>
 
 ## Tabela de Conteúdos
 
-- [Features](https://github.com/JorgeLNJunior/typescript-boilerplate#features)
-- [Configuração](https://github.com/JorgeLNJunior/typescript-boilerplate#configura%C3%A7%C3%A3o)
-- [Licença](https://github.com/JorgeLNJunior/typescript-boilerplate#licen%C3%A7a)
+- [Descrição](https://github.com/JorgeLNJunior/GameDeal#descri%C3%A7%C3%A3o)
+- [Configuração](https://github.com/JorgeLNJunior/GameDeal#configura%C3%A7%C3%A3o)
+- [Licença](https://github.com/JorgeLNJunior/GameDeal#licen%C3%A7a)
 
-## Features
-- Conventional commits com [Lint Staged »](https://github.com/okonet/lint-staged#readme), [Husky »](https://github.com/typicode/husky#readme) e [Commit Lint »](https://github.com/conventional-changelog/commitlint#readme)
-- Lint com [ESLint »](https://eslint.org)
-- Testes com [Jest »](https://jestjs.io)
-- CI/CD (test, build, release e deploy) com [GitHub Actions »](https://github.com/features/actions)
+## Descrição
+Game Deal consiste de um web scrapper que coleta o preço de vários jogos do Steam e Nuuvem diariamente e envia notificações a cada queda de preço. Os dados coletados formam um histórico de preços que pode ser acessado por meio de uma API REST ou APP Frontend.
+
+Os scrapers e notificador rodam em filas que usam Redis e BullMQ por baixo, enquanto a API é construída com Fastify e o Frontend com VueJS e TailwindCSS.
 
 ## Configuração
 
-### Projeto
-- Clone o projeto para sua máquina `git clone https://github.com/JorgeLNJunior/typescript-boilerplate.git` ou clique no botão `Use this template` no GitHub.
-- Instale as dependências `npm install`.
-- Renomeie o arquivo `.env.example` para `.env`.
-- Exclua a pasta `.git` `rm -drf .git`.
-- Exclua o arquivo `CHANGELOG.md`
-- Altere os arquivos `package.json` e `package-lock.json`
+### Requisitos
+- Gerenciador de pacotes [pnpm](https://pnpm.io/installation).
+- [Docker](https://docs.docker.com/engine/install/ubuntu/) e [Compose plugin](https://docs.docker.com/compose/install/linux/#install-using-the-repository) ou:
+  - Um banco de Dados MySQL para armazenamento.
+  - Um banco de Dados Redis para fila e cache.
+- Um Token de Bot do [Telegram](https://t.me/botfather).
+- O [ID do chat](https://www.alphr.com/find-chat-id-telegram) onde as notificações serão enviadas.
 
-### Actions
-
-#### Coverage
-- Vá até o [Coverals](https://coveralls.io/repos/new) e adicione seu repositório.
-
-#### Deploy
-- Crie um novo serviço no [Render](https://render.com/).
-- Clique no menu do canto superior direito e vá em `Account Settings > API Keys` e crie uma nova chave.
-- No seu repositório do GitHub vá até `Settings > Secrets > Actions` e crie as seguintes variáveis.
-    - `HEROKU_API_KEY` com sua API Key do Render.
-    - `RENDER_SERVICE_ID` com o ID do seu serviço do Render.
-- Retire os comentários do step de deploy no arquivo de CI
+### Instalação
+- Clone o projeto para sua máquina `git clone https://github.com/JorgeLNJunior/GameDeal.git`.
+- Instale as dependências `pnpm i`.
+- Renomeie os arquivos `.env.example` para `.env` dentro de cada diretório dentro de /apps.
+- Execute `pnpm docker:up` para subir os container de MySQL, Redis e Redis UI.
+- Execute `pnpm start:watch` para iniciar todas as aplicações e `pnpm test` para executar os testes. Os comandos podem ser executados somente em um workspace usando `pnpm start:workspace:watch`, por exemplo, `pnpm start:backend:watch`.
 
 ## Licença
 
-Projeto sob a licença [MIT »](https://github.com/JorgeLNJunior/typescript-boilerplate/blob/main/LICENSE.md).
+Projeto sob a licença [MIT »](https://github.com/JorgeLNJunior/GameDeal/blob/main/LICENSE.md).
 
