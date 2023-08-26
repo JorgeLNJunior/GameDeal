@@ -91,7 +91,7 @@ export class GameJobProcessor {
     if (notifyNuuvem) {
       await this.insertPriceDropRepository.insert({
         game_id: game.id,
-        old_price: lastRegisteredPrice.nuuvem_price as number,
+        old_price: lastRegisteredPrice.nuuvem_price,
         discount_price: currentNuuvemPrice as number,
         platform: 'Nuuvem'
       })
@@ -113,7 +113,7 @@ export class GameJobProcessor {
     if (notifyGMG) {
       await this.insertPriceDropRepository.insert({
         game_id: game.id,
-        old_price: lastRegisteredPrice.green_man_gaming_price as number,
+        old_price: lastRegisteredPrice.green_man_gaming_price,
         discount_price: currentGMGPrice as number,
         platform: 'Green Man Gaming'
       })

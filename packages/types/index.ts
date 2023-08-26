@@ -22,7 +22,7 @@ export interface GamePriceDrop {
   id: string
   game_id: string
   platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
-  old_price: number
+  old_price: number | null
   discount_price: number
   created_at: Date
   updated_at: Date | null

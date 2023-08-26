@@ -24,7 +24,7 @@ export interface GamePriceDropTable {
   id: ColumnType<string, string, never>
   game_id: ColumnType<string, string, never>
   platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
-  old_price: number
+  old_price: number | null
   discount_price: number
   created_at: ColumnType<Date, never, never>
   updated_at: ColumnType<Date, never, never>

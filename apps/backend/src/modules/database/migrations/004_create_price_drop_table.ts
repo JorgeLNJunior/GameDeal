@@ -8,7 +8,7 @@ export async function up (db: Kysely<unknown>): Promise<void> {
       col.notNull().references('game.id').onDelete('cascade')
     )
     .addColumn('platform', 'varchar(25)', (col) => col.notNull())
-    .addColumn('old_price', 'decimal(15, 2)', (col) => col.notNull())
+    .addColumn('old_price', 'decimal(15, 2)')
     .addColumn('discount_price', 'decimal(15, 2)', (col) => col.notNull())
     .addColumn('created_at', 'timestamp', (col) =>
       col.notNull().defaultTo(sql`CURRENT_TIMESTAMP`)
