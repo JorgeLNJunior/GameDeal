@@ -38,7 +38,7 @@ export class GetLowestPriceRepository {
       .raw<LowestPriceResult | null>(
         `SELECT green_man_gaming_price as price, created_at as date FROM game_price
           WHERE game_id = "${gameID}"
-          AND nuuvem_price = (SELECT MIN(nuuvem_price) FROM game_price where game_id = "${gameID}")
+          AND green_man_gaming_price = (SELECT MIN(green_man_gaming_price) FROM game_price where game_id = "${gameID}")
           LIMIT 1;
         `)
       .execute(this.databaseService.getClient())
