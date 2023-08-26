@@ -30,5 +30,5 @@ export interface NotifyData {
   gameUrl: string
   platform: 'Steam' | 'Nuuvem' | 'GreenManGaming'
   currentPrice: number
-  oldPrice: number
+  oldPrice: number | null
 }

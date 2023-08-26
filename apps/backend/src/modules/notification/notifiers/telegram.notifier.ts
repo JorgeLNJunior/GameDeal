@@ -89,7 +89,8 @@ export class TelegramNotifier implements Notifier {
    *
    * @param price - The price to be converted.
    */
-  private formatPriceToBRL (price: number): string {
+  private formatPriceToBRL (price?: number | null): string {
+    if (price == null) return 'Não registrado'
     return `R$ ${String(price).replace('.', ',')}`
   }
 }
