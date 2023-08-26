@@ -1,5 +1,4 @@
-import { PinoLogger } from '@infra/pino.logger'
-import { GameBuilder, GamePriceBuilder } from '@packages/testing'
+import { GameBuilder, GamePriceBuilder, GamePriceDropBuilder } from '@packages/testing'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingScraper } from '@scrapers/greenManGaming.scraper'
 import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
@@ -10,6 +9,7 @@ import { container } from 'tsyringe'
 
 import { GameJobProcessor } from './game.job.processor'
 import { InsertGamePriceRepository } from './repositories/insertGamePrice.repository'
+import { InsertPriceDropRepository } from './repositories/insertPriceDrop.repository'
 
 describe('GameJobProcessor', () => {
   let job: GameJobProcessor
@@ -17,6 +17,7 @@ describe('GameJobProcessor', () => {
   let nuuvemScraper: NuuvemScraper
   let gmgScraper: GreenManGamingScraper
   let insertPriceRepo: InsertGamePriceRepository
+  let insertPriceDropRepo: InsertPriceDropRepository
   let getPriceRepo: GetCurrentGamePriceRepository
   let findGameByIdRepo: FindGameByIdRepository
   let notificationQueue: NotificationQueue
@@ -26,6 +27,7 @@ describe('GameJobProcessor', () => {
     nuuvemScraper = container.resolve(NuuvemScraper)
     gmgScraper = container.resolve(GreenManGamingScraper)
     insertPriceRepo = container.resolve(InsertGamePriceRepository)
+    insertPriceDropRepo = container.resolve(InsertPriceDropRepository)
     getPriceRepo = container.resolve(GetCurrentGamePriceRepository)
     findGameByIdRepo = container.resolve(FindGameByIdRepository)
     notificationQueue = container.resolve(NotificationQueue)
@@ -34,6 +36,7 @@ describe('GameJobProcessor', () => {
       nuuvemScraper,
       gmgScraper,
       insertPriceRepo,
+      insertPriceDropRepo,
       getPriceRepo,
       findGameByIdRepo,
       notificationQueue
@@ -51,12 +54,19 @@ describe('GameJobProcessor', () => {
       .withNuuvemPrice(30)
       .withGreenManGamingPrice(35)
       .build()
+    const priceDrop = new GamePriceDropBuilder()
+      .withGame(game.id)
+      .withPlatform('Steam')
+      .withOldPrice(price.steam_price)
+      .withDiscountPrice(currentSteamPrice)
+      .build()
 
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
     jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(30)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
+    const insertPriceDropSpy = jest.spyOn(insertPriceDropRepo, 'insert').mockResolvedValueOnce(priceDrop)
     const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValueOnce()
 
     await job.scrapePrice({
@@ -66,6 +76,7 @@ describe('GameJobProcessor', () => {
       green_man_gaming_url: game.green_man_gaming_url
     })
 
+    expect(notificationSpy).toHaveBeenCalledTimes(1)
     expect(notificationSpy).toHaveBeenCalledWith({
       currentPrice: currentSteamPrice,
       oldPrice: price.steam_price,
@@ -73,7 +84,14 @@ describe('GameJobProcessor', () => {
       platform: 'Steam',
       gameUrl: game.steam_url
     })
-    expect(notificationSpy).toHaveBeenCalledTimes(1)
+
+    expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
+    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+      game_id: game.id,
+      old_price: price.steam_price,
+      discount_price: currentSteamPrice,
+      platform: 'Steam'
+    })
   })
 
   it('should notify if the current nuuvem price is lower than the latest registered', async () => {
@@ -85,6 +103,12 @@ describe('GameJobProcessor', () => {
       .withNuuvemPrice(30)
       .withGreenManGamingPrice(40)
       .build()
+    const priceDrop = new GamePriceDropBuilder()
+      .withGame(game.id)
+      .withPlatform('Nuuvem')
+      .withOldPrice(price.nuuvem_price as number)
+      .withDiscountPrice(currentNuuvemPrice)
+      .build()
 
     jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(currentNuuvemPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
@@ -92,6 +116,7 @@ describe('GameJobProcessor', () => {
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
+    const insertPriceDropSpy = jest.spyOn(insertPriceDropRepo, 'insert').mockResolvedValueOnce(priceDrop)
     const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValueOnce()
 
     await job.scrapePrice({
@@ -101,6 +126,7 @@ describe('GameJobProcessor', () => {
       green_man_gaming_url: game.green_man_gaming_url
     })
 
+    expect(notificationSpy).toHaveBeenCalledTimes(1)
     expect(notificationSpy).toHaveBeenCalledWith({
       currentPrice: currentNuuvemPrice,
       oldPrice: price.nuuvem_price,
@@ -108,7 +134,14 @@ describe('GameJobProcessor', () => {
       platform: 'Nuuvem',
       gameUrl: game.nuuvem_url
     })
-    expect(notificationSpy).toHaveBeenCalledTimes(1)
+
+    expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
+    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+      game_id: game.id,
+      old_price: price.nuuvem_price,
+      discount_price: currentNuuvemPrice,
+      platform: 'Nuuvem'
+    })
   })
 
   it('should notify if the current green man gaming price is lower than the latest registered', async () => {
@@ -120,6 +153,12 @@ describe('GameJobProcessor', () => {
       .withNuuvemPrice(30)
       .withGreenManGamingPrice(40)
       .build()
+    const priceDrop = new GamePriceDropBuilder()
+      .withGame(game.id)
+      .withPlatform('Green Man Gaming')
+      .withOldPrice(price.green_man_gaming_price as number)
+      .withDiscountPrice(currentGMGPrice)
+      .build()
 
     jest.spyOn(gmgScraper, 'getGamePrice').mockResolvedValueOnce(currentGMGPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
@@ -127,6 +166,7 @@ describe('GameJobProcessor', () => {
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
+    const insertPriceDropSpy = jest.spyOn(insertPriceDropRepo, 'insert').mockResolvedValueOnce(priceDrop)
     const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValueOnce()
 
     await job.scrapePrice({
@@ -136,6 +176,7 @@ describe('GameJobProcessor', () => {
       green_man_gaming_url: game.green_man_gaming_url
     })
 
+    expect(notificationSpy).toHaveBeenCalledTimes(1)
     expect(notificationSpy).toHaveBeenCalledWith({
       currentPrice: currentGMGPrice,
       oldPrice: price.green_man_gaming_price,
@@ -143,7 +184,14 @@ describe('GameJobProcessor', () => {
       platform: 'GreenManGaming',
       gameUrl: game.green_man_gaming_url
     })
-    expect(notificationSpy).toHaveBeenCalledTimes(1)
+
+    expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
+    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+      game_id: game.id,
+      old_price: price.green_man_gaming_price,
+      discount_price: currentGMGPrice,
+      platform: 'Green Man Gaming'
+    })
   })
 
   it('should notify if the current steam price is lower than the latest registered (if there is steam price only)', async () => {
@@ -155,11 +203,18 @@ describe('GameJobProcessor', () => {
       .withNuuvemPrice(null)
       .withGreenManGamingPrice(null)
       .build()
+    const priceDrop = new GamePriceDropBuilder()
+      .withGame(game.id)
+      .withPlatform('Steam')
+      .withOldPrice(price.steam_price)
+      .withDiscountPrice(currentSteamPrice)
+      .build()
 
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
+    const insertPriceDropSpy = jest.spyOn(insertPriceDropRepo, 'insert').mockResolvedValueOnce(priceDrop)
     const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValueOnce()
 
     await job.scrapePrice({
@@ -169,6 +224,7 @@ describe('GameJobProcessor', () => {
       green_man_gaming_url: game.green_man_gaming_url
     })
 
+    expect(notificationSpy).toHaveBeenCalledTimes(1)
     expect(notificationSpy).toHaveBeenCalledWith({
       currentPrice: currentSteamPrice,
       oldPrice: price.steam_price,
@@ -176,7 +232,14 @@ describe('GameJobProcessor', () => {
       platform: 'Steam',
       gameUrl: game.steam_url
     })
-    expect(notificationSpy).toHaveBeenCalledTimes(1)
+
+    expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
+    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+      game_id: game.id,
+      old_price: price.steam_price,
+      discount_price: currentSteamPrice,
+      platform: 'Steam'
+    })
   })
 
   it('should notify if the current nuuvem price is lower than the latest registered (if there is steam and nuuvem price only)', async () => {
@@ -188,12 +251,19 @@ describe('GameJobProcessor', () => {
       .withNuuvemPrice(30)
       .withGreenManGamingPrice(null)
       .build()
+    const priceDrop = new GamePriceDropBuilder()
+      .withGame(game.id)
+      .withPlatform('Nuuvem')
+      .withOldPrice(price.nuuvem_price as number)
+      .withDiscountPrice(currentNuuvemPrice)
+      .build()
 
     jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(currentNuuvemPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
+    const insertPriceDropSpy = jest.spyOn(insertPriceDropRepo, 'insert').mockResolvedValueOnce(priceDrop)
     const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValueOnce()
 
     await job.scrapePrice({
@@ -203,6 +273,7 @@ describe('GameJobProcessor', () => {
       green_man_gaming_url: game.green_man_gaming_url
     })
 
+    expect(notificationSpy).toHaveBeenCalledTimes(1)
     expect(notificationSpy).toHaveBeenCalledWith({
       currentPrice: currentNuuvemPrice,
       oldPrice: price.nuuvem_price,
@@ -210,7 +281,14 @@ describe('GameJobProcessor', () => {
       platform: 'Nuuvem',
       gameUrl: game.nuuvem_url
     })
-    expect(notificationSpy).toHaveBeenCalledTimes(1)
+
+    expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
+    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+      game_id: game.id,
+      old_price: price.nuuvem_price,
+      discount_price: currentNuuvemPrice,
+      platform: 'Nuuvem'
+    })
   })
 
   it('should notify if the current nuuvem price is lower than the latest registered (if there is steam and gmg price only)', async () => {
@@ -222,12 +300,19 @@ describe('GameJobProcessor', () => {
       .withNuuvemPrice(null)
       .withGreenManGamingPrice(40)
       .build()
+    const priceDrop = new GamePriceDropBuilder()
+      .withGame(game.id)
+      .withPlatform('Green Man Gaming')
+      .withOldPrice(price.green_man_gaming_price as number)
+      .withDiscountPrice(currentGMGPrice)
+      .build()
 
     jest.spyOn(gmgScraper, 'getGamePrice').mockResolvedValueOnce(currentGMGPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
+    const insertPriceDropSpy = jest.spyOn(insertPriceDropRepo, 'insert').mockResolvedValueOnce(priceDrop)
     const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValueOnce()
 
     await job.scrapePrice({
@@ -237,6 +322,7 @@ describe('GameJobProcessor', () => {
       green_man_gaming_url: game.green_man_gaming_url
     })
 
+    expect(notificationSpy).toHaveBeenCalledTimes(1)
     expect(notificationSpy).toHaveBeenCalledWith({
       currentPrice: currentGMGPrice,
       oldPrice: price.green_man_gaming_price,
@@ -244,7 +330,14 @@ describe('GameJobProcessor', () => {
       platform: 'GreenManGaming',
       gameUrl: game.green_man_gaming_url
     })
-    expect(notificationSpy).toHaveBeenCalledTimes(1)
+
+    expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
+    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+      game_id: game.id,
+      old_price: price.green_man_gaming_price,
+      discount_price: currentGMGPrice,
+      platform: 'Green Man Gaming'
+    })
   })
 
   it('should not notify if there is no price registered', async () => {
@@ -262,6 +355,7 @@ describe('GameJobProcessor', () => {
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(undefined)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
+    const insertPriceDropSpy = jest.spyOn(insertPriceDropRepo, 'insert')
     const notificationSpy = jest.spyOn(notificationQueue, 'add').mockResolvedValueOnce()
 
     await job.scrapePrice({
@@ -272,5 +366,6 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).not.toHaveBeenCalled()
+    expect(insertPriceDropSpy).not.toHaveBeenCalled()
   })
 })

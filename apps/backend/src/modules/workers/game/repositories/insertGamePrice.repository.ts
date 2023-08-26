@@ -11,7 +11,7 @@ export class InsertGamePriceRepository {
    * Inserts a new value to a game price history.
    * @example
    * ```
-   * await gameRepository.insertPrice(gameId, price)
+   * await repository.insert(gameId, prices)
    * ```
    * @param gameId - The id of the game
    * @param prices - The current prices of the game

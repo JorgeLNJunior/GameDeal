@@ -1,16 +1,15 @@
-import { PINO_LOGGER } from '@dependencies/dependency.tokens'
-import { ApplicationLogger } from '@localtypes/logger.type'
 import type { ScrapeGamePriceData } from '@localtypes/queue.type'
-import { type GamePrice } from '@packages/types'
+import type { GamePrice } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingScraper } from '@scrapers/greenManGaming.scraper'
 import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
 import { SteamScraper } from '@scrapers/steam.scraper'
 import { FindGameByIdRepository } from '@shared/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@shared/getCurrentGamePrice.repository'
-import { inject, injectable } from 'tsyringe'
+import { injectable } from 'tsyringe'
 
 import { InsertGamePriceRepository } from './repositories/insertGamePrice.repository'
+import { InsertPriceDropRepository } from './repositories/insertPriceDrop.repository'
 
 @injectable()
 export class GameJobProcessor {
@@ -19,6 +18,7 @@ export class GameJobProcessor {
     private readonly nuuvemScraper: NuuvemScraper,
     private readonly gmgScraper: GreenManGamingScraper,
     private readonly insertGamePriceRepository: InsertGamePriceRepository,
+    private readonly insertPriceDropRepository: InsertPriceDropRepository,
     private readonly getCurrentGamePriceRepository: GetCurrentGamePriceRepository,
     private readonly findGameByIdRepository: FindGameByIdRepository,
     private readonly notificationQueue: NotificationQueue
@@ -67,6 +67,12 @@ export class GameJobProcessor {
     })
 
     if (notifySteam) {
+      await this.insertPriceDropRepository.insert({
+        game_id: game.id,
+        old_price: lastRegisteredPrice.steam_price,
+        discount_price: currentSteamPrice,
+        platform: 'Steam'
+      })
       await this.notificationQueue.add({
         currentPrice: currentSteamPrice,
         oldPrice: lastRegisteredPrice.steam_price,
@@ -83,6 +89,12 @@ export class GameJobProcessor {
     })
 
     if (notifyNuuvem) {
+      await this.insertPriceDropRepository.insert({
+        game_id: game.id,
+        old_price: lastRegisteredPrice.nuuvem_price as number,
+        discount_price: currentNuuvemPrice as number,
+        platform: 'Nuuvem'
+      })
       await this.notificationQueue.add({
         currentPrice: currentNuuvemPrice as number,
         oldPrice: lastRegisteredPrice.nuuvem_price as number,
@@ -99,6 +111,12 @@ export class GameJobProcessor {
     })
 
     if (notifyGMG) {
+      await this.insertPriceDropRepository.insert({
+        game_id: game.id,
+        old_price: lastRegisteredPrice.green_man_gaming_price as number,
+        discount_price: currentGMGPrice as number,
+        platform: 'Green Man Gaming'
+      })
       await this.notificationQueue.add({
         currentPrice: currentGMGPrice as number,
         oldPrice: lastRegisteredPrice.green_man_gaming_price as number,
