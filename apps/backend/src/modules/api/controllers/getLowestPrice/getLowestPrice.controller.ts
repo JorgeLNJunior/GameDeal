@@ -16,7 +16,7 @@ import { GetLowestPriceRepository } from './repositories/getLowestPrice.reposito
 @injectable()
 export class GetLowestPriceController implements HttpController {
   public method = HttpMethod.GET
-  public url = '/games/:id/price/lowest'
+  public url = '/games/:id/lowest'
 
   constructor (
     private readonly getLowestPriceRepo: GetLowestPriceRepository,

@@ -5,7 +5,7 @@ import '@dependencies/dependency.container'
 import { AddGameController } from '@api/controllers/addGame/addGame.controller'
 import { FindGameByIdController } from '@api/controllers/findGameById/findGameById.controller'
 import { FindGamesController } from '@api/controllers/findGames/findGames.controller'
-import { GetGamePriceController } from '@api/controllers/getCurrentGamePrice/getCurrentGamePrice.controller'
+import { GetCurrentGamePriceController } from '@api/controllers/getCurrentGamePrice/getCurrentGamePrice.controller'
 import { GetGamePriceHistoryController } from '@api/controllers/getGamePriceHistory/getGamePriceHistory.controller'
 import { GetLowestPriceController } from '@api/controllers/getLowestPrice/getLowestPrice.controller'
 import { GetPriceDropsController } from '@api/controllers/getPriceDrops/getPriceDrop.controller'
@@ -62,7 +62,7 @@ export default class Main {
         container.resolve(AddGameController),
         container.resolve(FindGameByIdController),
         container.resolve(FindGamesController),
-        container.resolve(GetGamePriceController),
+        container.resolve(GetCurrentGamePriceController),
         container.resolve(GetGamePriceHistoryController),
         container.resolve(GetLowestPriceController),
         container.resolve(UpdateGameController),

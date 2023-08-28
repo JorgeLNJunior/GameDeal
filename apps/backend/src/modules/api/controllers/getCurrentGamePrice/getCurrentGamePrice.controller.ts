@@ -13,9 +13,9 @@ import { GetCurrentGamePriceRepository } from '@shared/getCurrentGamePrice.repos
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
-export class GetGamePriceController implements HttpController {
+export class GetCurrentGamePriceController implements HttpController {
   method = HttpMethod.GET
-  url = '/games/:id/price'
+  url = '/games/:id/current'
 
   constructor (
     private readonly getCurrentGamePriceRepository: GetCurrentGamePriceRepository,

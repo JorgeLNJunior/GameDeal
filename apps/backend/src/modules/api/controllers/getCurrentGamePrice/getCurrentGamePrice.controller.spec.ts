@@ -8,10 +8,10 @@ import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { FakeCache } from '@testing/fakes/fake.cache'
 import { container } from 'tsyringe'
 
-import { GetGamePriceController } from './getCurrentGamePrice.controller'
+import { GetCurrentGamePriceController } from './getCurrentGamePrice.controller'
 
-describe('GetGamePriceController', () => {
-  let controller: GetGamePriceController
+describe('GetCurrentGamePriceController', () => {
+  let controller: GetCurrentGamePriceController
   let getCurrentGamePriceRepository: GetCurrentGamePriceRepository
   let findGameByIdRepository: FindGameByIdRepository
   let cache: ApplicationCache
@@ -23,7 +23,7 @@ describe('GetGamePriceController', () => {
     findGameByIdRepository = new FindGameByIdRepository(db)
     cache = new FakeCache()
 
-    controller = new GetGamePriceController(
+    controller = new GetCurrentGamePriceController(
       getCurrentGamePriceRepository,
       findGameByIdRepository,
       cache,

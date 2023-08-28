@@ -155,7 +155,7 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
-  /games/{id}/price:
+  /games/{id}/current:
     get:
       summary: Obter o preço atual de um jogo
       tags:
@@ -179,7 +179,7 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
-  /games/{id}/price/history:
+  /games/{id}/history:
     get:
       summary: Obter o histórico de preço de um jogo
       tags:
@@ -244,7 +244,7 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
-  /games/{id}/price/lowest:
+  /games/{id}/lowest:
     get:
       summary: Obter o menor preço já registrado em um jogo
       tags:
