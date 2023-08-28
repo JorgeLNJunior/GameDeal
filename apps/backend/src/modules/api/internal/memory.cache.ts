@@ -14,7 +14,7 @@ export class MemoryCache implements ApplicationCache {
     const exp = this.cache.getTtl(key)
     const NOW = Date.now()
 
-    const expires = (exp as number - NOW) / 1000
+    const expires = Math.floor((exp as number - NOW) / 1000)
     return { value, expires }
   }
 
