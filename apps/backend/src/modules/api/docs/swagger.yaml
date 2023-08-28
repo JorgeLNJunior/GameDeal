@@ -301,6 +301,57 @@ paths:
           $ref: "#/components/responses/404"
         500:
           $ref: "#/components/responses/500"
+  /drops:
+    get:
+      summary: Obter uma lista de queda de preços
+      tags:
+        - "Drop"
+      parameters:
+        - in: query
+          name: date
+          schema:
+            type: string
+            example: 2025-01-01
+        - in: query
+          name: page
+          schema:
+            type: number
+            example: 1
+        - in: query
+          name: limit
+          schema:
+            type: number
+            example: 10
+        - in: query
+          name: order
+          schema:
+            default: asc
+            enum:
+              - asc
+              - desc
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/game_price_drop"
+                  count:
+                    type: number
+                    example: 120
+                  page:
+                    type: number
+                    example: 5
+                  totalPages:
+                    type: number
+                    example: 12
+        500:
+          $ref: "#/components/responses/500"
 
 components:
   schemas:
@@ -352,6 +403,36 @@ components:
           type: string
           example: "160.45"
           nullable: true
+        created_at:
+          type: string
+          example: 2023-01-23T00:30:19.000Z
+        updated_at:
+          type: string
+          nullable: true
+          example: null
+
+    game_price_drop:
+      type: object
+      properties:
+        id:
+          type: string
+          example: cac76f00-b85b-11ed-b7cb-0242ac110002
+        game_id:
+          type: string
+          example: b1a382ce-b85b-11ed-b7cb-0242ac110002
+        platform:
+          type: string
+          example: Steam
+          enum:
+            - Steam
+            - Nuuvem
+            - Green Man Gaming
+        old_price:
+          type: number
+          example: 139.99
+        discount_price:
+          type: number
+          example: 50.38
         created_at:
           type: string
           example: 2023-01-23T00:30:19.000Z
