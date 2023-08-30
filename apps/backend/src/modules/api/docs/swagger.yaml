@@ -309,6 +309,11 @@ paths:
         - "Game"
         - "Drop"
       parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
         - in: query
           name: page
           schema:
