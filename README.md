@@ -23,33 +23,27 @@ Saiba quando o preço de um jogo cair.
 
 </div>
 
-## Tabela de Conteúdos
-
-- [Descrição](https://github.com/JorgeLNJunior/GameDeal#descri%C3%A7%C3%A3o)
-- [Configuração](https://github.com/JorgeLNJunior/GameDeal#configura%C3%A7%C3%A3o)
-- [Licença](https://github.com/JorgeLNJunior/GameDeal#licen%C3%A7a)
-
 ## Descrição
-Game Deal consiste de um web scrapper que coleta o preço de vários jogos do Steam e Nuuvem diariamente e envia notificações a cada queda de preço. Os dados coletados formam um histórico de preços que pode ser acessado por meio de uma API REST ou APP Frontend.
+Game Deal consiste de um web scrapper que coleta o preço de quase 2 mil jogos do Steam, Nuuvem e Green Man Gaming diariamente e envia notificações a cada queda de preço. Os dados coletados formam um histórico de preços que pode ser acessado por meio de uma API REST ou aplicação web.
 
-Os scrapers e notificador rodam em filas que usam Redis e BullMQ por baixo, enquanto a API é construída com Fastify e o Frontend com VueJS e TailwindCSS.
+Os scrapers e notificador rodam em filas que usam Redis e BullMQ, enquanto a API é construída com Fastify e o Frontend com VueJS e TailwindCSS.
 
 ## Configuração
 
 ### Requisitos
 - Gerenciador de pacotes [pnpm](https://pnpm.io/installation).
 - [Docker](https://docs.docker.com/engine/install/ubuntu/) e [Compose plugin](https://docs.docker.com/compose/install/linux/#install-using-the-repository) ou:
-  - Um banco de Dados MySQL para armazenamento.
-  - Um banco de Dados Redis para fila e cache.
+  - Um banco de Dados MySQL para armazenamento do dados.
+  - Um banco de Dados Redis para as filas.
 - Um Token de Bot do [Telegram](https://t.me/botfather).
 - O [ID do chat](https://www.alphr.com/find-chat-id-telegram) onde as notificações serão enviadas.
 
 ### Instalação
 - Clone o projeto para sua máquina `git clone https://github.com/JorgeLNJunior/GameDeal.git`.
 - Instale as dependências `pnpm i`.
-- Renomeie os arquivos `.env.example` para `.env` dentro de cada diretório dentro de /apps.
+- Crie um arquivo `.env` dentro de cada diretório dentro de /apps e copie o conteúdo dos arquivos `.env.example` substituindo os valores.
 - Execute `pnpm docker:up` para subir os container de MySQL, Redis e Redis UI.
-- Execute `pnpm start:watch` para iniciar todas as aplicações e `pnpm test` para executar os testes. Os comandos podem ser executados somente em um workspace usando `pnpm start:workspace:watch`, por exemplo, `pnpm start:backend:watch`.
+- Execute `pnpm start:watch` para iniciar todas as aplicações e `pnpm test` para executar os testes. Os comandos também podem ser executados somente em um workspace usando `pnpm start:workspace:watch`, por exemplo, `pnpm start:backend:watch`.
 
 ## Licença
 
