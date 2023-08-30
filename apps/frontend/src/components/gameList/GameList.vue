@@ -75,7 +75,7 @@ function getGamePrice (gameID: string): string {
   if (price.nuuvem_price === null) price.nuuvem_price = Infinity
   if (price.green_man_gaming_price === null) price.green_man_gaming_price = Infinity
 
-  return Math.min(price.steam_price, price.nuuvem_price, price.green_man_gaming_price).toString()
+  return Math.min(price.steam_price, price.nuuvem_price, price.green_man_gaming_price).toFixed(2)
 }
 </script>
 
