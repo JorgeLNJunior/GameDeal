@@ -31,23 +31,23 @@ const formatedLowestPrice = computed(() => {
     lowestPrice.nuuvem.price,
     lowestPrice.green_man_gaming.price
   ].filter((v) => v != null)
-  const min = Math.min(...prices as number[]).toString()
+  const min = Math.min(...prices as number[])
 
-  if (String(lowestPrice.steam.price) === min) {
+  if (Number(lowestPrice.steam.price) === min) {
     return {
       platform: 'Steam',
       price: formater.formatPriceWithCurrency(lowestPrice.steam.price as number),
       date: formater.formatFullDate(String(lowestPrice.steam.date))
     }
   }
-  if (String(lowestPrice.nuuvem.price) === min) {
+  if (Number(lowestPrice.nuuvem.price) === min) {
     return {
       platform: 'Nuuvem',
       price: formater.formatPriceWithCurrency(lowestPrice.nuuvem.price as number),
       date: formater.formatFullDate(String(lowestPrice.nuuvem.date))
     }
   }
-  if (String(lowestPrice.green_man_gaming.price) === min) {
+  if (Number(lowestPrice.green_man_gaming.price) === min) {
     return {
       platform: 'Green Man Gaming',
       price: formater.formatPriceWithCurrency(lowestPrice.green_man_gaming.price as number),
