@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
+
 const props = defineProps({
   currentPage: {
     type: Number,
@@ -12,15 +13,30 @@ const props = defineProps({
   }
 })
 const router = useRouter()
+const route = useRoute()
 
 const isFirstPage = computed(() => props.currentPage === 1)
 const isLastPage = computed(() => props.currentPage === props.totalPages)
 
 async function previousPage (): Promise<void> {
-  await router.push({ path: '/', query: { page: props.currentPage - 1 } })
+  delete route.query.page
+  await router.push({
+    path: '/',
+    query: {
+      page: props.currentPage - 1,
+      ...route.query
+    }
+  })
 }
 async function nextPage (): Promise<void> {
-  await router.push({ path: '/', query: { page: props.currentPage + 1 } })
+  delete route.query.page
+  await router.push({
+    path: '/',
+    query: {
+      page: props.currentPage + 1,
+      ...route.query
+    }
+  })
 }
 </script>
 
