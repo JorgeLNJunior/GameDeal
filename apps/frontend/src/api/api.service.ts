@@ -1,4 +1,4 @@
-import type { Game, GamePrice, LowestPrice, QueryData } from '@packages/types'
+import type { Game, GamePrice, GamePriceDrop, LowestPrice, QueryData } from '@packages/types'
 import axios from 'axios'
 
 import { SERVER_URL } from '@/constants/urls'
@@ -33,5 +33,11 @@ export class ApiService {
   async getLowestPrice (gameID: string): Promise<LowestPrice> {
     const response = await this.http.get(`/games/${gameID}/lowest`)
     return response.data as LowestPrice
+  }
+
+  async getTodayPriceDrops (): Promise<QueryData<GamePriceDrop[]>> {
+    const today = new Date().toISOString()
+    const response = await this.http.get(`/drops?date=${today}&limit=10`)
+    return response.data as QueryData<GamePriceDrop[]>
   }
 }
