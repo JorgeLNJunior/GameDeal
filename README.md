@@ -1,5 +1,7 @@
 <div align="center" id="short-description-and-logo">
 
+<img src="apps/frontend/public/logo.png" width="100" />
+
 <h1>Game Deal</h1>
 
 Saiba quando o preço de um jogo cair.
