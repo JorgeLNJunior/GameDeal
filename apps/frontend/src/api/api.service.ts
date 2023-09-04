@@ -6,7 +6,7 @@ import { SERVER_URL } from '@/constants/urls'
 export class ApiService {
   private readonly http = axios.create({ baseURL: SERVER_URL })
 
-  async getGames (title?: string, page = 1, limit = 8): Promise<QueryData<Game[]>> {
+  async getGames (title?: string, page = 1, limit = 20): Promise<QueryData<Game[]>> {
     let url = `/games?page=${page}&limit=${limit}`
     if (title != null) url += `&title=${title}`
     const response = await this.http.get(url)
@@ -35,9 +35,9 @@ export class ApiService {
     return response.data as LowestPrice
   }
 
-  async getTodayPriceDrops (): Promise<QueryData<GamePriceDrop[]>> {
+  async getTodayPriceDrops (limit = 20): Promise<QueryData<GamePriceDrop[]>> {
     const today = new Date().toISOString()
-    const response = await this.http.get(`/drops?date=${today}&limit=10`)
+    const response = await this.http.get(`/drops?date=${today}&limit=${limit}`)
     return response.data as QueryData<GamePriceDrop[]>
   }
 }

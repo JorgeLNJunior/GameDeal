@@ -85,14 +85,6 @@ function getGamePrice (gameID: string): string {
     <GameSearchInput @search="getGames" />
 
     <div class="flex flex-col justify-center space-y-4">
-      <!-- Pagination -->
-      <PaginationButton
-        v-if="uiState.isDataFetched || uiState.isUpdating"
-        :currentPage="pages.current"
-        :totalPages="pages.total"
-      />
-      <PaginationButtonSkeleton v-else />
-
       <!-- List -->
       <ul v-if="uiState.isDataFetched" class="space-y-1">
         <GameListItem
@@ -104,6 +96,14 @@ function getGamePrice (gameID: string): string {
         />
       </ul>
       <GameListItemSkeleton v-else v-for="index in 3" :key="index" class="px-4 py-2" />
+
+      <!-- Pagination -->
+      <PaginationButton
+        v-if="uiState.isDataFetched || uiState.isUpdating"
+        :currentPage="pages.current"
+        :totalPages="pages.total"
+      />
+      <PaginationButtonSkeleton v-else />
     </div>
   </div>
 </template>
