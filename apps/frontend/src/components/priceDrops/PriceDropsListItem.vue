@@ -29,5 +29,5 @@ const getGame = async (): Promise<void> => {
     <span class="line-clamp-1 w-full" test-data="title">{{ game.title }}</span>
     <span class="md:w-18 line-clamp-1 w-1/4 shrink-0" test-data="price">{{ priceWithCurrency }}</span>
   </RouterLink>
-  <PriceDropsListItemSkeleton v-else class="py-3" />
+  <PriceDropsListItemSkeleton v-else />
 </template>
