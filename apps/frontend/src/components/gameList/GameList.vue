@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Game, GamePrice } from '@packages/types'
+import type { Game } from '@packages/types'
 import { AxiosError } from 'axios'
 import { onBeforeMount, reactive } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
@@ -17,7 +17,6 @@ const router = useRouter()
 
 // data
 let games = reactive<Game[]>([])
-let prices = reactive<GamePrice[]>([])
 const pages = reactive({
   // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
   current: Number(route.query.page) || 1,
@@ -52,12 +51,6 @@ async function getGames (title?: string, page?: number): Promise<void> {
     pages.total = data.totalPages
     pages.current = data.page
 
-    const promises: Array<Promise<GamePrice>> = []
-    for (const game of games) {
-      promises.push(api.getGamePrice(game.id))
-    }
-    prices = await Promise.all(promises)
-
     uiState.isDataFetched = true
   } catch (error) {
     if (error instanceof AxiosError && error.response?.status === 404) {
@@ -66,16 +59,6 @@ async function getGames (title?: string, page?: number): Promise<void> {
     }
     await router.push('/error')
   }
-}
-
-function getGamePrice (gameID: string): string {
-  const price = prices.find((v) => v.game_id === gameID)
-  if (price?.steam_price == null) return 'Não registrado!'
-
-  if (price.nuuvem_price === null) price.nuuvem_price = Infinity
-  if (price.green_man_gaming_price === null) price.green_man_gaming_price = Infinity
-
-  return Math.min(price.steam_price, price.nuuvem_price, price.green_man_gaming_price).toFixed(2)
 }
 </script>
 
@@ -91,11 +74,12 @@ function getGamePrice (gameID: string): string {
           v-for="game in games"
           :key="game.id"
           :title="game.title"
-          :price="getGamePrice(game.id)"
           :id="game.id"
         />
       </ul>
-      <GameListItemSkeleton v-else v-for="index in 3" :key="index" class="px-4 py-2" />
+      <ul class="space-y-1" v-else>
+        <GameListItemSkeleton v-for="index in 3" :key="index" />
+      </ul>
 
       <!-- Pagination -->
       <PaginationButton
