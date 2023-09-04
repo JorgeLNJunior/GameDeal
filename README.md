@@ -26,7 +26,7 @@ Saiba quando o preço de um jogo cair.
 </div>
 
 ## Descrição
-Game Deal consiste de um web scrapper que coleta o preço de quase 2 mil jogos do Steam, Nuuvem e Green Man Gaming diariamente e envia notificações a cada queda de preço. Os dados coletados formam um histórico de preços que pode ser acessado por meio de uma API REST ou aplicação web.
+Game Deal consiste de um web scrapper que coleta o preço de mais de 2 mil jogos do Steam, Nuuvem e Green Man Gaming diariamente e envia notificações a cada queda de preço. Os dados coletados formam um histórico de preços que pode ser acessado por meio de uma API REST ou aplicação web.
 
 Os scrapers e notificador rodam em filas que usam Redis e BullMQ, enquanto a API é construída com Fastify e o Frontend com VueJS e TailwindCSS.
 
