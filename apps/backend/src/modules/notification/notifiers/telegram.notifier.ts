@@ -24,7 +24,9 @@ export class TelegramNotifier implements Notifier {
 
   async notify (data: NotifyData): Promise<void> {
     const CHAT_ID = this.configService.getEnv<number>('TELEGRAM_CHAT_ID')
-    if (CHAT_ID === undefined) throw new Error('CHAT_ID is not defined')
+    if (CHAT_ID === undefined) {
+      throw new Error('the environment variable "TELEGRAM_CHAT_ID" is not defined')
+    }
 
     const formatedCurrentPrice = this.formatPriceToBRL(data.currentPrice)
     const formatedOldPrice = this.formatPriceToBRL(data.oldPrice)
@@ -91,6 +93,6 @@ export class TelegramNotifier implements Notifier {
    */
   private formatPriceToBRL (price?: number | null): string {
     if (price == null) return 'Não registrado'
-    return `R$ ${String(price).replace('.', ',')}`
+    return `R$ ${Number(price).toFixed(2).replace('.', ',')}`
   }
 }
