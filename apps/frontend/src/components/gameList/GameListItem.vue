@@ -44,9 +44,9 @@ const priceWithCurrency = computed(() => {
 
 <template>
   <li v-if="price">
-    <RouterLink class="flex content-end justify-between space-x-6 rounded-lg p-2 hover:bg-gray-100 hover:text-gray-800 md:px-4" :to="`/game/${props.id}`">
-      <span class="line-clamp-1 w-full" test-data="title">{{ props.title }}</span>
-      <span class="md:w-18 line-clamp-1 w-1/4 shrink-0" test-data="price">{{ priceWithCurrency }}</span>
+    <RouterLink class="flex content-end justify-between space-x-6 rounded-lg p-2 transition hover:bg-gray-100 hover:text-gray-800 md:px-4" :to="`/game/${props.id}`">
+      <span class="w-full truncate" test-data="title">{{ props.title }}</span>
+      <span class="md:w-18 w-fit shrink-0" test-data="price">{{ priceWithCurrency }}</span>
     </RouterLink>
   </li>
   <GameListItemSkeleton v-else />

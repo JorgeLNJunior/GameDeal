@@ -26,7 +26,7 @@ const priceWithCurrency = computed(() => `R$ ${props.price.replace('.', ',')}`)
 
 <template>
   <a :href="props.url" target="_blank" rel="noopener noreferrer">
-    <div class="flex items-center space-x-2 rounded-md border-t-4 border-cyan-600 p-2 shadow-md hover:bg-gray-100">
+    <div class="flex items-center space-x-2 rounded-lg border border-slate-500 p-2 transition hover:border-transparent hover:bg-cyan-600 hover:fill-white hover:text-white">
       <NuuvemIcon v-if="props.platform === Platform.NUUVEM" test-data="nuuvem-icon" />
       <SteamIcon v-if="props.platform === Platform.STEAM" test-data="steam-icon" />
       <GMGIcon v-if="props.platform === Platform.GREEN_MAN_GAMING" test-data="gmg-icon" />

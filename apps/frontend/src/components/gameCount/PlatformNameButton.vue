@@ -29,10 +29,10 @@ const platformURL = (): string | undefined => {
 <template>
   <a
     :href="platformURL() || ''" target="_blank" rel="noopener noreferrer"
-    class="flex flex-row items-center space-x-1 rounded-md p-1.5 shadow-md hover:bg-gray-100">
-      <SteamIcon class="h-3" v-if="props.platform === Platform.STEAM" test-data="steam-icon" />
-      <NuuvemIcon class="h-3" v-if="props.platform === Platform.NUUVEM" test-data="nuuvem-icon" />
-      <GMGIcon class="h-3" v-if="props.platform === Platform.GREEN_MAN_GAMING" test-data="gmg-icon" />
-      <p class="text-xs">{{ platformName() }}</p>
+    class="group flex flex-row items-center space-x-1 rounded-md border border-slate-400 p-1.5 transition hover:border-transparent hover:bg-cyan-600">
+      <SteamIcon class="h-3 fill-slate-900 transition group-hover:fill-white" v-if="props.platform === Platform.STEAM" test-data="steam-icon" />
+      <NuuvemIcon class="h-3 fill-slate-900 transition group-hover:fill-white" v-if="props.platform === Platform.NUUVEM" test-data="nuuvem-icon" />
+      <GMGIcon class="h-3 fill-slate-900 transition group-hover:fill-white" v-if="props.platform === Platform.GREEN_MAN_GAMING" test-data="gmg-icon" />
+      <p class="text-xs text-slate-900 transition group-hover:text-white">{{ platformName() }}</p>
   </a>
 </template>

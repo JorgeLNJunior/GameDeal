@@ -19,6 +19,7 @@ const isFirstPage = computed(() => props.currentPage === 1)
 const isLastPage = computed(() => props.currentPage === props.totalPages)
 
 async function previousPage (): Promise<void> {
+  scrollToTop()
   delete route.query.page
   await router.push({
     path: '/',
@@ -29,6 +30,7 @@ async function previousPage (): Promise<void> {
   })
 }
 async function nextPage (): Promise<void> {
+  scrollToTop()
   delete route.query.page
   await router.push({
     path: '/',
@@ -38,6 +40,11 @@ async function nextPage (): Promise<void> {
     }
   })
 }
+
+function scrollToTop (): void {
+  // if call immediately the scroll won't work.
+  window.setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 10)
+}
 </script>
 
 <template>
@@ -45,7 +52,7 @@ async function nextPage (): Promise<void> {
     <!-- Previous button -->
     <button
       href="#"
-      class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 hover:bg-gray-100 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
+      class="inline-flex h-8 w-8 items-center justify-center rounded border border-slate-300 bg-white text-slate-900 transition hover:bg-slate-200 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-slate-200 rtl:rotate-180"
       @click="previousPage()"
       :disabled="isFirstPage"
       test-data="previous-button"
@@ -65,7 +72,7 @@ async function nextPage (): Promise<void> {
     </button>
 
     <!-- Current page / Total pages -->
-    <p class="select-none text-sm text-gray-900" test-data="pages">
+    <p class="select-none text-sm text-slate-900" test-data="pages">
       {{ currentPage }}
       <span class="mx-1">/</span>
       {{ totalPages }}
@@ -74,7 +81,7 @@ async function nextPage (): Promise<void> {
     <!-- Next page button -->
     <button
       href="#"
-      class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 hover:bg-gray-100 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-gray-100 rtl:rotate-180"
+      class="inline-flex h-8 w-8 items-center justify-center rounded border border-slate-300 bg-white text-slate-900 transition hover:bg-slate-200 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-slate-200 rtl:rotate-180"
       @click="nextPage()"
       :disabled="isLastPage"
       test-data="next-button"

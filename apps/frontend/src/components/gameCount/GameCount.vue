@@ -5,6 +5,7 @@ import { useRouter } from 'vue-router'
 import { ApiService } from '@/api/api.service'
 import { Platform } from '@/types/Platform'
 
+import GameCountSkeleton from './GameCountSkeleton.vue'
 import PlatformNameButton from './PlatformNameButton.vue'
 
 const router = useRouter()
@@ -23,16 +24,19 @@ const getGames = async (): Promise<void> => {
 </script>
 
 <template>
-  <div class="flex w-full flex-col justify-center space-y-4 rounded-md border border-gray-50 p-4 text-center shadow-md">
-    <p class="font-medium">
-      Jogos:
-      <span class=font-normal>{{ totalGames }}</span>
-    </p>
-    <p class="font-medium">Plataformas</p>
-    <div class="flex justify-evenly px-2">
-      <PlatformNameButton :platform="Platform.STEAM" />
-      <PlatformNameButton :platform="Platform.NUUVEM" />
-      <PlatformNameButton :platform="Platform.GREEN_MAN_GAMING" />
+  <div class="flex w-full flex-col justify-center gap-2 rounded-md border border-t-4 border-gray-50 border-t-cyan-600 p-4 text-center shadow-md">
+    <div class="flex flex-col justify-center text-center">
+      <span class="text-xl font-medium">Jogos cadastrados</span>
+      <span v-if="totalGames" class="text-lg font-normal">{{ totalGames }}</span>
+      <GameCountSkeleton v-else />
+    </div>
+    <div class="space-y-2 p-2">
+      <p class="font-medium">Plataformas</p>
+      <div class="flex flex-wrap justify-evenly gap-1">
+        <PlatformNameButton :platform="Platform.STEAM" />
+        <PlatformNameButton :platform="Platform.NUUVEM" />
+        <PlatformNameButton :platform="Platform.GREEN_MAN_GAMING" />
+      </div>
     </div>
   </div>
 </template>

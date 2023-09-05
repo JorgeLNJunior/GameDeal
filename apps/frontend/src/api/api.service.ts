@@ -35,7 +35,7 @@ export class ApiService {
     return response.data as LowestPrice
   }
 
-  async getTodayPriceDrops (limit = 20): Promise<QueryData<GamePriceDrop[]>> {
+  async getTodayPriceDrops (limit = 19): Promise<QueryData<GamePriceDrop[]>> {
     const today = new Date().toISOString()
     const response = await this.http.get(`/drops?date=${today}&limit=${limit}`)
     return response.data as QueryData<GamePriceDrop[]>

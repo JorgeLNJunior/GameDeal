@@ -96,10 +96,10 @@ async function getGamePriceHistory (): Promise<void> {
 </script>
 
 <template>
-  <div class="mt-4 flex justify-center">
+  <div class="my-6 flex justify-center">
     <div
       v-if="uiState.isDataFetched"
-      class="flex w-11/12 flex-col space-y-5 rounded-md border border-gray-50 p-6 shadow-md md:w-4/5 lg:w-3/4"
+      class="flex w-11/12 flex-col space-y-5 rounded-md border border-t-4 border-gray-50 border-t-cyan-600 p-6 shadow-md md:w-4/5 lg:w-3/4"
     >
       <div class="flex flex-col items-center space-y-5 text-center">
         <!-- Title -->

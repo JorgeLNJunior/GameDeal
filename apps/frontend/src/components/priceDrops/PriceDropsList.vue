@@ -24,13 +24,15 @@ const getPriceDrops = async (): Promise<void> => {
 </script>
 
 <template>
-  <div class="flex w-full flex-col justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md">
-    <p class="text-center font-medium">Quedas de preços hoje:</p>
-    <ul v-if="drops.length">
-      <PriceDropsListItem v-for="drop in drops" :key="drop.id" :drop="drop" />
-    </ul>
-    <div v-else>
-      <PriceDropsListItemSkeleton v-for="index in 3" :key="index" />
+  <div class="flex w-full flex-col justify-center space-y-4 divide-y rounded-md border border-t-4 border-gray-50 border-t-cyan-600 p-4 shadow-md">
+    <p class="text-center font-medium">Quedas de preços hoje</p>
+    <div class="pt-3">
+      <ul v-if="drops.length">
+        <PriceDropsListItem v-for="drop in drops" :key="drop.id" :drop="drop" />
+      </ul>
+      <div v-else>
+        <PriceDropsListItemSkeleton v-for="index in 3" :key="index" />
+      </div>
     </div>
   </div>
 </template>

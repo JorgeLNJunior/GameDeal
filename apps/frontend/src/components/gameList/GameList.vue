@@ -63,11 +63,11 @@ async function getGames (title?: string, page?: number): Promise<void> {
 </script>
 
 <template>
-  <div class="flex w-full flex-col justify-center space-y-4 rounded-md border border-gray-50 p-4 shadow-md">
+  <div class="flex w-full flex-col justify-center space-y-6 divide-y rounded-md border border-t-4 border-gray-50 border-t-cyan-600 p-4 shadow-md">
     <!-- Search -->
     <GameSearchInput @search="getGames" />
 
-    <div class="flex flex-col justify-center space-y-4">
+    <div class="flex flex-col justify-center space-y-4 pt-4">
       <!-- List -->
       <ul v-if="uiState.isDataFetched" class="space-y-1">
         <GameListItem
