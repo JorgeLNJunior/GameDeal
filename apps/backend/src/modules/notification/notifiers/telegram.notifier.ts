@@ -79,6 +79,8 @@ export class TelegramNotifier implements Notifier {
       .replaceAll('[', '\\[')
       .replaceAll('{', '\\{')
       .replaceAll('}', '\\}')
+      .replaceAll('(', '\\(')
+      .replaceAll(')', '\\)')
   }
 
   /**
