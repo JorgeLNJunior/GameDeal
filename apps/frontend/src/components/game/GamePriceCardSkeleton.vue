@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import PriceHistoryChartSkeletonVue from './PriceHistoryChartSkeleton.vue'
+import PriceHistoryChartSkeleton from './PriceHistoryChartSkeleton.vue'
 </script>
 
 <template>
@@ -13,6 +13,6 @@ import PriceHistoryChartSkeletonVue from './PriceHistoryChartSkeleton.vue'
       <div class="h-2 w-64 animate-pulse rounded-full bg-gray-300"></div>
     </div>
     <!-- Price history chart -->
-    <PriceHistoryChartSkeletonVue />
+    <PriceHistoryChartSkeleton />
   </div>
 </template>

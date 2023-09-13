@@ -25,9 +25,11 @@ const getGame = async (): Promise<void> => {
 </script>
 
 <template>
-  <RouterLink v-if="game" class="flex content-end justify-between space-x-6 rounded-lg p-2 transition hover:bg-gray-100 hover:text-gray-800 md:px-4" :to="`/game/${game.id}`">
-    <span class="line-clamp-1 w-full" test-data="title">{{ game.title }}</span>
-    <span class="md:w-18 line-clamp-1 w-1/4 shrink-0" test-data="price">{{ priceWithCurrency }}</span>
-  </RouterLink>
-  <PriceDropsListItemSkeleton v-else />
+  <li>
+    <RouterLink v-if="game" class="flex content-end justify-between space-x-6 rounded-lg p-2 transition hover:bg-gray-100 hover:text-gray-800 md:px-4" :to="`/game/${game.id}`">
+      <span class="line-clamp-1 w-full" test-data="title">{{ game.title }}</span>
+      <span class="md:w-18 line-clamp-1 w-1/4 shrink-0" test-data="price">{{ priceWithCurrency }}</span>
+    </RouterLink>
+    <PriceDropsListItemSkeleton v-else test-data="item-skeleton" />
+  </li>
 </template>

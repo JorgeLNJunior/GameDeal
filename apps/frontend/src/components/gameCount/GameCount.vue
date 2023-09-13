@@ -27,8 +27,8 @@ const getGames = async (): Promise<void> => {
   <div class="flex w-full flex-col justify-center gap-2 rounded-md border border-t-4 border-gray-50 border-t-cyan-600 p-4 text-center shadow-md">
     <div class="flex flex-col justify-center text-center">
       <span class="text-xl font-medium">Jogos cadastrados</span>
-      <span v-if="totalGames" class="text-lg font-normal">{{ totalGames }}</span>
-      <GameCountSkeleton v-else />
+      <span v-if="totalGames" class="text-lg font-normal" test-data="total">{{ totalGames }}</span>
+      <GameCountSkeleton v-else test-data="skeleton" />
     </div>
     <div class="space-y-2 p-2">
       <p class="font-medium">Plataformas</p>

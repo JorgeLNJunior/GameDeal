@@ -1,44 +1,99 @@
-import { mount, RouterLinkStub } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
+import { GameBuilder, GamePriceBuilder } from '@packages/testing'
+import { flushPromises, mount } from '@vue/test-utils'
+import { describe, expect, it, vi } from 'vitest'
+
+import { ApiService } from '@/api/api.service'
+import router from '@/router'
 
 import GameListItem from './GameListItem.vue'
 
 describe('GameListItem', () => {
   it('should render the title', async () => {
-    const game = {
-      id: 'id',
-      price: '150.99',
-      title: 'God of War'
-    }
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder().build()
+
+    const apiSpy = vi
+      .spyOn(ApiService.prototype, 'getGamePrice')
+      .mockResolvedValueOnce(price)
+
     const wrapper = mount(GameListItem, {
-      props: game,
+      props: { id: game.id, title: game.title },
       global: {
-        stubs: {
-          RouterLink: RouterLinkStub
-        }
+        plugins: [router]
       }
     })
-    const title = wrapper.get('[test-data="title"]')
 
-    expect(title.text()).toBe(game.title)
+    expect(apiSpy).toHaveBeenCalledOnce()
+    expect(apiSpy).toHaveBeenCalledWith(game.id)
+
+    await flushPromises()
+
+    const result = wrapper.get('[test-data="title"]')
+
+    expect(result.text()).toBe(game.title)
   })
 
   it('should parse and render the price as BRL currency format', async () => {
-    const game = {
-      id: 'id',
-      price: '150.99',
-      title: 'God of War'
-    }
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder().withSteamPrice(5.99).build()
+
+    const apiSpy = vi
+      .spyOn(ApiService.prototype, 'getGamePrice')
+      .mockResolvedValueOnce(price)
+
     const wrapper = mount(GameListItem, {
       props: game,
       global: {
-        stubs: {
-          RouterLink: RouterLinkStub
-        }
+        plugins: [router]
       }
     })
-    const price = wrapper.get('[test-data="price"]')
 
-    expect(price.text()).toBe('R$ 150,99')
+    expect(apiSpy).toHaveBeenCalledOnce()
+    expect(apiSpy).toHaveBeenCalledWith(game.id)
+
+    await flushPromises()
+
+    const result = wrapper.get('[test-data="price"]')
+
+    expect(result.text()).toBe('R$ 5,99')
+  })
+
+  it('should render a skeleton while the price is being retrieved', async () => {
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder().build()
+
+    vi.spyOn(ApiService.prototype, 'getGamePrice').mockResolvedValueOnce(price)
+
+    const wrapper = mount(GameListItem, {
+      props: { id: game.id, title: game.title },
+      global: {
+        plugins: [router]
+      }
+    })
+
+    let isSkeletonVisible = wrapper.find('[test-data="skeleton"]').exists()
+    expect(isSkeletonVisible).toBe(true)
+
+    await flushPromises()
+
+    isSkeletonVisible = wrapper.find('[test-data="skeleton"]').exists()
+    expect(isSkeletonVisible).toBe(false)
+  })
+
+  it('Should redirect to /error if something throws', async () => {
+    const routerSpy = vi.spyOn(router, 'push')
+
+    vi.spyOn(ApiService.prototype, 'getGamePrice').mockRejectedValueOnce(new Error())
+
+    mount(GameListItem, {
+      global: {
+        plugins: [router]
+      }
+    })
+
+    await flushPromises()
+
+    expect(routerSpy).toHaveBeenCalledOnce()
+    expect(routerSpy).toHaveBeenCalledWith('/error')
   })
 })

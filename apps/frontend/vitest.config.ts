@@ -16,9 +16,14 @@ export default mergeConfig(
         all: true,
         reporter: ['clover', 'json', 'lcov', 'text'],
         include: ['src/**/*.ts', 'src/**/*.vue'],
-        exclude: ['src/main.ts', 'src/router/index.ts', 'src/**/*.spec.ts']
+        exclude: [
+          'src/main.ts',
+          'src/router/index.ts',
+          'src/types',
+          'src/**/*.spec.ts',
+        ]
       },
-      passWithNoTests: true,
+      setupFiles: ['testing/setup.ts'],
       reporters: 'verbose'
     }
   })

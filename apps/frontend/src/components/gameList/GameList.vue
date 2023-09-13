@@ -69,7 +69,7 @@ async function getGames (title?: string, page?: number): Promise<void> {
 
     <div class="flex flex-col justify-center space-y-4 pt-4">
       <!-- List -->
-      <ul v-if="uiState.isDataFetched" class="space-y-1">
+      <ul v-if="uiState.isDataFetched" class="space-y-1" test-data="game-list">
         <GameListItem
           v-for="game in games"
           :key="game.id"
@@ -77,7 +77,7 @@ async function getGames (title?: string, page?: number): Promise<void> {
           :id="game.id"
         />
       </ul>
-      <ul class="space-y-1" v-else>
+      <ul class="space-y-1" v-else test-data="list-skeleton">
         <GameListItemSkeleton v-for="index in 3" :key="index" />
       </ul>
 
@@ -86,8 +86,9 @@ async function getGames (title?: string, page?: number): Promise<void> {
         v-if="uiState.isDataFetched || uiState.isUpdating"
         :currentPage="pages.current"
         :totalPages="pages.total"
+        test-data="pagination-button"
       />
-      <PaginationButtonSkeleton v-else />
+      <PaginationButtonSkeleton v-else test-data="pagination-skeleton" />
     </div>
   </div>
 </template>

@@ -49,5 +49,5 @@ const priceWithCurrency = computed(() => {
       <span class="md:w-18 w-fit shrink-0" test-data="price">{{ priceWithCurrency }}</span>
     </RouterLink>
   </li>
-  <GameListItemSkeleton v-else />
+  <GameListItemSkeleton v-else test-data="skeleton" />
 </template>
