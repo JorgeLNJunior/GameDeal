@@ -40,7 +40,8 @@ export class DatabaseService {
           database: this.config.getEnv<string>('DB_NAME'),
           port: this.config.getEnv<number>('DB_PORT'),
           user: this.config.getEnv<string>('DB_USER'),
-          password: this.config.getEnv<string>('DB_PASSWORD')
+          password: this.config.getEnv<string>('DB_PASSWORD'),
+          dateStrings: true
         })
       })
     })

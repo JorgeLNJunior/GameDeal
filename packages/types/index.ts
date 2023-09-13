@@ -14,8 +14,7 @@ export interface GamePrice {
   steam_price: number
   nuuvem_price: number | null
   green_man_gaming_price: number | null
-  created_at: Date
-  updated_at: Date | null
+  date: string
 }
 
 export interface GamePriceDrop {
@@ -24,8 +23,7 @@ export interface GamePriceDrop {
   platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
   old_price: number | null
   discount_price: number
-  created_at: Date
-  updated_at: Date | null
+  date: string
 }
 
 export interface LowestPrice {

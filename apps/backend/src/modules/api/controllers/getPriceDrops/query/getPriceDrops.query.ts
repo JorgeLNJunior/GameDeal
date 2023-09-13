@@ -1,6 +1,6 @@
 export interface GetPriceDropsQuery {
   page?: string
   limit?: string
-  date?: Date
+  date?: string
   order?: 'asc' | 'desc'
 }

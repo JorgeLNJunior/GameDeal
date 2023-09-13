@@ -20,7 +20,7 @@ export class GetCurrentGamePriceRepository {
       .selectFrom('game_price')
       .selectAll()
       .where('game_id', '=', gameId)
-      .orderBy('created_at', 'desc')
+      .orderBy('date', 'desc')
       .limit(1)
       .executeTakeFirst()
   }

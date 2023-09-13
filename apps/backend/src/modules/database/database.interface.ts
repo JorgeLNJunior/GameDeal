@@ -16,8 +16,7 @@ export interface GamePriceTable {
   steam_price: number
   nuuvem_price: number | null
   green_man_gaming_price: number | null
-  created_at: ColumnType<Date, never, never>
-  updated_at: ColumnType<Date, never, never>
+  date: ColumnType<string, string | Date, never>
 }
 
 export interface GamePriceDropTable {
@@ -26,8 +25,7 @@ export interface GamePriceDropTable {
   platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
   old_price: number | null
   discount_price: number
-  created_at: ColumnType<Date, never, never>
-  updated_at: ColumnType<Date, never, never>
+  date: ColumnType<string, string | Date, never>
 }
 
 export interface Database {

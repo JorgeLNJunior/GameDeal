@@ -31,10 +31,10 @@ export class GetPriceDropsRepository {
       .limit(perPage)
       .offset(offset)
 
-    if (query.date != null) dbQuery = dbQuery.where(sql`CAST(created_at as DATE)`, '=', sql`CAST(${query.date} as DATE)`)
-    if (query.order == null) dbQuery = dbQuery.orderBy('created_at', 'asc')
-    if (query.order === 'asc') dbQuery = dbQuery.orderBy('created_at', 'asc')
-    if (query.order === 'desc') dbQuery = dbQuery.orderBy('created_at', 'desc')
+    if (query.date != null) dbQuery = dbQuery.where(sql`date`, '=', sql`CAST(${query.date} as DATE)`)
+    if (query.order == null) dbQuery = dbQuery.orderBy('date', 'asc')
+    if (query.order === 'asc') dbQuery = dbQuery.orderBy('date', 'asc')
+    if (query.order === 'desc') dbQuery = dbQuery.orderBy('date', 'desc')
 
     const results = await dbQuery.execute()
 

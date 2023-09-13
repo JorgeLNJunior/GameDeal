@@ -26,11 +26,11 @@ export class GetGamePriceHistoryRepository {
       .offset(offset)
       .limit(perPage)
 
-    if (query.startDate != null) dbQuery = dbQuery.where('created_at', '>=', query.startDate)
-    if (query.endDate != null) dbQuery = dbQuery.where('created_at', '<', query.endDate)
-    if (query.order == null) dbQuery = dbQuery.orderBy('created_at', 'asc')
-    if (query.order === 'asc') dbQuery = dbQuery.orderBy('created_at', 'asc')
-    if (query.order === 'desc') dbQuery = dbQuery.orderBy('created_at', 'desc')
+    if (query.startDate != null) dbQuery = dbQuery.where('date', '>=', sql`CAST(${query.startDate} as DATE)`)
+    if (query.endDate != null) dbQuery = dbQuery.where('date', '<', sql`CAST(${query.endDate} as DATE)`)
+    if (query.order == null) dbQuery = dbQuery.orderBy('date', 'asc')
+    if (query.order === 'asc') dbQuery = dbQuery.orderBy('date', 'asc')
+    if (query.order === 'desc') dbQuery = dbQuery.orderBy('date', 'desc')
 
     const results = await dbQuery.execute()
 
