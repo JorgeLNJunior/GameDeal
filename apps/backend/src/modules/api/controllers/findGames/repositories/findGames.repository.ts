@@ -41,7 +41,9 @@ export class FindGamesRepository {
       .offset(offset)
       .limit(perPage)
 
-    if (query.title != null) dbQuery = dbQuery.where('title', 'like', `${query.title}%`)
+    if (query.title != null) {
+      dbQuery = dbQuery.where(sql`MATCH`, sql`(title)`, sql`AGAINST ("${query.title}" IN NATURAL LANGUAGE MODE)`)
+    }
     if (query.order == null) dbQuery = dbQuery.orderBy('title', 'asc')
     if (query.order === 'asc') dbQuery = dbQuery.orderBy('title', 'asc')
     if (query.order === 'desc') dbQuery = dbQuery.orderBy('title', 'desc')
