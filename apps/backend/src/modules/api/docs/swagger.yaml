@@ -459,13 +459,9 @@ components:
           type: string
           example: "160.45"
           nullable: true
-        created_at:
+        date:
           type: string
-          example: 2023-01-23T00:30:19.000Z
-        updated_at:
-          type: string
-          nullable: true
-          example: null
+          example: 2023-01-23
 
     game_price_drop:
       type: object
@@ -489,13 +485,9 @@ components:
         discount_price:
           type: number
           example: 50.38
-        created_at:
+        date:
           type: string
-          example: 2023-01-23T00:30:19.000Z
-        updated_at:
-          type: string
-          nullable: true
-          example: null
+          example: 2023-01-23
 
   securitySchemes:
     bearerAuth:
