@@ -42,7 +42,7 @@ describe('GameListItem', () => {
       .mockResolvedValueOnce(price)
 
     const wrapper = mount(GameListItem, {
-      props: game,
+      props: { id: game.id, title: game.title },
       global: {
         plugins: [router]
       }
@@ -81,11 +81,13 @@ describe('GameListItem', () => {
   })
 
   it('Should redirect to /error if something throws', async () => {
-    const routerSpy = vi.spyOn(router, 'push')
+    const routerSpy = vi.spyOn(router, 'push').mockResolvedValueOnce()
+    const game = new GameBuilder().build()
 
     vi.spyOn(ApiService.prototype, 'getGamePrice').mockRejectedValueOnce(new Error())
 
     mount(GameListItem, {
+      props: { id: game.id, title: game.title },
       global: {
         plugins: [router]
       }

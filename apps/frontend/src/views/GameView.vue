@@ -118,6 +118,6 @@ async function getGamePriceHistory (): Promise<void> {
       <!-- Price history chart -->
       <PriceHistoryChart :price-history="priceHistory" />
     </div>
-    <GamePriceCardSkeleton v-else />
+    <GamePriceCardSkeleton v-else test-data="price-skeleton" />
   </div>
 </template>

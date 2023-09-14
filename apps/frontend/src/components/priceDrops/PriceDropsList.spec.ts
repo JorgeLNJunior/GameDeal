@@ -1,7 +1,7 @@
 import { GameBuilder, GamePriceDropBuilder } from '@packages/testing'
 import type { GamePriceDrop, QueryData } from '@packages/types'
 import { flushPromises, mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import { ApiService } from '@/api/api.service'
 import router from '@/router'
@@ -9,6 +9,8 @@ import router from '@/router'
 import PriceDropsList from './PriceDropsList.vue'
 
 describe('PriceDropsList', () => {
+  afterEach(() => { vi.clearAllMocks() })
+
   it('Should render a list of price drops', async () => {
     const game = new GameBuilder().build()
     const drops: GamePriceDrop[] = [
@@ -26,6 +28,7 @@ describe('PriceDropsList', () => {
     const apiSpy = vi
       .spyOn(ApiService.prototype, 'getTodayPriceDrops')
       .mockResolvedValueOnce(data)
+    vi.spyOn(ApiService.prototype, 'getGameByID').mockResolvedValue(game)
 
     const wrapper = mount(PriceDropsList, {
       global: {
@@ -55,6 +58,7 @@ describe('PriceDropsList', () => {
     }
 
     vi.spyOn(ApiService.prototype, 'getTodayPriceDrops').mockResolvedValueOnce(data)
+    vi.spyOn(ApiService.prototype, 'getGameByID').mockResolvedValue(game)
 
     const wrapper = mount(PriceDropsList, {
       global: {

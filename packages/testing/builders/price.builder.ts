@@ -8,8 +8,7 @@ export class GamePriceBuilder {
   private steam_price = 50.99
   private nuuvem_price: number | null = 45.99
   private green_man_gaming_price: number | null = 50.45
-  private created_at = new Date('2022-10-21')
-  private updated_at = null
+  private date = new Date('2022-10-21').toISOString()
 
   withGame (gameId: string): GamePriceBuilder {
     this.game_id = gameId
@@ -38,8 +37,7 @@ export class GamePriceBuilder {
       steam_price: this.steam_price,
       nuuvem_price: this.nuuvem_price,
       green_man_gaming_price: this.green_man_gaming_price,
-      created_at: this.created_at,
-      updated_at: this.updated_at
+      date: this.date
     }
   }
 }

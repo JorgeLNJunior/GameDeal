@@ -1,5 +1,5 @@
 import { GameBuilder, GamePriceBuilder } from '@packages/testing'
-import type { Game, GamePrice, LowestPrice, QueryData } from '@packages/types'
+import type { GamePrice, LowestPrice, QueryData } from '@packages/types'
 import { flushPromises, mount } from '@vue/test-utils'
 import { AxiosError } from 'axios'
 import { describe, expect, it, vi } from 'vitest'
@@ -76,20 +76,36 @@ describe('GameView', () => {
     expect(title).toBe(game.title)
   })
 
-  it.skip('Should render a skeleton loader while the data is being retireved', async () => {
-    const games = [
-      new GameBuilder().build(),
-      new GameBuilder().build(),
-      new GameBuilder().build()
-    ]
-    const data: QueryData<Game[]> = {
-      results: games,
+  it('Should render a skeleton loader while the data is being retireved', async () => {
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder().build()
+    const history = [price]
+    const lowestPrice: LowestPrice = {
+      steam: {
+        price: 100.99,
+        date: new Date().toString()
+      },
+      green_man_gaming: {
+        price: 110.32,
+        date: new Date().toString()
+      },
+      nuuvem: {
+        price: 105.74,
+        date: new Date().toString()
+      }
+    }
+
+    const historyData: QueryData<GamePrice[]> = {
+      results: history,
       count: 30,
       page: 1,
       totalPages: 3
     }
 
-    vi.spyOn(ApiService.prototype, 'getGames').mockResolvedValueOnce(data)
+    vi.spyOn(ApiService.prototype, 'getGameByID').mockResolvedValueOnce(game)
+    vi.spyOn(ApiService.prototype, 'getGamePrice').mockResolvedValueOnce(price)
+    vi.spyOn(ApiService.prototype, 'getLowestPrice').mockResolvedValueOnce(lowestPrice)
+    vi.spyOn(ApiService.prototype, 'getGamePriceHistory').mockResolvedValueOnce(historyData)
 
     const wrapper = mount(GameView, {
       global: {
@@ -97,17 +113,17 @@ describe('GameView', () => {
       }
     })
 
-    let isSkeletonVisible = wrapper.find('[test-data="list-skeleton"]').exists()
+    let isSkeletonVisible = wrapper.find('[test-data="price-skeleton"]').exists()
     expect(isSkeletonVisible).toBe(true)
 
     await flushPromises()
 
-    isSkeletonVisible = wrapper.find('[test-data="list-skeleton"]').exists()
+    isSkeletonVisible = wrapper.find('[test-data="price-skeleton"]').exists()
     expect(isSkeletonVisible).toBe(false)
   })
 
   it('Should redirect to /error if something throws', async () => {
-    const routerSpy = vi.spyOn(router, 'push')
+    const routerSpy = vi.spyOn(router, 'push').mockResolvedValueOnce()
 
     vi.spyOn(ApiService.prototype, 'getGameByID').mockRejectedValueOnce(new Error())
 
