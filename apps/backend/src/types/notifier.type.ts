@@ -28,7 +28,7 @@ export interface Notifier {
 export interface NotifyData {
   gameTitle: string
   gameUrl: string
-  platform: 'Steam' | 'Nuuvem' | 'GreenManGaming'
+  platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
   currentPrice: number
   oldPrice: number | null
 }

@@ -121,7 +121,7 @@ export class GameJobProcessor {
         currentPrice: currentGMGPrice as number,
         oldPrice: lastRegisteredPrice.green_man_gaming_price as number,
         gameTitle: game.title,
-        platform: 'GreenManGaming',
+        platform: 'Green Man Gaming',
         gameUrl: game.green_man_gaming_url as string
       })
     }
