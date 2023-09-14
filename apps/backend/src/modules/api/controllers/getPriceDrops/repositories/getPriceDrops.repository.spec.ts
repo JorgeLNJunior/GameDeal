@@ -45,7 +45,7 @@ describe('GetPriceDropsRepository', () => {
     const priceDrop = new GamePriceDropBuilder().withGame(game.id).build()
     const priceDrop2 = new GamePriceDropBuilder().withGame(game.id).build()
 
-    const date = new Date('2015-10-19 12:32:43')
+    const date = '2015-10-19'
 
     await client.insertInto('game').values(game).execute()
     await client.insertInto('game_price_drop').values(priceDrop).execute()
@@ -53,7 +53,7 @@ describe('GetPriceDropsRepository', () => {
 
     await client.updateTable('game_price_drop')
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      .set({ created_at: date } as any)
+      .set({ date } as any)
       .where('id', '=', priceDrop.id)
       .execute()
 

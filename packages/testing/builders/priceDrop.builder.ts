@@ -8,7 +8,7 @@ export class GamePriceDropBuilder {
   private discount_price = 50.99
   private old_price = 50.99
   private platform: Platform = 'Steam'
-  private date = new Date('2022-10-21').toISOString()
+  private date = '2022-10-21'
 
   withGame (gameId: string): GamePriceDropBuilder {
     this.game_id = gameId
