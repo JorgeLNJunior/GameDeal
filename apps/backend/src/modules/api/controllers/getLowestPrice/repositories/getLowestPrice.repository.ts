@@ -20,7 +20,7 @@ export class GetLowestPriceRepository {
   async get (gameID: string): Promise<LowestPrice> {
     const steamPrice = await sql
       .raw<LowestPriceResult | null>(
-        `SELECT steam_price as price, created_at as date FROM game_price
+        `SELECT steam_price as price, date as date FROM game_price
           WHERE game_id = "${gameID}"
           AND steam_price = (SELECT MIN(steam_price) FROM game_price where game_id = "${gameID}")
           LIMIT 1;
@@ -28,7 +28,7 @@ export class GetLowestPriceRepository {
       .execute(this.databaseService.getClient())
     const nuuvemPrice = await sql
       .raw<LowestPriceResult | null>(
-        `SELECT nuuvem_price as price, created_at as date FROM game_price
+        `SELECT nuuvem_price as price, date as date FROM game_price
           WHERE game_id = "${gameID}"
           AND nuuvem_price = (SELECT MIN(nuuvem_price) FROM game_price where game_id = "${gameID}")
           LIMIT 1;
@@ -36,7 +36,7 @@ export class GetLowestPriceRepository {
       .execute(this.databaseService.getClient())
     const gmgPrice = await sql
       .raw<LowestPriceResult | null>(
-        `SELECT green_man_gaming_price as price, created_at as date FROM game_price
+        `SELECT green_man_gaming_price as price, date as date FROM game_price
           WHERE game_id = "${gameID}"
           AND green_man_gaming_price = (SELECT MIN(green_man_gaming_price) FROM game_price where game_id = "${gameID}")
           LIMIT 1;

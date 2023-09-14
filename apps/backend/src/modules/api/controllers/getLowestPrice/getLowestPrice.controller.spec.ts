@@ -33,9 +33,9 @@ describe('GetLowestPriceController', () => {
   it('should return OK and a price', async () => {
     const data = new GamePriceBuilder().build()
     const price: LowestPrice = {
-      steam: { price: data.steam_price, date: String(data.created_at) },
-      nuuvem: { price: data.nuuvem_price, date: String(data.created_at) },
-      green_man_gaming: { price: data.green_man_gaming_price, date: String(data.created_at) }
+      steam: { price: data.steam_price, date: data.date },
+      nuuvem: { price: data.nuuvem_price, date: data.date },
+      green_man_gaming: { price: data.green_man_gaming_price, date: data.date }
     }
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
@@ -52,9 +52,9 @@ describe('GetLowestPriceController', () => {
   it('should return OK if cache is enabled', async () => {
     const data = new GamePriceBuilder().build()
     const price: LowestPrice = {
-      steam: { price: data.steam_price, date: String(data.created_at) },
-      nuuvem: { price: data.nuuvem_price, date: String(data.created_at) },
-      green_man_gaming: { price: data.green_man_gaming_price, date: String(data.created_at) }
+      steam: { price: data.steam_price, date: data.date },
+      nuuvem: { price: data.nuuvem_price, date: data.date },
+      green_man_gaming: { price: data.green_man_gaming_price, date: data.date }
     }
 
     const cacheSpy = jest.spyOn(cache, 'get').mockResolvedValueOnce({
@@ -74,9 +74,9 @@ describe('GetLowestPriceController', () => {
   it('should return OK if cache is disabled', async () => {
     const data = new GamePriceBuilder().build()
     const price: LowestPrice = {
-      steam: { price: data.steam_price, date: String(data.created_at) },
-      nuuvem: { price: data.nuuvem_price, date: String(data.created_at) },
-      green_man_gaming: { price: data.green_man_gaming_price, date: String(data.created_at) }
+      steam: { price: data.steam_price, date: data.date },
+      nuuvem: { price: data.nuuvem_price, date: data.date },
+      green_man_gaming: { price: data.green_man_gaming_price, date: data.date }
     }
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)
