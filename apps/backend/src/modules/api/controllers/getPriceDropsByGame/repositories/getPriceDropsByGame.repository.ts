@@ -34,9 +34,9 @@ export class GetPriceDropsByGameRepository {
       .limit(perPage)
       .offset(offset)
 
-    if (query.order == null) dbQuery = dbQuery.orderBy('created_at', 'asc')
-    if (query.order === 'asc') dbQuery = dbQuery.orderBy('created_at', 'asc')
-    if (query.order === 'desc') dbQuery = dbQuery.orderBy('created_at', 'desc')
+    if (query.order == null) dbQuery = dbQuery.orderBy('date', 'asc')
+    if (query.order === 'asc') dbQuery = dbQuery.orderBy('date', 'asc')
+    if (query.order === 'desc') dbQuery = dbQuery.orderBy('date', 'desc')
 
     const results = await dbQuery.execute()
 

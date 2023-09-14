@@ -41,8 +41,7 @@ const steamPrices = computed(() => props.priceHistory.map((price) => price.steam
 const labels = computed(() => {
   const formater = new DataFormater()
   return props.priceHistory.map(price => {
-    const createdAt = new Date(price.created_at)
-    return formater.formatShortDate(createdAt)
+    return formater.formatShortDate(price.date)
   }).reverse()
 })
 

@@ -17,20 +17,20 @@ export async function deleteDuplicatedPrices (): Promise<void> {
   for (const game of games) {
     const prices = await client
       .selectFrom('game_price')
-      .select(['id', 'created_at'])
+      .select(['id', 'date'])
       .where('game_id', '=', game.id)
-      .orderBy('created_at', 'asc')
+      .orderBy('date', 'asc')
       .execute()
 
     for (let i = 0; i < prices.length; i++) {
-      const currentDay = prices[i].created_at.getUTCDate()
-      const currentMonth = prices[i].created_at.getUTCMonth()
-      const currentYear = prices[i].created_at.getUTCFullYear()
+      const currentDay = new Date(prices[i].date).getUTCDate()
+      const currentMonth = new Date(prices[i].date).getUTCMonth()
+      const currentYear = new Date(prices[i].date).getUTCFullYear()
 
       for (let j = i + 1; j < prices.length; j++) {
-        const nextDay = prices[j].created_at.getUTCDate()
-        const nextMonth = prices[j].created_at.getUTCMonth()
-        const nextYear = prices[j].created_at.getUTCFullYear()
+        const nextDay = new Date(prices[j].date).getUTCDate()
+        const nextMonth = new Date(prices[j].date).getUTCMonth()
+        const nextYear = new Date(prices[j].date).getUTCFullYear()
 
         const isSameDay =
           currentDay === nextDay &&
@@ -42,8 +42,8 @@ export async function deleteDuplicatedPrices (): Promise<void> {
             .deleteFrom('game_price')
             .where('id', '=', prices[j].id)
             .execute()
-          prices[j].created_at = new Date('1990-01-01') // prevents unnecessary checks.
-        } else break // prices are sorted. Next day will not be equal. Prevents unnecessary checks.
+          prices[j].date = '1990-01-01' // prevents unnecessary checks.
+        } else break // prices are sorted. Next day won't be equal. Prevents unnecessary checks.
       }
     }
   }
