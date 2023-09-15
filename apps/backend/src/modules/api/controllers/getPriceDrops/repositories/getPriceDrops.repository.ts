@@ -14,7 +14,7 @@ export class GetPriceDropsRepository {
    *
    * @example
    * ```
-   * const prices = await getLowestPriceRepository.get(query)
+   * const prices = await getPriceDropsRepository.get(query)
    * ```
    *
    * @param query - The query parameters.
@@ -46,11 +46,15 @@ export class GetPriceDropsRepository {
     }
   }
 
-  private async getRegistersCount (): Promise<number> {
-    const result = await this.databaseService.getClient()
+  private async getRegistersCount (date?: string): Promise<number> {
+    let query = this.databaseService.getClient()
       .selectFrom('game_price_drop')
       .select(({ fn }) => [fn.count('id').as('total')])
-      .execute()
+
+    if (date != null) query = query.where(sql`date`, '=', sql`CAST(${date} as DATE)`)
+
+    const result = await query.execute()
+
     return result[0].total as number
   }
 }

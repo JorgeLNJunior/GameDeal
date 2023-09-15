@@ -14,7 +14,7 @@ export class GetGamePriceHistoryRepository {
     query: GetGamePriceHistoryQuery
   ): Promise<QueryData<GamePrice[]>> {
     const perPage = Number.isNaN(Number(query.limit)) ? 10 : Number(query.limit)
-    const total = await this.getRegistersCount(gameID)
+    const total = await this.getRegistersCount(gameID, query.startDate, query.endDate)
     const pages = Math.ceil(total / perPage)
     const offset = perPage * ((Number.isNaN(Number(query.page)) ? 1 : Number(query.page)) - 1)
 
@@ -27,7 +27,7 @@ export class GetGamePriceHistoryRepository {
       .limit(perPage)
 
     if (query.startDate != null) dbQuery = dbQuery.where('date', '>=', sql`CAST(${query.startDate} as DATE)`)
-    if (query.endDate != null) dbQuery = dbQuery.where('date', '<', sql`CAST(${query.endDate} as DATE)`)
+    if (query.endDate != null) dbQuery = dbQuery.where('date', '<=', sql`CAST(${query.endDate} as DATE)`)
     if (query.order == null) dbQuery = dbQuery.orderBy('date', 'asc')
     if (query.order === 'asc') dbQuery = dbQuery.orderBy('date', 'asc')
     if (query.order === 'desc') dbQuery = dbQuery.orderBy('date', 'desc')
@@ -42,10 +42,21 @@ export class GetGamePriceHistoryRepository {
     }
   }
 
-  private async getRegistersCount (gameID: string): Promise<number> {
+  private async getRegistersCount (
+    gameID: string,
+    startDate?: string,
+    endDate?: string
+  ): Promise<number> {
+    let where = `WHERE game_id = "${gameID}"`
+    if (startDate != null) {
+      where = where + ` AND date >= CAST("${startDate}" as DATE)`
+    }
+    if (endDate != null) {
+      where = where + ` AND date <= CAST("${endDate}" as DATE)`
+    }
     const queryResult = await sql
       .raw<CountResult>(
-        `SELECT COUNT(id) AS total FROM game_price WHERE game_id = "${gameID}"`
+        `SELECT COUNT(id) AS total FROM game_price ${where}`
     )
       .execute(this.databaseService.getClient())
     return queryResult.rows[0].total
