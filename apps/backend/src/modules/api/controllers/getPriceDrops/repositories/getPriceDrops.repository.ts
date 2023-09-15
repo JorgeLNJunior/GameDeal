@@ -21,7 +21,7 @@ export class GetPriceDropsRepository {
    */
   async get (query: GetPriceDropsQuery): Promise<QueryData<GamePriceDrop[]>> {
     const perPage = Number.isNaN(Number(query.limit)) ? 10 : Number(query.limit)
-    const total = await this.getRegistersCount()
+    const total = await this.getRegistriesCount()
     const pages = Math.ceil(total / perPage)
     const offset = perPage * ((Number.isNaN(Number(query.page)) ? 1 : Number(query.page)) - 1)
 
@@ -46,7 +46,7 @@ export class GetPriceDropsRepository {
     }
   }
 
-  private async getRegistersCount (date?: string): Promise<number> {
+  private async getRegistriesCount (date?: string): Promise<number> {
     let query = this.databaseService.getClient()
       .selectFrom('game_price_drop')
       .select(({ fn }) => [fn.count('id').as('total')])

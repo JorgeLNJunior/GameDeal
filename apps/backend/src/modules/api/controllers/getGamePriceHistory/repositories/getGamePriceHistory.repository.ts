@@ -14,7 +14,7 @@ export class GetGamePriceHistoryRepository {
     query: GetGamePriceHistoryQuery
   ): Promise<QueryData<GamePrice[]>> {
     const perPage = Number.isNaN(Number(query.limit)) ? 10 : Number(query.limit)
-    const total = await this.getRegistersCount(gameID, query.startDate, query.endDate)
+    const total = await this.getRegistriesCount(gameID, query.startDate, query.endDate)
     const pages = Math.ceil(total / perPage)
     const offset = perPage * ((Number.isNaN(Number(query.page)) ? 1 : Number(query.page)) - 1)
 
@@ -42,7 +42,7 @@ export class GetGamePriceHistoryRepository {
     }
   }
 
-  private async getRegistersCount (
+  private async getRegistriesCount (
     gameID: string,
     startDate?: string,
     endDate?: string

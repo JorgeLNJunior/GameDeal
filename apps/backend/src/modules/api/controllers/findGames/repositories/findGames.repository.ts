@@ -22,7 +22,7 @@ export class FindGamesRepository {
    */
   async find (query: FindGamesQuery): Promise<QueryData<Game[]>> {
     const perPage = Number.isNaN(Number(query.limit)) ? 10 : Number(query.limit)
-    const total = await this.getRegistersCount(query.title)
+    const total = await this.getRegistriesCount(query.title)
     const pages = Math.ceil(total / perPage)
     const offset = perPage * ((Number.isNaN(Number(query.page)) ? 1 : Number(query.page)) - 1)
 
@@ -58,7 +58,7 @@ export class FindGamesRepository {
     }
   }
 
-  private async getRegistersCount (title?: string): Promise<number> {
+  private async getRegistriesCount (title?: string): Promise<number> {
     let where = ''
     if (title != null) where = `WHERE MATCH (title) AGAINST ("${title}")`
     const queryResult = await sql
