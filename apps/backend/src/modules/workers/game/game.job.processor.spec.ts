@@ -181,7 +181,7 @@ describe('GameJobProcessor', () => {
       currentPrice: currentGMGPrice,
       oldPrice: price.green_man_gaming_price,
       gameTitle: game.title,
-      platform: 'GreenManGaming',
+      platform: 'Green Man Gaming',
       gameUrl: game.green_man_gaming_url
     })
 
@@ -327,7 +327,7 @@ describe('GameJobProcessor', () => {
       currentPrice: currentGMGPrice,
       oldPrice: price.green_man_gaming_price,
       gameTitle: game.title,
-      platform: 'GreenManGaming',
+      platform: 'Green Man Gaming',
       gameUrl: game.green_man_gaming_url
     })
 
