@@ -2,19 +2,38 @@ openapi: "3.0.2"
 info:
   title: Game Deal API
   version: "0.0.0"
+  contact:
+    name: Jorge
+    email: jorgelnjunior@gmail.com
+    url: https://github.com/JorgeLNJunior
+  description: |-
+    Game Deal consiste de um web scrapper que coleta o preço de mais
+    de 2 mil jogos do Steam, Nuuvem e Green Man Gaming diariamente e envia
+    notificações a cada queda de preço. Os dados coletados formam um histórico
+    de preços que pode ser acessado por meio de uma API REST ou aplicação web.
+
+    Alguns links úteis:
+    - [Repositório do projeto](https://github.com/JorgeLNJunior/GameDeal)
+    - [Canal de notificações no Telegram](https://t.me/s/GameDealApp)
+    - [Aplicação Web](https://app.gamedeal.cloudns.nz)
+
   license:
     name: MIT
+    url: https://github.com/JorgeLNJunior/GameDeal/blob/main/LICENSE.md
 servers:
   - url: https://api.gamedeal.cloudns.nz
-    description: production
+    description: Produção
   - url: http://localhost:3000
-    description: localhost
+    description: Desenvolvimento
 paths:
   /login:
     post:
       summary: Retorna um token de autenticação
+      description: Retorna um token de autenticação no formato JWT. Usando
+        somente para propósitos de administração.
       tags:
-        - "Auth"
+        - "Autenticação"
+        - "Administração"
       requestBody:
         $ref: "#/components/requestBodies/login"
       responses:
@@ -36,8 +55,11 @@ paths:
   /games:
     post:
       summary: Adicionar um novo jogo
+      description: Adiciona um novo jogo para ser monitorado. Usado somente para
+        propósitos de administração.
       tags:
-        - "Game"
+        - "Jogos"
+        - "Administração"
       security:
         - bearerAuth: []
 
@@ -59,8 +81,11 @@ paths:
 
     patch:
       summary: Atualizar os dados de um jogo
+      description: Permite atualizar os dados de um jogo cadastrado. Usando
+        somente para propósitos de administração.
       tags:
-        - "Game"
+        - "Jogos"
+        - "Administração"
       security:
         - bearerAuth: []
 
@@ -82,8 +107,10 @@ paths:
 
     get:
       summary: Listar todos os jogos
+      description: Retorna uma lista jogos cadastrados. Suporta paginação,
+         ordenação e filtro por título (full text search).
       tags:
-        - "Game"
+        - "Jogos"
       parameters:
         - in: query
           name: title
@@ -134,8 +161,10 @@ paths:
   /games/{id}:
     get:
       summary: Obter o um jogo a partir do ID
+      description: Retorna um jogos a partir do seu ID. Caso o ID enviado não
+        esteja cadastrado retorna 404.
       tags:
-        - "Game"
+        - "Jogos"
       parameters:
         - in: path
           name: id
@@ -158,8 +187,12 @@ paths:
   /games/{id}/current:
     get:
       summary: Obter o preço atual de um jogo
+      description: Retorna o preço atual de um jogo em todas as plataformas
+        cadastradas a partir do seu ID. Os preço são cadastrados todos os dias
+        ás 00:00 UTC-3. Caso o ID enviado não esteja cadastrado, retorna 404.
       tags:
-        - "Game"
+        - "Jogos"
+        - "Preços"
       parameters:
         - in: path
           name: id
@@ -182,8 +215,13 @@ paths:
   /games/{id}/history:
     get:
       summary: Obter o histórico de preço de um jogo
+      description: Retorna uma lista de preços diários de um jogo a partir do
+        seu ID. Permite paginação, ordenação e filtro por data inicial,
+        final e entre duas datas, o formato de data suportado é YYYY-MM-DD.
+        Caso o ID enviado não esteja cadastrado, retorna 404.
       tags:
-        - "Game"
+        - "Jogos"
+        - "Preços"
       parameters:
         - in: path
           name: id
@@ -247,8 +285,12 @@ paths:
   /games/{id}/lowest:
     get:
       summary: Obter o menor preço já registrado em um jogo
+      description: Retorna o menor preço registrado em um jogo em cada uma
+        das plataformas registradas. Caso o ID enviado não esteja
+        cadastrado, retorna 404.
       tags:
-        - "Game"
+        - "Jogos"
+        - "Preços"
       parameters:
         - in: path
           name: id
@@ -305,9 +347,12 @@ paths:
   /games/{id}/drops:
     get:
       summary: Obter as quedas de preços de um jogo
+      description: Retorna as quedas de preço cadastradas de um jogo a partir
+        do seu ID. Permite paginação e ordenação por data. Caso o ID enviado
+        não esteja cadastrado, retorna 404.
       tags:
-        - "Game"
-        - "Drop"
+        - "Jogos"
+        - "Queda de preços"
       parameters:
         - in: path
           name: id
@@ -360,8 +405,10 @@ paths:
   /drops:
     get:
       summary: Obter uma lista de queda de preços
+      description: Retorna uma lista de queda de preços. Suporta paginação e filtro
+        por data no formato YYYY-MM-DD.
       tags:
-        - "Drop"
+        - "Queda de preços"
       parameters:
         - in: query
           name: date
