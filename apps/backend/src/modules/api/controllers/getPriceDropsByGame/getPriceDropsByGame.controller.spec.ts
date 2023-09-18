@@ -29,7 +29,7 @@ describe('GetPriceDropsByGameController', () => {
     )
   })
 
-  it('should return a OK reponse and a list of price drops', async () => {
+  it('should return a OK response and a list of price drops', async () => {
     const drops = [new GamePriceDropBuilder().build()]
     const result: QueryData<GamePriceDrop[]> = {
       results: drops,
@@ -97,7 +97,7 @@ describe('GetPriceDropsByGameController', () => {
     expect(cacheSpy).not.toHaveBeenCalled()
   })
 
-  it('should return a NOT_FOUND reponse if the game does not exist', async () => {
+  it('should return a NOT_FOUND response if the game does not exist', async () => {
     const request = new HttpRequestBuilder()
       .withParams({ id: 'invalid-id' })
       .build()
@@ -109,7 +109,7 @@ describe('GetPriceDropsByGameController', () => {
     expect(response.statusCode).toBe(404)
   })
 
-  it('should return a INTERNAL_ERROR reponse if an exception was trown', async () => {
+  it('should return a INTERNAL_ERROR response if an exception was thrown', async () => {
     const request = new HttpRequestBuilder().build()
 
     jest.spyOn(isGameExistRepo, 'get').mockRejectedValueOnce(new Error())

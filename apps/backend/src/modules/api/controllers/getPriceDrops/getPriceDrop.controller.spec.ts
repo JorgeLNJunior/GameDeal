@@ -21,7 +21,7 @@ describe('GetPriceDropsController', () => {
     controller = new GetPriceDropsController(repository, cache, new PinoLogger())
   })
 
-  it('should return a OK reponse and a list of price drops', async () => {
+  it('should return a OK response and a list of price drops', async () => {
     const drops = [new GamePriceDropBuilder().build()]
     const result: QueryData<GamePriceDrop[]> = {
       results: drops,
@@ -81,7 +81,7 @@ describe('GetPriceDropsController', () => {
     expect(cacheSpy).not.toHaveBeenCalled()
   })
 
-  it('should return a INTERNAL_ERROR reponse if an exception was trown', async () => {
+  it('should return a INTERNAL_ERROR response if an exception was thrown', async () => {
     const request = new HttpRequestBuilder().build()
 
     jest.spyOn(repository, 'get').mockRejectedValueOnce(new Error())

@@ -19,7 +19,7 @@ describe('FindGameByIdController', () => {
     controller = new FindGameByIdController(repository, cache, new PinoLogger())
   })
 
-  it('should return a OK reponse', async () => {
+  it('should return a OK response', async () => {
     const game = new GameBuilder().build()
 
     jest.spyOn(repository, 'find').mockResolvedValueOnce(game)

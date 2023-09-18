@@ -96,7 +96,7 @@ describe('GetCurrentGamePriceController', () => {
     })
   })
 
-  it('should return a INTERNAL_ERROR response if an exception was trown', async () => {
+  it('should return a INTERNAL_ERROR response if an exception was thrown', async () => {
     jest.spyOn(findGameByIdRepository, 'find').mockRejectedValueOnce(new Error())
 
     const request = new HttpRequestBuilder().withParams({ id: 'id' }).build()

@@ -20,7 +20,7 @@ describe('FindGamesController', () => {
     controller = new FindGamesController(repository, cache, new PinoLogger())
   })
 
-  it('should return a OK reponse and a list of games', async () => {
+  it('should return a OK response and a list of games', async () => {
     const games = [new GameBuilder().build()]
     const result: QueryData<Game[]> = {
       results: games,
@@ -83,7 +83,7 @@ describe('FindGamesController', () => {
     expect(cacheSpy).not.toHaveBeenCalled()
   })
 
-  it('should return a INTERNAL_ERROR reponse if an exception was trown', async () => {
+  it('should return a INTERNAL_ERROR response if an exception was thrown', async () => {
     const request = new HttpRequestBuilder().build()
 
     jest.spyOn(repository, 'find').mockRejectedValueOnce(new Error())
