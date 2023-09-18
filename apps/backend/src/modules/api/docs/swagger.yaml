@@ -158,6 +158,26 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
+  /games/count:
+    get:
+      summary: Obter o total de jogos cadastrados
+      description: Retorna o total de jogos cadastrados.
+      tags:
+        - "Jogos"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: number
+                    example: 385
+        500:
+          $ref: "#/components/responses/500"
+
   /games/{id}:
     get:
       summary: Obter o um jogo a partir do ID
