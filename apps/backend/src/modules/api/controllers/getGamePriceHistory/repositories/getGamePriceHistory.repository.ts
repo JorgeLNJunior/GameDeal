@@ -47,22 +47,19 @@ export class GetGamePriceHistoryRepository {
     startDate?: string,
     endDate?: string
   ): Promise<number> {
-    let where = `WHERE game_id = "${gameID}"`
+    let query = this.databaseService.getClient()
+      .selectFrom('game_price')
+      .select(({ fn }) => [fn.count('id').as('total')])
+      .where('game_id', '=', gameID)
+
     if (startDate != null) {
-      where = where + ` AND date >= CAST("${startDate}" as DATE)`
+      query = query.where('date', '>=', sql`CAST(${startDate} as DATE)`)
     }
     if (endDate != null) {
-      where = where + ` AND date <= CAST("${endDate}" as DATE)`
+      query = query.where('date', '<=', sql`CAST(${endDate} as DATE)`)
     }
-    const queryResult = await sql
-      .raw<CountResult>(
-        `SELECT COUNT(id) AS total FROM game_price ${where}`
-    )
-      .execute(this.databaseService.getClient())
-    return queryResult.rows[0].total
-  }
-}
 
-interface CountResult {
-  total: number
+    const result = await query.execute()
+    return result[0].total as number
+  }
 }

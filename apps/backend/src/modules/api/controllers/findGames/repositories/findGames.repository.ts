@@ -59,15 +59,15 @@ export class FindGamesRepository {
   }
 
   private async getRegistriesCount (title?: string): Promise<number> {
-    let where = ''
-    if (title != null) where = `WHERE MATCH (title) AGAINST ("${title}")`
-    const queryResult = await sql
-      .raw<CountResult>(`SELECT COUNT(id) AS total FROM game ${where}`)
-      .execute(this.databaseService.getClient())
-    return queryResult.rows[0].total
-  }
-}
+    let query = this.databaseService.getClient()
+      .selectFrom('game')
+      .select(({ fn }) => [fn.count('id').as('total')])
 
-interface CountResult {
-  total: number
+    if (title != null) {
+      query = query.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${title} IN NATURAL LANGUAGE MODE)`)
+    }
+
+    const result = await query.execute()
+    return result[0].total as number
+  }
 }
