@@ -49,5 +49,5 @@ Os scrapers e notificador rodam em filas que usam Redis e BullMQ, enquanto a API
 
 ## Licença
 
-Projeto sob a licença [MIT »](https://github.com/JorgeLNJunior/GameDeal/blob/main/LICENSE.md).
+Projeto sob a licença [GPL-3.0 »](https://github.com/JorgeLNJunior/GameDeal/blob/main/LICENSE.md).
 
