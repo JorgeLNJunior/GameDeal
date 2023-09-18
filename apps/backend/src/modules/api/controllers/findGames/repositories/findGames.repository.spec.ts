@@ -30,9 +30,24 @@ describe('FindGamesRepository', () => {
 
     const games = await repository.find({})
 
-    expect(games.results[0].id).toEqual(game.id)
-    expect(games.results[0].title).toEqual(game.title)
-    expect(games.results[0].steam_url).toEqual(game.steam_url)
-    expect(games.results[0].nuuvem_url).toEqual(game.nuuvem_url)
+    expect(games.results[0].id).toBe(game.id)
+    expect(games.results[0].title).toBe(game.title)
+    expect(games.results[0].steam_url).toBe(game.steam_url)
+    expect(games.results[0].nuuvem_url).toBe(game.nuuvem_url)
+  })
+
+  it('should return a list of games filtered by title', async () => {
+    const game = new GameBuilder().withTitle('Darkest Dungeon').build()
+    const game2 = new GameBuilder().withTitle('Stray').build()
+    const price = new GamePriceBuilder().withGame(game.id).build()
+
+    await db.getClient().insertInto('game').values(game).execute()
+    await db.getClient().insertInto('game').values(game2).execute()
+    await db.getClient().insertInto('game_price').values(price).execute()
+
+    const games = await repository.find({ title: game.title })
+
+    expect(games.results.length).toBe(1)
+    expect(games.results[0].title).toBe(game.title)
   })
 })

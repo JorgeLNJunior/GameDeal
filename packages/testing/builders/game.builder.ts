@@ -11,6 +11,11 @@ export class GameBuilder {
   private created_at = new Date('2019-05-12')
   private updated_at = null
 
+  withTitle (title: string): GameBuilder {
+    this.title = title
+    return this
+  }
+
   build (): Game {
     return {
       id: this.id,

@@ -42,7 +42,7 @@ export class FindGamesRepository {
       .limit(perPage)
 
     if (query.title != null) {
-      dbQuery = dbQuery.where(sql`MATCH`, sql`(title)`, sql`AGAINST ("${query.title}" IN NATURAL LANGUAGE MODE)`)
+      dbQuery = dbQuery.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${query.title} IN NATURAL LANGUAGE MODE)`)
     }
     if (query.order == null) dbQuery = dbQuery.orderBy('title', 'asc')
     if (query.order === 'asc') dbQuery = dbQuery.orderBy('title', 'asc')
