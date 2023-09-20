@@ -1,4 +1,3 @@
-import type { Game, QueryData } from '@packages/types'
 import { flushPromises, mount } from '@vue/test-utils'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -10,16 +9,10 @@ import GameCount from './GameCount.vue'
 describe('GameCount', () => {
   it('Should render the total games number', async () => {
     const count = 50
-    const data: QueryData<Game[]> = {
-      results: [],
-      page: 1,
-      totalPages: 5,
-      count
-    }
 
     const apiSpy = vi
-      .spyOn(ApiService.prototype, 'getGames')
-      .mockResolvedValueOnce(data)
+      .spyOn(ApiService.prototype, 'getGamesCount')
+      .mockResolvedValueOnce(count)
 
     const wrapper = mount(GameCount, {
       global: {
@@ -38,14 +31,8 @@ describe('GameCount', () => {
 
   it('Should render a skeleton loader while the data is being retrieved', async () => {
     const count = 50
-    const data: QueryData<Game[]> = {
-      results: [],
-      page: 1,
-      totalPages: 5,
-      count
-    }
 
-    vi.spyOn(ApiService.prototype, 'getGames').mockResolvedValueOnce(data)
+    vi.spyOn(ApiService.prototype, 'getGamesCount').mockResolvedValueOnce(count)
 
     const wrapper = mount(GameCount, {
       global: {

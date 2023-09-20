@@ -40,4 +40,9 @@ export class ApiService {
     const response = await this.http.get(`/drops?date=${today}&limit=${limit}`)
     return response.data as QueryData<GamePriceDrop[]>
   }
+
+  async getGamesCount (): Promise<number> {
+    const response = await this.http.get('/games/count')
+    return response.data.total as number
+  }
 }

@@ -15,8 +15,7 @@ onBeforeMount(async () => await getGames())
 
 const getGames = async (): Promise<void> => {
   try {
-    const data = await new ApiService().getGames()
-    totalGames.value = data.count
+    totalGames.value = await new ApiService().getGamesCount()
   } catch (error) {
     await router.push('/error')
   }
