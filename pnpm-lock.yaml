@@ -64,14 +64,14 @@ importers:
         specifier: ^6.4.0
         version: 6.4.0
       '@fastify/cors':
-        specifier: ^8.3.0
-        version: 8.3.0
+        specifier: ^8.4.0
+        version: 8.4.0
       '@fastify/helmet':
         specifier: ^11.1.1
         version: 11.1.1
       '@fastify/swagger':
-        specifier: ^8.10.0
-        version: 8.10.0
+        specifier: ^8.10.1
+        version: 8.10.1
       '@fastify/swagger-ui':
         specifier: ^1.9.3
         version: 1.9.3
@@ -82,8 +82,8 @@ importers:
         specifier: ^1.5.0
         version: 1.5.0
       bullmq:
-        specifier: ^4.11.0
-        version: 4.11.0
+        specifier: ^4.11.2
+        version: 4.11.2
       cheerio:
         specifier: ^1.0.0-rc.12
         version: 1.0.0-rc.12
@@ -164,8 +164,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@18.16.8)(typescript@5.2.2)
       tsc-alias:
-        specifier: ^1.8.7
-        version: 1.8.7
+        specifier: ^1.8.8
+        version: 1.8.8
       tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0
@@ -223,7 +223,7 @@ importers:
         version: 0.4.0
       autoprefixer:
         specifier: ^10.4.15
-        version: 10.4.15(postcss@8.4.29)
+        version: 10.4.15(postcss@8.4.30)
       jsdom:
         specifier: ^22.1.0
         version: 22.1.0
@@ -231,8 +231,8 @@ importers:
         specifier: ^4.1.5
         version: 4.1.5
       postcss:
-        specifier: ^8.4.29
-        version: 8.4.29
+        specifier: ^8.4.30
+        version: 8.4.30
       tailwindcss:
         specifier: ^3.3.3
         version: 3.3.3(ts-node@10.9.1)
@@ -246,8 +246,8 @@ importers:
         specifier: ^0.34.4
         version: 0.34.4(jsdom@22.1.0)
       vue-tsc:
-        specifier: ^1.8.11
-        version: 1.8.11(typescript@5.2.2)
+        specifier: ^1.8.13
+        version: 1.8.13(typescript@5.2.2)
 
   packages/testing:
     devDependencies:
@@ -1462,8 +1462,8 @@ packages:
       pumpify: 2.0.1
     dev: false
 
-  /@fastify/cors@8.3.0:
-    resolution: {integrity: sha512-oj9xkka2Tg0MrwuKhsSUumcAkfp2YCnKxmFEusi01pjk1YrdDsuSYTHXEelWNW+ilSy/ApZq0c2SvhKrLX0H1g==}
+  /@fastify/cors@8.4.0:
+    resolution: {integrity: sha512-MlVvMTenltToByTpLwlWtO+7dQ3l2J+1OpmGrx9JpSNWo1d+dhfNCOi23zHhxdFhtpDzfwGwCsKu9DTeG7k7nQ==}
     dependencies:
       fastify-plugin: 4.5.0
       mnemonist: 0.39.5
@@ -1522,8 +1522,8 @@ packages:
       yaml: 2.3.1
     dev: false
 
-  /@fastify/swagger@8.10.0:
-    resolution: {integrity: sha512-0o6nd0qWpJbVSv/vbK4bzHSYe7l+PTGPqrQVwWIXVGd7CvXr585SBx+h8EgrMOY80bcOnGreqnjYFOV0osGP5A==}
+  /@fastify/swagger@8.10.1:
+    resolution: {integrity: sha512-NZ4PyppZWEd4j8qPt4AKGhuMm7dALe2IntmI2NrdlnPno+rFRyQJHw3XHdziN7yirYGhCGM+vByItWEnPHLu4w==}
     dependencies:
       fastify-plugin: 4.5.0
       json-schema-resolver: 2.0.0
@@ -3130,7 +3130,7 @@ packages:
       '@vue/shared': 3.3.4
       estree-walker: 2.0.2
       magic-string: 0.30.1
-      postcss: 8.4.29
+      postcss: 8.4.30
       source-map-js: 1.0.2
 
   /@vue/compiler-ssr@3.3.4:
@@ -3168,8 +3168,8 @@ packages:
       - supports-color
     dev: true
 
-  /@vue/language-core@1.8.11(typescript@5.2.2):
-    resolution: {integrity: sha512-+MZOBGqGwfld6hpo0DB47x8eNM0dNqk15ZdfOhj19CpvuYuOWCeVdOEGZunKDyo3QLkTn3kLOSysJzg7FDOQBA==}
+  /@vue/language-core@1.8.13(typescript@5.2.2):
+    resolution: {integrity: sha512-nata2fYBZAkl4QJrU+IcArJCMTHt1VP8ePL/Z7eUPC2AF+Cm7Qgo9ksNCPBzZRh1LYjCaSaqV7njqNogwpsMVg==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -3244,11 +3244,11 @@ packages:
     resolution: {integrity: sha512-CPuIReonid9+zOG/CGTT05FXrPYATEqoDGNrEaqS4hwcw5BUNM2FguC0mOwJD4Jr16UpRVl9N0pY3P+srIbqmg==}
     dev: true
 
-  /@vue/typescript@1.8.11(typescript@5.2.2):
-    resolution: {integrity: sha512-skUmMDiPUUtu1flPmf2YybF+PX8IzBtMioQOaNn6Ck/RhdrPJGj1AX/7s3Buf9G6ln+/KHR1XQuti/FFxw5XVA==}
+  /@vue/typescript@1.8.13(typescript@5.2.2):
+    resolution: {integrity: sha512-ALJjHFqQ3dgZVCI/ogAS/dZ7JEhIi1N0Em5I7uwabY1p9RDRK3odLsycMHyxZRjm5dLI15c07eeBloHiD2Otlg==}
     dependencies:
       '@volar/typescript': 1.10.0
-      '@vue/language-core': 1.8.11(typescript@5.2.2)
+      '@vue/language-core': 1.8.13(typescript@5.2.2)
     transitivePeerDependencies:
       - typescript
     dev: true
@@ -3516,7 +3516,7 @@ packages:
     resolution: {integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==}
     engines: {node: '>=8.0.0'}
 
-  /autoprefixer@10.4.15(postcss@8.4.29):
+  /autoprefixer@10.4.15(postcss@8.4.30):
     resolution: {integrity: sha512-KCuPB8ZCIqFdA4HwKXsvz7j6gvSDNhDP7WnUjBleRkKjPdvCmHFuQ77ocavI8FT6NdvlBnE2UFr2H4Mycn8Vew==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
@@ -3528,7 +3528,7 @@ packages:
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
-      postcss: 8.4.29
+      postcss: 8.4.30
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -3768,8 +3768,8 @@ packages:
       semver: 7.5.4
     dev: true
 
-  /bullmq@4.11.0:
-    resolution: {integrity: sha512-e6/CtKHieEplmoP0NE/oty2xmuXGAoHWlpy//hYexljwM14Ff2Gqr4eLscYIdWm3W0OyxWwjjJUPXaOf5BYYvQ==}
+  /bullmq@4.11.2:
+    resolution: {integrity: sha512-ffDw8B2+N8x+HVRTb9/nEngb3ubEYb8vdKKTJfUiUoPWPUcHzCkylSVWWf7dcr6KjzKElaCWEjVsKzHjmyhmnw==}
     dependencies:
       cron-parser: 4.8.1
       glob: 8.1.0
@@ -5051,7 +5051,7 @@ packages:
       tailwindcss: ^3.3.2
     dependencies:
       fast-glob: 3.2.12
-      postcss: 8.4.29
+      postcss: 8.4.30
       tailwindcss: 3.3.3(ts-node@10.9.1)
     dev: true
 
@@ -8312,29 +8312,29 @@ packages:
       queue-lit: 1.5.0
     dev: true
 
-  /postcss-import@15.1.0(postcss@8.4.29):
+  /postcss-import@15.1.0(postcss@8.4.30):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
-      postcss: 8.4.29
+      postcss: 8.4.30
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.2
     dev: true
 
-  /postcss-js@4.0.1(postcss@8.4.29):
+  /postcss-js@4.0.1(postcss@8.4.30):
     resolution: {integrity: sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==}
     engines: {node: ^12 || ^14 || >= 16}
     peerDependencies:
       postcss: ^8.4.21
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.4.29
+      postcss: 8.4.30
     dev: true
 
-  /postcss-load-config@4.0.1(postcss@8.4.29)(ts-node@10.9.1):
+  /postcss-load-config@4.0.1(postcss@8.4.30)(ts-node@10.9.1):
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -8347,18 +8347,18 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.1.0
-      postcss: 8.4.29
+      postcss: 8.4.30
       ts-node: 10.9.1(@types/node@18.16.8)(typescript@5.2.2)
       yaml: 2.3.1
     dev: true
 
-  /postcss-nested@6.0.1(postcss@8.4.29):
+  /postcss-nested@6.0.1(postcss@8.4.30):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.4.29
+      postcss: 8.4.30
       postcss-selector-parser: 6.0.13
     dev: true
 
@@ -8374,8 +8374,8 @@ packages:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
     dev: true
 
-  /postcss@8.4.29:
-    resolution: {integrity: sha512-cbI+jaqIeu/VGqXEarWkRCCffhjgXc0qjBtXpqJhTBohMUjUQnbBr0xqX3vEKudc4iviTewcJo5ajcec5+wdJw==}
+  /postcss@8.4.30:
+    resolution: {integrity: sha512-7ZEao1g4kd68l97aWG/etQKPKq07us0ieSZ2TnFDk11i0ZfDW2AwKHYU8qv4MZKqN2fdBfg+7q0ES06UA73C1g==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
@@ -9374,11 +9374,11 @@ packages:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.0
-      postcss: 8.4.29
-      postcss-import: 15.1.0(postcss@8.4.29)
-      postcss-js: 4.0.1(postcss@8.4.29)
-      postcss-load-config: 4.0.1(postcss@8.4.29)(ts-node@10.9.1)
-      postcss-nested: 6.0.1(postcss@8.4.29)
+      postcss: 8.4.30
+      postcss-import: 15.1.0(postcss@8.4.30)
+      postcss-js: 4.0.1(postcss@8.4.30)
+      postcss-load-config: 4.0.1(postcss@8.4.30)(ts-node@10.9.1)
+      postcss-nested: 6.0.1(postcss@8.4.30)
       postcss-selector-parser: 6.0.13
       resolve: 1.22.2
       sucrase: 3.32.0
@@ -9690,8 +9690,8 @@ packages:
       yn: 3.1.1
     dev: true
 
-  /tsc-alias@1.8.7:
-    resolution: {integrity: sha512-59Q/zUQa3miTf99mLbSqaW0hi1jt4WoG8Uhe5hSZJHQpSoFW9eEwvW7jlKMHXWvT+zrzy3SN9PE/YBhQ+WVydA==}
+  /tsc-alias@1.8.8:
+    resolution: {integrity: sha512-OYUOd2wl0H858NvABWr/BoSKNERw3N9GTi3rHPK8Iv4O1UyUXIrTTOAZNHsjlVpXFOhpJBVARI1s+rzwLivN3Q==}
     hasBin: true
     dependencies:
       chokidar: 3.5.3
@@ -10057,7 +10057,7 @@ packages:
     dependencies:
       '@types/node': 18.16.8
       esbuild: 0.18.11
-      postcss: 8.4.29
+      postcss: 8.4.30
       rollup: 3.27.2
     optionalDependencies:
       fsevents: 2.3.2
@@ -10195,14 +10195,14 @@ packages:
       he: 1.2.0
     dev: true
 
-  /vue-tsc@1.8.11(typescript@5.2.2):
-    resolution: {integrity: sha512-BzfiMdPqDHBlysx4g26NkfVHSQwGD/lTRausmxN9sFyjXz34OWfsbkh0YsVkX84Hu65In1fFlxHiG39Tr4Vojg==}
+  /vue-tsc@1.8.13(typescript@5.2.2):
+    resolution: {integrity: sha512-Hl8zUXPVK2KzPtbXeMCN0CSFkwvD96YOtYt9KvJPG9W8QGcNpGk9KHwPuGMxA8blWXSIli7gtsoC+clICEVdVg==}
     hasBin: true
     peerDependencies:
       typescript: '*'
     dependencies:
-      '@vue/language-core': 1.8.11(typescript@5.2.2)
-      '@vue/typescript': 1.8.11(typescript@5.2.2)
+      '@vue/language-core': 1.8.13(typescript@5.2.2)
+      '@vue/typescript': 1.8.13(typescript@5.2.2)
       semver: 7.5.4
       typescript: 5.2.2
     dev: true
