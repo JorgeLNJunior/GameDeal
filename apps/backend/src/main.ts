@@ -3,6 +3,7 @@ import 'reflect-metadata'
 import '@dependencies/dependency.container'
 
 import { AddGameController } from '@api/controllers/addGame/addGame.controller'
+import { CountGamesController } from '@api/controllers/countGames/countGames.controller'
 import { FindGameByIdController } from '@api/controllers/findGameById/findGameById.controller'
 import { FindGamesController } from '@api/controllers/findGames/findGames.controller'
 import { GetCurrentGamePriceController } from '@api/controllers/getCurrentGamePrice/getCurrentGamePrice.controller'
@@ -53,20 +54,21 @@ export default class Main {
    * Starts the application and all its modules.
    * @example
    * ```
-   * const main = new Main(params...).start()
+   * const main = new Main(...params).start()
    * ```
    */
   async start (): Promise<void> {
     try {
       this.server.registerControllers(
+        container.resolve(LoginController),
         container.resolve(AddGameController),
+        container.resolve(CountGamesController),
         container.resolve(FindGameByIdController),
         container.resolve(FindGamesController),
         container.resolve(GetCurrentGamePriceController),
         container.resolve(GetGamePriceHistoryController),
         container.resolve(GetLowestPriceController),
         container.resolve(UpdateGameController),
-        container.resolve(LoginController),
         container.resolve(GetPriceDropsController),
         container.resolve(RedirectToDocsController)
       )
