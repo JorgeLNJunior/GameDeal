@@ -1,19 +1,20 @@
 import { CHEERIO_PARSER, PINO_LOGGER } from '@dependencies/dependency.tokens'
+import { AxiosService } from '@infra/axios.service'
 import { HTMLParser } from '@localtypes/html.parser'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import type { Scraper } from '@localtypes/scraper.type'
-import axios from 'axios'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class GreenManGamingScraper implements Scraper {
   constructor (
     @inject(CHEERIO_PARSER) private readonly parser: HTMLParser,
-    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
+    @inject(PINO_LOGGER) private readonly logger: ApplicationLogger,
+    private readonly axios: AxiosService
   ) {}
 
   async getGamePrice (gameUrl: string): Promise<number | null> {
-    const { data } = await axios.get(gameUrl, {
+    const data = await this.axios.get<string>(gameUrl, {
       headers: {
         // Request Brazilian prices.
         Cookie: 'CountryKey=BR; GlobalCacheKey=LoggedOut:BR:VIP Visitor GroupFalse'

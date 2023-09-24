@@ -1,3 +1,4 @@
+import { AxiosService } from '@infra/axios.service'
 import { PinoLogger } from '@infra/pino.logger'
 
 import { CheerioParser } from './parsers/cheerio.parser'
@@ -11,7 +12,7 @@ describe('SteamScraper', () => {
   beforeEach(async () => {
     logger = new PinoLogger()
     parser = new CheerioParser()
-    scraper = new SteamScraper(parser, logger)
+    scraper = new SteamScraper(parser, logger, new AxiosService())
   })
 
   it('should return a price', async () => {

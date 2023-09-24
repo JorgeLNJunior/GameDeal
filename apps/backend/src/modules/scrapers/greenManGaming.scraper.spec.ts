@@ -1,3 +1,4 @@
+import { AxiosService } from '@infra/axios.service'
 import { PinoLogger } from '@infra/pino.logger'
 
 import { GreenManGamingScraper } from './greenManGaming.scraper'
@@ -13,7 +14,7 @@ describe('GreenManGamingScraper', () => {
   beforeEach(async () => {
     logger = new PinoLogger()
     parser = new CheerioParser()
-    scraper = new GreenManGamingScraper(parser, logger)
+    scraper = new GreenManGamingScraper(parser, logger, new AxiosService())
   })
 
   it('should return a price', async () => {
