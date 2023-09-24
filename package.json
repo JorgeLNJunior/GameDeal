@@ -35,7 +35,7 @@
     "@turbo/gen": "^1.10.14",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@vue/eslint-config-standard-with-typescript": "^8.0.0",
-    "eslint": "^8.49.0",
+    "eslint": "^8.50.0",
     "eslint-config-standard-with-typescript": "^37.0.0",
     "eslint-plugin-jest": "^27.4.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
