@@ -34,17 +34,7 @@ export class GameQueue {
    * @param data - The data to add to the queue.
    */
   async add (data: ScrapeGamePriceData): Promise<void> {
-    await this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data, {
-      attempts: 3,
-      removeOnComplete: {
-        count: 100,
-        age: 3600 * 24 * 7
-      },
-      removeOnFail: {
-        count: 500,
-        age: 3600 * 24 * 7
-      }
-    })
+    await this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data)
   }
 
   /**
@@ -62,6 +52,21 @@ export class GameQueue {
         port: this.config.getEnv('REDIS_PORT'),
         password: this.config.getEnv('REDIS_PASSWORD'),
         enableOfflineQueue: false
+      },
+      defaultJobOptions: {
+        attempts: 3,
+        backoff: {
+          type: 'fixed',
+          delay: 60000 * 5
+        },
+        removeOnComplete: {
+          count: 100,
+          age: 3600 * 24 * 7
+        },
+        removeOnFail: {
+          count: 500,
+          age: 3600 * 24 * 7
+        }
       }
     })
 
