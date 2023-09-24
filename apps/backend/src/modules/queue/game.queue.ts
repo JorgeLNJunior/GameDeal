@@ -36,8 +36,14 @@ export class GameQueue {
   async add (data: ScrapeGamePriceData): Promise<void> {
     await this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data, {
       attempts: 3,
-      removeOnComplete: true,
-      removeOnFail: true
+      removeOnComplete: {
+        count: 100,
+        age: 3600 * 24 * 7
+      },
+      removeOnFail: {
+        count: 500,
+        age: 3600 * 24 * 7
+      }
     })
   }
 

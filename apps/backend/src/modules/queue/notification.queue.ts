@@ -33,8 +33,14 @@ export class NotificationQueue {
   async add (data: NotifyData): Promise<void> {
     await this.queue.add(QueueJobName.NOTIFY_PRICE_DROP, data, {
       attempts: 3,
-      removeOnComplete: true,
-      removeOnFail: true
+      removeOnComplete: {
+        count: 100,
+        age: 3600 * 24 * 7
+      },
+      removeOnFail: {
+        count: 500,
+        age: 3600 * 24 * 7
+      }
     })
   }
 
