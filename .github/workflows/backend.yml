@@ -82,7 +82,7 @@ jobs:
     permissions:
       deployments: write
     steps:
-      - uses: JorgeLNJunior/render-deploy@v1.4.1
+      - uses: JorgeLNJunior/render-deploy@v1.4.2
         with:
           service_id: ${{ secrets.BACKEND_RENDER_SERVICE_ID }}
           api_key: ${{ secrets.RENDER_API_KEY }}
