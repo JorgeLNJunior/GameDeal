@@ -20,7 +20,7 @@ Saiba quando o preço de um jogo cair.
 
 <div align="center" id="links">
 
-[APP](https://app.gamedeal.cloudns.app) |
+[APP](https://app.gamedeal.cloudns.nz) |
 [API](https://api.gamedeal.cloudns.nz) |
 [Trello](https://trello.com/b/LZk67XmB)
 
