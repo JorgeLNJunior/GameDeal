@@ -5,8 +5,12 @@ import { ApplicationLogger } from '@localtypes/logger.type'
 import type { Scraper } from '@localtypes/scraper.type'
 import { inject, injectable } from 'tsyringe'
 
+import { PriceFormater } from './formaters/price.formater'
+
 @injectable()
 export class GreenManGamingScraper implements Scraper {
+  private readonly formater = new PriceFormater()
+
   constructor (
     @inject(CHEERIO_PARSER) private readonly parser: HTMLParser,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger,
@@ -29,7 +33,7 @@ export class GreenManGamingScraper implements Scraper {
       return null
     }
 
-    const price = Number(priceString.replace('R$', '').replace(',', '.'))
+    const price = Number(this.formater.removeCurrency(priceString))
     if (Number.isNaN(price)) {
       this.logger.error(`[GreenManGamingScraper] error parsing a price for game "${gameUrl}"`)
       return null
