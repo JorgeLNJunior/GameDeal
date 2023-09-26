@@ -1,7 +1,7 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import type { ApplicationCronJob } from '@localtypes/cron.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { GameQueue } from '@queue/game.queue'
+import { GamePriceQueue } from '@queue/gamePrice.queue'
 import { inject, injectable } from 'tsyringe'
 
 import { FindGameScraperDataRepository } from './repositories/findGameScraperData.repository'
@@ -13,12 +13,12 @@ export class GameScrapingCronJob implements ApplicationCronJob {
   /**
    * Handles the game scraping cron job.
    * @param findGameScraperDataRepository - A game FindGameScraperDataRepository instance.
-   * @param gameQueue - A game queue instance.
+   * @param GamePriceQueue - A game queue instance.
    * @param logger - An application logger.
    */
   constructor (
     private readonly findGameScraperDataRepository: FindGameScraperDataRepository,
-    private readonly gameQueue: GameQueue,
+    private readonly GamePriceQueue: GamePriceQueue,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
@@ -28,11 +28,11 @@ export class GameScrapingCronJob implements ApplicationCronJob {
     const games = await this.findGameScraperDataRepository.find()
 
     const promises = games.map(async (game) => {
-      await this.gameQueue.add({
+      await this.GamePriceQueue.add({
         gameId: game.id,
         steamUrl: game.steam_url,
         nuuvemUrl: game.nuuvem_url,
-        green_man_gaming_url: game.green_man_gaming_url
+        greenManGamingUrl: game.green_man_gaming_url
       })
     })
 

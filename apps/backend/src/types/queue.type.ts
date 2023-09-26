@@ -1,13 +1,13 @@
-export interface ScrapeGamePriceData {
+export interface GamePriceScraperData {
   gameId: string
   steamUrl: string
   nuuvemUrl: string | null
-  green_man_gaming_url: string | null
+  greenManGamingUrl: string | null
 }
 
 export enum QueueName {
   NOTICATION = 'NotificationQueue',
-  GAME_SCRAPING = 'GameScrapingQueue'
+  GAME_PRICE_SCRAPING = 'GamePriceScrapingQueue'
 }
 
 export enum QueueJobName {

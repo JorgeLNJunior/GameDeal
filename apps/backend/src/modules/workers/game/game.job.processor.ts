@@ -1,4 +1,4 @@
-import type { ScrapeGamePriceData } from '@localtypes/queue.type'
+import type { GamePriceScraperData } from '@localtypes/queue.type'
 import type { GamePrice } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingScraper } from '@scrapers/greenManGaming.scraper'
@@ -30,7 +30,7 @@ export class GameJobProcessor {
    * Notifies if the current price is lower than the latest registered.
    * @param data - The game data.
    */
-  async scrapePrice (data: ScrapeGamePriceData): Promise<void> {
+  async scrapePrice (data: GamePriceScraperData): Promise<void> {
     let currentNuuvemPrice = null
     let currentGMGPrice = null
 
@@ -42,9 +42,9 @@ export class GameJobProcessor {
       currentNuuvemPrice = await this.nuuvemScraper.getGamePrice(data.nuuvemUrl as string)
     }
 
-    const hasGMGUrl = data.green_man_gaming_url
+    const hasGMGUrl = data.greenManGamingUrl
     if (hasGMGUrl !== null) {
-      currentGMGPrice = await this.gmgScraper.getGamePrice(data.green_man_gaming_url as string)
+      currentGMGPrice = await this.gmgScraper.getGamePrice(data.greenManGamingUrl as string)
     }
 
     const lastRegisteredPrice = await this.getCurrentGamePriceRepository.getPrice(data.gameId)

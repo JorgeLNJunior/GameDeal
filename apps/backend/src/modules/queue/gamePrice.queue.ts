@@ -2,16 +2,16 @@ import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import {
+  type GamePriceScraperData,
   QueueJobName,
-  QueueName,
-  type ScrapeGamePriceData
+  QueueName
 } from '@localtypes/queue.type'
 import { Queue } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
 @singleton()
-export class GameQueue {
-  private queue!: Queue<ScrapeGamePriceData>
+export class GamePriceQueue {
+  private queue!: Queue<GamePriceScraperData>
 
   /**
    * Handles the game queue.
@@ -33,7 +33,7 @@ export class GameQueue {
    * ```
    * @param data - The data to add to the queue.
    */
-  async add (data: ScrapeGamePriceData): Promise<void> {
+  async add (data: GamePriceScraperData): Promise<void> {
     await this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data)
   }
 
@@ -46,7 +46,7 @@ export class GameQueue {
    * ```
    */
   async init (): Promise<void> {
-    this.queue = new Queue<ScrapeGamePriceData>(QueueName.GAME_SCRAPING, {
+    this.queue = new Queue<GamePriceScraperData>(QueueName.GAME_PRICE_SCRAPING, {
       connection: {
         host: this.config.getEnv('REDIS_HOST'),
         port: this.config.getEnv('REDIS_PORT'),
@@ -71,7 +71,7 @@ export class GameQueue {
     })
 
     this.queue.on('error', (err) => {
-      this.logger.error(err, '[GameQueue] queue failed')
+      this.logger.error(err, '[GamePriceQueue] queue failed')
     })
   }
 
@@ -83,8 +83,8 @@ export class GameQueue {
    * ```
    */
   async stop (): Promise<void> {
-    this.logger.info('[GameQueue] stopping the queue')
+    this.logger.info('[GamePriceQueue] stopping the queue')
     await this.queue.close()
-    this.logger.info('[GameQueue] the queue stopped')
+    this.logger.info('[GamePriceQueue] the queue stopped')
   }
 }

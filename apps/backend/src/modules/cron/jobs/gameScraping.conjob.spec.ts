@@ -1,5 +1,5 @@
 import { PinoLogger } from '@infra/pino.logger'
-import { GameQueue } from '@queue/game.queue'
+import { GamePriceQueue } from '@queue/gamePrice.queue'
 import { container } from 'tsyringe'
 
 import { GameScrapingCronJob } from './gameScraping.cronjob'
@@ -8,11 +8,11 @@ import { FindGameScraperDataRepository } from './repositories/findGameScraperDat
 describe('GameScrapingCronJob', () => {
   let job: GameScrapingCronJob
   let repository: FindGameScraperDataRepository
-  let queue: GameQueue
+  let queue: GamePriceQueue
 
   beforeEach(async () => {
     repository = container.resolve(FindGameScraperDataRepository)
-    queue = container.resolve(GameQueue)
+    queue = container.resolve(GamePriceQueue)
     job = new GameScrapingCronJob(repository, queue, new PinoLogger())
   })
 

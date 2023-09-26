@@ -20,7 +20,7 @@ import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { PinoLogger } from '@infra/pino.logger'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { GameQueue } from '@queue/game.queue'
+import { GamePriceQueue } from '@queue/gamePrice.queue'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GameWorker } from '@workers/game/game.worker'
 import { NotificationWorker } from '@workers/notification/notification.worker'
@@ -32,7 +32,7 @@ export default class Main {
    * The main application class.
    * @param server - An instance of `erver`.
    * @param dbService - An instance of `DatabaseService`.
-   * @param gameQueue - An instance of `GameQueue`.
+   * @param GamePriceQueue - An instance of `GamePriceQueue`.
    * @param notificationQueue - An instance of `NotificationQueue`
    * @param gameWorker - An instance of `GameWorker`.
    * @param notificationWorker - An instance of `NotificationWorker`.
@@ -42,7 +42,7 @@ export default class Main {
   constructor (
     private readonly server: Server,
     private readonly dbService: DatabaseService,
-    private readonly gameQueue: GameQueue,
+    private readonly GamePriceQueue: GamePriceQueue,
     private readonly notificationQueue: NotificationQueue,
     private readonly gameWorker: GameWorker,
     private readonly notificationWorker: NotificationWorker,
@@ -75,7 +75,7 @@ export default class Main {
       this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
       await this.dbService.connect()
-      await this.gameQueue.init()
+      await this.GamePriceQueue.init()
       await this.gameWorker.init()
       await this.notificationQueue.init()
       await this.notificationWorker.init()
@@ -88,7 +88,7 @@ export default class Main {
         this.logger.info('Main] received SIGINT signal')
         await this.server.close()
         await this.dbService.disconnect()
-        await this.gameQueue.stop()
+        await this.GamePriceQueue.stop()
         await this.gameWorker.stop()
         await this.notificationQueue.stop()
         await this.notificationWorker.stop()
