@@ -9,6 +9,8 @@ import {
 import { Queue } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
+import { ONE_MINUTE, ONE_WEEK } from './time/time'
+
 @singleton()
 export class GamePriceQueue {
   private queue!: Queue<GamePriceScraperData>
@@ -57,15 +59,15 @@ export class GamePriceQueue {
         attempts: 3,
         backoff: {
           type: 'fixed',
-          delay: 60000 * 5
+          delay: ONE_MINUTE * 5
         },
         removeOnComplete: {
           count: 100,
-          age: 3600 * 24 * 7
+          age: ONE_WEEK
         },
         removeOnFail: {
           count: 500,
-          age: 3600 * 24 * 7
+          age: ONE_WEEK
         }
       }
     })

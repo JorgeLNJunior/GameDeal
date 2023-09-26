@@ -6,6 +6,8 @@ import { QueueJobName, QueueName } from '@localtypes/queue.type'
 import { Queue } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
+import { ONE_MINUTE, ONE_WEEK } from './time/time'
+
 @singleton()
 export class NotificationQueue {
   private queue!: Queue<NotifyData>
@@ -22,7 +24,7 @@ export class NotificationQueue {
 
   /**
    * Adds a job to the queue.
-   * You must call `init()` before call this method.
+   * You must call `init()` before calling this method.
    * @example
    * ```
    * await queue.init()
@@ -54,15 +56,15 @@ export class NotificationQueue {
         attempts: 3,
         backoff: {
           type: 'fixed',
-          delay: 60000 * 5
+          delay: ONE_MINUTE * 5
         },
         removeOnComplete: {
           count: 100,
-          age: 3600 * 24 * 7
+          age: ONE_WEEK
         },
         removeOnFail: {
           count: 500,
-          age: 3600 * 24 * 7
+          age: ONE_WEEK
         }
       }
     })
