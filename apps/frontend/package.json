@@ -13,14 +13,14 @@
     "lint:fix": "eslint src --fix"
   },
   "dependencies": {
-    "axios": "^1.5.0",
+    "axios": "^1.5.1",
     "chart.js": "^4.4.0",
     "vue": "^3.3.4",
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.4.0",
+    "@rushstack/eslint-patch": "^1.5.0",
     "@packages/types": "workspace:*",
     "@packages/testing": "workspace:*",
     "@tsconfig/node18": "^18.2.2",
@@ -38,6 +38,6 @@
     "typescript": "~5.2.2",
     "vite": "^4.4.9",
     "vitest": "^0.34.5",
-    "vue-tsc": "^1.8.13"
+    "vue-tsc": "^1.8.15"
   }
 }
