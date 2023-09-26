@@ -5,8 +5,12 @@ import { ApplicationLogger } from '@localtypes/logger.type'
 import type { Scraper } from '@localtypes/scraper.type'
 import { inject, injectable } from 'tsyringe'
 
+import { PriceFormater } from './formaters/price.formater'
+
 @injectable()
 export class SteamScraper implements Scraper {
+  private readonly formater = new PriceFormater()
+
   constructor (
     @inject(CHEERIO_PARSER) private readonly parser: HTMLParser,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger,
@@ -31,7 +35,7 @@ export class SteamScraper implements Scraper {
 
     let priceString = this.parser.getSelectorValue(data, priceSelector, removeSelectors)
     if (priceString != null) {
-      const price = Number(this.removeCurrency(priceString))
+      const price = Number(this.formater.removeCurrency(priceString))
       if (Number.isNaN(price)) {
         this.logger.error(priceString, `[SteamScraper] error parsing the price of the game "${gameUrl}"`)
         return null
@@ -43,7 +47,7 @@ export class SteamScraper implements Scraper {
 
     priceString = this.parser.getSelectorValue(data, discountSelector, removeSelectors)
     if (priceString != null) {
-      const price = Number(this.removeCurrency(priceString))
+      const price = Number(this.formater.removeCurrency(priceString))
       if (Number.isNaN(price)) {
         this.logger.error(priceString, `[SteamScraper] error parsing the price of the game "${gameUrl}"`)
         return null
@@ -53,9 +57,5 @@ export class SteamScraper implements Scraper {
 
     this.logger.error(`[SteamScraper] no price found for "${gameUrl}"`)
     return null
-  }
-
-  private removeCurrency (str: string): string {
-    return str.replace('R$', '').replace(',', '.')
   }
 }
