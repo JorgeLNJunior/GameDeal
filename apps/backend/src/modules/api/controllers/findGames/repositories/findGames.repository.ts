@@ -42,7 +42,8 @@ export class FindGamesRepository {
       .limit(perPage)
 
     if (query.title != null) {
-      dbQuery = dbQuery.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${query.title} IN NATURAL LANGUAGE MODE)`)
+      query.title = '+' + query.title.replaceAll(' ', ' +') // see MySQL full text search boolean mode
+      dbQuery = dbQuery.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${query.title} IN BOOLEAN MODE)`)
     }
     if (query.order == null) dbQuery = dbQuery.orderBy('title', 'asc')
     if (query.order === 'asc') dbQuery = dbQuery.orderBy('title', 'asc')
@@ -64,7 +65,8 @@ export class FindGamesRepository {
       .select(({ fn }) => [fn.count('id').as('total')])
 
     if (title != null) {
-      query = query.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${title} IN NATURAL LANGUAGE MODE)`)
+      title = '+' + title.replaceAll(' ', '+ ')
+      query = query.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${title} IN BOOLEAN MODE)`)
     }
 
     const result = await query.execute()
