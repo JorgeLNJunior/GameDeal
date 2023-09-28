@@ -1,18 +1,18 @@
 import { AxiosService } from '@infra/axios.service'
 import { PinoLogger } from '@infra/pino.logger'
 
-import { CheerioParser } from './parsers/cheerio.parser'
-import { SteamScraper } from './steam.scraper'
+import { CheerioParser } from '../parsers/cheerio.parser'
+import { SteamPriceScraper } from './steamPrice.scraper'
 
-describe('SteamScraper', () => {
-  let scraper: SteamScraper
+describe('SteamPriceScraper', () => {
+  let scraper: SteamPriceScraper
   let parser: CheerioParser
   let logger: PinoLogger
 
   beforeEach(async () => {
     logger = new PinoLogger()
     parser = new CheerioParser()
-    scraper = new SteamScraper(parser, logger, new AxiosService())
+    scraper = new SteamPriceScraper(parser, logger, new AxiosService())
   })
 
   it('should return a price', async () => {

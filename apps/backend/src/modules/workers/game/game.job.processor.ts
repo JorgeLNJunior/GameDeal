@@ -1,9 +1,9 @@
 import type { GamePriceScraperData } from '@localtypes/queue.type'
 import type { GamePrice } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
-import { GreenManGamingScraper } from '@scrapers/greenManGaming.scraper'
-import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
-import { SteamScraper } from '@scrapers/steam.scraper'
+import { GreenManGamingPriceScraper } from '@scrapers/price/greenManGamingPrice.scraper'
+import { NuuvemPriceScraper } from '@scrapers/price/nuuvemPrice.scraper'
+import { SteamPriceScraper } from '@scrapers/price/steamPrice.scraper'
 import { FindGameByIdRepository } from '@shared/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@shared/getCurrentGamePrice.repository'
 import { injectable } from 'tsyringe'
@@ -14,9 +14,9 @@ import { InsertPriceDropRepository } from './repositories/insertPriceDrop.reposi
 @injectable()
 export class GameJobProcessor {
   constructor (
-    private readonly steamScraper: SteamScraper,
-    private readonly nuuvemScraper: NuuvemScraper,
-    private readonly gmgScraper: GreenManGamingScraper,
+    private readonly steamScraper: SteamPriceScraper,
+    private readonly nuuvemPriceScraper: NuuvemPriceScraper,
+    private readonly gmgScraper: GreenManGamingPriceScraper,
     private readonly insertGamePriceRepository: InsertGamePriceRepository,
     private readonly insertPriceDropRepository: InsertPriceDropRepository,
     private readonly getCurrentGamePriceRepository: GetCurrentGamePriceRepository,
@@ -39,7 +39,7 @@ export class GameJobProcessor {
 
     const hasNuuvemUrl = data.nuuvemUrl
     if (hasNuuvemUrl !== null) {
-      currentNuuvemPrice = await this.nuuvemScraper.getGamePrice(data.nuuvemUrl as string)
+      currentNuuvemPrice = await this.nuuvemPriceScraper.getGamePrice(data.nuuvemUrl as string)
     }
 
     const hasGMGUrl = data.greenManGamingUrl

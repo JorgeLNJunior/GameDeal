@@ -2,13 +2,13 @@ import { CHEERIO_PARSER, PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { AxiosService } from '@infra/axios.service'
 import { HTMLParser } from '@localtypes/html.parser'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { type Scraper } from '@localtypes/scraper.type'
+import { type GamePriceScraper } from '@localtypes/scraper.type'
 import { inject, injectable } from 'tsyringe'
 
-import { PriceFormater } from './formaters/price.formater'
+import { PriceFormater } from '../formaters/price.formater'
 
 @injectable()
-export class NuuvemScraper implements Scraper {
+export class NuuvemPriceScraper implements GamePriceScraper {
   private readonly formater = new PriceFormater()
 
   constructor (

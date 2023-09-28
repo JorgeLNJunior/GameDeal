@@ -1,8 +1,8 @@
 import { GameBuilder, GamePriceBuilder, GamePriceDropBuilder } from '@packages/testing'
 import { NotificationQueue } from '@queue/notification.queue'
-import { GreenManGamingScraper } from '@scrapers/greenManGaming.scraper'
-import { NuuvemScraper } from '@scrapers/nuuvem.scraper'
-import { SteamScraper } from '@scrapers/steam.scraper'
+import { GreenManGamingPriceScraper } from '@scrapers/price/greenManGamingPrice.scraper'
+import { NuuvemPriceScraper } from '@scrapers/price/nuuvemPrice.scraper'
+import { SteamPriceScraper } from '@scrapers/price/steamPrice.scraper'
 import { FindGameByIdRepository } from '@shared/findGameById.repository'
 import { GetCurrentGamePriceRepository } from '@shared/getCurrentGamePrice.repository'
 import { container } from 'tsyringe'
@@ -13,9 +13,9 @@ import { InsertPriceDropRepository } from './repositories/insertPriceDrop.reposi
 
 describe('GameJobProcessor', () => {
   let job: GameJobProcessor
-  let steamScraper: SteamScraper
-  let nuuvemScraper: NuuvemScraper
-  let gmgScraper: GreenManGamingScraper
+  let steamScraper: SteamPriceScraper
+  let nuuvemPriceScraper: NuuvemPriceScraper
+  let gmgScraper: GreenManGamingPriceScraper
   let insertPriceRepo: InsertGamePriceRepository
   let insertPriceDropRepo: InsertPriceDropRepository
   let getPriceRepo: GetCurrentGamePriceRepository
@@ -23,9 +23,9 @@ describe('GameJobProcessor', () => {
   let notificationQueue: NotificationQueue
 
   beforeEach(async () => {
-    steamScraper = container.resolve(SteamScraper)
-    nuuvemScraper = container.resolve(NuuvemScraper)
-    gmgScraper = container.resolve(GreenManGamingScraper)
+    steamScraper = container.resolve(SteamPriceScraper)
+    nuuvemPriceScraper = container.resolve(NuuvemPriceScraper)
+    gmgScraper = container.resolve(GreenManGamingPriceScraper)
     insertPriceRepo = container.resolve(InsertGamePriceRepository)
     insertPriceDropRepo = container.resolve(InsertPriceDropRepository)
     getPriceRepo = container.resolve(GetCurrentGamePriceRepository)
@@ -33,7 +33,7 @@ describe('GameJobProcessor', () => {
     notificationQueue = container.resolve(NotificationQueue)
     job = new GameJobProcessor(
       steamScraper,
-      nuuvemScraper,
+      nuuvemPriceScraper,
       gmgScraper,
       insertPriceRepo,
       insertPriceDropRepo,
@@ -62,7 +62,7 @@ describe('GameJobProcessor', () => {
       .build()
 
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
-    jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(30)
+    jest.spyOn(nuuvemPriceScraper, 'getGamePrice').mockResolvedValueOnce(30)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
@@ -73,7 +73,7 @@ describe('GameJobProcessor', () => {
       gameId: game.id,
       steamUrl: game.steam_url,
       nuuvemUrl: game.nuuvem_url,
-      green_man_gaming_url: game.green_man_gaming_url
+      greenManGamingUrl: game.green_man_gaming_url
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
@@ -110,7 +110,7 @@ describe('GameJobProcessor', () => {
       .withDiscountPrice(currentNuuvemPrice)
       .build()
 
-    jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(currentNuuvemPrice)
+    jest.spyOn(nuuvemPriceScraper, 'getGamePrice').mockResolvedValueOnce(currentNuuvemPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
     jest.spyOn(gmgScraper, 'getGamePrice').mockResolvedValueOnce(40)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
@@ -123,7 +123,7 @@ describe('GameJobProcessor', () => {
       gameId: game.id,
       steamUrl: game.steam_url,
       nuuvemUrl: game.nuuvem_url,
-      green_man_gaming_url: game.green_man_gaming_url
+      greenManGamingUrl: game.green_man_gaming_url
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
@@ -162,7 +162,7 @@ describe('GameJobProcessor', () => {
 
     jest.spyOn(gmgScraper, 'getGamePrice').mockResolvedValueOnce(currentGMGPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
-    jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(30)
+    jest.spyOn(nuuvemPriceScraper, 'getGamePrice').mockResolvedValueOnce(30)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
@@ -173,7 +173,7 @@ describe('GameJobProcessor', () => {
       gameId: game.id,
       steamUrl: game.steam_url,
       nuuvemUrl: game.nuuvem_url,
-      green_man_gaming_url: game.green_man_gaming_url
+      greenManGamingUrl: game.green_man_gaming_url
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
@@ -221,7 +221,7 @@ describe('GameJobProcessor', () => {
       gameId: game.id,
       steamUrl: game.steam_url,
       nuuvemUrl: game.nuuvem_url,
-      green_man_gaming_url: game.green_man_gaming_url
+      greenManGamingUrl: game.green_man_gaming_url
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
@@ -258,7 +258,7 @@ describe('GameJobProcessor', () => {
       .withDiscountPrice(currentNuuvemPrice)
       .build()
 
-    jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(currentNuuvemPrice)
+    jest.spyOn(nuuvemPriceScraper, 'getGamePrice').mockResolvedValueOnce(currentNuuvemPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
@@ -270,7 +270,7 @@ describe('GameJobProcessor', () => {
       gameId: game.id,
       steamUrl: game.steam_url,
       nuuvemUrl: game.nuuvem_url,
-      green_man_gaming_url: game.green_man_gaming_url
+      greenManGamingUrl: game.green_man_gaming_url
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
@@ -319,7 +319,7 @@ describe('GameJobProcessor', () => {
       gameId: game.id,
       steamUrl: game.steam_url,
       nuuvemUrl: game.nuuvem_url,
-      green_man_gaming_url: game.green_man_gaming_url
+      greenManGamingUrl: game.green_man_gaming_url
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
@@ -351,7 +351,7 @@ describe('GameJobProcessor', () => {
       .build()
 
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
-    jest.spyOn(nuuvemScraper, 'getGamePrice').mockResolvedValueOnce(30)
+    jest.spyOn(nuuvemPriceScraper, 'getGamePrice').mockResolvedValueOnce(30)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(undefined)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
@@ -362,7 +362,7 @@ describe('GameJobProcessor', () => {
       gameId: game.id,
       steamUrl: game.steam_url,
       nuuvemUrl: game.nuuvem_url,
-      green_man_gaming_url: game.green_man_gaming_url
+      greenManGamingUrl: game.green_man_gaming_url
     })
 
     expect(notificationSpy).not.toHaveBeenCalled()

@@ -1,4 +1,4 @@
-export interface Scraper {
+export interface GamePriceScraper {
   /**
    * Gets the game price.
    * @example

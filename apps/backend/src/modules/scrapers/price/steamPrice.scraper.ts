@@ -2,13 +2,13 @@ import { CHEERIO_PARSER, PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { AxiosService } from '@infra/axios.service'
 import { HTMLParser } from '@localtypes/html.parser'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import type { Scraper } from '@localtypes/scraper.type'
+import type { GamePriceScraper } from '@localtypes/scraper.type'
 import { inject, injectable } from 'tsyringe'
 
-import { PriceFormater } from './formaters/price.formater'
+import { PriceFormater } from '../formaters/price.formater'
 
 @injectable()
-export class SteamScraper implements Scraper {
+export class SteamPriceScraper implements GamePriceScraper {
   private readonly formater = new PriceFormater()
 
   constructor (
@@ -37,7 +37,7 @@ export class SteamScraper implements Scraper {
     if (priceString != null) {
       const price = Number(this.formater.removeCurrency(priceString))
       if (Number.isNaN(price)) {
-        this.logger.error(priceString, `[SteamScraper] error parsing the price of the game "${gameUrl}"`)
+        this.logger.error(priceString, `[SteamPriceScraper] error parsing the price of the game "${gameUrl}"`)
         return null
       }
       return price
@@ -49,13 +49,13 @@ export class SteamScraper implements Scraper {
     if (priceString != null) {
       const price = Number(this.formater.removeCurrency(priceString))
       if (Number.isNaN(price)) {
-        this.logger.error(priceString, `[SteamScraper] error parsing the price of the game "${gameUrl}"`)
+        this.logger.error(priceString, `[SteamPriceScraper] error parsing the price of the game "${gameUrl}"`)
         return null
       }
       return price
     }
 
-    this.logger.error(`[SteamScraper] no price found for "${gameUrl}"`)
+    this.logger.error(`[SteamPriceScraper] no price found for "${gameUrl}"`)
     return null
   }
 }
