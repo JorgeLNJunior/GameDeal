@@ -2,19 +2,19 @@ import { AxiosService } from '@infra/axios.service'
 import { PinoLogger } from '@infra/pino.logger'
 
 import { CheerioParser } from '../parsers/cheerio.parser'
-import { NuuvemScraper } from './nuuvem.scraper'
+import { NuuvemPriceScraper } from './nuuvemPrice.scraper'
 
 jest.setTimeout(30000)
 
-describe('NuuvemScraper', () => {
-  let scraper: NuuvemScraper
+describe('NuuvemPriceScraper', () => {
+  let scraper: NuuvemPriceScraper
   let parser: CheerioParser
   let logger: PinoLogger
 
   beforeEach(async () => {
     logger = new PinoLogger()
     parser = new CheerioParser()
-    scraper = new NuuvemScraper(parser, logger, new AxiosService())
+    scraper = new NuuvemPriceScraper(parser, logger, new AxiosService())
   })
 
   it('should return a price', async () => {
