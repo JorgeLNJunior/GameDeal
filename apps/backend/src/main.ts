@@ -42,7 +42,7 @@ export default class Main {
   constructor (
     private readonly server: Server,
     private readonly dbService: DatabaseService,
-    private readonly GamePriceQueue: GamePriceQueue,
+    private readonly gamePriceQueue: GamePriceQueue,
     private readonly notificationQueue: NotificationQueue,
     private readonly gameWorker: GameWorker,
     private readonly notificationWorker: NotificationWorker,
@@ -75,7 +75,7 @@ export default class Main {
       this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
 
       await this.dbService.connect()
-      await this.GamePriceQueue.init()
+      await this.gamePriceQueue.init()
       await this.gameWorker.init()
       await this.notificationQueue.init()
       await this.notificationWorker.init()
@@ -88,7 +88,7 @@ export default class Main {
         this.logger.info('Main] received SIGINT signal')
         await this.server.close()
         await this.dbService.disconnect()
-        await this.GamePriceQueue.stop()
+        await this.gamePriceQueue.stop()
         await this.gameWorker.stop()
         await this.notificationQueue.stop()
         await this.notificationWorker.stop()
