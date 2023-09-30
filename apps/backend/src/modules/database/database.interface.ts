@@ -28,8 +28,14 @@ export interface GamePriceDropTable {
   date: ColumnType<string, never, never>
 }
 
+export interface GameIgnoreList {
+  id: ColumnType<string, string, never>
+  title: string
+}
+
 export interface Database {
   game: GameTable
   game_price: GamePriceTable
   game_price_drop: GamePriceDropTable
+  game_ignore_list: GameIgnoreList
 }
