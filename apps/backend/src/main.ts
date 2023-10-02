@@ -15,6 +15,7 @@ import { RedirectToDocsController } from '@api/controllers/redirectToDocs/redire
 import { UpdateGameController } from '@api/controllers/updateGame/updateGame.controller'
 import { Server } from '@api/server'
 import { CronService } from '@cron/cron.service'
+import { GameDiscoveryCronJob } from '@cron/jobs/game.discovery.cronjob'
 import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
 import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
@@ -72,7 +73,10 @@ export default class Main {
         container.resolve(GetPriceDropsController),
         container.resolve(RedirectToDocsController)
       )
-      this.cronService.registerJobs(container.resolve(GameScrapingCronJob))
+      this.cronService.registerJobs(
+        container.resolve(GameScrapingCronJob),
+        container.resolve(GameDiscoveryCronJob)
+      )
 
       await this.dbService.connect()
       await this.gamePriceQueue.init()

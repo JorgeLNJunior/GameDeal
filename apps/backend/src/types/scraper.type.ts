@@ -10,3 +10,14 @@ export interface GamePriceScraper {
    */
   getGamePrice: (gameUrl: string) => Promise<number | null>
 }
+
+export interface GameDiscoveryScraper {
+  /**
+   * Discovery new games and saves them in the database.
+   * @example
+   * ```
+   * const price = await scraper.discoveryGames();
+   * ```
+   */
+  discoveryGames: () => Promise<void>
+}
