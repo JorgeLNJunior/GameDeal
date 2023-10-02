@@ -15,7 +15,7 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  async discoveryGames (): Promise<void> {
+  async discoveryGames (pages = 25): Promise<void> {
     try {
       const client = this.database.getClient()
       const games: InsertData[] = []
@@ -23,7 +23,8 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
 
       // global top sellers
       this.logger.info('[SteamGameDiscoveryScraper] searching by global top sellers')
-      for (let page = 1; page <= 25; page++) {
+      for (let page = 1; page <= pages; page++) {
+        this.logger.info(`[SteamGameDiscoveryScraper] searching at page ${page}`)
         const data = await this.axios.get<string>(`https://store.steampowered.com/search/?cc=br&filter=globaltopsellers&category1=998&hidef2p=1&ndl=1&page=${page}`)
         const wrapper = cheerio.load(data)
 
@@ -37,7 +38,8 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
 
       // most relevants
       this.logger.info('[SteamGameDiscoveryScraper] searching by most relevants')
-      for (let page = 1; page <= 25; page++) {
+      for (let page = 1; page <= pages; page++) {
+        this.logger.info(`[SteamGameDiscoveryScraper] searching at page ${page}`)
         const data = await this.axios.get<string>(`https://store.steampowered.com/search/?cc=br&category1=998&hidef2p=1&ndl=1&page=${page}`)
         const wrapper = cheerio.load(data)
 

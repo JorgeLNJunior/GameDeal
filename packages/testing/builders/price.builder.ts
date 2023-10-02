@@ -10,6 +10,11 @@ export class GamePriceBuilder {
   private green_man_gaming_price: number | null = 50.45
   private date = '2022-10-21'
 
+  withDate (date: string): GamePriceBuilder {
+    this.date = date
+    return this
+  }
+
   withGame (gameId: string): GamePriceBuilder {
     this.game_id = gameId
     return this

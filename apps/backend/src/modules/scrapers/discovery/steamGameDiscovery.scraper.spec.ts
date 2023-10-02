@@ -29,7 +29,7 @@ describe('SteamGameDiscoveryScraper', () => {
   it('should discover games and insert them in the database', async () => {
     const client = db.getClient()
 
-    await scraper.discoveryGames()
+    await scraper.discoveryGames(5)
 
     const result = await client
       .selectFrom('game')
@@ -37,5 +37,5 @@ describe('SteamGameDiscoveryScraper', () => {
       .executeTakeFirst()
 
     expect(result?.total).toBeGreaterThan(0)
-  }, 1000 * 200)
+  }, 1000 * 60)
 })
