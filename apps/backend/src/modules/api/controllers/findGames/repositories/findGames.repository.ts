@@ -30,7 +30,7 @@ export class FindGamesRepository {
       .getClient()
       .selectFrom('game')
       .selectAll()
-      .where(({ selectFrom, exists }) =>
+      .where(({ selectFrom, exists }) => // if it has at least one registered price.
         exists(
           selectFrom('game_price')
             .select('id')
@@ -45,8 +45,9 @@ export class FindGamesRepository {
       query.title = '+' + query.title.replaceAll(' ', ' +') // see MySQL full text search boolean mode
       dbQuery = dbQuery.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${query.title} IN BOOLEAN MODE)`)
     }
-    if (query.order == null) dbQuery = dbQuery.orderBy('title', 'asc')
-    if (query.order === 'asc') dbQuery = dbQuery.orderBy('title', 'asc')
+    if (query.order == null || query.order === 'asc') {
+      dbQuery = dbQuery.orderBy('title', 'asc')
+    }
     if (query.order === 'desc') dbQuery = dbQuery.orderBy('title', 'desc')
 
     const results = await dbQuery.execute()
@@ -63,6 +64,14 @@ export class FindGamesRepository {
     let query = this.databaseService.getClient()
       .selectFrom('game')
       .select(({ fn }) => [fn.count('id').as('total')])
+      .where(({ selectFrom, exists }) =>
+        exists(
+          selectFrom('game_price')
+            .select('id')
+            .whereRef('game.id', '=', 'game_price.game_id')
+            .limit(1)
+        )
+      )
 
     if (title != null) {
       title = '+' + title.replaceAll(' ', '+ ')
