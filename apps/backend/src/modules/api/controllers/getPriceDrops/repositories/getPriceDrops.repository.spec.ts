@@ -39,6 +39,37 @@ describe('GetPriceDropsRepository', () => {
     expect(drops.results[0].platform).toEqual(priceDrop.platform)
   })
 
+  it('should return a list of price drops limited by query params', async () => {
+    const client = db.getClient()
+    const game = new GameBuilder().build()
+    const priceDrop = new GamePriceDropBuilder().withGame(game.id).build()
+    const priceDrop2 = new GamePriceDropBuilder().withGame(game.id).build()
+
+    await client.insertInto('game').values(game).execute()
+    await client.insertInto('game_price_drop').values(priceDrop).execute()
+    await client.insertInto('game_price_drop').values(priceDrop2).execute()
+
+    const drops = await repository.get({ limit: '1' })
+
+    expect(drops.results.length).toEqual(1)
+  })
+
+  it('should return a list of price drops paginated by query params', async () => {
+    const client = db.getClient()
+    const game = new GameBuilder().build()
+    const priceDrop = new GamePriceDropBuilder().withGame(game.id).build()
+    const priceDrop2 = new GamePriceDropBuilder().withGame(game.id).build()
+
+    await client.insertInto('game').values(game).execute()
+    await client.insertInto('game_price_drop').values(priceDrop).execute()
+    await client.insertInto('game_price_drop').values(priceDrop2).execute()
+
+    const drops = await repository.get({ limit: '1', page: '2' })
+
+    expect(drops.results.length).toEqual(1)
+    expect(drops.results[0].id).toBe(priceDrop.id)
+  })
+
   it('should return a list of price drops filtered by date', async () => {
     const client = db.getClient()
     const game = new GameBuilder().build()
