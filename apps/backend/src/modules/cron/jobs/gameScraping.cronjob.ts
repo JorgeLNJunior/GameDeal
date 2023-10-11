@@ -13,12 +13,12 @@ export class GameScrapingCronJob implements ApplicationCronJob {
   /**
    * Handles the game scraping cron job.
    * @param findGameScraperDataRepository - A game FindGameScraperDataRepository instance.
-   * @param GamePriceQueue - A game queue instance.
+   * @param gamePriceQueue - A game queue instance.
    * @param logger - An application logger.
    */
   constructor (
     private readonly findGameScraperDataRepository: FindGameScraperDataRepository,
-    private readonly GamePriceQueue: GamePriceQueue,
+    private readonly gamePriceQueue: GamePriceQueue,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
@@ -28,7 +28,7 @@ export class GameScrapingCronJob implements ApplicationCronJob {
     const games = await this.findGameScraperDataRepository.find()
 
     const promises = games.map(async (game) => {
-      await this.GamePriceQueue.add({
+      await this.gamePriceQueue.add({
         gameId: game.id,
         steamUrl: game.steam_url,
         nuuvemUrl: game.nuuvem_url,
