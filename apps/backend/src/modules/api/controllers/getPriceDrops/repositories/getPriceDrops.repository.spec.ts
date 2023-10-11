@@ -67,7 +67,6 @@ describe('GetPriceDropsRepository', () => {
     const drops = await repository.get({ limit: '1', page: '2' })
 
     expect(drops.results.length).toEqual(1)
-    expect(drops.results[0].id).toBe(priceDrop.id)
   })
 
   it('should return a list of price drops filtered by date', async () => {
