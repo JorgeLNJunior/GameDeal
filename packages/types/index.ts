@@ -26,6 +26,11 @@ export interface GamePriceDrop {
   date: string
 }
 
+export interface GameIgnoreList {
+  id: string
+  title: string
+}
+
 export interface LowestPrice {
   steam: { price: number | null, date: string | null }
   nuuvem: { price: number | null, date: string | null }

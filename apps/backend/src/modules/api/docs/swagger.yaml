@@ -88,7 +88,6 @@ paths:
         - "Administração"
       security:
         - bearerAuth: []
-
       requestBody:
         $ref: "#/components/requestBodies/update-game"
       responses:
@@ -422,6 +421,30 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
+  /games/ignore:
+    post:
+      summary: Adicionar um jogo a ignore list
+      description: Adicionar uma lista de jogos a ignore list do scraper que
+        descobre novos jogos. Os jogos são inseridos em uma transaction, caso uma
+        inserção falhe, as outras serão revertidas. Usando somente para propósitos
+        de administração.
+      tags:
+        - "Jogos"
+        - "Administração"
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/ignore_games"
+      responses:
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/game_ignore_list"
+
   /drops:
     get:
       summary: Obter uma lista de queda de preços
@@ -556,6 +579,16 @@ components:
           type: string
           example: 2023-01-23
 
+    game_ignore_list:
+      type: object
+      properties:
+        id:
+          type: string
+          example: b1a382ce-b85b-11ed-b7cb-0242ac110002
+        title:
+          type: string
+          example: Mineirinho Ultra Adventures
+
   securitySchemes:
     bearerAuth:
       type: http
@@ -629,6 +662,19 @@ components:
                 type: string
                 example: https://www.greenmangaming.com/games/god-of-war-pc
                 description: "URL do jogo na Green Man Gaming"
+
+    ignore_games:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              titles:
+                type: array
+                items:
+                  type: string
+                  example: Mineirinho Ultra Adventures
 
   responses:
     400:

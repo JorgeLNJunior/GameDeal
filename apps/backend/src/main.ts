@@ -10,6 +10,7 @@ import { GetCurrentGamePriceController } from '@api/controllers/getCurrentGamePr
 import { GetGamePriceHistoryController } from '@api/controllers/getGamePriceHistory/getGamePriceHistory.controller'
 import { GetLowestPriceController } from '@api/controllers/getLowestPrice/getLowestPrice.controller'
 import { GetPriceDropsController } from '@api/controllers/getPriceDrops/getPriceDrop.controller'
+import { IgnoreGamesOnDiscoveryController } from '@api/controllers/ignoreGamesOnDiscovery/ignoreGamesOnDiscovery.controller'
 import { LoginController } from '@api/controllers/login/login.controller'
 import { RedirectToDocsController } from '@api/controllers/redirectToDocs/redirectToDocs.controller'
 import { UpdateGameController } from '@api/controllers/updateGame/updateGame.controller'
@@ -71,6 +72,7 @@ export default class Main {
         container.resolve(GetLowestPriceController),
         container.resolve(UpdateGameController),
         container.resolve(GetPriceDropsController),
+        container.resolve(IgnoreGamesOnDiscoveryController),
         container.resolve(RedirectToDocsController)
       )
       this.cronService.registerJobs(
