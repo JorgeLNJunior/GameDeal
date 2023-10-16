@@ -1,6 +1,6 @@
 import { type ColumnType } from 'kysely'
 
-export interface GameTable {
+interface GameTable {
   id: ColumnType<string, string, never>
   title: string
   steam_url: string
@@ -10,7 +10,7 @@ export interface GameTable {
   updated_at: ColumnType<Date, never, never>
 }
 
-export interface GamePriceTable {
+interface GamePriceTable {
   id: ColumnType<string, string, never>
   game_id: ColumnType<string, string, never>
   steam_price: number
@@ -19,7 +19,7 @@ export interface GamePriceTable {
   date: ColumnType<string, never, never>
 }
 
-export interface GamePriceDropTable {
+interface GamePriceDropTable {
   id: ColumnType<string, string, never>
   game_id: ColumnType<string, string, never>
   platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
@@ -28,7 +28,7 @@ export interface GamePriceDropTable {
   date: ColumnType<string, never, never>
 }
 
-export interface GameIgnoreList {
+interface GameIgnoreListTable {
   id: ColumnType<string, string, never>
   title: string
 }
@@ -37,5 +37,5 @@ export interface Database {
   game: GameTable
   game_price: GamePriceTable
   game_price_drop: GamePriceDropTable
-  game_ignore_list: GameIgnoreList
+  game_ignore_list: GameIgnoreListTable
 }
