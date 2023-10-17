@@ -6,7 +6,7 @@ import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class GameDiscoveryCronJob implements ApplicationCronJob {
-  public cronTime = '0 15 * * 0' // At UTC-3 12:00 on Sunday
+  public cronTime = '0 12 * * 0' // At UTC-3 12:00 on Sunday
 
   /**
    * Handles the game discovery cron job.

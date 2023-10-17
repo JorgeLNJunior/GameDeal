@@ -25,10 +25,16 @@ export class CronService {
   registerJobs (...jobs: ApplicationCronJob[]): void {
     for (const job of jobs) {
       this.jobs.push(
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        new CronJob(job.cronTime, async function () {
-          await job.jobFunction()
-        })
+        new CronJob(
+          job.cronTime,
+          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+          async function () {
+            await job.jobFunction()
+          },
+          null,
+          false,
+          'America/Sao_Paulo'
+        )
       )
     }
   }
