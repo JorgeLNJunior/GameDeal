@@ -130,9 +130,6 @@ importers:
       '@packages/types':
         specifier: workspace:*
         version: link:../../packages/types
-      '@types/cron':
-        specifier: ^2.0.1
-        version: 2.0.1
       '@types/jest':
         specifier: ^29.5.5
         version: 29.5.5
@@ -2616,13 +2613,6 @@ packages:
       '@types/node': 18.16.8
     dev: false
 
-  /@types/cron@2.0.1:
-    resolution: {integrity: sha512-WHa/1rtNtD2Q/H0+YTTZoty+/5rcE66iAFX2IY+JuUoOACsevYyFkSYu/2vdw+G5LrmO7Lxowrqm0av4k3qWNQ==}
-    dependencies:
-      '@types/luxon': 3.3.0
-      '@types/node': 18.16.8
-    dev: true
-
   /@types/form-data@0.0.33:
     resolution: {integrity: sha512-8BSvG1kGm83cyJITQMZSulnl6QV8jqAGreJsc5tPu1Jq0vTSOiY/k24Wx82JRpWwZSqrala6sd5rWi6aNXvqcw==}
     dependencies:
@@ -2700,6 +2690,7 @@ packages:
 
   /@types/luxon@3.3.0:
     resolution: {integrity: sha512-uKRI5QORDnrGFYgcdAVnHvEIvEZ8noTpP/Bg+HeUzZghwinDlIS87DEenV5r1YoOF9G4x600YsUXLWZ19rmTmg==}
+    dev: false
 
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}

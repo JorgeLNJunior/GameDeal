@@ -37,9 +37,8 @@
     "tsyringe": "^4.8.0"
   },
   "devDependencies": {
-    "@packages/types": "workspace:*",
     "@packages/testing": "workspace:*",
-    "@types/cron": "^2.0.1",
+    "@packages/types": "workspace:*",
     "@types/jest": "^29.5.5",
     "@types/jsonwebtoken": "^9.0.3",
     "@types/newrelic": "^9.14.1",
