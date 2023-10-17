@@ -23,6 +23,7 @@ export class GetLowestPriceRepository {
         `SELECT steam_price as price, date as date FROM game_price
           WHERE game_id = '${gameID}'
           AND steam_price = (SELECT MIN(steam_price) FROM game_price where game_id = '${gameID}')
+          ORDER BY date DESC
           LIMIT 1;
         `)
       .execute(this.databaseService.getClient())
@@ -31,6 +32,7 @@ export class GetLowestPriceRepository {
         `SELECT nuuvem_price as price, date as date FROM game_price
           WHERE game_id = '${gameID}'
           AND nuuvem_price = (SELECT MIN(nuuvem_price) FROM game_price where game_id = '${gameID}')
+          ORDER BY date DESC
           LIMIT 1;
         `)
       .execute(this.databaseService.getClient())
@@ -39,6 +41,7 @@ export class GetLowestPriceRepository {
         `SELECT green_man_gaming_price as price, date as date FROM game_price
           WHERE game_id = '${gameID}'
           AND green_man_gaming_price = (SELECT MIN(green_man_gaming_price) FROM game_price where game_id = '${gameID}')
+          ORDER BY date DESC
           LIMIT 1;
         `)
       .execute(this.databaseService.getClient())
