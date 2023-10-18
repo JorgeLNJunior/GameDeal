@@ -73,6 +73,7 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
           steam_url: game.url
         }).execute()
 
+        this.logger.info(`[SteamGameDiscovery] added "${game.title}"`)
         gamesAdded = ++gamesAdded
       }
 

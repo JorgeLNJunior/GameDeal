@@ -1,6 +1,7 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import type { ApplicationCronJob } from '@localtypes/cron.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
+import { NuuvemGameDiscoveryScraper } from '@scrapers/discovery/nuuvemGameDiscovery.scraper'
 import { SteamGameDiscoveryScraper } from '@scrapers/discovery/steamGameDiscovery.scraper'
 import { inject, injectable } from 'tsyringe'
 
@@ -16,12 +17,14 @@ export class GameDiscoveryCronJob implements ApplicationCronJob {
    */
   constructor (
     private readonly steamGameDiscovery: SteamGameDiscoveryScraper,
+    private readonly nuuvemGameDiscovery: NuuvemGameDiscoveryScraper,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
   public async jobFunction (): Promise<void> {
     this.logger.info('[GameDiscoveryCronJob] running game discovery job')
     await this.steamGameDiscovery.discoveryGames()
+    await this.nuuvemGameDiscovery.discoveryGames()
     this.logger.info('[GameDiscoveryCronJob] game discovery job is finished')
   }
 }
