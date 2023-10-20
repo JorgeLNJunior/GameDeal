@@ -22,9 +22,11 @@ import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { PinoLogger } from '@infra/pino.logger'
 import { ApplicationLogger } from '@localtypes/logger.type'
+import { GameDiscoveryQueue } from '@queue/gameDiscovery.queue'
 import { GamePriceQueue } from '@queue/gamePrice.queue'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GameWorker } from '@workers/game/game.worker'
+import { GameDiscoveryWorker } from '@workers/game/gameDiscovery.worker'
 import { NotificationWorker } from '@workers/notification/notification.worker'
 import { container, inject, injectable } from 'tsyringe'
 
@@ -35,8 +37,10 @@ export default class Main {
    * @param server - An instance of `erver`.
    * @param dbService - An instance of `DatabaseService`.
    * @param GamePriceQueue - An instance of `GamePriceQueue`.
+   * @param gameDiscoveryQueue - An instance of `GameDiscoveryQueue`.
    * @param notificationQueue - An instance of `NotificationQueue`
    * @param gameWorker - An instance of `GameWorker`.
+   * @param gameDiscoveryWorker - An instance of `GameDiscoveryWorker`.
    * @param notificationWorker - An instance of `NotificationWorker`.
    * @param cronService - An instance of `CronService`.
    * @param logger - An instance of `ApplicationLogger`.
@@ -45,8 +49,10 @@ export default class Main {
     private readonly server: Server,
     private readonly dbService: DatabaseService,
     private readonly gamePriceQueue: GamePriceQueue,
+    private readonly gameDiscoveryQueue: GameDiscoveryQueue,
     private readonly notificationQueue: NotificationQueue,
     private readonly gameWorker: GameWorker,
+    private readonly gameDiscoveryWorker: GameDiscoveryWorker,
     private readonly notificationWorker: NotificationWorker,
     private readonly cronService: CronService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
@@ -81,10 +87,15 @@ export default class Main {
       )
 
       await this.dbService.connect()
+
       await this.gamePriceQueue.init()
-      await this.gameWorker.init()
+      await this.gameDiscoveryQueue.init()
       await this.notificationQueue.init()
+
+      await this.gameWorker.init()
+      await this.gameDiscoveryWorker.init()
       await this.notificationWorker.init()
+
       this.cronService.start()
       await this.server.listen()
 
@@ -94,9 +105,13 @@ export default class Main {
         this.logger.info('Main] received SIGINT signal')
         await this.server.close()
         await this.dbService.disconnect()
+
         await this.gamePriceQueue.stop()
-        await this.gameWorker.stop()
+        await this.gameDiscoveryQueue.stop()
         await this.notificationQueue.stop()
+
+        await this.gameWorker.stop()
+        await this.gameDiscoveryWorker.stop()
         await this.notificationWorker.stop()
         this.cronService.stop()
         this.logger.info('[Main] application stopped')

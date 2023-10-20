@@ -5,12 +5,20 @@ export interface GamePriceScraperData {
   greenManGamingUrl: string | null
 }
 
+export interface GameDiscoveryScraperData {
+  id: string
+  title: string
+}
+
 export enum QueueName {
-  NOTICATION = 'NotificationQueue',
-  GAME_PRICE_SCRAPING = 'GamePriceScrapingQueue'
+  GAME_DISCOVERY = 'GameDiscovery',
+  GAME_PRICE_SCRAPING = 'GamePriceScrapingQueue',
+  NOTICATION = 'NotificationQueue'
 }
 
 export enum QueueJobName {
   NOTIFY_PRICE_DROP = 'NotifyPriceDrop',
-  SCRAPE_GAME_PRICE = 'ScrapeGamePrice'
+  SCRAPE_GAME_PRICE = 'ScrapeGamePrice',
+  NUUVEM_GAME_DISCOVERY = 'NuuvemGameDiscovery',
+  STEAM_GAME_DISCOVERY = 'SteamGameDiscovery'
 }
