@@ -16,6 +16,11 @@ export class GameBuilder {
     return this
   }
 
+  withGreenManGamingUrl (url: string | null): GameBuilder {
+    this.green_man_gaming_url = url
+    return this
+  }
+
   withNuuvemUrl (url: string | null): GameBuilder {
     this.nuuvem_url = url
     return this

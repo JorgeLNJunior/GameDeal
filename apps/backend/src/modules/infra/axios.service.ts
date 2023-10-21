@@ -23,6 +23,11 @@ export class AxiosService {
     const response = await this.axiosInstance.get(url, config)
     return response.data
   }
+
+  async post <Response>(url: string, body?: unknown, config?: RequestConfig): Promise<Response> {
+    const response = await this.axiosInstance.post(url, body, config)
+    return response.data
+  }
 }
 
 interface RequestConfig {

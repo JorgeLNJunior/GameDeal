@@ -25,6 +25,7 @@ describe('GameDiscoveryCronJob', () => {
   })
 
   afterEach(async () => {
+    jest.clearAllMocks()
     await db.getClient().deleteFrom('game').execute()
     await db.disconnect()
   })
@@ -50,6 +51,25 @@ describe('GameDiscoveryCronJob', () => {
     expect(queueSpy).toHaveBeenCalledTimes(1)
     expect(queueSpy).toHaveBeenCalledWith<[QueueJobName, GameDiscoveryScraperData]>(
       QueueJobName.NUUVEM_GAME_DISCOVERY,
+      {
+        id: game.id,
+        title: game.title
+      }
+    )
+  })
+
+  it('should add all games without green man gaming url to the queue', async () => {
+    const game = new GameBuilder().withGreenManGamingUrl(null).build()
+    await db.getClient().insertInto('game').values(game).execute()
+
+    const queueSpy = jest.spyOn(queue, 'add').mockResolvedValueOnce()
+    jest.spyOn(steamDiscovery, 'discoveryGames').mockResolvedValueOnce()
+
+    await job.jobFunction()
+
+    expect(queueSpy).toHaveBeenCalledTimes(1)
+    expect(queueSpy).toHaveBeenCalledWith<[QueueJobName, GameDiscoveryScraperData]>(
+      QueueJobName.GREEN_MAN_GAMING_GAME_DISCOVERY,
       {
         id: game.id,
         title: game.title

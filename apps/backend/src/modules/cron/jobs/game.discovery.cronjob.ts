@@ -41,6 +41,16 @@ export class GameDiscoveryCronJob implements ApplicationCronJob {
       await this.queue.add(QueueJobName.NUUVEM_GAME_DISCOVERY, game)
     }
 
+    const gamesWithoutGmgUrl = await client
+      .selectFrom('game')
+      .select(['id', 'title'])
+      .where('green_man_gaming_url', 'is', null)
+      .execute()
+
+    for (const game of gamesWithoutGmgUrl) {
+      await this.queue.add(QueueJobName.GREEN_MAN_GAMING_GAME_DISCOVERY, game)
+    }
+
     this.logger.info('[GameDiscoveryCronJob] game discovery job is finished')
   }
 }
