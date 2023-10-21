@@ -25,7 +25,7 @@ export class NuuvemPriceScraper implements GamePriceScraper {
 
     const priceString = this.parser.getSelectorValue(data, priceSelector, removeSelectors)
     if (priceString == null) {
-      this.logger.error(`[NuuvemScraper] no price found for "${gameUrl}"`)
+      this.logger.warn(`[NuuvemScraper] no price found for "${gameUrl}"`)
       return null
     }
 

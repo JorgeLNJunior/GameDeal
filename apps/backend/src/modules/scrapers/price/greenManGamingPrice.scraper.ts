@@ -29,7 +29,7 @@ export class GreenManGamingPriceScraper implements GamePriceScraper {
 
     const priceString = this.parser.getSelectorValue(data, priceSelector)
     if (priceString == null) {
-      this.logger.error(`[GreenManGamingPriceScraper] no price found for "${gameUrl}"`)
+      this.logger.warn(`[GreenManGamingPriceScraper] no price found for "${gameUrl}"`)
       return null
     }
 
