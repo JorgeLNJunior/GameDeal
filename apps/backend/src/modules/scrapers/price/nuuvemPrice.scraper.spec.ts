@@ -40,7 +40,7 @@ describe('NuuvemPriceScraper', () => {
     const gameUrl = 'https://www.nuuvem.com/br-en/item/god-of-war'
 
     jest.spyOn(parser, 'getSelectorValue').mockReturnValueOnce(undefined)
-    const logSpy = jest.spyOn(logger, 'error')
+    const logSpy = jest.spyOn(logger, 'warn')
 
     await scraper.getGamePrice(gameUrl)
 
