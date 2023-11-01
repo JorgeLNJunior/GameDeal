@@ -30,18 +30,18 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.0.0",
-    "@commitlint/config-conventional": "^18.0.0",
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
     "@turbo/gen": "^1.10.16",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@vue/eslint-config-standard-with-typescript": "^8.0.0",
     "eslint": "^8.52.0",
     "eslint-config-standard-with-typescript": "^37.0.0",
-    "eslint-plugin-jest": "^27.4.3",
+    "eslint-plugin-jest": "^27.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tailwindcss": "^3.13.0",
-    "eslint-plugin-vitest": "^0.3.3",
-    "eslint-plugin-vue": "^9.17.0",
+    "eslint-plugin-vitest": "^0.3.8",
+    "eslint-plugin-vue": "^9.18.1",
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
     "turbo": "^1.10.16"
