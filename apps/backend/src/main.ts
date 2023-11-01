@@ -8,6 +8,7 @@ import { FindGameByIdController } from '@api/controllers/findGameById/findGameBy
 import { FindGamesController } from '@api/controllers/findGames/findGames.controller'
 import { GetCurrentGamePriceController } from '@api/controllers/getCurrentGamePrice/getCurrentGamePrice.controller'
 import { GetGamePriceHistoryController } from '@api/controllers/getGamePriceHistory/getGamePriceHistory.controller'
+import { GetIgnoredGamesController } from '@api/controllers/getIgnoredGames/getIgnoredGames.controller'
 import { GetLowestPriceController } from '@api/controllers/getLowestPrice/getLowestPrice.controller'
 import { GetPriceDropsController } from '@api/controllers/getPriceDrops/getPriceDrop.controller'
 import { IgnoreGamesOnDiscoveryController } from '@api/controllers/ignoreGamesOnDiscovery/ignoreGamesOnDiscovery.controller'
@@ -78,6 +79,7 @@ export default class Main {
         container.resolve(GetLowestPriceController),
         container.resolve(UpdateGameController),
         container.resolve(GetPriceDropsController),
+        container.resolve(GetIgnoredGamesController),
         container.resolve(IgnoreGamesOnDiscoveryController),
         container.resolve(RedirectToDocsController)
       )
