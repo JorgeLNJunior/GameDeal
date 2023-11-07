@@ -210,6 +210,40 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
+    delete:
+      summary: Remover um jogo
+      description: Permite remover um jogo cadastrado. Usado
+        somente para propósitos de administração.
+      tags:
+        - "Jogos"
+        - "Administração"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID do jogo
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    default: the game has been deleted
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+
   /games/{id}/current:
     get:
       summary: Obter o preço atual de um jogo
