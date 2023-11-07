@@ -3,6 +3,7 @@ import 'reflect-metadata'
 import '@dependencies/dependency.container'
 
 import { AddGameController } from '@api/controllers/addGame/addGame.controller'
+import { AddIgnoredGamesController } from '@api/controllers/addIgnoredGames/addIgnoredGames.controller'
 import { CountGamesController } from '@api/controllers/countGames/countGames.controller'
 import { DeleteGameController } from '@api/controllers/deleteGame/deleteGame.controller'
 import { FindGameByIdController } from '@api/controllers/findGameById/findGameById.controller'
@@ -12,9 +13,9 @@ import { GetGamePriceHistoryController } from '@api/controllers/getGamePriceHist
 import { GetIgnoredGamesController } from '@api/controllers/getIgnoredGames/getIgnoredGames.controller'
 import { GetLowestPriceController } from '@api/controllers/getLowestPrice/getLowestPrice.controller'
 import { GetPriceDropsController } from '@api/controllers/getPriceDrops/getPriceDrop.controller'
-import { IgnoreGamesOnDiscoveryController } from '@api/controllers/ignoreGamesOnDiscovery/ignoreGamesOnDiscovery.controller'
 import { LoginController } from '@api/controllers/login/login.controller'
 import { RedirectToDocsController } from '@api/controllers/redirectToDocs/redirectToDocs.controller'
+import { RemoveIgnoredGamesController } from '@api/controllers/removeIgnoredGames/removeIgnoredGames.controller'
 import { UpdateGameController } from '@api/controllers/updateGame/updateGame.controller'
 import { Server } from '@api/server'
 import { CronService } from '@cron/cron.service'
@@ -83,7 +84,8 @@ export default class Main {
         container.resolve(DeleteGameController),
         container.resolve(GetPriceDropsController),
         container.resolve(GetIgnoredGamesController),
-        container.resolve(IgnoreGamesOnDiscoveryController),
+        container.resolve(AddIgnoredGamesController),
+        container.resolve(RemoveIgnoredGamesController),
         container.resolve(RedirectToDocsController)
       )
       this.cronService.registerJobs(

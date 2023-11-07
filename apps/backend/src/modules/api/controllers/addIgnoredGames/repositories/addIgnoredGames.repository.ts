@@ -3,10 +3,10 @@ import { type GameIgnoreList } from '@packages/types'
 import { randomUUID } from 'crypto'
 import { injectable } from 'tsyringe'
 
-import type { IgnoreGamesOnDiscoveryDto } from '../dto/ignoreGamesOnDiscovery.dto'
+import type { AddIgnoredGamesDto } from '../dto/addIgnoredGames.dto'
 
 @injectable()
-export class IgnoreGamesOnDiscoveryRepository {
+export class AddIgnoredGamesRepository {
   constructor (private readonly db: DatabaseService) {}
 
   /**
@@ -17,7 +17,7 @@ export class IgnoreGamesOnDiscoveryRepository {
    * ```
    * @param dto - A list of game titles to insert.
    */
-  async add (dto: IgnoreGamesOnDiscoveryDto): Promise<GameIgnoreList[]> {
+  async add (dto: AddIgnoredGamesDto): Promise<GameIgnoreList[]> {
     const data: GameIgnoreList[] = []
 
     await this.db

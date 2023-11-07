@@ -1,9 +1,9 @@
 import type { ValidationResult, Validator } from '@localtypes/validator.type'
 
-import type { IgnoreGamesOnDiscoveryDto } from '../dto/ignoreGamesOnDiscovery.dto'
+import type { AddIgnoredGamesDto } from '../dto/addIgnoredGames.dto'
 
-export class IgnoreGamesOnDiscoveryValidator implements Validator {
-  public validate (data: IgnoreGamesOnDiscoveryDto): ValidationResult {
+export class AddIgnoredGamesValidator implements Validator {
+  public validate (data: AddIgnoredGamesDto): ValidationResult {
     const errors: string[] = []
 
     if (!Array.isArray(data.titles)) {

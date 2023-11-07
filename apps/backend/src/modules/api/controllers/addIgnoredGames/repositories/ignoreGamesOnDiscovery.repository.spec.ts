@@ -2,16 +2,16 @@ import { DatabaseService } from '@database/database.service'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
-import { type IgnoreGamesOnDiscoveryDto } from '../dto/ignoreGamesOnDiscovery.dto'
-import { IgnoreGamesOnDiscoveryRepository } from './ignoreGamesOnDiscovery.repository'
+import { type AddIgnoredGamesDto } from '../dto/addIgnoredGames.dto'
+import { AddIgnoredGamesRepository } from './addIgnoredGames.repository'
 
 describe('IgnoreGamesOnDiscoveryRepository', () => {
-  let repository: IgnoreGamesOnDiscoveryRepository
+  let repository: AddIgnoredGamesRepository
   let db: DatabaseService
 
   beforeEach(async () => {
     db = container.resolve(DatabaseService)
-    repository = new IgnoreGamesOnDiscoveryRepository(db)
+    repository = new AddIgnoredGamesRepository(db)
 
     await db.connect()
   })
@@ -21,7 +21,7 @@ describe('IgnoreGamesOnDiscoveryRepository', () => {
   })
 
   it('should create a new game', async () => {
-    const data: IgnoreGamesOnDiscoveryDto = {
+    const data: AddIgnoredGamesDto = {
       titles: ['Darkest Dungeon', 'GRIS', 'Hollow Knight']
     }
 

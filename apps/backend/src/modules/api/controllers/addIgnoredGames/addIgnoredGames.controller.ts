@@ -10,18 +10,18 @@ import { HttpMethod } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { inject, injectable } from 'tsyringe'
 
-import { IgnoreGamesOnDiscoveryRepository } from './repositories/ignoreGamesOnDiscovery.repository'
-import { IgnoreGamesOnDiscoveryValidator } from './validator/ignoreGamesOnDiscovery.validator'
+import { AddIgnoredGamesRepository } from './repositories/addIgnoredGames.repository'
+import { AddIgnoredGamesValidator } from './validator/addIgnoredGames.validator'
 
 @injectable()
-export class IgnoreGamesOnDiscoveryController implements HttpController {
+export class AddIgnoredGamesController implements HttpController {
   method = HttpMethod.POST
   url = '/games/ignore'
 
   constructor (
     private readonly authService: AuthService,
-    private readonly repository: IgnoreGamesOnDiscoveryRepository,
-    private readonly validator: IgnoreGamesOnDiscoveryValidator,
+    private readonly repository: AddIgnoredGamesRepository,
+    private readonly validator: AddIgnoredGamesValidator,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 

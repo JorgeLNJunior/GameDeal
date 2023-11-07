@@ -4,23 +4,23 @@ import type { GameIgnoreList } from '@packages/types'
 import { HttpRequestBuilder } from '@testing/builders/http.request.builder'
 import { container } from 'tsyringe'
 
-import { IgnoreGamesOnDiscoveryController } from './ignoreGamesOnDiscovery.controller'
-import { IgnoreGamesOnDiscoveryRepository } from './repositories/ignoreGamesOnDiscovery.repository'
-import { IgnoreGamesOnDiscoveryValidator } from './validator/ignoreGamesOnDiscovery.validator'
+import { AddIgnoredGamesController } from './addIgnoredGames.controller'
+import { AddIgnoredGamesRepository } from './repositories/addIgnoredGames.repository'
+import { AddIgnoredGamesValidator } from './validator/addIgnoredGames.validator'
 
-describe('IgnoreGamesOnDiscoveryController', () => {
-  let controller: IgnoreGamesOnDiscoveryController
-  let validator: IgnoreGamesOnDiscoveryValidator
-  let repository: IgnoreGamesOnDiscoveryRepository
+describe('AddIgnoredGamesController', () => {
+  let controller: AddIgnoredGamesController
+  let validator: AddIgnoredGamesValidator
+  let repository: AddIgnoredGamesRepository
   let authService: AuthService
 
   beforeEach(() => {
-    validator = container.resolve(IgnoreGamesOnDiscoveryValidator)
-    repository = container.resolve(IgnoreGamesOnDiscoveryRepository)
+    validator = container.resolve(AddIgnoredGamesValidator)
+    repository = container.resolve(AddIgnoredGamesRepository)
     authService = container.resolve(AuthService)
     const logger = new PinoLogger()
 
-    controller = new IgnoreGamesOnDiscoveryController(
+    controller = new AddIgnoredGamesController(
       authService,
       repository,
       validator,
