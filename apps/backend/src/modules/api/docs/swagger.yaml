@@ -79,31 +79,6 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
-    patch:
-      summary: Atualizar os dados de um jogo
-      description: Permite atualizar os dados de um jogo cadastrado. Usando
-        somente para propósitos de administração.
-      tags:
-        - "Jogos"
-        - "Administração"
-      security:
-        - bearerAuth: []
-      requestBody:
-        $ref: "#/components/requestBodies/update-game"
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/game"
-        400:
-          $ref: "#/components/responses/400"
-        401:
-          $ref: "#/components/responses/401"
-        500:
-          $ref: "#/components/responses/500"
-
     get:
       summary: Listar todos os jogos
       description: Retorna uma lista jogos cadastrados. Suporta paginação,
@@ -200,6 +175,38 @@ paths:
                 $ref: "#/components/schemas/game"
         404:
           $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+
+    patch:
+      summary: Atualizar os dados de um jogo
+      description: Permite atualizar os dados de um jogo cadastrado. Usando
+        somente para propósitos de administração.
+      tags:
+        - "Jogos"
+        - "Administração"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID do jogo
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/update-game"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/game"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
 
