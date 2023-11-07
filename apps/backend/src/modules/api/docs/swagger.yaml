@@ -29,7 +29,7 @@ paths:
   /login:
     post:
       summary: Retorna um token de autenticação
-      description: Retorna um token de autenticação no formato JWT. Usando
+      description: Retorna um token de autenticação no formato JWT. Usado
         somente para propósitos de administração.
       tags:
         - "Autenticação"
@@ -180,7 +180,7 @@ paths:
 
     patch:
       summary: Atualizar os dados de um jogo
-      description: Permite atualizar os dados de um jogo cadastrado. Usando
+      description: Permite atualizar os dados de um jogo cadastrado. Usado
         somente para propósitos de administração.
       tags:
         - "Jogos"
@@ -433,7 +433,7 @@ paths:
       summary: Adicionar um jogo a ignore list
       description: Adicionar uma lista de jogos a ignore list do scraper que
         descobre novos jogos. Os jogos são inseridos em uma transaction, caso uma
-        inserção falhe, as outras serão revertidas. Usando somente para propósitos
+        inserção falhe, as outras serão revertidas. Usado somente para propósitos
         de administração.
       tags:
         - "Jogos"
