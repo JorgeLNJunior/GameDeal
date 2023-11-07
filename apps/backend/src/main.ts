@@ -18,6 +18,7 @@ import { RedirectToDocsController } from '@api/controllers/redirectToDocs/redire
 import { UpdateGameController } from '@api/controllers/updateGame/updateGame.controller'
 import { Server } from '@api/server'
 import { CronService } from '@cron/cron.service'
+import { DatabaseMaintanceCronJob } from '@cron/jobs/databaseMaintance.cronjob'
 import { GameDiscoveryCronJob } from '@cron/jobs/game.discovery.cronjob'
 import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
 import { DatabaseService } from '@database/database.service'
@@ -87,7 +88,8 @@ export default class Main {
       )
       this.cronService.registerJobs(
         container.resolve(GameScrapingCronJob),
-        container.resolve(GameDiscoveryCronJob)
+        container.resolve(GameDiscoveryCronJob),
+        container.resolve(DatabaseMaintanceCronJob)
       )
 
       await this.dbService.connect()
