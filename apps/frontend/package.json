@@ -15,7 +15,7 @@
   "dependencies": {
     "axios": "^1.6.0",
     "chart.js": "^4.4.0",
-    "vue": "^3.3.7",
+    "vue": "^3.3.8",
     "vue-chartjs": "^5.2.0",
     "vue-router": "^4.2.5"
   },
@@ -24,7 +24,7 @@
     "@packages/types": "workspace:*",
     "@packages/testing": "workspace:*",
     "@tsconfig/node18": "^18.2.2",
-    "@types/jsdom": "^21.1.4",
+    "@types/jsdom": "^21.1.5",
     "@types/node": "^18.16.8",
     "@vitejs/plugin-vue": "^4.4.0",
     "@vitest/coverage-v8": "^0.34.6",
