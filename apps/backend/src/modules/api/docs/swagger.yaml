@@ -488,6 +488,33 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
+    delete:
+      summary: Remove um jogo da ignore list
+      description: Remove um jogo da ignore list do scraper que descobre novos
+        jogos. Usado somente para propósitos de administração.
+      tags:
+        - "Jogos"
+        - "Administração"
+      security:
+        - bearerAuth: []
+      requestBody:
+        $ref: "#/components/requestBodies/remove_ignored_games"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    default: all games have been removed
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+
     get:
       summary: Obter jogos ignorados
       description: Retorna uma lista de jogos ignorados pelo scraper que descobre
@@ -766,6 +793,19 @@ components:
                 items:
                   type: string
                   example: Mineirinho Ultra Adventures
+
+    remove_ignored_games:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              ids:
+                type: array
+                items:
+                  type: string
+                  example: b1a382ce-b85b-11ed-b7cb-0242ac110002
 
   responses:
     400:
