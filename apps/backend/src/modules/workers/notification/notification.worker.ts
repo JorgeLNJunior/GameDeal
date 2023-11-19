@@ -45,6 +45,10 @@ export class NotificationWorker {
           host: this.config.getEnv('REDIS_HOST'),
           port: this.config.getEnv('REDIS_PORT'),
           password: this.config.getEnv('REDIS_PASSWORD')
+        },
+        limiter: {
+          max: 3,
+          duration: 1000
         }
       }
     )
