@@ -20,8 +20,8 @@
     "@fastify/swagger": "^8.12.0",
     "@fastify/swagger-ui": "^1.10.1",
     "@newrelic/mysql": "^6.1.0",
-    "axios": "^1.6.0",
-    "bullmq": "^4.13.0",
+    "axios": "^1.6.2",
+    "bullmq": "^4.14.0",
     "cheerio": "^1.0.0-rc.12",
     "cron": "^3.1.6",
     "dotenv": "^16.3.1",
@@ -31,7 +31,7 @@
     "mysql2": "^3.6.3",
     "newrelic": "^11.5.0",
     "node-cache": "^5.1.2",
-    "pino": "^8.16.1",
+    "pino": "^8.16.2",
     "reflect-metadata": "^0.1.13",
     "telegraf": "^4.15.0",
     "tsyringe": "^4.8.0"
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@packages/testing": "workspace:*",
     "@packages/types": "workspace:*",
-    "@types/jest": "^29.5.7",
+    "@types/jest": "^29.5.8",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/newrelic": "^9.14.3",
     "@types/node": "^18.16.8",
@@ -51,6 +51,6 @@
     "ts-node-dev": "^2.0.0",
     "tsc-alias": "^1.8.8",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   }
 }

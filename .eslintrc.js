@@ -9,6 +9,9 @@ module.exports = {
     jest: true,
     browser: true
   },
+  parserOptions: {
+    sourceType: 'module'
+  },
   plugins: [
     'simple-import-sort'
   ],
@@ -19,7 +22,6 @@ module.exports = {
       extends: ['standard-with-typescript'],
       parserOptions: {
         ecmaVersion: 2021,
-        sourceType: 'module',
         project: path.join(__dirname, 'apps/backend/tsconfig.json')
       }
     },
@@ -30,7 +32,6 @@ module.exports = {
       extends: ['standard-with-typescript', 'plugin:jest/recommended'],
       parserOptions: {
         ecmaVersion: 2021,
-        sourceType: 'module',
         project: path.join(__dirname, 'apps/backend/tsconfig.json')
       }
     },
@@ -40,7 +41,6 @@ module.exports = {
       extends: ['standard-with-typescript'],
       parserOptions: {
         ecmaVersion: 2021,
-        sourceType: 'module',
         project: [
           path.join(__dirname, 'apps/frontend/tsconfig.app.json'),
           path.join(__dirname, 'apps/frontend/tsconfig.node.json')
@@ -59,7 +59,8 @@ module.exports = {
         ecmaVersion: 'latest',
         project: [
           path.join(__dirname, 'apps/frontend/tsconfig.json'),
-        ]
+        ],
+        sourceType: 'module'
       },
       rules: {
         'tailwindcss/no-custom-classname': ['error', {
@@ -74,7 +75,6 @@ module.exports = {
       plugins: ['vitest'],
       parserOptions: {
         ecmaVersion: 2021,
-        sourceType: 'module',
         project: path.join(__dirname, 'apps/frontend/tsconfig.vitest.json')
       },
     },
@@ -84,7 +84,6 @@ module.exports = {
       extends: ['standard-with-typescript'],
       parserOptions: {
         ecmaVersion: 2021,
-        sourceType: 'module',
         project: path.join(__dirname, 'packages/tsconfig.json')
       }
     },

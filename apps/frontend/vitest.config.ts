@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { mergeConfig } from 'vite'
 import { configDefaults, defineConfig } from 'vitest/config'
 
-import viteConfig from './vite.config'
+import viteConfig from './vite.config.js'
 
 export default mergeConfig(
   viteConfig,
@@ -14,6 +14,7 @@ export default mergeConfig(
       root: fileURLToPath(new URL('./', import.meta.url)),
       coverage: {
         all: true,
+        provider: 'v8',
         reporter: ['clover', 'json', 'lcov', 'text'],
         include: ['src/**/*.ts', 'src/**/*.vue'],
         exclude: [
