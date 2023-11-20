@@ -488,8 +488,8 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
-    delete:
-      summary: Remove um jogo da ignore list
+    patch:
+      summary: Remove uma lista de jogos da ignore list
       description: Remove um jogo da ignore list do scraper que descobre novos
         jogos. Usado somente para propósitos de administração.
       tags:
@@ -801,7 +801,7 @@ components:
           schema:
             type: object
             properties:
-              ids:
+              removeIds:
                 type: array
                 items:
                   type: string

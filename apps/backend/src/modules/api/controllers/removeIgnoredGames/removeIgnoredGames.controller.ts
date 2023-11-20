@@ -10,12 +10,13 @@ import { HttpMethod } from '@localtypes/http/http.type'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { inject, injectable } from 'tsyringe'
 
+import { type RemoveIgnoredGamesDto } from './dto/removeIgnoredGames.dto'
 import { RemoveIgnoredGamesRepository } from './repositories/removeIgnoredGames.repository'
 import { RemoveIgnoredGamesValidator } from './validator/removeIgnoredGames.validator'
 
 @injectable()
 export class RemoveIgnoredGamesController implements HttpController {
-  method = HttpMethod.DELETE
+  method = HttpMethod.PATCH
   url = '/games/ignore'
 
   constructor (
@@ -41,7 +42,9 @@ export class RemoveIgnoredGamesController implements HttpController {
       const { success, errors } = await this.validator.validate(request.body)
       if (!success) return ResponseBuilder.badRequest(errors)
 
-      await this.repository.remove(request.params.id)
+      for (const id of (request.body as RemoveIgnoredGamesDto).removeIds) {
+        await this.repository.remove(id)
+      }
 
       return ResponseBuilder.ok({
         message: 'the game has been removed from the ignore list'

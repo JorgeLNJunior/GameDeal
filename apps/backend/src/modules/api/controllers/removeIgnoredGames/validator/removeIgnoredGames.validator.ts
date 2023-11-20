@@ -11,10 +11,10 @@ export class RemoveIgnoredGamesValidator implements Validator {
   async validate (data: RemoveIgnoredGamesDto): Promise<ValidationResult> {
     const errors: string[] = []
 
-    if (data.ids == null) {
-      errors.push('"ids" is required')
+    if (data.removeIds == null) {
+      errors.push('"removeIds" is required')
     } else {
-      for (const id of data.ids) {
+      for (const id of data.removeIds) {
         const isIgnoredExists = await this.isIgnoredExistsRepository.exists(id)
         if (!isIgnoredExists) errors.push(`the id "${id}" do not exist`)
       }

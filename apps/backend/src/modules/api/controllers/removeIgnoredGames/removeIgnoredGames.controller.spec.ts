@@ -30,7 +30,7 @@ describe('RemoveIgnoredGamesController', () => {
   })
 
   it('should return a OK response if it succeeds', async () => {
-    jest.spyOn(repository, 'remove').mockResolvedValueOnce()
+    jest.spyOn(repository, 'remove').mockResolvedValue()
     jest.spyOn(validator, 'validate').mockResolvedValueOnce({ success: true })
 
     const token = await authService.getJwtToken()
@@ -46,7 +46,7 @@ describe('RemoveIgnoredGamesController', () => {
 
   it('should return a BAD_REQUEST response if the validation fail', async () => {
     const errors = ['error']
-    jest.spyOn(repository, 'remove').mockResolvedValueOnce()
+    jest.spyOn(repository, 'remove').mockResolvedValue()
     jest.spyOn(validator, 'validate').mockResolvedValueOnce({ success: false, errors })
 
     const token = await authService.getJwtToken()

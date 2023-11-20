@@ -31,7 +31,7 @@ describe('RemoveIgnoredGamesValidator', () => {
     await db.getClient().insertInto('game_ignore_list').values(data).execute()
 
     const dto: RemoveIgnoredGamesDto = {
-      ids: [data.id]
+      removeIds: [data.id]
     }
 
     const { success, errors } = await validator.validate(dto)
@@ -40,7 +40,7 @@ describe('RemoveIgnoredGamesValidator', () => {
     expect(errors).toBeUndefined()
   })
 
-  it('should return false if "ids" property is undefined', async () => {
+  it('should return false if "removeIds" property is undefined', async () => {
     const data: GameIgnoreList = { id: randomUUID(), title: 'Starfield' }
     await db.getClient().insertInto('game_ignore_list').values(data).execute()
 
@@ -53,7 +53,7 @@ describe('RemoveIgnoredGamesValidator', () => {
   it('should return false if validation fails', async () => {
     const data: GameIgnoreList = { id: randomUUID(), title: 'Starfield' }
     const dto: RemoveIgnoredGamesDto = {
-      ids: [data.id]
+      removeIds: [data.id]
     }
 
     const { success, errors } = await validator.validate(dto)

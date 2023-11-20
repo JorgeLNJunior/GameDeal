@@ -1,3 +1,3 @@
 export interface RemoveIgnoredGamesDto {
-  ids: string[]
+  removeIds: string[]
 }
