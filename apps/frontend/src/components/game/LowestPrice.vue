@@ -16,7 +16,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex select-none flex-col space-y-1 text-center">
+  <div class="flex flex-col space-y-1 text-center">
     <p class="text-sm font-medium md:text-base">Menor preço:&nbsp;</p>
     <div class="flex flex-row justify-evenly md:justify-center md:space-x-5">
       <p class="flex flex-col text-sm md:flex-row md:text-base" test-data="platform">
