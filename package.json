@@ -30,8 +30,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.4.2",
-    "@commitlint/config-conventional": "^18.4.2",
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
     "@turbo/gen": "^1.10.16",
     "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@vue/eslint-config-standard-with-typescript": "^8.0.0",
@@ -46,9 +46,6 @@
     "lint-staged": "^15.1.0",
     "turbo": "^1.10.16"
   },
-  "lint-staged": {
-    "*.{ts,js,vue}": "eslint --cache --fix"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/JorgeLNJunior/GameDeal.git"
@@ -58,7 +55,7 @@
   },
   "homepage": "https://github.com/JorgeLNJunior/GameDeal#readme",
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "pnpm": {
     "overrides": {
@@ -66,5 +63,8 @@
       "protobufjs@>=7.0.0 <7.2.4": ">=7.2.4",
       "@babel/traverse@<7.23.2": ">=7.23.2"
     }
+  },
+  "lint-staged": {
+    "*.{ts,js,vue}": "eslint --cache --fix"
   }
 }

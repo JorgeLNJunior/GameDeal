@@ -28,7 +28,7 @@
     "fastify": "^4.24.3",
     "jsonwebtoken": "^9.0.2",
     "kysely": "^0.26.3",
-    "mysql2": "^3.6.3",
+    "mysql2": "^3.6.4",
     "newrelic": "^11.5.0",
     "node-cache": "^5.1.2",
     "pino": "^8.16.2",
@@ -39,7 +39,7 @@
   "devDependencies": {
     "@packages/testing": "workspace:*",
     "@packages/types": "workspace:*",
-    "@types/jest": "^29.5.8",
+    "@types/jest": "^29.5.9",
     "@types/jsonwebtoken": "^9.0.5",
     "@types/newrelic": "^9.14.3",
     "@types/node": "^18.16.8",
