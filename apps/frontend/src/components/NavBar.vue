@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { TELEGRAM_CHANNEL_URL } from '@/constants/urls'
+import { GITHUB_URL, TELEGRAM_CHANNEL_URL } from '@/constants/urls'
+import GitHubIcon from '@/icons/GitHubIcon.vue'
 import TelegramIcon from '@/icons/TelegramIcon.vue'
 </script>
 
@@ -21,6 +22,15 @@ import TelegramIcon from '@/icons/TelegramIcon.vue'
         >
           <TelegramIcon class="h-4"/>
           <span class="hidden sm:block">Telegram</span>
+        </a>
+
+        <a
+          class="flex flex-row items-center gap-2 rounded-md bg-slate-700 px-5 py-2.5 text-center text-sm font-medium text-white transition hover:bg-slate-800"
+          :href="GITHUB_URL" target="_blank"
+          test-data="github_btn"
+        >
+          <GitHubIcon class="h-4"/>
+          <span class="hidden sm:block">GitHub</span>
         </a>
       </div>
     </div>

@@ -1,5 +1,6 @@
 export const SERVER_URL = import.meta.env.VITE_SERVER_URL
 export const TELEGRAM_CHANNEL_URL = 'https://t.me/s/GameDealApp'
+export const GITHUB_URL = 'https://github.com/JorgeLNJunior/GameDeal'
 
 export const STEAM_URL = 'https://store.steampowered.com'
 export const NUUVEM_URL = 'https://nuuvem.com'
