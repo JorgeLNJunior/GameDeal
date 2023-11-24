@@ -28,7 +28,6 @@ export class Server {
    */
   public async listen (): Promise<void> {
     this.logger.info('[Server] starting the server')
-    await this.registerPlugins()
     this.fastify.listen(
       {
         host: this.config.getEnv<string>('HOST') ?? '0.0.0.0',
@@ -97,11 +96,15 @@ export class Server {
    * await this.registerPlugins()
    * ```
    */
-  private async registerPlugins (): Promise<void> {
+  public async registerPlugins (): Promise<void> {
     this.logger.info('[Server] registering all plugins')
     await this.fastify.register(import('@fastify/compress'))
     await this.fastify.register(import('@fastify/cors'))
     await this.fastify.register(import('@fastify/helmet'))
+    await this.fastify.register(import('@fastify/rate-limit'), {
+      max: 300,
+      timeWindow: '1 minute'
+    })
     await this.fastify.register(import('@fastify/swagger'), {
       mode: 'static',
       specification: {

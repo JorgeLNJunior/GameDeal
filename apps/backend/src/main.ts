@@ -71,6 +71,7 @@ export default class Main {
    */
   async start (): Promise<void> {
     try {
+      await this.server.registerPlugins()
       this.server.registerControllers(
         container.resolve(LoginController),
         container.resolve(AddGameController),
