@@ -21,7 +21,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@rushstack/eslint-patch": "^1.5.1",
+    "@rushstack/eslint-patch": "^1.6.0",
     "@packages/types": "workspace:*",
     "@packages/testing": "workspace:*",
     "@tsconfig/node20": "^20.1.2",
