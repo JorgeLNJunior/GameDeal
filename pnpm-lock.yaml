@@ -22,9 +22,6 @@ importers:
       '@turbo/gen':
         specifier: ^1.10.16
         version: 1.10.16(@types/node@20.9.3)(typescript@5.3.2)
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^5.52.0
-        version: 5.61.0(@typescript-eslint/parser@5.59.8)(eslint@8.54.0)(typescript@5.3.2)
       '@vue/eslint-config-standard-with-typescript':
         specifier: ^8.0.0
         version: 8.0.0(eslint-plugin-vue@9.18.1)(eslint@8.54.0)(typescript@5.3.2)

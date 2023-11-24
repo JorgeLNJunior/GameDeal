@@ -33,7 +33,6 @@
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@turbo/gen": "^1.10.16",
-    "@typescript-eslint/eslint-plugin": "^5.52.0",
     "@vue/eslint-config-standard-with-typescript": "^8.0.0",
     "eslint": "^8.54.0",
     "eslint-config-standard-with-typescript": "^37.0.0",
