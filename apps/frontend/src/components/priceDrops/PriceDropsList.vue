@@ -4,6 +4,7 @@ import { onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
+import { redirectWithHttpError } from '@/router/redirectWithHttpError'
 
 import PriceDropsListItem from './PriceDropsListItem.vue'
 import PriceDropsListItemSkeleton from './PriceDropsListItemSkeleton.vue'
@@ -18,7 +19,7 @@ const getPriceDrops = async (): Promise<void> => {
     const data = await new ApiService().getTodayPriceDrops()
     drops.value = data.results
   } catch (error) {
-    await router.push('/error')
+    await redirectWithHttpError(router, error)
   }
 }
 </script>

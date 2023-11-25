@@ -3,6 +3,7 @@ import { onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
+import { redirectWithHttpError } from '@/router/redirectWithHttpError'
 import { Platform } from '@/types/Platform'
 
 import GameCountSkeleton from './GameCountSkeleton.vue'
@@ -17,7 +18,7 @@ const getGames = async (): Promise<void> => {
   try {
     totalGames.value = await new ApiService().getGamesCount()
   } catch (error) {
-    await router.push('/error')
+    await redirectWithHttpError(router, error)
   }
 }
 </script>

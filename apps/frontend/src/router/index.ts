@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import { HttpErrorType } from '@/types/httpError.type'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -16,14 +18,13 @@ const router = createRouter({
     },
     {
       path: '/error',
-      component: async () => await import('@/views/InternalError.vue'),
-      meta: { title: '500 - Internal Error' }
+      name: 'error',
+      component: async () => await import('@/views/HttpError.vue')
     },
     {
       path: '/:pathMatch(.*)*',
       name: 'notFound',
-      component: async () => await import('@/views/NotFound.vue'),
-      meta: { title: '404 - Not Found' }
+      redirect: { path: '/error', query: { error: HttpErrorType.NOT_FOUND } }
     }
   ]
 })

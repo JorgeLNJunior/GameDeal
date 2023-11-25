@@ -1,7 +1,6 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts" setup>
 import type { Game, GamePrice, LowestPrice as ILowestPrice } from '@packages/types'
-import { AxiosError } from 'axios'
 import { computed, onBeforeMount, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -11,6 +10,7 @@ import LowestPrice from '@/components/game/LowestPrice.vue'
 import PlatformPriceButtonGroup from '@/components/game/PlatformPriceButtonGroup.vue'
 import PriceHistoryChart from '@/components/game/PriceHistoryChart.vue'
 import { DataFormater } from '@/helpers/DataFormater'
+import { redirectWithHttpError } from '@/router/redirectWithHttpError'
 
 const route = useRoute()
 const router = useRouter()
@@ -71,11 +71,7 @@ onBeforeMount(async () => {
     uiState.isDataFetched = true
     document.title = `${game.title} | Game Deal`
   } catch (error) {
-    if (error instanceof AxiosError && error.response?.status === 404) {
-      await router.push({ name: 'notFound' })
-      return
-    }
-    await router.push('/error')
+    await redirectWithHttpError(router, error)
   }
 })
 

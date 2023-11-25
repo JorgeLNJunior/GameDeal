@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import type { Game } from '@packages/types'
-import { AxiosError } from 'axios'
 import { onBeforeMount, reactive } from 'vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
+import { redirectWithHttpError } from '@/router/redirectWithHttpError'
 
 import GameListItem from './GameListItem.vue'
 import GameListItemSkeleton from './GameListItemSkeleton.vue'
@@ -53,11 +53,7 @@ async function getGames (title?: string, page?: number): Promise<void> {
 
     uiState.isDataFetched = true
   } catch (error) {
-    if (error instanceof AxiosError && error.response?.status === 404) {
-      await router.push({ name: 'notFound' })
-      return
-    }
-    await router.push('/error')
+    await redirectWithHttpError(router, error)
   }
 }
 </script>

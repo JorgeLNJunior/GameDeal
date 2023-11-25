@@ -4,6 +4,7 @@ import { computed, onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
+import { redirectWithHttpError } from '@/router/redirectWithHttpError'
 
 import GameListItemSkeleton from './GameListItemSkeleton.vue'
 
@@ -23,7 +24,7 @@ const getGamePrice = async (): Promise<void> => {
   try {
     price.value = await new ApiService().getGamePrice(props.id)
   } catch (error) {
-    await router.push('/error')
+    await redirectWithHttpError(router, error)
   }
 }
 
