@@ -1,6 +1,6 @@
 import { DatabaseService } from '@database/database.service'
 import type { GamePrice } from '@packages/types'
-import { sql } from 'kysely'
+import { randomUUID } from 'crypto'
 import { injectable } from 'tsyringe'
 
 @injectable()
@@ -18,33 +18,25 @@ export class InsertGamePriceRepository {
    * @returns A `GamePrice` object.
    */
   async insert (gameId: string, prices: PlatformPrices): Promise<GamePrice> {
-    return await this.databaseService
-      .getClient()
-      .transaction()
-      .execute(async (trx) => {
-        const uuidResult = await sql<
-        Record<string, string>
-        >`SELECT UUID()`.execute(trx)
+    const client = this.databaseService.getClient()
+    const id = randomUUID()
 
-        const uuid = uuidResult.rows[0]['UUID()']
-
-        await trx
-          .insertInto('game_price')
-          .values({
-            id: uuid,
-            game_id: gameId,
-            steam_price: prices.steam_price,
-            nuuvem_price: prices.nuuvem_price,
-            green_man_gaming_price: prices.green_man_gaming_price
-          })
-          .execute()
-
-        return await trx
-          .selectFrom('game_price')
-          .selectAll()
-          .where('id', '=', uuid)
-          .executeTakeFirstOrThrow()
+    await client
+      .insertInto('game_price')
+      .values({
+        id,
+        game_id: gameId,
+        steam_price: prices.steam_price,
+        nuuvem_price: prices.nuuvem_price,
+        green_man_gaming_price: prices.green_man_gaming_price
       })
+      .execute()
+
+    return await client
+      .selectFrom('game_price')
+      .selectAll()
+      .where('id', '=', id)
+      .executeTakeFirstOrThrow()
   }
 }
 
