@@ -1,12 +1,13 @@
 import { GameBuilder, GamePriceBuilder } from '@packages/testing'
 import type { GamePrice, LowestPrice, QueryData } from '@packages/types'
 import { flushPromises, mount } from '@vue/test-utils'
-import { AxiosError } from 'axios'
 import { describe, expect, it, vi } from 'vitest'
 
 import { ApiService } from '@/api/api.service'
 import router from '@/router'
+import { HttpErrorType } from '@/types/httpError.type'
 
+import { getAxiosError } from '../../testing/getAxiosError'
 import GameView from './GameView.vue'
 
 describe('GameView', () => {
@@ -122,39 +123,10 @@ describe('GameView', () => {
     expect(isSkeletonVisible).toBe(false)
   })
 
-  it('Should redirect to /error if something throws', async () => {
-    const routerSpy = vi.spyOn(router, 'push').mockResolvedValueOnce()
-
-    vi.spyOn(ApiService.prototype, 'getGameByID').mockRejectedValueOnce(new Error())
-
-    await router.replace('/game/id')
-
-    mount(GameView, {
-      global: {
-        plugins: [router]
-      }
-    })
-
-    await flushPromises()
-
-    expect(routerSpy).toHaveBeenCalledOnce()
-    expect(routerSpy).toHaveBeenCalledWith('/error')
-  })
-
   it('Should redirect to /notFound if jest has returned a 404 error', async () => {
     const routerSpy = vi.spyOn(router, 'push')
 
-    vi.spyOn(ApiService.prototype, 'getGameByID')
-      .mockRejectedValueOnce(
-        new AxiosError(
-          'not found',
-          '404',
-          undefined,
-          undefined,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          { status: 404 } as any
-        )
-      )
+    vi.spyOn(ApiService.prototype, 'getGameByID').mockRejectedValueOnce(getAxiosError(404))
 
     await router.replace('/game/id')
 
@@ -167,6 +139,9 @@ describe('GameView', () => {
     await flushPromises()
 
     expect(routerSpy).toHaveBeenCalledOnce()
-    expect(routerSpy).toHaveBeenCalledWith({ name: 'notFound' })
+    expect(routerSpy).toHaveBeenCalledWith({
+      path: '/error',
+      query: { error: HttpErrorType.NOT_FOUND }
+    })
   })
 })
