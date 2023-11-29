@@ -6,7 +6,6 @@ import { HttpErrorType } from '@/types/httpError.type'
 export async function redirectWithHttpError (router: Router, error: unknown): Promise<void> {
   if (isAxiosError(error)) {
     if (error.response?.status === 404) {
-      console.log(404)
       await router.push({
         path: '/error',
         query: { error: HttpErrorType.NOT_FOUND }
