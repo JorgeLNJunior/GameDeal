@@ -5,12 +5,12 @@ on:
 
 jobs:
   backend:
-    name: Backend CI/CD
+    name: Backend
     secrets: inherit
     uses: ./.github/workflows/backend.yml
 
   frontend:
-    name: Frontend CI/CD
+    name: Frontend
     secrets: inherit
     needs: [backend]
     uses: ./.github/workflows/frontend.yml
