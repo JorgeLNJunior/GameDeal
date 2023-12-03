@@ -5,8 +5,10 @@ on:
 
 jobs:
   backend:
+    secrets: inherit
     uses: ./.github/workflows/backend.yml
 
   frontend:
+    secrets: inherit
     needs: [backend]
     uses: ./.github/workflows/frontend.yml
