@@ -26,7 +26,6 @@ jobs:
   test:
     name: 🧪 Tests
     runs-on: ubuntu-latest
-    needs: [build]
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
