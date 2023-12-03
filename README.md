@@ -10,8 +10,7 @@ Saiba quando o preço de um jogo cair.
 
 <div align="center" id="badges">
 
-[![Backend CI](https://img.shields.io/github/actions/workflow/status/JorgeLNJUnior/GameDeal/frontend.yml?branch=main&label=Backend+CI)](https://github.com/JorgeLNJunior/GameDeal/actions/workflows/backend.yml)
-[![Frontend CI](https://img.shields.io/github/actions/workflow/status/JorgeLNJUnior/GameDeal/frontend.yml?branch=main&label=Frontend+CI)](https://github.com/JorgeLNJunior/GameDeal/actions/workflows/frontend.yml)
+[![CI/CD](https://img.shields.io/github/actions/workflow/status/JorgeLNJUnior/GameDeal/frontend.yml?branch=main&label=CI%2FCD)](https://github.com/JorgeLNJunior/GameDeal/actions/workflows/ci.yml)
 [![Coverage Status](https://coveralls.io/repos/github/JorgeLNJunior/GameDeal/badge.svg?branch=main)](https://coveralls.io/github/JorgeLNJunior/GameDeal?branch=main)
 [![License](https://img.shields.io/github/license/JorgeLNJunior/GameDeal)](https://github.com/JorgeLNJunior/GameDeal/blob/main/LICENSE.md)
 [![Games Count](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.gamedeal.cloudns.nz%2Fgames%2Fcount&query=%24.total&label=Jogos&color=lgreen)](https://app.gamedeal.cloudns.nz/)
