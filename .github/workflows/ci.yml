@@ -27,8 +27,6 @@ jobs:
         with:
           name: frontend_coverage
           path: coverage/frontend
-      - name: Display structure of downloaded files
-        run: ls -R
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
