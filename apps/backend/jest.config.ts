@@ -14,7 +14,7 @@ const config: JestConfigWithTsJest = {
     '!**/*.dto.ts',
     '!**/*.query.ts',
     '!**/*.type.ts',
-    '!src/infra/newrelic.ts',
+    '!src/modules/infra/newrelic.ts',
     '!src/main.ts'
   ],
   coverageDirectory: 'coverage',
