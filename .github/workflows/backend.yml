@@ -65,7 +65,7 @@ jobs:
       - run: pnpm lint:backend
 
   openapi:
-    name: 🧪 Validate Swagger File
+    name: 🧪 Validate OpenAPI File
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
