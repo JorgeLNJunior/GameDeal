@@ -1,7 +1,7 @@
-name: Frontend CI
+name: Frontend CI/CD
 
 on:
-  push:
+  workflow_call:
 
 jobs:
   build:
