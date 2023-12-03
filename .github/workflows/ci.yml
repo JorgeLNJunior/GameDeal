@@ -12,3 +12,25 @@ jobs:
     secrets: inherit
     needs: [backend]
     uses: ./.github/workflows/frontend.yml
+
+  coverage:
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - name: download backend coverage
+        uses: actions/download-artifact@v3
+        with:
+          name: backend_coverage
+          path: coverage/backend
+      - name: download frontend coverage
+        uses: actions/download-artifact@v3
+        with:
+          name: frontend_coverage
+          path: coverage/frontend
+      - name: Display structure of downloaded files
+        run: ls -R
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-path: coverage

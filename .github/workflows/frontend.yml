@@ -38,11 +38,12 @@ jobs:
       - run: pnpm test:frontend:cov
         env:
           test: true
-      - name: Coveralls
-        uses: coverallsapp/github-action@v2
+      - name: coverage
+        uses: actions/upload-artifact@v3
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          base-path: apps/frontend
+          name: frontend_coverage
+          path: apps/frontend/coverage/
+          if-no-files-found: error
 
   lint:
     name: 🧹 Lint
