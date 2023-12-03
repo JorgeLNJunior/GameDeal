@@ -15,7 +15,7 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
-  async discoveryGames (pages = 25): Promise<void> {
+  async discoveryGames (pages = 15): Promise<void> {
     try {
       const client = this.database.getClient()
       const games: InsertData[] = []
