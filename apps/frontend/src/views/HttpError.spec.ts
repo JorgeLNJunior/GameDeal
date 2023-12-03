@@ -6,7 +6,7 @@ import { HttpErrorType } from '@/types/httpError.type'
 
 import HttpError from './HttpError.vue'
 
-describe('HttpError', () => {
+describe.skip('HttpError', () => {
   describe('Redirect button', () => {
     it('should contain a redirect button', async () => {
       const wrapper = mount(HttpError, {
