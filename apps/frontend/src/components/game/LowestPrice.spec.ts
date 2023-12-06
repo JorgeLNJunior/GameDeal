@@ -1,32 +1,31 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
-import { Platform } from '@/types/Platform'
-
 import LowestPrice from './LowestPrice.vue'
+import { Store } from '@packages/types'
 
 describe('LowestPrice', () => {
-  it('Should render the platform', async () => {
-    const platform = Platform.STEAM
+  it('Should render the store', async () => {
+    const store = Store.STEAM
     const price = 'R$ 75.20'
     const date = '10/05/2023'
 
     const wrapper = mount(LowestPrice, {
-      props: { platform, price, date }
+      props: { store, price, date }
     })
 
-    const value = wrapper.get('[test-data="platform"]').text()
+    const value = wrapper.get('[test-data="store"]').text()
 
-    expect(value).toContain(platform)
+    expect(value).toContain(store)
   })
 
   it('Should render the price', async () => {
-    const platform = Platform.STEAM
+    const store = Store.STEAM
     const price = 'R$ 75.20'
     const date = '10/05/2023'
 
     const wrapper = mount(LowestPrice, {
-      props: { platform, price, date }
+      props: { store, price, date }
     })
 
     const value = wrapper.get('[test-data="price"]').text()
@@ -35,12 +34,12 @@ describe('LowestPrice', () => {
   })
 
   it('Should render the date', async () => {
-    const platform = Platform.STEAM
+    const store = Store.STEAM
     const price = 'R$ 75.20'
     const date = '10/05/2023'
 
     const wrapper = mount(LowestPrice, {
-      props: { platform, price, date }
+      props: { store, price, date }
     })
 
     const value = wrapper.get('[test-data="date"]').text()

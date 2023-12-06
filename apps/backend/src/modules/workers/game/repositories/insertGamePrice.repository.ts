@@ -17,7 +17,7 @@ export class InsertGamePriceRepository {
    * @param prices - The current prices of the game
    * @returns A `GamePrice` object.
    */
-  async insert (gameId: string, prices: PlatformPrices): Promise<GamePrice> {
+  async insert (gameId: string, prices: StorePrices): Promise<GamePrice> {
     const client = this.databaseService.getClient()
     const id = randomUUID()
 
@@ -40,7 +40,7 @@ export class InsertGamePriceRepository {
   }
 }
 
-interface PlatformPrices {
+interface StorePrices {
   steam_price: number
   nuuvem_price: number | null
   green_man_gaming_price: number | null

@@ -8,7 +8,7 @@ export class GetLowestPriceRepository {
   constructor (private readonly databaseService: DatabaseService) {}
 
   /**
-   * Returns the lowest price of a game from each platform.
+   * Returns the lowest price of a game from each store.
    *
    * @example
    * ```

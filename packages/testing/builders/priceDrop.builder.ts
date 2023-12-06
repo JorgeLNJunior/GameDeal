@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-readonly */
-import type { GamePriceDrop } from '@packages/types'
+import { GamePriceDrop, Store } from '@packages/types'
 import { randomUUID } from 'crypto'
 
 export class GamePriceDropBuilder {
@@ -7,7 +7,7 @@ export class GamePriceDropBuilder {
   private game_id: string = randomUUID()
   private discount_price = 50.99
   private old_price = 50.99
-  private platform: Platform = 'Steam'
+  private store = Store.STEAM
   private date = '2022-10-21'
 
   withGame (gameId: string): GamePriceDropBuilder {
@@ -25,8 +25,8 @@ export class GamePriceDropBuilder {
     return this
   }
 
-  withPlatform (platform: Platform): GamePriceDropBuilder {
-    this.platform = platform
+  withStore (store: Store): GamePriceDropBuilder {
+    this.store = store
     return this
   }
 
@@ -36,10 +36,8 @@ export class GamePriceDropBuilder {
       game_id: this.game_id,
       discount_price: this.discount_price,
       old_price: this.old_price,
-      platform: this.platform,
+      store: this.store,
       date: this.date
     }
   }
 }
-
-type Platform = 'Steam' | 'Nuuvem' | 'Green Man Gaming'

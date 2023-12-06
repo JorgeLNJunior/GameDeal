@@ -14,7 +14,7 @@ export class UpdateGameUrlRepository {
    * @param gameId - The id of the game
    * @param urls - The urls to be updated
    */
-  async update (gameId: string, urls: PlatformUrls): Promise<void> {
+  async update (gameId: string, urls: StoreURLs): Promise<void> {
     await this.databaseService.getClient()
       .updateTable('game')
       .set({
@@ -26,7 +26,7 @@ export class UpdateGameUrlRepository {
   }
 }
 
-interface PlatformUrls {
+interface StoreURLs {
   nuuvem_url?: string
   green_man_gaming_url?: string
 }

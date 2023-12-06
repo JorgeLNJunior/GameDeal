@@ -1,3 +1,5 @@
+import { Store } from "@packages/types"
+
 export interface Notifier {
   /**
    * Sends a notification when the price of a game drops.
@@ -34,12 +36,6 @@ export interface Notifier {
    * ```
    */
   stop: () => Promise<void>
-}
-
-export enum Store {
-  STEAM = 'Steam',
-  NUUVEM = 'Nuuvem',
-  GREEN_MAN_GAMMING = 'Green Man Gaming'
 }
 
 export interface NotifyPriceDropData {

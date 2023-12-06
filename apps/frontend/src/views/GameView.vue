@@ -1,13 +1,13 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts" setup>
-import type { Game, GamePrice, LowestPrice as ILowestPrice } from '@packages/types'
+import { Store, type Game, type GamePrice, type LowestPrice as ILowestPrice } from '@packages/types'
 import { computed, onBeforeMount, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
 import GamePriceCardSkeleton from '@/components/game/GamePriceCardSkeleton.vue'
 import LowestPrice from '@/components/game/LowestPrice.vue'
-import PlatformPriceButtonGroup from '@/components/game/PlatformPriceButtonGroup.vue'
+import StorePriceButtonGroup from '@/components/game/StorePriceButtonGroup.vue'
 import PriceHistoryChart from '@/components/game/PriceHistoryChart.vue'
 import { DataFormater } from '@/helpers/DataFormater'
 import { redirectWithHttpError } from '@/router/redirectWithHttpError'
@@ -35,28 +35,28 @@ const formatedLowestPrice = computed(() => {
 
   if (Number(lowestPrice.steam.price) === min) {
     return {
-      platform: 'Steam',
+      store: Store.STEAM,
       price: formater.formatPriceWithCurrency(lowestPrice.steam.price as number),
       date: formater.formatFullDate(String(lowestPrice.steam.date))
     }
   }
   if (Number(lowestPrice.nuuvem.price) === min) {
     return {
-      platform: 'Nuuvem',
+      store: Store.NUUVEM,
       price: formater.formatPriceWithCurrency(lowestPrice.nuuvem.price as number),
       date: formater.formatFullDate(String(lowestPrice.nuuvem.date))
     }
   }
   if (Number(lowestPrice.green_man_gaming.price) === min) {
     return {
-      platform: 'Green Man Gaming',
+      store: Store.GREEN_MAN_GAMING,
       price: formater.formatPriceWithCurrency(lowestPrice.green_man_gaming.price as number),
       date: formater.formatFullDate(String(lowestPrice.green_man_gaming.date))
     }
   }
 
   return {
-    platform: 'Sem registro',
+    store: 'Sem registro' as Store,
     price: 'R$ 0.00',
     date: formater.formatFullDate(new Date())
   }
@@ -101,12 +101,12 @@ async function getGamePriceHistory (): Promise<void> {
         <!-- Title -->
         <p class="text-2xl font-medium" test-data="game-title">{{ game.title }}</p>
         <!-- Current price -->
-        <PlatformPriceButtonGroup :game="game" :current-price="currentPrice" />
+        <StorePriceButtonGroup :game="game" :current-price="currentPrice" />
       </div>
 
       <!-- Lowest price -->
       <LowestPrice
-        :platform="formatedLowestPrice.platform"
+        :store="formatedLowestPrice.store"
         :price="formatedLowestPrice.price"
         :date="formatedLowestPrice.date"
       />

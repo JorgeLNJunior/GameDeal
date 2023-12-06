@@ -4,10 +4,10 @@ import { useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
 import { redirectWithHttpError } from '@/router/redirectWithHttpError'
-import { Platform } from '@/types/Platform'
 
 import GameCountSkeleton from './GameCountSkeleton.vue'
-import PlatformNameButton from './PlatformNameButton.vue'
+import StoreNameButton from './StoreNameButton.vue'
+import { Store } from '@packages/types'
 
 const router = useRouter()
 const totalGames = ref<number>(0)
@@ -33,9 +33,9 @@ const getGames = async (): Promise<void> => {
     <div class="space-y-2 p-2">
       <p class="font-medium">Plataformas</p>
       <div class="flex flex-wrap justify-evenly gap-1">
-        <PlatformNameButton :platform="Platform.STEAM" />
-        <PlatformNameButton :platform="Platform.NUUVEM" />
-        <PlatformNameButton :platform="Platform.GREEN_MAN_GAMING" />
+        <StoreNameButton :store="Store.STEAM" />
+        <StoreNameButton :store="Store.NUUVEM" />
+        <StoreNameButton :store="Store.GREEN_MAN_GAMING" />
       </div>
     </div>
   </div>

@@ -48,7 +48,7 @@ describe('GetLowestPriceRepository', () => {
     expect(data.green_man_gaming?.price).toBe(lowestPrice.green_man_gaming_price?.toString())
   })
 
-  it('should return the price as null if there is not price in a platform', async () => {
+  it('should return the price as null if there is not price in a store', async () => {
     const game = new GameBuilder().build()
     const price = new GamePriceBuilder()
       .withGame(game.id)

@@ -7,7 +7,7 @@ import PriceHistoryChartSkeleton from './PriceHistoryChartSkeleton.vue'
     <div class="flex w-full flex-col items-center space-y-4">
       <!-- Title -->
       <div class="h-2 w-56 animate-pulse rounded-full bg-gray-300"></div>
-      <!-- Platform buttons -->
+      <!-- Store buttons -->
       <div class="h-2 w-48 animate-pulse rounded-full bg-gray-300"></div>
       <!-- Current price -->
       <div class="h-2 w-64 animate-pulse rounded-full bg-gray-300"></div>
