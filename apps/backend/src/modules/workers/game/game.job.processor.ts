@@ -10,6 +10,7 @@ import { injectable } from 'tsyringe'
 
 import { InsertGamePriceRepository } from './repositories/insertGamePrice.repository'
 import { InsertPriceDropRepository } from './repositories/insertPriceDrop.repository'
+import { Store } from '@localtypes/notifier.type'
 
 @injectable()
 export class GameJobProcessor {
@@ -77,7 +78,7 @@ export class GameJobProcessor {
         currentPrice: currentSteamPrice,
         oldPrice: lastRegisteredPrice.steam_price,
         gameTitle: game.title,
-        platform: 'Steam',
+        store: Store.STEAM,
         gameUrl: game.steam_url
       }); return
     }
@@ -99,7 +100,7 @@ export class GameJobProcessor {
         currentPrice: currentNuuvemPrice as number,
         oldPrice: lastRegisteredPrice.nuuvem_price as number,
         gameTitle: game.title,
-        platform: 'Nuuvem',
+        store: Store.NUUVEM,
         gameUrl: game.nuuvem_url as string
       }); return
     }
@@ -121,7 +122,7 @@ export class GameJobProcessor {
         currentPrice: currentGMGPrice as number,
         oldPrice: lastRegisteredPrice.green_man_gaming_price as number,
         gameTitle: game.title,
-        platform: 'Green Man Gaming',
+        store: Store.GREEN_MAN_GAMMING,
         gameUrl: game.green_man_gaming_url as string
       })
     }

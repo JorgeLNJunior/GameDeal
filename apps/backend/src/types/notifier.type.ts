@@ -25,10 +25,21 @@ export interface Notifier {
   stop: () => Promise<void>
 }
 
+export enum Store {
+  STEAM = 'Steam',
+  NUUVEM = 'Nuuvem',
+  GREEN_MAN_GAMMING = 'Green Man Gaming'
+}
+
 export interface NotifyPriceDropData {
+  /** The games's title. */
   gameTitle: string
+  /** The game's URL. */
   gameUrl: string
-  platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
+  /** The store with the lowest price. */
+  store: Store
+  /** The lowest price collected by scrappers. */
   currentPrice: number
+  /** The latest registered price. */
   oldPrice: number | null
 }
