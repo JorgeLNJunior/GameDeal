@@ -1,6 +1,6 @@
 import { NOTIFIERS, PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import { type Notifier, type NotifyData } from '@localtypes/notifier.type'
+import type { Notifier, NotifyPriceDropData } from '@localtypes/notifier.type'
 import { inject, singleton } from 'tsyringe'
 
 @singleton()
@@ -17,12 +17,12 @@ export class NotificationService {
    * @param data - The data needed to notify.
    * @example
    * ```
-   * await notificationService.notify()
+   * await notificationService.notifyPriceDrop()
    * ```
    */
-  async notify (data: NotifyData): Promise<void> {
+  async notifyPriceDrop (data: NotifyPriceDropData): Promise<void> {
     for await (const notifier of this.notifiers) {
-      await notifier.notify(data)
+      await notifier.notifyPriceDrop(data)
     }
   }
 

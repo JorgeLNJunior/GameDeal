@@ -1,7 +1,7 @@
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import type { NotifyData } from '@localtypes/notifier.type'
+import type { NotifyPriceDropData } from '@localtypes/notifier.type'
 import { QueueName } from '@localtypes/queue.type'
 import { NotificationService } from '@notification/notification.service'
 import { Worker } from 'bullmq'
@@ -9,7 +9,7 @@ import { inject, singleton } from 'tsyringe'
 
 @singleton()
 export class NotificationWorker {
-  private worker!: Worker<NotifyData>
+  private worker!: Worker<NotifyPriceDropData>
 
   /**
    * Handles the notification worker.
@@ -33,11 +33,11 @@ export class NotificationWorker {
   async init (): Promise<void> {
     await this.notificationService.start()
 
-    this.worker = new Worker<NotifyData, void>(
+    this.worker = new Worker<NotifyPriceDropData, void>(
       QueueName.NOTICATION,
       async (job) => {
         this.logger.info(`[NotificationWorker] processing job ${job.id ?? 'unknow'}`)
-        await this.notificationService.notify(job.data)
+        await this.notificationService.notifyPriceDrop(job.data)
         this.logger.info(`[NotificationWorker] job ${job.id ?? 'unknow'} processed`)
       },
       {

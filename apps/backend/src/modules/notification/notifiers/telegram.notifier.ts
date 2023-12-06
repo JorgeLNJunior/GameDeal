@@ -1,5 +1,5 @@
 import ConfigService from '@config/config.service'
-import type { Notifier, NotifyData } from '@localtypes/notifier.type'
+import type { Notifier, NotifyPriceDropData } from '@localtypes/notifier.type'
 import { Telegraf } from 'telegraf'
 import { singleton } from 'tsyringe'
 
@@ -22,7 +22,7 @@ export class TelegramNotifier implements Notifier {
     this.bot.stop()
   }
 
-  async notify (data: NotifyData): Promise<void> {
+  async notifyPriceDrop (data: NotifyPriceDropData): Promise<void> {
     const CHAT_ID = this.configService.getEnv<number>('TELEGRAM_CHAT_ID')
     if (CHAT_ID === undefined) {
       throw new Error('the environment variable "TELEGRAM_CHAT_ID" is not defined')

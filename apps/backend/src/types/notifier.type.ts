@@ -3,10 +3,10 @@ export interface Notifier {
    * Sends a notification.
    * @example
    * ```
-   * await notifier.notify()
+   * await notifier.notifyPriceDrop()
    * ```
    */
-  notify: (data: NotifyData) => Promise<void>
+  notifyPriceDrop: (data: NotifyPriceDropData) => Promise<void>
   /**
    * Starts the notifier.
    *    @example
@@ -25,7 +25,7 @@ export interface Notifier {
   stop: () => Promise<void>
 }
 
-export interface NotifyData {
+export interface NotifyPriceDropData {
   gameTitle: string
   gameUrl: string
   platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'

@@ -1,5 +1,5 @@
 import { PinoLogger } from '@infra/pino.logger'
-import type { Notifier, NotifyData } from '@localtypes/notifier.type'
+import type { Notifier, NotifyPriceDropData } from '@localtypes/notifier.type'
 
 import { NotificationService } from './notification.service'
 
@@ -17,7 +17,7 @@ describe('NotificationService', () => {
 
   describe('notify', () => {
     it('should call the "notify" method from all notifiers', async () => {
-      const data: NotifyData = {
+      const data: NotifyPriceDropData = {
         gameTitle: 'game title',
         platform: 'Steam',
         currentPrice: 100,
@@ -25,9 +25,9 @@ describe('NotificationService', () => {
         gameUrl: 'game url'
       }
 
-      const fakeNotifierSpy = jest.spyOn(fakeNotifier, 'notify')
+      const fakeNotifierSpy = jest.spyOn(fakeNotifier, 'notifyPriceDrop')
 
-      await notificationService.notify(data)
+      await notificationService.notifyPriceDrop(data)
 
       expect(fakeNotifierSpy).toHaveBeenCalled()
       expect(fakeNotifierSpy).toHaveBeenCalledWith(data)
@@ -56,7 +56,7 @@ describe('NotificationService', () => {
 })
 
 class FakeNotifier implements Notifier {
-  async notify (): Promise<void> {}
+  async notifyPriceDrop (): Promise<void> {}
 
   async start (): Promise<void> {}
 
