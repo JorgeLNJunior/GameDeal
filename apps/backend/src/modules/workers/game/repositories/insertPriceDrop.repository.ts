@@ -16,7 +16,7 @@ export class InsertPriceDropRepository {
    * @param gameId - All the required data.
    * @returns A `GamePriceDrop` object.
    */
-  async insert (data: PriceDropData): Promise<GamePriceDrop> {
+  async insert (data: PriceDropInsertData): Promise<GamePriceDrop> {
     const client = this.databaseService.getClient()
     const id = randomUUID()
 
@@ -25,7 +25,7 @@ export class InsertPriceDropRepository {
       .values({
         id,
         game_id: data.game_id,
-        platform: data.platform,
+        store: data.store,
         old_price: data.old_price,
         discount_price: data.discount_price
       })
@@ -39,4 +39,4 @@ export class InsertPriceDropRepository {
   }
 }
 
-type PriceDropData = Pick<GamePriceDrop, 'game_id' | 'platform' | 'old_price' | 'discount_price'>
+export type PriceDropInsertData = Pick<GamePriceDrop, 'game_id' | 'store' | 'old_price' | 'discount_price'>

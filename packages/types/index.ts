@@ -20,10 +20,16 @@ export interface GamePrice {
 export interface GamePriceDrop {
   id: string
   game_id: string
-  platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
+  store: Store
   old_price: number | null
   discount_price: number
   date: string
+}
+
+export enum Store {
+  STEAM = 'Steam',
+  NUUVEM = 'Nuuvem',
+  GREEN_MAN_GAMING = 'Green Man Gaming'
 }
 
 export interface GameIgnoreList {

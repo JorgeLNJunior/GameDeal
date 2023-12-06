@@ -5,6 +5,7 @@ import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
 import { InsertPriceDropRepository } from './insertPriceDrop.repository'
+import { Store } from '@packages/types'
 
 describe('InsertPriceDropRepository', () => {
   let repository: InsertPriceDropRepository
@@ -24,7 +25,7 @@ describe('InsertPriceDropRepository', () => {
 
   it('should register a game price drop', async () => {
     const game = new GameBuilder().build()
-    const platform = 'Steam'
+    const store = Store.STEAM
     const old_price = 139.99
     const discount_price = 78.32
 
@@ -32,12 +33,12 @@ describe('InsertPriceDropRepository', () => {
 
     const price = await repository.insert({
       game_id: game.id,
-      platform,
+      store,
       old_price,
       discount_price
     })
 
-    expect(price.platform).toBe(platform)
+    expect(price.store).toBe(store)
     expect(price.old_price).toBe(old_price.toString())
     expect(price.discount_price).toBe(discount_price.toString())
   })

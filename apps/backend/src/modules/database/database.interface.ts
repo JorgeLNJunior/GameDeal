@@ -1,3 +1,4 @@
+import { Store } from '@packages/types'
 import { type ColumnType } from 'kysely'
 
 interface GameTable {
@@ -22,7 +23,7 @@ interface GamePriceTable {
 interface GamePriceDropTable {
   id: ColumnType<string, string, never>
   game_id: ColumnType<string, string, never>
-  platform: 'Steam' | 'Nuuvem' | 'Green Man Gaming'
+  store: Store
   old_price: number | null
   discount_price: number
   date: ColumnType<string, never, never>

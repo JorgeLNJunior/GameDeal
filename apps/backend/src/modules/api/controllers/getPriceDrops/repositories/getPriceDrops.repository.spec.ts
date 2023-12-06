@@ -36,7 +36,7 @@ describe('GetPriceDropsRepository', () => {
     expect(drops.results[0].game_id).toEqual(game.id)
     expect(drops.results[0].old_price).toEqual(priceDrop.old_price?.toString())
     expect(drops.results[0].discount_price).toEqual(priceDrop.discount_price.toString())
-    expect(drops.results[0].platform).toEqual(priceDrop.platform)
+    expect(drops.results[0].store).toEqual(priceDrop.store)
   })
 
   it('should return a list of price drops limited by query params', async () => {

@@ -9,7 +9,9 @@ import { container } from 'tsyringe'
 
 import { GameJobProcessor } from './game.job.processor'
 import { InsertGamePriceRepository } from './repositories/insertGamePrice.repository'
-import { InsertPriceDropRepository } from './repositories/insertPriceDrop.repository'
+import { InsertPriceDropRepository, PriceDropInsertData } from './repositories/insertPriceDrop.repository'
+import { Store } from '@packages/types'
+import { NotifyPriceDropData } from '@localtypes/notifier.type'
 
 describe('GameJobProcessor', () => {
   let job: GameJobProcessor
@@ -56,7 +58,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withPlatform('Steam')
+      .withStore(Store.STEAM)
       .withOldPrice(price.steam_price)
       .withDiscountPrice(currentSteamPrice)
       .build()
@@ -77,20 +79,20 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith({
+    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
       currentPrice: currentSteamPrice,
       oldPrice: price.steam_price,
       gameTitle: game.title,
-      platform: 'Steam',
+      store: Store.STEAM,
       gameUrl: game.steam_url
     })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
-    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+    expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
       old_price: price.steam_price,
       discount_price: currentSteamPrice,
-      platform: 'Steam'
+      store: Store.STEAM
     })
   })
 
@@ -105,7 +107,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withPlatform('Nuuvem')
+      .withStore(Store.NUUVEM)
       .withOldPrice(price.nuuvem_price as number)
       .withDiscountPrice(currentNuuvemPrice)
       .build()
@@ -127,20 +129,20 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith({
+    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
       currentPrice: currentNuuvemPrice,
       oldPrice: price.nuuvem_price,
       gameTitle: game.title,
-      platform: 'Nuuvem',
-      gameUrl: game.nuuvem_url
+      store: Store.NUUVEM,
+      gameUrl: game.nuuvem_url as string
     })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
-    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+    expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
       old_price: price.nuuvem_price,
       discount_price: currentNuuvemPrice,
-      platform: 'Nuuvem'
+      store: Store.NUUVEM
     })
   })
 
@@ -155,7 +157,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withPlatform('Green Man Gaming')
+      .withStore(Store.NUUVEM)
       .withOldPrice(price.green_man_gaming_price as number)
       .withDiscountPrice(currentGMGPrice)
       .build()
@@ -177,20 +179,20 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith({
+    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
       currentPrice: currentGMGPrice,
       oldPrice: price.green_man_gaming_price,
       gameTitle: game.title,
-      platform: 'Green Man Gaming',
-      gameUrl: game.green_man_gaming_url
+      store: Store.GREEN_MAN_GAMING,
+      gameUrl: game.green_man_gaming_url as string
     })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
-    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+    expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
       old_price: price.green_man_gaming_price,
       discount_price: currentGMGPrice,
-      platform: 'Green Man Gaming'
+      store: Store.GREEN_MAN_GAMING
     })
   })
 
@@ -205,7 +207,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withPlatform('Steam')
+      .withStore(Store.STEAM)
       .withOldPrice(price.steam_price)
       .withDiscountPrice(currentSteamPrice)
       .build()
@@ -225,20 +227,20 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith({
+    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
       currentPrice: currentSteamPrice,
       oldPrice: price.steam_price,
       gameTitle: game.title,
-      platform: 'Steam',
+      store: Store.STEAM,
       gameUrl: game.steam_url
     })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
-    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+    expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
       old_price: price.steam_price,
       discount_price: currentSteamPrice,
-      platform: 'Steam'
+      store: Store.STEAM
     })
   })
 
@@ -253,7 +255,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withPlatform('Nuuvem')
+      .withStore(Store.NUUVEM)
       .withOldPrice(price.nuuvem_price as number)
       .withDiscountPrice(currentNuuvemPrice)
       .build()
@@ -274,12 +276,12 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith({
+    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
       currentPrice: currentNuuvemPrice,
       oldPrice: price.nuuvem_price,
       gameTitle: game.title,
-      platform: 'Nuuvem',
-      gameUrl: game.nuuvem_url
+      store: Store.NUUVEM,
+      gameUrl: game.nuuvem_url as string
     })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
@@ -287,7 +289,7 @@ describe('GameJobProcessor', () => {
       game_id: game.id,
       old_price: price.nuuvem_price,
       discount_price: currentNuuvemPrice,
-      platform: 'Nuuvem'
+      store: Store.NUUVEM
     })
   })
 
@@ -302,7 +304,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withPlatform('Green Man Gaming')
+      .withStore(Store.GREEN_MAN_GAMING)
       .withOldPrice(price.green_man_gaming_price as number)
       .withDiscountPrice(currentGMGPrice)
       .build()
@@ -323,20 +325,20 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith({
+    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
       currentPrice: currentGMGPrice,
       oldPrice: price.green_man_gaming_price,
       gameTitle: game.title,
-      platform: 'Green Man Gaming',
-      gameUrl: game.green_man_gaming_url
+      store: Store.GREEN_MAN_GAMING,
+      gameUrl: game.green_man_gaming_url as string
     })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
-    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+    expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
       old_price: price.green_man_gaming_price,
       discount_price: currentGMGPrice,
-      platform: 'Green Man Gaming'
+      store: Store.GREEN_MAN_GAMING
     })
   })
 

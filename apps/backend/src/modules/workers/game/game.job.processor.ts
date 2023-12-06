@@ -1,5 +1,5 @@
 import { QueueJobName, type GamePriceScraperData } from '@localtypes/queue.type'
-import type { GamePrice } from '@packages/types'
+import { Store, type GamePrice } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingPriceScraper } from '@scrapers/price/greenManGamingPrice.scraper'
 import { NuuvemPriceScraper } from '@scrapers/price/nuuvemPrice.scraper'
@@ -10,7 +10,6 @@ import { injectable } from 'tsyringe'
 
 import { InsertGamePriceRepository } from './repositories/insertGamePrice.repository'
 import { InsertPriceDropRepository } from './repositories/insertPriceDrop.repository'
-import { Store } from '@localtypes/notifier.type'
 
 @injectable()
 export class GameJobProcessor {
@@ -72,7 +71,7 @@ export class GameJobProcessor {
         game_id: game.id,
         old_price: lastRegisteredPrice.steam_price,
         discount_price: currentSteamPrice,
-        platform: 'Steam'
+        store: Store.STEAM
       })
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
@@ -96,7 +95,7 @@ export class GameJobProcessor {
         game_id: game.id,
         old_price: lastRegisteredPrice.nuuvem_price,
         discount_price: currentNuuvemPrice as number,
-        platform: 'Nuuvem'
+        store: Store.NUUVEM
       })
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
@@ -120,7 +119,7 @@ export class GameJobProcessor {
         game_id: game.id,
         old_price: lastRegisteredPrice.green_man_gaming_price,
         discount_price: currentGMGPrice as number,
-        platform: 'Green Man Gaming'
+        store: Store.GREEN_MAN_GAMING
       })
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
@@ -128,7 +127,7 @@ export class GameJobProcessor {
         currentPrice: currentGMGPrice as number,
         oldPrice: lastRegisteredPrice.green_man_gaming_price as number,
         gameTitle: game.title,
-        store: Store.GREEN_MAN_GAMMING,
+        store: Store.GREEN_MAN_GAMING,
         gameUrl: game.green_man_gaming_url as string
       })
     }
