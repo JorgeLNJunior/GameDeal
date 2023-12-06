@@ -12,6 +12,7 @@ import { InsertGamePriceRepository } from './repositories/insertGamePrice.reposi
 import { InsertPriceDropRepository, PriceDropInsertData } from './repositories/insertPriceDrop.repository'
 import { Store } from '@packages/types'
 import { NotifyPriceDropData } from '@localtypes/notifier.type'
+import { QueueJobName } from '@localtypes/queue.type'
 
 describe('GameJobProcessor', () => {
   let job: GameJobProcessor
@@ -79,7 +80,9 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
+    expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
+      QueueJobName.NOTIFY_PRICE_DROP,
+      {
       currentPrice: currentSteamPrice,
       oldPrice: price.steam_price,
       gameTitle: game.title,
@@ -129,7 +132,9 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
+    expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
+      QueueJobName.NOTIFY_PRICE_DROP,
+      {
       currentPrice: currentNuuvemPrice,
       oldPrice: price.nuuvem_price,
       gameTitle: game.title,
@@ -179,7 +184,9 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
+    expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
+      QueueJobName.NOTIFY_PRICE_DROP,
+      {
       currentPrice: currentGMGPrice,
       oldPrice: price.green_man_gaming_price,
       gameTitle: game.title,
@@ -227,7 +234,9 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
+    expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
+      QueueJobName.NOTIFY_PRICE_DROP,
+      {
       currentPrice: currentSteamPrice,
       oldPrice: price.steam_price,
       gameTitle: game.title,
@@ -276,7 +285,9 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
+    expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
+      QueueJobName.NOTIFY_PRICE_DROP,
+      {
       currentPrice: currentNuuvemPrice,
       oldPrice: price.nuuvem_price,
       gameTitle: game.title,
@@ -285,7 +296,7 @@ describe('GameJobProcessor', () => {
     })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
-    expect(insertPriceDropSpy).toHaveBeenCalledWith({
+    expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
       old_price: price.nuuvem_price,
       discount_price: currentNuuvemPrice,
@@ -325,7 +336,9 @@ describe('GameJobProcessor', () => {
     })
 
     expect(notificationSpy).toHaveBeenCalledTimes(1)
-    expect(notificationSpy).toHaveBeenCalledWith<[NotifyPriceDropData]>({
+    expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
+      QueueJobName.NOTIFY_PRICE_DROP,
+      {
       currentPrice: currentGMGPrice,
       oldPrice: price.green_man_gaming_price,
       gameTitle: game.title,
