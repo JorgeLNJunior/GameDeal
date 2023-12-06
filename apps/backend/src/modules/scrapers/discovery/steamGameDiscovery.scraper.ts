@@ -2,7 +2,9 @@ import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { AxiosService } from '@infra/axios.service'
 import { ApplicationLogger } from '@localtypes/logger.type'
+import { QueueJobName } from '@localtypes/queue.type'
 import type { GameDiscoveryScraper } from '@localtypes/scraper.type'
+import { NotificationQueue } from '@queue/notification.queue'
 import * as cheerio from 'cheerio'
 import { randomUUID } from 'crypto'
 import { inject, injectable } from 'tsyringe'
@@ -12,6 +14,7 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
   constructor (
     private readonly database: DatabaseService,
     private readonly axios: AxiosService,
+    private readonly notificationQueue: NotificationQueue,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {}
 
@@ -77,6 +80,7 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
         gamesAdded = ++gamesAdded
       }
 
+      await this.notificationQueue.add(QueueJobName.NOTIFY_NEW_GAMES, { count: gamesAdded })
       this.logger.info(`[SteamGameDiscovery] added "${gamesAdded}" new games`)
     } catch (error) {
       this.logger.error(error, '[SteamGameDiscovery] game discovery failed')

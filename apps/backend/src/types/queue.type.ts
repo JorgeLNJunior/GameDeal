@@ -18,6 +18,7 @@ export enum QueueName {
 
 export enum QueueJobName {
   NOTIFY_PRICE_DROP = 'NotifyPriceDrop',
+  NOTIFY_NEW_GAMES = 'NotifyNewGames',
   SCRAPE_GAME_PRICE = 'ScrapeGamePrice',
   GREEN_MAN_GAMING_GAME_DISCOVERY = 'GmgGameDiscovery',
   NUUVEM_GAME_DISCOVERY = 'NuuvemGameDiscovery',

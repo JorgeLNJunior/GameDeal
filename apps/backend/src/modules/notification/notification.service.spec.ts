@@ -58,6 +58,8 @@ describe('NotificationService', () => {
 class FakeNotifier implements Notifier {
   async notifyPriceDrop (): Promise<void> {}
 
+  async notifyNewGames (): Promise<void> {}
+
   async start (): Promise<void> {}
 
   async stop (): Promise<void> {}

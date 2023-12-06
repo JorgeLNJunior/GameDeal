@@ -1,5 +1,5 @@
 import ConfigService from '@config/config.service'
-import type { Notifier, NotifyPriceDropData } from '@localtypes/notifier.type'
+import type { Notifier, NotifyNewGamesData, NotifyPriceDropData } from '@localtypes/notifier.type'
 import { Telegraf } from 'telegraf'
 import { singleton } from 'tsyringe'
 
@@ -24,7 +24,7 @@ export class TelegramNotifier implements Notifier {
 
   async notifyPriceDrop (data: NotifyPriceDropData): Promise<void> {
     const CHAT_ID = this.configService.getEnv<number>('TELEGRAM_CHAT_ID')
-    if (CHAT_ID === undefined) {
+    if (CHAT_ID == null) {
       throw new Error('the environment variable "TELEGRAM_CHAT_ID" is not defined')
     }
 
@@ -52,6 +52,29 @@ export class TelegramNotifier implements Notifier {
       }
     )
   }
+
+  async notifyNewGames (data: NotifyNewGamesData): Promise<void> {
+    const CHAT_ID = this.configService.getEnv<number>('TELEGRAM_CHAT_ID')
+    const WEB_APP_HOST = this.configService.getEnv<string>('WEB_APP_HOST')
+    if (CHAT_ID == null) {
+      throw new Error('the environment variable "TELEGRAM_CHAT_ID" is not defined')
+    }
+    if (WEB_APP_HOST == null) {
+      throw new Error('the environment variable "WEB_APP_HOST" is not defined')
+    }
+
+    await this.bot.telegram.sendMessage(
+      CHAT_ID,
+      `⚠️ Adicionados ${data.count} novos jogos. ⚠️`,
+      {
+        parse_mode: 'MarkdownV2',
+        reply_markup: {
+          inline_keyboard: [[{ text: 'Todos os jogos', url: WEB_APP_HOST }]]
+        }
+      }
+    )
+  }
+
   /**
    * Escape some special characteres in a text.
    * It's necessary due markdown sintax conflicts.

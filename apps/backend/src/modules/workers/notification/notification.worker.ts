@@ -1,15 +1,15 @@
 import ConfigService from '@config/config.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import type { NotifyPriceDropData } from '@localtypes/notifier.type'
-import { QueueName } from '@localtypes/queue.type'
+import type { NotificationData, NotifyNewGamesData, NotifyPriceDropData } from '@localtypes/notifier.type'
+import { QueueJobName, QueueName } from '@localtypes/queue.type'
 import { NotificationService } from '@notification/notification.service'
 import { Worker } from 'bullmq'
 import { inject, singleton } from 'tsyringe'
 
 @singleton()
 export class NotificationWorker {
-  private worker!: Worker<NotifyPriceDropData>
+  private worker!: Worker<NotificationData>
 
   /**
    * Handles the notification worker.
@@ -33,11 +33,19 @@ export class NotificationWorker {
   async init (): Promise<void> {
     await this.notificationService.start()
 
-    this.worker = new Worker<NotifyPriceDropData, void>(
+    this.worker = new Worker<NotificationData, void>(
       QueueName.NOTICATION,
       async (job) => {
         this.logger.info(`[NotificationWorker] processing job ${job.id ?? 'unknow'}`)
-        await this.notificationService.notifyPriceDrop(job.data)
+
+        if (job.name == QueueJobName.NOTIFY_PRICE_DROP) {
+          await this.notificationService.notifyPriceDrop(job.data as NotifyPriceDropData)
+        }
+        else if (job.name == QueueJobName.NOTIFY_NEW_GAMES) {
+          await this.notificationService.notifyNewGames(job.data as NotifyNewGamesData)
+        }
+        else throw new Error(`[NotificationWorker] ${job.name} is an invalid job name`)
+
         this.logger.info(`[NotificationWorker] job ${job.id ?? 'unknow'} processed`)
       },
       {

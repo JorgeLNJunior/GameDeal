@@ -1,6 +1,6 @@
 import { NOTIFIERS, PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import type { Notifier, NotifyPriceDropData } from '@localtypes/notifier.type'
+import type { Notifier, NotifyNewGamesData, NotifyPriceDropData } from '@localtypes/notifier.type'
 import { inject, singleton } from 'tsyringe'
 
 @singleton()
@@ -11,7 +11,7 @@ export class NotificationService {
   ) {}
 
   /**
-   * Sends a game price notification.
+   * Sends a notification when the price of a game drops.
    *
    * WARNING: You must call the `start()` method before calling this.
    * @param data - The data needed to notify.
@@ -23,6 +23,22 @@ export class NotificationService {
   async notifyPriceDrop (data: NotifyPriceDropData): Promise<void> {
     for await (const notifier of this.notifiers) {
       await notifier.notifyPriceDrop(data)
+    }
+  }
+
+  /**
+   * Sends a notification when new games are added.
+   *
+   * WARNING: You must call the `start()` method before calling this.
+   * @param data - The data needed to notify.
+   * @example
+   * ```
+   * await notificationService.notifyPriceDrop()
+   * ```
+   */
+  async notifyNewGames (data: NotifyNewGamesData): Promise<void> {
+    for await (const notifier of this.notifiers) {
+      await notifier.notifyNewGames(data)
     }
   }
 

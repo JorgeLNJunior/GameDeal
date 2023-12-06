@@ -1,4 +1,4 @@
-import type { GamePriceScraperData } from '@localtypes/queue.type'
+import { QueueJobName, type GamePriceScraperData } from '@localtypes/queue.type'
 import type { GamePrice } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingPriceScraper } from '@scrapers/price/greenManGamingPrice.scraper'
@@ -74,7 +74,9 @@ export class GameJobProcessor {
         discount_price: currentSteamPrice,
         platform: 'Steam'
       })
-      await this.notificationQueue.add({
+      await this.notificationQueue.add(
+        QueueJobName.NOTIFY_PRICE_DROP,
+        {
         currentPrice: currentSteamPrice,
         oldPrice: lastRegisteredPrice.steam_price,
         gameTitle: game.title,
@@ -96,7 +98,9 @@ export class GameJobProcessor {
         discount_price: currentNuuvemPrice as number,
         platform: 'Nuuvem'
       })
-      await this.notificationQueue.add({
+      await this.notificationQueue.add(
+        QueueJobName.NOTIFY_PRICE_DROP,
+        {
         currentPrice: currentNuuvemPrice as number,
         oldPrice: lastRegisteredPrice.nuuvem_price as number,
         gameTitle: game.title,
@@ -118,7 +122,9 @@ export class GameJobProcessor {
         discount_price: currentGMGPrice as number,
         platform: 'Green Man Gaming'
       })
-      await this.notificationQueue.add({
+      await this.notificationQueue.add(
+        QueueJobName.NOTIFY_PRICE_DROP,
+        {
         currentPrice: currentGMGPrice as number,
         oldPrice: lastRegisteredPrice.green_man_gaming_price as number,
         gameTitle: game.title,

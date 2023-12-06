@@ -50,4 +50,5 @@ type EnvironmentVariable =
   'REDIS_PORT' |
   'REDIS_PASSWORD' |
   'TELEGRAM_BOT_TOKEN' |
-  'TELEGRAM_CHAT_ID'
+  'TELEGRAM_CHAT_ID' |
+  'WEB_APP_HOST'

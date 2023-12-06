@@ -1,12 +1,22 @@
 export interface Notifier {
   /**
-   * Sends a notification.
+   * Sends a notification when the price of a game drops.
    * @example
    * ```
    * await notifier.notifyPriceDrop()
    * ```
    */
   notifyPriceDrop: (data: NotifyPriceDropData) => Promise<void>
+
+  /**
+   * Sends a notification when new games are added.
+   * @example
+   * ```
+   * await notifier.notifyNewGames()
+   * ```
+   */
+  notifyNewGames: (data: NotifyNewGamesData) => Promise<void>
+
   /**
    * Starts the notifier.
    *    @example
@@ -15,6 +25,7 @@ export interface Notifier {
    * ```
    */
   start: () => Promise<void>
+
   /**
    * Stops the notifier.
    * @example
@@ -43,3 +54,10 @@ export interface NotifyPriceDropData {
   /** The latest registered price. */
   oldPrice: number | null
 }
+
+export interface NotifyNewGamesData {
+  /** Count of added games. */
+  count: number
+}
+
+export type NotificationData = NotifyPriceDropData | NotifyNewGamesData
