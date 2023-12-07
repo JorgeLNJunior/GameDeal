@@ -3,7 +3,7 @@
   "main": "dist/main.js",
   "scripts": {
     "prebuild": "rimraf dist",
-    "build": "tsc -p tsconfig.build.json && tsc-alias",
+    "build": "tsc -b tsconfig.build.json && tsc-alias",
     "postbuild": "mkdir dist/modules/api/docs && cp src/modules/api/docs/swagger.yaml dist/modules/api/docs/",
     "start": "node .",
     "start:dev": "ts-node -r tsconfig-paths/register src/main.ts | pino-pretty",

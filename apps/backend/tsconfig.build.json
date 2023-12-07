@@ -8,5 +8,10 @@
         "testing/**",
         "**/*.spec.ts",
         "**/*.test.ts"
+    ],
+    "references": [
+      {
+        "path": "../../packages/types"
+      }
     ]
 }

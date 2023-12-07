@@ -1,5 +1,5 @@
 {
   "name": "@packages/types",
-  "main": "index.ts",
-  "types": "index.ts"
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts"
 }
