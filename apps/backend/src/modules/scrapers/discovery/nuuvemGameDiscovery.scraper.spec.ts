@@ -1,12 +1,13 @@
 import { AxiosService } from '@infra/axios.service'
 
 import { NuuvemGameDiscoveryScraper } from './nuuvemGameDiscovery.scraper'
+import { PinoLogger } from '@infra/pino.logger'
 
 describe('NuuvemGameDiscoveryScraper', () => {
   let scraper: NuuvemGameDiscoveryScraper
 
   beforeEach(async () => {
-    const axios = new AxiosService()
+    const axios = new AxiosService(new PinoLogger())
     scraper = new NuuvemGameDiscoveryScraper(axios)
   })
 

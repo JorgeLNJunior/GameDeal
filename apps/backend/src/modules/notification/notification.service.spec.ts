@@ -1,5 +1,5 @@
 import { PinoLogger } from '@infra/pino.logger'
-import { type Notifier, type NotifyPriceDropData } from '@localtypes/notifier.type'
+import { NotifyNewGamesData, type Notifier, type NotifyPriceDropData } from '@localtypes/notifier.type'
 
 import { NotificationService } from './notification.service'
 import { Store } from '@packages/types'
@@ -16,8 +16,8 @@ describe('NotificationService', () => {
     )
   })
 
-  describe('notify', () => {
-    it('should call the "notify" method from all notifiers', async () => {
+  describe('notifyPriceDrop', () => {
+    it('should call "notifyPriceDrop" method from all notifiers', async () => {
       const data: NotifyPriceDropData = {
         gameTitle: 'game title',
         store: Store.STEAM,
@@ -29,6 +29,21 @@ describe('NotificationService', () => {
       const fakeNotifierSpy = jest.spyOn(fakeNotifier, 'notifyPriceDrop')
 
       await notificationService.notifyPriceDrop(data)
+
+      expect(fakeNotifierSpy).toHaveBeenCalled()
+      expect(fakeNotifierSpy).toHaveBeenCalledWith(data)
+    })
+  })
+
+  describe('notifyNewGames', () => {
+    it('should call "notifyNewGames" method from all notifiers', async () => {
+      const data: NotifyNewGamesData = {
+        count: 30
+      }
+
+      const fakeNotifierSpy = jest.spyOn(fakeNotifier, 'notifyNewGames')
+
+      await notificationService.notifyNewGames(data)
 
       expect(fakeNotifierSpy).toHaveBeenCalled()
       expect(fakeNotifierSpy).toHaveBeenCalledWith(data)

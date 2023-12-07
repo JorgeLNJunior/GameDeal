@@ -12,9 +12,10 @@ describe('GreenManGamingPriceScraper', () => {
   let logger: PinoLogger
 
   beforeEach(async () => {
+    const axios = new AxiosService(logger)
     logger = new PinoLogger()
     parser = new CheerioParser()
-    scraper = new GreenManGamingPriceScraper(parser, logger, new AxiosService())
+    scraper = new GreenManGamingPriceScraper(parser, logger, axios)
   })
 
   it('should return a price', async () => {

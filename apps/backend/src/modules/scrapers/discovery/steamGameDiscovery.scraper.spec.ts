@@ -13,7 +13,7 @@ describe('SteamGameDiscoveryScraper', () => {
   let notificationQueue: NotificationQueue
 
   beforeEach(async () => {
-    const axios = new AxiosService()
+    const axios = new AxiosService(new PinoLogger())
     const logger = new PinoLogger()
     const config = new ConfigService(logger)
     notificationQueue = new NotificationQueue(config, logger)

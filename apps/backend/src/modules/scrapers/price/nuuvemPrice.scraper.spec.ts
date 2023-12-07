@@ -14,7 +14,8 @@ describe('NuuvemPriceScraper', () => {
   beforeEach(async () => {
     logger = new PinoLogger()
     parser = new CheerioParser()
-    scraper = new NuuvemPriceScraper(parser, logger, new AxiosService())
+    const axios = new AxiosService(logger)
+    scraper = new NuuvemPriceScraper(parser, logger, axios)
   })
 
   it('should return a price', async () => {

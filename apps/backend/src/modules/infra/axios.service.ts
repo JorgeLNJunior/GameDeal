@@ -6,9 +6,8 @@ import { PinoLogger } from './pino.logger'
 @injectable()
 export class AxiosService {
   private readonly axiosInstance: AxiosInstance
-  private readonly logger = new PinoLogger()
 
-  constructor () {
+  constructor (private readonly logger: PinoLogger) {
     this.axiosInstance = axios.create()
     this.axiosInstance.interceptors.response.use(undefined, (error) => {
       if (isAxiosError(error)) {
@@ -16,6 +15,7 @@ export class AxiosService {
           error,
           `[AxiosService] request to "${error.config?.url ?? 'unknown'}" failed with code "${error.code ?? 'unknown'}"`)
       } else this.logger.error(error, '[AxiosService] request failed')
+      throw error
     })
   }
 
