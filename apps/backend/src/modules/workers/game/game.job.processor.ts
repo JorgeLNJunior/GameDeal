@@ -69,7 +69,7 @@ export class GameJobProcessor {
     if (notifySteam) {
       await this.insertPriceDropRepository.insert({
         game_id: game.id,
-        old_price: lastRegisteredPrice.steam_price,
+        previous_price: lastRegisteredPrice.steam_price,
         discount_price: currentSteamPrice,
         store: Store.STEAM
       })
@@ -93,7 +93,7 @@ export class GameJobProcessor {
     if (notifyNuuvem) {
       await this.insertPriceDropRepository.insert({
         game_id: game.id,
-        old_price: lastRegisteredPrice.nuuvem_price,
+        previous_price: lastRegisteredPrice.nuuvem_price,
         discount_price: currentNuuvemPrice as number,
         store: Store.NUUVEM
       })
@@ -117,7 +117,7 @@ export class GameJobProcessor {
     if (notifyGMG) {
       await this.insertPriceDropRepository.insert({
         game_id: game.id,
-        old_price: lastRegisteredPrice.green_man_gaming_price,
+        previous_price: lastRegisteredPrice.green_man_gaming_price,
         discount_price: currentGMGPrice as number,
         store: Store.GREEN_MAN_GAMING
       })

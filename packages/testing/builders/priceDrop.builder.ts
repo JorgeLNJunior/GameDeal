@@ -1,14 +1,13 @@
-/* eslint-disable @typescript-eslint/prefer-readonly */
 import { type GamePriceDrop, Store } from '@packages/types'
 import { randomUUID } from 'crypto'
 
 export class GamePriceDropBuilder {
-  private id = randomUUID()
+  private readonly id = randomUUID()
   private game_id: string = randomUUID()
   private discount_price = 50.99
-  private old_price = 50.99
+  private previous_price = 50.99
   private store = Store.STEAM
-  private date = '2022-10-21'
+  private readonly date = '2022-10-21'
 
   withGame (gameId: string): GamePriceDropBuilder {
     this.game_id = gameId
@@ -20,8 +19,8 @@ export class GamePriceDropBuilder {
     return this
   }
 
-  withOldPrice (price: number): GamePriceDropBuilder {
-    this.old_price = price
+  withPreviousPrice (price: number): GamePriceDropBuilder {
+    this.previous_price = price
     return this
   }
 
@@ -35,7 +34,7 @@ export class GamePriceDropBuilder {
       id: this.id,
       game_id: this.game_id,
       discount_price: this.discount_price,
-      old_price: this.old_price,
+      previous_price: this.previous_price,
       store: this.store,
       date: this.date
     }

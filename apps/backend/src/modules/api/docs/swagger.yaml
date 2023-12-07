@@ -687,7 +687,7 @@ components:
             - Steam
             - Nuuvem
             - Green Man Gaming
-        old_price:
+        previous_price:
           type: number
           example: 139.99
         discount_price:

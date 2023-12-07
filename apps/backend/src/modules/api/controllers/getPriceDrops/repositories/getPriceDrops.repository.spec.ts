@@ -34,7 +34,7 @@ describe('GetPriceDropsRepository', () => {
 
     expect(drops.results[0].id).toEqual(priceDrop.id)
     expect(drops.results[0].game_id).toEqual(game.id)
-    expect(drops.results[0].old_price).toEqual(priceDrop.old_price?.toString())
+    expect(drops.results[0].previous_price).toEqual(priceDrop.previous_price?.toString())
     expect(drops.results[0].discount_price).toEqual(priceDrop.discount_price.toString())
     expect(drops.results[0].store).toEqual(priceDrop.store)
   })

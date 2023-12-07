@@ -24,7 +24,7 @@ interface GamePriceDropTable {
   id: ColumnType<string, string, never>
   game_id: ColumnType<string, string, never>
   store: Store
-  old_price: number | null
+  previous_price: number | null
   discount_price: number
   date: ColumnType<string, never, never>
 }

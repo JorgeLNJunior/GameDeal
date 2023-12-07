@@ -26,7 +26,7 @@ export class InsertPriceDropRepository {
         id,
         game_id: data.game_id,
         store: data.store,
-        old_price: data.old_price,
+        previous_price: data.previous_price,
         discount_price: data.discount_price
       })
       .execute()
@@ -39,4 +39,4 @@ export class InsertPriceDropRepository {
   }
 }
 
-export type PriceDropInsertData = Pick<GamePriceDrop, 'game_id' | 'store' | 'old_price' | 'discount_price'>
+export type PriceDropInsertData = Pick<GamePriceDrop, 'game_id' | 'store' | 'previous_price' | 'discount_price'>

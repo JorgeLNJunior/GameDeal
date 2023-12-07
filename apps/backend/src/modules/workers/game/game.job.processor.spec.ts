@@ -60,7 +60,7 @@ describe('GameJobProcessor', () => {
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
       .withStore(Store.STEAM)
-      .withOldPrice(price.steam_price)
+      .withPreviousPrice(price.steam_price)
       .withDiscountPrice(currentSteamPrice)
       .build()
 
@@ -93,7 +93,7 @@ describe('GameJobProcessor', () => {
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
-      old_price: price.steam_price,
+      previous_price: price.steam_price,
       discount_price: currentSteamPrice,
       store: Store.STEAM
     })
@@ -111,7 +111,7 @@ describe('GameJobProcessor', () => {
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
       .withStore(Store.NUUVEM)
-      .withOldPrice(price.nuuvem_price as number)
+      .withPreviousPrice(price.nuuvem_price as number)
       .withDiscountPrice(currentNuuvemPrice)
       .build()
 
@@ -145,7 +145,7 @@ describe('GameJobProcessor', () => {
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
-      old_price: price.nuuvem_price,
+      previous_price: price.nuuvem_price,
       discount_price: currentNuuvemPrice,
       store: Store.NUUVEM
     })
@@ -163,7 +163,7 @@ describe('GameJobProcessor', () => {
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
       .withStore(Store.NUUVEM)
-      .withOldPrice(price.green_man_gaming_price as number)
+      .withPreviousPrice(price.green_man_gaming_price as number)
       .withDiscountPrice(currentGMGPrice)
       .build()
 
@@ -197,7 +197,7 @@ describe('GameJobProcessor', () => {
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
-      old_price: price.green_man_gaming_price,
+      previous_price: price.green_man_gaming_price,
       discount_price: currentGMGPrice,
       store: Store.GREEN_MAN_GAMING
     })
@@ -215,7 +215,7 @@ describe('GameJobProcessor', () => {
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
       .withStore(Store.STEAM)
-      .withOldPrice(price.steam_price)
+      .withPreviousPrice(price.steam_price)
       .withDiscountPrice(currentSteamPrice)
       .build()
 
@@ -247,7 +247,7 @@ describe('GameJobProcessor', () => {
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
-      old_price: price.steam_price,
+      previous_price: price.steam_price,
       discount_price: currentSteamPrice,
       store: Store.STEAM
     })
@@ -265,7 +265,7 @@ describe('GameJobProcessor', () => {
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
       .withStore(Store.NUUVEM)
-      .withOldPrice(price.nuuvem_price as number)
+      .withPreviousPrice(price.nuuvem_price as number)
       .withDiscountPrice(currentNuuvemPrice)
       .build()
 
@@ -298,7 +298,7 @@ describe('GameJobProcessor', () => {
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
-      old_price: price.nuuvem_price,
+      previous_price: price.nuuvem_price,
       discount_price: currentNuuvemPrice,
       store: Store.NUUVEM
     })
@@ -316,7 +316,7 @@ describe('GameJobProcessor', () => {
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
       .withStore(Store.GREEN_MAN_GAMING)
-      .withOldPrice(price.green_man_gaming_price as number)
+      .withPreviousPrice(price.green_man_gaming_price as number)
       .withDiscountPrice(currentGMGPrice)
       .build()
 
@@ -349,7 +349,7 @@ describe('GameJobProcessor', () => {
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
       game_id: game.id,
-      old_price: price.green_man_gaming_price,
+      previous_price: price.green_man_gaming_price,
       discount_price: currentGMGPrice,
       store: Store.GREEN_MAN_GAMING
     })

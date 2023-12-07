@@ -18,11 +18,17 @@ export interface GamePrice {
 }
 
 export interface GamePriceDrop {
+  /** The ID of the GamePriceDrop object. */
   id: string
+  /** The ID of the game. */
   game_id: string
+  /** The store with the lowest price. */
   store: Store
-  old_price: number | null
+  /** The previous registered price. */
+  previous_price: number | null
+  /** The current price with discount. */
   discount_price: number
+  /** The date of the discount. */
   date: string
 }
 

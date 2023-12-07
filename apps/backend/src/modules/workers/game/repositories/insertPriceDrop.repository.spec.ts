@@ -26,7 +26,7 @@ describe('InsertPriceDropRepository', () => {
   it('should register a game price drop', async () => {
     const game = new GameBuilder().build()
     const store = Store.STEAM
-    const old_price = 139.99
+    const previous_price = 139.99
     const discount_price = 78.32
 
     await db.getClient().insertInto('game').values(game).execute()
@@ -34,12 +34,12 @@ describe('InsertPriceDropRepository', () => {
     const price = await repository.insert({
       game_id: game.id,
       store,
-      old_price,
+      previous_price,
       discount_price
     })
 
     expect(price.store).toBe(store)
-    expect(price.old_price).toBe(old_price.toString())
+    expect(price.previous_price).toBe(previous_price.toString())
     expect(price.discount_price).toBe(discount_price.toString())
   })
 })
