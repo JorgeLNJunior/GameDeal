@@ -1,8 +1,8 @@
 import { PinoLogger } from '@infra/pino.logger'
-import { NotifyNewGamesData, type Notifier, type NotifyPriceDropData } from '@localtypes/notifier.type'
+import { type Notifier, type NotifyNewGamesData, type NotifyPriceDropData } from '@localtypes/notifier.type'
+import { Store } from '@packages/types'
 
 import { NotificationService } from './notification.service'
-import { Store } from '@packages/types'
 
 describe('NotificationService', () => {
   let notificationService: NotificationService

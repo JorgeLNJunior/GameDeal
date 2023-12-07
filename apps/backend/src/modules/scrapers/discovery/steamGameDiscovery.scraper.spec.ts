@@ -2,10 +2,10 @@ import ConfigService from '@config/config.service'
 import { DatabaseService } from '@database/database.service'
 import { AxiosService } from '@infra/axios.service'
 import { PinoLogger } from '@infra/pino.logger'
+import { NotificationQueue } from '@queue/notification.queue'
 import { sql } from 'kysely'
 
 import { SteamGameDiscoveryScraper } from './steamGameDiscovery.scraper'
-import { NotificationQueue } from '@queue/notification.queue'
 
 describe('SteamGameDiscoveryScraper', () => {
   let scraper: SteamGameDiscoveryScraper

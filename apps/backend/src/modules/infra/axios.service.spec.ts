@@ -1,5 +1,5 @@
-import { AxiosService } from "./axios.service"
-import { PinoLogger } from "./pino.logger"
+import { AxiosService } from './axios.service'
+import { PinoLogger } from './pino.logger'
 
 describe('AxiosService', () => {
   let axios: AxiosService

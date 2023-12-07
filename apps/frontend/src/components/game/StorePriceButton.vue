@@ -1,10 +1,10 @@
 <script lang="ts" setup>
+import { Store } from '@packages/types'
 import { computed, type PropType } from 'vue'
 
 import GMGIcon from '@/icons/GMGIcon.vue'
 import NuuvemIcon from '@/icons/NuuvemIcon.vue'
 import SteamIcon from '@/icons/SteamIcon.vue'
-import { Store } from '@packages/types'
 
 const props = defineProps({
   url: {

@@ -1,16 +1,16 @@
+import { Store } from '@packages/types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
 import { GREEN_MAN_GAMING_URL, NUUVEM_URL, STEAM_URL } from '@/constants/urls'
-import { Platform } from '@/types/Platform'
 
-import PlatformNameButton from './PlatformNameButton.vue'
+import StoreNameButton from './StoreNameButton.vue'
 
-describe('PlatformNameButton', () => {
-  describe('Platform URL', () => {
-    it('Should contain the steam url if it receives STEAM as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.STEAM }
+describe('StoreNameButton', () => {
+  describe('Store URL', () => {
+    it('Should contain the steam url if it receives STEAM as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.STEAM }
       })
 
       const url = wrapper.get('[test-data="button"]').attributes().href
@@ -18,9 +18,9 @@ describe('PlatformNameButton', () => {
       expect(url).toBe(STEAM_URL)
     })
 
-    it('Should contain the nuuvem url if it receives NUUVEM as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.NUUVEM }
+    it('Should contain the nuuvem url if it receives NUUVEM as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.NUUVEM }
       })
 
       const url = wrapper.get('[test-data="button"]').attributes().href
@@ -28,9 +28,9 @@ describe('PlatformNameButton', () => {
       expect(url).toBe(NUUVEM_URL)
     })
 
-    it('Should contain the green man gaming url if it receives GREEN_MAN_GAMING as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.GREEN_MAN_GAMING }
+    it('Should contain the green man gaming url if it receives GREEN_MAN_GAMING as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.GREEN_MAN_GAMING }
       })
 
       const url = wrapper.get('[test-data="button"]').attributes().href
@@ -39,10 +39,10 @@ describe('PlatformNameButton', () => {
     })
   })
 
-  describe('Platform name', () => {
-    it('Should render "Steam" if it receives STEAM as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.STEAM }
+  describe('Store name', () => {
+    it('Should render "Steam" if it receives STEAM as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.STEAM }
       })
 
       const name = wrapper.get('[test-data="name"]').text()
@@ -50,9 +50,9 @@ describe('PlatformNameButton', () => {
       expect(name).toBe('Steam')
     })
 
-    it('Should render "Nuuvem" if it receives NUUVEM as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.NUUVEM }
+    it('Should render "Nuuvem" if it receives NUUVEM as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.NUUVEM }
       })
 
       const name = wrapper.get('[test-data="name"]').text()
@@ -60,9 +60,9 @@ describe('PlatformNameButton', () => {
       expect(name).toBe('Nuuvem')
     })
 
-    it('Should render "Green Man Gaming" if it receives GREEN_MAN_GAMING as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.GREEN_MAN_GAMING }
+    it('Should render "Green Man Gaming" if it receives GREEN_MAN_GAMING as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.GREEN_MAN_GAMING }
       })
 
       const name = wrapper.get('[test-data="name"]').text()
@@ -71,10 +71,10 @@ describe('PlatformNameButton', () => {
     })
   })
 
-  describe('Platform icon', () => {
-    it('Should render the steam icon if it receives STEAM as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.STEAM }
+  describe('Store icon', () => {
+    it('Should render the steam icon if it receives STEAM as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.STEAM }
       })
 
       const steamIconExists = wrapper.find('[test-data="steam-icon"]').exists()
@@ -86,9 +86,9 @@ describe('PlatformNameButton', () => {
       expect(gmgIconExists).toBe(false)
     })
 
-    it('Should render the nuuvem icon if it receives NUUVEM as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.NUUVEM }
+    it('Should render the nuuvem icon if it receives NUUVEM as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.NUUVEM }
       })
 
       const steamIconExists = wrapper.find('[test-data="steam-icon"]').exists()
@@ -100,9 +100,9 @@ describe('PlatformNameButton', () => {
       expect(gmgIconExists).toBe(false)
     })
 
-    it('Should render the Green Man Gaming icon if it receives GREEN_MAN_GAMING as platform', async () => {
-      const wrapper = mount(PlatformNameButton, {
-        props: { platform: Platform.GREEN_MAN_GAMING }
+    it('Should render the Green Man Gaming icon if it receives GREEN_MAN_GAMING as store', async () => {
+      const wrapper = mount(StoreNameButton, {
+        props: { store: Store.GREEN_MAN_GAMING }
       })
 
       const steamIconExists = wrapper.find('[test-data="steam-icon"]').exists()

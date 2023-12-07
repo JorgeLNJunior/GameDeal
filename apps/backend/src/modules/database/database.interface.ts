@@ -1,4 +1,4 @@
-import { Store } from '@packages/types'
+import { type Store } from '@packages/types'
 import { type ColumnType } from 'kysely'
 
 interface GameTable {

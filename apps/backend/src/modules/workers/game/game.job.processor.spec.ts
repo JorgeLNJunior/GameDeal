@@ -1,4 +1,7 @@
+import { type NotifyPriceDropData } from '@localtypes/notifier.type'
+import { QueueJobName } from '@localtypes/queue.type'
 import { GameBuilder, GamePriceBuilder, GamePriceDropBuilder } from '@packages/testing'
+import { Store } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingPriceScraper } from '@scrapers/price/greenManGamingPrice.scraper'
 import { NuuvemPriceScraper } from '@scrapers/price/nuuvemPrice.scraper'
@@ -9,10 +12,7 @@ import { container } from 'tsyringe'
 
 import { GameJobProcessor } from './game.job.processor'
 import { InsertGamePriceRepository } from './repositories/insertGamePrice.repository'
-import { InsertPriceDropRepository, PriceDropInsertData } from './repositories/insertPriceDrop.repository'
-import { Store } from '@packages/types'
-import { NotifyPriceDropData } from '@localtypes/notifier.type'
-import { QueueJobName } from '@localtypes/queue.type'
+import { InsertPriceDropRepository, type PriceDropInsertData } from './repositories/insertPriceDrop.repository'
 
 describe('GameJobProcessor', () => {
   let job: GameJobProcessor
@@ -83,12 +83,12 @@ describe('GameJobProcessor', () => {
     expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
       QueueJobName.NOTIFY_PRICE_DROP,
       {
-      currentPrice: currentSteamPrice,
-      oldPrice: price.steam_price,
-      gameTitle: game.title,
-      store: Store.STEAM,
-      gameUrl: game.steam_url
-    })
+        currentPrice: currentSteamPrice,
+        oldPrice: price.steam_price,
+        gameTitle: game.title,
+        store: Store.STEAM,
+        gameUrl: game.steam_url
+      })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
@@ -135,12 +135,12 @@ describe('GameJobProcessor', () => {
     expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
       QueueJobName.NOTIFY_PRICE_DROP,
       {
-      currentPrice: currentNuuvemPrice,
-      oldPrice: price.nuuvem_price,
-      gameTitle: game.title,
-      store: Store.NUUVEM,
-      gameUrl: game.nuuvem_url as string
-    })
+        currentPrice: currentNuuvemPrice,
+        oldPrice: price.nuuvem_price,
+        gameTitle: game.title,
+        store: Store.NUUVEM,
+        gameUrl: game.nuuvem_url as string
+      })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
@@ -187,12 +187,12 @@ describe('GameJobProcessor', () => {
     expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
       QueueJobName.NOTIFY_PRICE_DROP,
       {
-      currentPrice: currentGMGPrice,
-      oldPrice: price.green_man_gaming_price,
-      gameTitle: game.title,
-      store: Store.GREEN_MAN_GAMING,
-      gameUrl: game.green_man_gaming_url as string
-    })
+        currentPrice: currentGMGPrice,
+        oldPrice: price.green_man_gaming_price,
+        gameTitle: game.title,
+        store: Store.GREEN_MAN_GAMING,
+        gameUrl: game.green_man_gaming_url as string
+      })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
@@ -237,12 +237,12 @@ describe('GameJobProcessor', () => {
     expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
       QueueJobName.NOTIFY_PRICE_DROP,
       {
-      currentPrice: currentSteamPrice,
-      oldPrice: price.steam_price,
-      gameTitle: game.title,
-      store: Store.STEAM,
-      gameUrl: game.steam_url
-    })
+        currentPrice: currentSteamPrice,
+        oldPrice: price.steam_price,
+        gameTitle: game.title,
+        store: Store.STEAM,
+        gameUrl: game.steam_url
+      })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
@@ -288,12 +288,12 @@ describe('GameJobProcessor', () => {
     expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
       QueueJobName.NOTIFY_PRICE_DROP,
       {
-      currentPrice: currentNuuvemPrice,
-      oldPrice: price.nuuvem_price,
-      gameTitle: game.title,
-      store: Store.NUUVEM,
-      gameUrl: game.nuuvem_url as string
-    })
+        currentPrice: currentNuuvemPrice,
+        oldPrice: price.nuuvem_price,
+        gameTitle: game.title,
+        store: Store.NUUVEM,
+        gameUrl: game.nuuvem_url as string
+      })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({
@@ -339,12 +339,12 @@ describe('GameJobProcessor', () => {
     expect(notificationSpy).toHaveBeenCalledWith<[QueueJobName, NotifyPriceDropData]>(
       QueueJobName.NOTIFY_PRICE_DROP,
       {
-      currentPrice: currentGMGPrice,
-      oldPrice: price.green_man_gaming_price,
-      gameTitle: game.title,
-      store: Store.GREEN_MAN_GAMING,
-      gameUrl: game.green_man_gaming_url as string
-    })
+        currentPrice: currentGMGPrice,
+        oldPrice: price.green_man_gaming_price,
+        gameTitle: game.title,
+        store: Store.GREEN_MAN_GAMING,
+        gameUrl: game.green_man_gaming_url as string
+      })
 
     expect(insertPriceDropSpy).toHaveBeenCalledTimes(1)
     expect(insertPriceDropSpy).toHaveBeenCalledWith<[PriceDropInsertData]>({

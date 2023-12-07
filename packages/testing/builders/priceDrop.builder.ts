@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/prefer-readonly */
-import { GamePriceDrop, Store } from '@packages/types'
+import { type GamePriceDrop, Store } from '@packages/types'
 import { randomUUID } from 'crypto'
 
 export class GamePriceDropBuilder {

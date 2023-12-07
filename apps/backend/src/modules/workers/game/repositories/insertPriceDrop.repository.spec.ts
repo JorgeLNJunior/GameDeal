@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { DatabaseService } from '@database/database.service'
 import { GameBuilder } from '@packages/testing'
+import { Store } from '@packages/types'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
 import { InsertPriceDropRepository } from './insertPriceDrop.repository'
-import { Store } from '@packages/types'
 
 describe('InsertPriceDropRepository', () => {
   let repository: InsertPriceDropRepository

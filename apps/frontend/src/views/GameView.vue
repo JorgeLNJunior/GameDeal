@@ -1,14 +1,14 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts" setup>
-import { Store, type Game, type GamePrice, type LowestPrice as ILowestPrice } from '@packages/types'
+import { type Game, type GamePrice, type LowestPrice as ILowestPrice, Store } from '@packages/types'
 import { computed, onBeforeMount, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import { ApiService } from '@/api/api.service'
 import GamePriceCardSkeleton from '@/components/game/GamePriceCardSkeleton.vue'
 import LowestPrice from '@/components/game/LowestPrice.vue'
-import StorePriceButtonGroup from '@/components/game/StorePriceButtonGroup.vue'
 import PriceHistoryChart from '@/components/game/PriceHistoryChart.vue'
+import StorePriceButtonGroup from '@/components/game/StorePriceButtonGroup.vue'
 import { DataFormater } from '@/helpers/DataFormater'
 import { redirectWithHttpError } from '@/router/redirectWithHttpError'
 

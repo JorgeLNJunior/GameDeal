@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Store, type Game, type GamePrice } from '@packages/types'
+import { type Game, type GamePrice, Store } from '@packages/types'
 import type { PropType } from 'vue'
 
 import StorePriceButton from './StorePriceButton.vue'

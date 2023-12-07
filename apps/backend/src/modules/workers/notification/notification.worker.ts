@@ -38,13 +38,11 @@ export class NotificationWorker {
       async (job) => {
         this.logger.info(`[NotificationWorker] processing job ${job.id ?? 'unknow'}`)
 
-        if (job.name == QueueJobName.NOTIFY_PRICE_DROP) {
+        if (job.name === QueueJobName.NOTIFY_PRICE_DROP) {
           await this.notificationService.notifyPriceDrop(job.data as NotifyPriceDropData)
-        }
-        else if (job.name == QueueJobName.NOTIFY_NEW_GAMES) {
+        } else if (job.name === QueueJobName.NOTIFY_NEW_GAMES) {
           await this.notificationService.notifyNewGames(job.data as NotifyNewGamesData)
-        }
-        else throw new Error(`[NotificationWorker] ${job.name} is an invalid job name`)
+        } else throw new Error(`[NotificationWorker] ${job.name} is an invalid job name`)
 
         this.logger.info(`[NotificationWorker] job ${job.id ?? 'unknow'} processed`)
       },

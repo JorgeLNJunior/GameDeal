@@ -1,8 +1,8 @@
+import { Store } from '@packages/types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
 import StorePriceButton from './StorePriceButton.vue'
-import { Store } from '@packages/types'
 
 describe('StorePriceButton', () => {
   it('should render the price', async () => {

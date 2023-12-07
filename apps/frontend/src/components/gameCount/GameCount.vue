@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { Store } from '@packages/types'
 import { onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -7,7 +8,6 @@ import { redirectWithHttpError } from '@/router/redirectWithHttpError'
 
 import GameCountSkeleton from './GameCountSkeleton.vue'
 import StoreNameButton from './StoreNameButton.vue'
-import { Store } from '@packages/types'
 
 const router = useRouter()
 const totalGames = ref<number>(0)

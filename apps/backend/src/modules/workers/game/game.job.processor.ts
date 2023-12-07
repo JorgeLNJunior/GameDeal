@@ -1,5 +1,5 @@
-import { QueueJobName, type GamePriceScraperData } from '@localtypes/queue.type'
-import { Store, type GamePrice } from '@packages/types'
+import { type GamePriceScraperData, QueueJobName } from '@localtypes/queue.type'
+import { type GamePrice, Store } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingPriceScraper } from '@scrapers/price/greenManGamingPrice.scraper'
 import { NuuvemPriceScraper } from '@scrapers/price/nuuvemPrice.scraper'
@@ -76,12 +76,12 @@ export class GameJobProcessor {
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
         {
-        currentPrice: currentSteamPrice,
-        oldPrice: lastRegisteredPrice.steam_price,
-        gameTitle: game.title,
-        store: Store.STEAM,
-        gameUrl: game.steam_url
-      }); return
+          currentPrice: currentSteamPrice,
+          oldPrice: lastRegisteredPrice.steam_price,
+          gameTitle: game.title,
+          store: Store.STEAM,
+          gameUrl: game.steam_url
+        }); return
     }
 
     const notifyNuuvem = this.isNuuvemPriceLower(lastRegisteredPrice, {
@@ -100,12 +100,12 @@ export class GameJobProcessor {
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
         {
-        currentPrice: currentNuuvemPrice as number,
-        oldPrice: lastRegisteredPrice.nuuvem_price as number,
-        gameTitle: game.title,
-        store: Store.NUUVEM,
-        gameUrl: game.nuuvem_url as string
-      }); return
+          currentPrice: currentNuuvemPrice as number,
+          oldPrice: lastRegisteredPrice.nuuvem_price as number,
+          gameTitle: game.title,
+          store: Store.NUUVEM,
+          gameUrl: game.nuuvem_url as string
+        }); return
     }
 
     const notifyGMG = this.isGreenManGamingPriceLower(lastRegisteredPrice, {
@@ -124,12 +124,12 @@ export class GameJobProcessor {
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
         {
-        currentPrice: currentGMGPrice as number,
-        oldPrice: lastRegisteredPrice.green_man_gaming_price as number,
-        gameTitle: game.title,
-        store: Store.GREEN_MAN_GAMING,
-        gameUrl: game.green_man_gaming_url as string
-      })
+          currentPrice: currentGMGPrice as number,
+          oldPrice: lastRegisteredPrice.green_man_gaming_price as number,
+          gameTitle: game.title,
+          store: Store.GREEN_MAN_GAMING,
+          gameUrl: game.green_man_gaming_url as string
+        })
     }
   }
 

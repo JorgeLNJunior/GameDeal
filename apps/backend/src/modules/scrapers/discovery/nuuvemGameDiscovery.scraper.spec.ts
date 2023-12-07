@@ -1,7 +1,7 @@
 import { AxiosService } from '@infra/axios.service'
+import { PinoLogger } from '@infra/pino.logger'
 
 import { NuuvemGameDiscoveryScraper } from './nuuvemGameDiscovery.scraper'
-import { PinoLogger } from '@infra/pino.logger'
 
 describe('NuuvemGameDiscoveryScraper', () => {
   let scraper: NuuvemGameDiscoveryScraper

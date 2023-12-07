@@ -1,11 +1,11 @@
 <script lang="ts" setup>
+import { Store } from '@packages/types'
 import type { PropType } from 'vue'
 
 import { GREEN_MAN_GAMING_URL, NUUVEM_URL, STEAM_URL } from '@/constants/urls'
 import GMGIcon from '@/icons/GMGIcon.vue'
 import NuuvemIcon from '@/icons/NuuvemIcon.vue'
 import SteamIcon from '@/icons/SteamIcon.vue'
-import { Store } from '@packages/types'
 
 const props = defineProps({
   store: {
