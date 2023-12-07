@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2021",
     "lib": ["ES2021"],
-    "module": "CommonJS",
+    "module": "ESNext",
     "outDir": "dist",
     "removeComments": true,
     "esModuleInterop": true,

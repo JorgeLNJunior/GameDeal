@@ -8,7 +8,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:cov": "vitest run --coverage",
-    "build-only": "vite build",
+    "build-only": "tsc -b ../../packages/types && vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix"
