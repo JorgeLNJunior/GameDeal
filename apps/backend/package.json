@@ -30,7 +30,7 @@
     "jsonwebtoken": "^9.0.2",
     "kysely": "^0.26.3",
     "mysql2": "^3.6.5",
-    "newrelic": "^11.6.0",
+    "newrelic": "^11.6.1",
     "node-cache": "^5.1.2",
     "pino": "^8.16.2",
     "reflect-metadata": "^0.1.13",
