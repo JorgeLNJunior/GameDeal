@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { DatabaseService } from '@database/database.service'
 import { GameBuilder } from '@packages/testing'
-import { Store } from '@packages/types'
+import { type Store } from '@packages/types'
 import { sql } from 'kysely'
 import { container } from 'tsyringe'
 
@@ -25,7 +25,7 @@ describe('InsertPriceDropRepository', () => {
 
   it('should register a game price drop', async () => {
     const game = new GameBuilder().build()
-    const store = Store.STEAM
+    const store: Store = 'Steam'
     const previous_price = 139.99
     const discount_price = 78.32
 

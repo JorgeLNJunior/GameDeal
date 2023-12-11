@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Store } from '@packages/types'
+import { type Store } from '@packages/types'
 import { computed, type PropType } from 'vue'
 
 import GMGIcon from '@/icons/GMGIcon.vue'
@@ -27,9 +27,9 @@ const priceWithCurrency = computed(() => `R$ ${props.price.replace('.', ',')}`)
 <template>
   <a :href="props.url" target="_blank" rel="noopener noreferrer">
     <div class="flex items-center space-x-2 rounded-lg border border-slate-500 p-2 transition hover:border-transparent hover:bg-cyan-600 hover:fill-white hover:text-white">
-      <NuuvemIcon v-if="props.store === Store.NUUVEM" test-data="nuuvem-icon" />
-      <SteamIcon v-if="props.store === Store.STEAM" test-data="steam-icon" />
-      <GMGIcon v-if="props.store === Store.GREEN_MAN_GAMING" test-data="gmg-icon" />
+      <NuuvemIcon v-if="props.store === 'Nuuvem'" test-data="nuuvem-icon" />
+      <SteamIcon v-if="props.store === 'Steam'" test-data="steam-icon" />
+      <GMGIcon v-if="props.store === 'Green Man Gaming'" test-data="gmg-icon" />
       <p class="whitespace-nowrap text-xs md:text-sm" test-data="price">{{ priceWithCurrency }}</p>
     </div>
   </a>

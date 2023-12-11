@@ -1,4 +1,4 @@
-import { type GamePriceDrop, Store } from '@packages/types'
+import type { GamePriceDrop, Store } from '@packages/types'
 import { randomUUID } from 'crypto'
 
 export class GamePriceDropBuilder {
@@ -6,7 +6,7 @@ export class GamePriceDropBuilder {
   private game_id: string = randomUUID()
   private discount_price = 50.99
   private previous_price = 50.99
-  private store = Store.STEAM
+  private store: Store = 'Steam'
   private readonly date = '2022-10-21'
 
   withGame (gameId: string): GamePriceDropBuilder {

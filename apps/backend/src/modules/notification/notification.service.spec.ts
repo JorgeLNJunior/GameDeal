@@ -1,6 +1,5 @@
 import { PinoLogger } from '@infra/pino.logger'
 import { type Notifier, type NotifyNewGamesData, type NotifyPriceDropData } from '@localtypes/notifier.type'
-import { Store } from '@packages/types'
 
 import { NotificationService } from './notification.service'
 
@@ -20,7 +19,7 @@ describe('NotificationService', () => {
     it('should call "notifyPriceDrop" method from all notifiers', async () => {
       const data: NotifyPriceDropData = {
         gameTitle: 'game title',
-        store: Store.STEAM,
+        store: 'Steam',
         currentPrice: 100,
         oldPrice: 120,
         gameUrl: 'game url'

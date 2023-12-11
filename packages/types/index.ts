@@ -32,11 +32,7 @@ export interface GamePriceDrop {
   date: string
 }
 
-export enum Store {
-  STEAM = 'Steam',
-  NUUVEM = 'Nuuvem',
-  GREEN_MAN_GAMING = 'Green Man Gaming'
-}
+export type Store = 'Steam' | 'Nuuvem' | 'Green Man Gaming'
 
 export interface GameIgnoreList {
   id: string

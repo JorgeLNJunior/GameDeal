@@ -1,4 +1,4 @@
-import { Store } from '@packages/types'
+import { type Store } from '@packages/types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
@@ -6,7 +6,7 @@ import LowestPrice from './LowestPrice.vue'
 
 describe('LowestPrice', () => {
   it('Should render the store', async () => {
-    const store = Store.STEAM
+    const store: Store = 'Steam'
     const price = 'R$ 75.20'
     const date = '10/05/2023'
 
@@ -20,7 +20,7 @@ describe('LowestPrice', () => {
   })
 
   it('Should render the price', async () => {
-    const store = Store.STEAM
+    const store: Store = 'Steam'
     const price = 'R$ 75.20'
     const date = '10/05/2023'
 
@@ -34,7 +34,7 @@ describe('LowestPrice', () => {
   })
 
   it('Should render the date', async () => {
-    const store = Store.STEAM
+    const store: Store = 'Steam'
     const price = 'R$ 75.20'
     const date = '10/05/2023'
 

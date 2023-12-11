@@ -1,5 +1,5 @@
 import { type GamePriceScraperData, QueueJobName } from '@localtypes/queue.type'
-import { type GamePrice, Store } from '@packages/types'
+import { type GamePrice } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingPriceScraper } from '@scrapers/price/greenManGamingPrice.scraper'
 import { NuuvemPriceScraper } from '@scrapers/price/nuuvemPrice.scraper'
@@ -71,7 +71,7 @@ export class GameJobProcessor {
         game_id: game.id,
         previous_price: lastRegisteredPrice.steam_price,
         discount_price: currentSteamPrice,
-        store: Store.STEAM
+        store: 'Steam'
       })
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
@@ -79,7 +79,7 @@ export class GameJobProcessor {
           currentPrice: currentSteamPrice,
           oldPrice: lastRegisteredPrice.steam_price,
           gameTitle: game.title,
-          store: Store.STEAM,
+          store: 'Steam',
           gameUrl: game.steam_url
         }); return
     }
@@ -95,7 +95,7 @@ export class GameJobProcessor {
         game_id: game.id,
         previous_price: lastRegisteredPrice.nuuvem_price,
         discount_price: currentNuuvemPrice as number,
-        store: Store.NUUVEM
+        store: 'Nuuvem'
       })
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
@@ -103,7 +103,7 @@ export class GameJobProcessor {
           currentPrice: currentNuuvemPrice as number,
           oldPrice: lastRegisteredPrice.nuuvem_price as number,
           gameTitle: game.title,
-          store: Store.NUUVEM,
+          store: 'Nuuvem',
           gameUrl: game.nuuvem_url as string
         }); return
     }
@@ -119,7 +119,7 @@ export class GameJobProcessor {
         game_id: game.id,
         previous_price: lastRegisteredPrice.green_man_gaming_price,
         discount_price: currentGMGPrice as number,
-        store: Store.GREEN_MAN_GAMING
+        store: 'Green Man Gaming'
       })
       await this.notificationQueue.add(
         QueueJobName.NOTIFY_PRICE_DROP,
@@ -127,7 +127,7 @@ export class GameJobProcessor {
           currentPrice: currentGMGPrice as number,
           oldPrice: lastRegisteredPrice.green_man_gaming_price as number,
           gameTitle: game.title,
-          store: Store.GREEN_MAN_GAMING,
+          store: 'Green Man Gaming',
           gameUrl: game.green_man_gaming_url as string
         })
     }

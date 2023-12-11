@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { Store } from '@packages/types'
 import { onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
@@ -33,9 +32,9 @@ const getGames = async (): Promise<void> => {
     <div class="space-y-2 p-2">
       <p class="font-medium">Plataformas</p>
       <div class="flex flex-wrap justify-evenly gap-1">
-        <StoreNameButton :store="Store.STEAM" />
-        <StoreNameButton :store="Store.NUUVEM" />
-        <StoreNameButton :store="Store.GREEN_MAN_GAMING" />
+        <StoreNameButton :store="'Steam'" />
+        <StoreNameButton :store="'Nuuvem'" />
+        <StoreNameButton :store="'Green Man Gaming'" />
       </div>
     </div>
   </div>

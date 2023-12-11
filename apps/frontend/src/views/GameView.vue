@@ -1,6 +1,6 @@
 <!-- eslint-disable @typescript-eslint/no-explicit-any -->
 <script lang="ts" setup>
-import { type Game, type GamePrice, type LowestPrice as ILowestPrice, Store } from '@packages/types'
+import type { Game, GamePrice, LowestPrice as ILowestPrice, Store } from '@packages/types'
 import { computed, onBeforeMount, reactive } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
@@ -23,7 +23,11 @@ let priceHistory = reactive<GamePrice[]>([])
 const uiState = reactive({ isDataFetched: false })
 
 // computeds
-const formatedLowestPrice = computed(() => {
+const formatedLowestPrice = computed<{
+  store: Store
+  price: string
+  date: string
+}>(() => {
   const formater = new DataFormater()
 
   const prices = [
@@ -35,21 +39,21 @@ const formatedLowestPrice = computed(() => {
 
   if (Number(lowestPrice.steam.price) === min) {
     return {
-      store: Store.STEAM,
+      store: 'Steam',
       price: formater.formatPriceWithCurrency(lowestPrice.steam.price as number),
       date: formater.formatFullDate(String(lowestPrice.steam.date))
     }
   }
   if (Number(lowestPrice.nuuvem.price) === min) {
     return {
-      store: Store.NUUVEM,
+      store: 'Nuuvem',
       price: formater.formatPriceWithCurrency(lowestPrice.nuuvem.price as number),
       date: formater.formatFullDate(String(lowestPrice.nuuvem.date))
     }
   }
   if (Number(lowestPrice.green_man_gaming.price) === min) {
     return {
-      store: Store.GREEN_MAN_GAMING,
+      store: 'Green Man Gaming',
       price: formater.formatPriceWithCurrency(lowestPrice.green_man_gaming.price as number),
       date: formater.formatFullDate(String(lowestPrice.green_man_gaming.date))
     }

@@ -1,4 +1,3 @@
-import { Store } from '@packages/types'
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
 
@@ -10,7 +9,7 @@ describe('StoreNameButton', () => {
   describe('Store URL', () => {
     it('Should contain the steam url if it receives STEAM as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.STEAM }
+        props: { store: 'Steam' }
       })
 
       const url = wrapper.get('[test-data="button"]').attributes().href
@@ -20,7 +19,7 @@ describe('StoreNameButton', () => {
 
     it('Should contain the nuuvem url if it receives NUUVEM as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.NUUVEM }
+        props: { store: 'Nuuvem' }
       })
 
       const url = wrapper.get('[test-data="button"]').attributes().href
@@ -30,7 +29,7 @@ describe('StoreNameButton', () => {
 
     it('Should contain the green man gaming url if it receives GREEN_MAN_GAMING as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.GREEN_MAN_GAMING }
+        props: { store: 'Green Man Gaming' }
       })
 
       const url = wrapper.get('[test-data="button"]').attributes().href
@@ -42,7 +41,7 @@ describe('StoreNameButton', () => {
   describe('Store name', () => {
     it('Should render "Steam" if it receives STEAM as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.STEAM }
+        props: { store: 'Steam' }
       })
 
       const name = wrapper.get('[test-data="name"]').text()
@@ -52,7 +51,7 @@ describe('StoreNameButton', () => {
 
     it('Should render "Nuuvem" if it receives NUUVEM as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.NUUVEM }
+        props: { store: 'Nuuvem' }
       })
 
       const name = wrapper.get('[test-data="name"]').text()
@@ -62,7 +61,7 @@ describe('StoreNameButton', () => {
 
     it('Should render "Green Man Gaming" if it receives GREEN_MAN_GAMING as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.GREEN_MAN_GAMING }
+        props: { store: 'Green Man Gaming' }
       })
 
       const name = wrapper.get('[test-data="name"]').text()
@@ -74,7 +73,7 @@ describe('StoreNameButton', () => {
   describe('Store icon', () => {
     it('Should render the steam icon if it receives STEAM as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.STEAM }
+        props: { store: 'Steam' }
       })
 
       const steamIconExists = wrapper.find('[test-data="steam-icon"]').exists()
@@ -88,7 +87,7 @@ describe('StoreNameButton', () => {
 
     it('Should render the nuuvem icon if it receives NUUVEM as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.NUUVEM }
+        props: { store: 'Nuuvem' }
       })
 
       const steamIconExists = wrapper.find('[test-data="steam-icon"]').exists()
@@ -102,7 +101,7 @@ describe('StoreNameButton', () => {
 
     it('Should render the Green Man Gaming icon if it receives GREEN_MAN_GAMING as store', async () => {
       const wrapper = mount(StoreNameButton, {
-        props: { store: Store.GREEN_MAN_GAMING }
+        props: { store: 'Green Man Gaming' }
       })
 
       const steamIconExists = wrapper.find('[test-data="steam-icon"]').exists()

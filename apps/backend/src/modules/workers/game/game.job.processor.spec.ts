@@ -1,7 +1,6 @@
 import { type NotifyPriceDropData } from '@localtypes/notifier.type'
 import { QueueJobName } from '@localtypes/queue.type'
 import { GameBuilder, GamePriceBuilder, GamePriceDropBuilder } from '@packages/testing'
-import { Store } from '@packages/types'
 import { NotificationQueue } from '@queue/notification.queue'
 import { GreenManGamingPriceScraper } from '@scrapers/price/greenManGamingPrice.scraper'
 import { NuuvemPriceScraper } from '@scrapers/price/nuuvemPrice.scraper'
@@ -59,7 +58,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withStore(Store.STEAM)
+      .withStore('Steam')
       .withPreviousPrice(price.steam_price)
       .withDiscountPrice(currentSteamPrice)
       .build()
@@ -86,7 +85,7 @@ describe('GameJobProcessor', () => {
         currentPrice: currentSteamPrice,
         oldPrice: price.steam_price,
         gameTitle: game.title,
-        store: Store.STEAM,
+        store: 'Steam',
         gameUrl: game.steam_url
       })
 
@@ -95,7 +94,7 @@ describe('GameJobProcessor', () => {
       game_id: game.id,
       previous_price: price.steam_price,
       discount_price: currentSteamPrice,
-      store: Store.STEAM
+      store: 'Steam'
     })
   })
 
@@ -110,7 +109,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withStore(Store.NUUVEM)
+      .withStore('Nuuvem')
       .withPreviousPrice(price.nuuvem_price as number)
       .withDiscountPrice(currentNuuvemPrice)
       .build()
@@ -138,7 +137,7 @@ describe('GameJobProcessor', () => {
         currentPrice: currentNuuvemPrice,
         oldPrice: price.nuuvem_price,
         gameTitle: game.title,
-        store: Store.NUUVEM,
+        store: 'Nuuvem',
         gameUrl: game.nuuvem_url as string
       })
 
@@ -147,7 +146,7 @@ describe('GameJobProcessor', () => {
       game_id: game.id,
       previous_price: price.nuuvem_price,
       discount_price: currentNuuvemPrice,
-      store: Store.NUUVEM
+      store: 'Nuuvem'
     })
   })
 
@@ -162,7 +161,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withStore(Store.NUUVEM)
+      .withStore('Nuuvem')
       .withPreviousPrice(price.green_man_gaming_price as number)
       .withDiscountPrice(currentGMGPrice)
       .build()
@@ -190,7 +189,7 @@ describe('GameJobProcessor', () => {
         currentPrice: currentGMGPrice,
         oldPrice: price.green_man_gaming_price,
         gameTitle: game.title,
-        store: Store.GREEN_MAN_GAMING,
+        store: 'Green Man Gaming',
         gameUrl: game.green_man_gaming_url as string
       })
 
@@ -199,7 +198,7 @@ describe('GameJobProcessor', () => {
       game_id: game.id,
       previous_price: price.green_man_gaming_price,
       discount_price: currentGMGPrice,
-      store: Store.GREEN_MAN_GAMING
+      store: 'Green Man Gaming'
     })
   })
 
@@ -214,7 +213,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withStore(Store.STEAM)
+      .withStore('Steam')
       .withPreviousPrice(price.steam_price)
       .withDiscountPrice(currentSteamPrice)
       .build()
@@ -240,7 +239,7 @@ describe('GameJobProcessor', () => {
         currentPrice: currentSteamPrice,
         oldPrice: price.steam_price,
         gameTitle: game.title,
-        store: Store.STEAM,
+        store: 'Steam',
         gameUrl: game.steam_url
       })
 
@@ -249,7 +248,7 @@ describe('GameJobProcessor', () => {
       game_id: game.id,
       previous_price: price.steam_price,
       discount_price: currentSteamPrice,
-      store: Store.STEAM
+      store: 'Steam'
     })
   })
 
@@ -264,7 +263,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withStore(Store.NUUVEM)
+      .withStore('Nuuvem')
       .withPreviousPrice(price.nuuvem_price as number)
       .withDiscountPrice(currentNuuvemPrice)
       .build()
@@ -291,7 +290,7 @@ describe('GameJobProcessor', () => {
         currentPrice: currentNuuvemPrice,
         oldPrice: price.nuuvem_price,
         gameTitle: game.title,
-        store: Store.NUUVEM,
+        store: 'Nuuvem',
         gameUrl: game.nuuvem_url as string
       })
 
@@ -300,7 +299,7 @@ describe('GameJobProcessor', () => {
       game_id: game.id,
       previous_price: price.nuuvem_price,
       discount_price: currentNuuvemPrice,
-      store: Store.NUUVEM
+      store: 'Nuuvem'
     })
   })
 
@@ -315,7 +314,7 @@ describe('GameJobProcessor', () => {
       .build()
     const priceDrop = new GamePriceDropBuilder()
       .withGame(game.id)
-      .withStore(Store.GREEN_MAN_GAMING)
+      .withStore('Green Man Gaming')
       .withPreviousPrice(price.green_man_gaming_price as number)
       .withDiscountPrice(currentGMGPrice)
       .build()
@@ -342,7 +341,7 @@ describe('GameJobProcessor', () => {
         currentPrice: currentGMGPrice,
         oldPrice: price.green_man_gaming_price,
         gameTitle: game.title,
-        store: Store.GREEN_MAN_GAMING,
+        store: 'Green Man Gaming',
         gameUrl: game.green_man_gaming_url as string
       })
 
@@ -351,7 +350,7 @@ describe('GameJobProcessor', () => {
       game_id: game.id,
       previous_price: price.green_man_gaming_price,
       discount_price: currentGMGPrice,
-      store: Store.GREEN_MAN_GAMING
+      store: 'Green Man Gaming'
     })
   })
 
