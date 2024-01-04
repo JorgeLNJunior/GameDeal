@@ -26,8 +26,8 @@ export class GetGamePriceHistoryRepository {
       .offset(offset)
       .limit(perPage)
 
-    if (query.startDate != null) dbQuery = dbQuery.where('date', '>=', sql`CAST(${query.startDate} as DATE)`)
-    if (query.endDate != null) dbQuery = dbQuery.where('date', '<=', sql`CAST(${query.endDate} as DATE)`)
+    if (query.startDate != null) dbQuery = dbQuery.where('date', '>=', sql<string>`CAST(${query.startDate} as DATE)`)
+    if (query.endDate != null) dbQuery = dbQuery.where('date', '<=', sql<string>`CAST(${query.endDate} as DATE)`)
     if (query.order == null) dbQuery = dbQuery.orderBy('date', 'asc')
     if (query.order === 'asc') dbQuery = dbQuery.orderBy('date', 'asc')
     if (query.order === 'desc') dbQuery = dbQuery.orderBy('date', 'desc')
@@ -53,10 +53,10 @@ export class GetGamePriceHistoryRepository {
       .where('game_id', '=', gameID)
 
     if (startDate != null) {
-      query = query.where('date', '>=', sql`CAST(${startDate} as DATE)`)
+      query = query.where('date', '>=', sql<string>`CAST(${startDate} as DATE)`)
     }
     if (endDate != null) {
-      query = query.where('date', '<=', sql`CAST(${endDate} as DATE)`)
+      query = query.where('date', '<=', sql<string>`CAST(${endDate} as DATE)`)
     }
 
     const result = await query.execute()

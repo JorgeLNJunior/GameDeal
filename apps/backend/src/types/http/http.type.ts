@@ -10,7 +10,7 @@ export interface HttpRequest {
 export interface HttpResponse {
   statusCode: number
   body: unknown
-  headers?: Record<string, unknown>
+  headers?: Record<string, string>
 }
 
 export interface HttpRedirect {

@@ -40,7 +40,7 @@ export class ResponseBuilder {
    */
   static notModified (
     data?: unknown,
-    headers?: Record<string, unknown>
+    headers?: Record<string, string>
   ): HttpResponse {
     return { statusCode: 200, body: data, headers }
   }
