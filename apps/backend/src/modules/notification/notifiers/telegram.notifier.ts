@@ -63,9 +63,11 @@ export class TelegramNotifier implements Notifier {
       throw new Error('the environment variable "WEB_APP_HOST" is not defined')
     }
 
+    const message = this.escapeSpecialChars(`⚠️ Adicionados ${data.count} novos jogos. ⚠️`)
+
     await this.bot.telegram.sendMessage(
       CHAT_ID,
-      `⚠️ Adicionados ${data.count} novos jogos. ⚠️`,
+      message,
       {
         parse_mode: 'MarkdownV2',
         reply_markup: {
