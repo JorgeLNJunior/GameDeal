@@ -13,17 +13,8 @@ services:
       - ./compose/mysql:/docker-entrypoint-initdb.d
 
   redis:
-    image: bitnami/redis
+    image: redis:7-alpine
     restart: always
     ports:
       - 6379:6379
-    environment:
-      ALLOW_EMPTY_PASSWORD: yes
 
-  redis-ui:
-    image: patrikx3/p3x-redis-ui
-    restart: always
-    ports:
-      - 7843:7843
-    volumes:
-      - ./compose/redis-ui-data:/settings
