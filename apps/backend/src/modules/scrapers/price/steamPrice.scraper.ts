@@ -55,7 +55,7 @@ export class SteamPriceScraper implements GamePriceScraper {
       return price
     }
 
-    this.logger.error(`[SteamPriceScraper] no price found for "${gameUrl}"`)
+    this.logger.warn(`[SteamPriceScraper] no price found for "${gameUrl}"`)
     return null
   }
 }
