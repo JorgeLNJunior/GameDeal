@@ -44,7 +44,7 @@ export class GameWorker {
           port: this.config.getEnv('REDIS_PORT'),
           password: this.config.getEnv('REDIS_PASSWORD')
         },
-        concurrency: 5
+        concurrency: 3
       }
     )
 
