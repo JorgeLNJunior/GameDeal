@@ -7,7 +7,7 @@ import { singleton } from 'tsyringe'
 export class TelegramNotifier implements Notifier {
   private bot!: Telegraf
 
-  constructor (private readonly configService: ConfigService) {}
+  constructor (private readonly configService: ConfigService) { }
 
   async start (): Promise<void> {
     const BOT_TOKEN = this.configService.getEnv<string>('TELEGRAM_BOT_TOKEN')
@@ -39,11 +39,11 @@ export class TelegramNotifier implements Notifier {
     await this.bot.telegram.sendMessage(
       CHAT_ID,
       '⚠️ *Queda de preço* ⚠️ \n\n' +
-        `🎮 *${escapedGameTitle} \\- ${data.store}* \n\n` +
-        `💵 *Preço anterior:* ${escapedOldPrice} \n` +
-        `💵 *Preço atual:* ${escapedCurrentPrice} \n\n` +
-        `*Loja:* ${data.store} \n` +
-        `🔗 ${escapedGameUrl}`,
+      `🎮 *${escapedGameTitle} \\- ${data.store}* \n\n` +
+      `💵 *Preço anterior:* ${escapedOldPrice} \n` +
+      `💵 *Preço atual:* ${escapedCurrentPrice} \n\n` +
+      `*Loja:* ${data.store} \n` +
+      `🔗 ${escapedGameUrl}`,
       {
         parse_mode: 'MarkdownV2',
         reply_markup: {
@@ -63,7 +63,7 @@ export class TelegramNotifier implements Notifier {
       throw new Error('the environment variable "WEB_APP_HOST" is not defined')
     }
 
-    const message = this.escapeSpecialChars(`⚠️ Adicionados ${data.count} novos jogos. ⚠️`)
+    const message = this.escapeSpecialChars(`⚠️ ${data.count} novos jogos adicionados. ⚠️`)
 
     await this.bot.telegram.sendMessage(
       CHAT_ID,
