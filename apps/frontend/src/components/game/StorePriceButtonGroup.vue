@@ -21,7 +21,7 @@ const props = defineProps({
     <StorePriceButton
       :price="props.currentPrice.steam_price.toString()"
       :url="game.steam_url"
-      :store="'Nuuvem'"
+      :store="'Steam'"
       test-data="steam-button"
     />
     <StorePriceButton
