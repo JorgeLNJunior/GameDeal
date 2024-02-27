@@ -8,10 +8,10 @@ jobs:
     name: 🔨 Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
       - name: Use Node.js 20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           cache: 'pnpm'
@@ -23,10 +23,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build]
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
       - name: Use Node.js 20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           cache: 'pnpm'
@@ -37,7 +37,7 @@ jobs:
           mysql database: 'game_deal_test'
           mysql root password: 'root'
       - name: Setup Redis 7
-        uses: supercharge/redis-github-action@1.5.0
+        uses: supercharge/redis-github-action@1.8.0
         with:
           redis-version: 7
       - run: pnpm install
@@ -45,7 +45,7 @@ jobs:
         env:
           test: true
       - name: coverage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: backend_coverage
           path: apps/backend/coverage/
@@ -55,10 +55,10 @@ jobs:
     name: 🧹 Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: pnpm/action-setup@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
       - name: Use Node.js 20
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           cache: 'pnpm'
@@ -69,7 +69,7 @@ jobs:
     name: 🧪 Validate OpenAPI File
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: validate OpenAPI definition
         uses: char0n/swagger-editor-validate@v1
         with:
