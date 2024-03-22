@@ -42,7 +42,7 @@ export class FindGamesRepository {
       .limit(perPage)
 
     if (query.title != null) {
-      query.title = '+' + query.title.replaceAll(' ', ' +') // see MySQL full text search boolean mode
+      query.title += '*' // see MySQL full text search boolean mode
       dbQuery = dbQuery.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${query.title} IN BOOLEAN MODE)`)
     }
     if (query.order === 'asc') dbQuery = dbQuery.orderBy('title', 'asc')
@@ -72,7 +72,7 @@ export class FindGamesRepository {
       )
 
     if (title != null) {
-      title = '+' + title.replaceAll(' ', '+ ')
+      title += '*'
       query = query.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${title} IN BOOLEAN MODE)`)
     }
 
