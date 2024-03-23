@@ -24,11 +24,13 @@ jobs:
         with:
           name: backend_coverage
           path: coverage/backend
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: download frontend coverage
         uses: actions/download-artifact@v3
         with:
           name: frontend_coverage
           path: coverage/frontend
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Coveralls
         uses: coverallsapp/github-action@v2
         with:
