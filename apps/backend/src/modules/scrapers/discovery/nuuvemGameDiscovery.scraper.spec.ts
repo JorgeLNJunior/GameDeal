@@ -17,14 +17,14 @@ describe('NuuvemGameDiscoveryScraper', () => {
       url: 'https://www.nuuvem.com/br-en/item/elden-ring'
     },
     {
-      title: 'Monster Hunter: World',
-      url: 'https://www.nuuvem.com/br-en/item/monster-hunter-world'
+      title: 'UNCHARTED™: Legacy of Thieves Collection',
+      url: 'https://www.nuuvem.com/br-en/item/uncharted-legacy-of-thieves-collection'
     },
     {
       title: 'DARK SOULS™ III',
       url: 'https://www.nuuvem.com/br-en/item/dark-souls-iii'
     }
-  ])('should discover the url of a game', async (data) => {
+  ])('should discover the url of the game "$title"', async (data) => {
     const url = await scraper.discoverUrl(data.title)
 
     expect(url).toBeDefined()
