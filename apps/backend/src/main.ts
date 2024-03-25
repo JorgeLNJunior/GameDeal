@@ -22,6 +22,7 @@ import { CronService } from '@cron/cron.service'
 import { DatabaseMaintanceCronJob } from '@cron/jobs/databaseMaintance.cronjob'
 import { GameDiscoveryCronJob } from '@cron/jobs/game.discovery.cronjob'
 import { GameScrapingCronJob } from '@cron/jobs/gameScraping.cronjob'
+import { RemoveInvalidLinksCronJob } from '@cron/jobs/removeInvalidLinks.conjob'
 import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { PinoLogger } from '@infra/pino.logger'
@@ -92,7 +93,8 @@ export default class Main {
       this.cronService.registerJobs(
         container.resolve(GameScrapingCronJob),
         container.resolve(GameDiscoveryCronJob),
-        container.resolve(DatabaseMaintanceCronJob)
+        container.resolve(DatabaseMaintanceCronJob),
+        container.resolve(RemoveInvalidLinksCronJob)
       )
 
       await this.dbService.connect()
