@@ -44,10 +44,13 @@ export class FindGamesRepository {
     if (query.title != null) {
       query.title += '*' // see MySQL full text search boolean mode
       dbQuery = dbQuery.where(sql`MATCH`, sql`(title)`, sql`AGAINST (${query.title} IN BOOLEAN MODE)`)
-    }
-    if (query.order === 'asc' || query.title == null) dbQuery = dbQuery.orderBy('title', 'asc')
-    if (query.order === 'desc') dbQuery = dbQuery.orderBy('title', 'desc')
 
+      if (query.order === 'asc') dbQuery = dbQuery.orderBy('title', 'asc')
+      if (query.order === 'desc') dbQuery = dbQuery.orderBy('title', 'desc')
+    } else {
+      if (query.order === 'asc' || query.order == null) dbQuery = dbQuery.orderBy('title', 'asc')
+      if (query.order === 'desc') dbQuery = dbQuery.orderBy('title', 'desc')
+    }
     const results = await dbQuery.execute()
 
     return {
