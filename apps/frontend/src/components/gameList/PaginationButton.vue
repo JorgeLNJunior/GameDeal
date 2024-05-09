@@ -52,14 +52,14 @@ function scrollToTop (): void {
     <!-- Previous button -->
     <button
       href="#"
-      class="inline-flex h-8 w-8 items-center justify-center rounded border border-slate-300 bg-white text-slate-900 transition hover:bg-slate-200 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-slate-200 rtl:rotate-180"
+      class="inline-flex size-8 items-center justify-center rounded border border-slate-300 bg-white text-slate-900 transition hover:bg-slate-200 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-slate-200 rtl:rotate-180"
       @click="previousPage()"
       :disabled="isFirstPage"
       test-data="previous-button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4"
+        class="size-4"
         viewBox="0 0 20 20"
         fill="currentColor"
       >
@@ -81,14 +81,14 @@ function scrollToTop (): void {
     <!-- Next page button -->
     <button
       href="#"
-      class="inline-flex h-8 w-8 items-center justify-center rounded border border-slate-300 bg-white text-slate-900 transition hover:bg-slate-200 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-slate-200 rtl:rotate-180"
+      class="inline-flex size-8 items-center justify-center rounded border border-slate-300 bg-white text-slate-900 transition hover:bg-slate-200 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-slate-200 rtl:rotate-180"
       @click="nextPage()"
       :disabled="isLastPage"
       test-data="next-button"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="h-4 w-4"
+        class="size-4"
         viewBox="0 0 20 20"
         fill="currentColor"
       >
