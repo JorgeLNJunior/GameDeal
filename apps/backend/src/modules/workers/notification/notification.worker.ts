@@ -21,7 +21,7 @@ export class NotificationWorker {
     private readonly notificationService: NotificationService,
     private readonly config: ConfigService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  ) { }
 
   /**
    * Starts the game worker.
@@ -50,7 +50,11 @@ export class NotificationWorker {
         connection: {
           host: this.config.getEnv('REDIS_HOST'),
           port: this.config.getEnv('REDIS_PORT'),
-          password: this.config.getEnv('REDIS_PASSWORD')
+          password: this.config.getEnv('REDIS_PASSWORD'),
+          tls: {
+            host: this.config.getEnv('REDIS_HOST'),
+            port: this.config.getEnv('REDIS_PORT')
+          }
         },
         limiter: {
           max: 3,

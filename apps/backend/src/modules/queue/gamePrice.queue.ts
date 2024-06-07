@@ -23,7 +23,7 @@ export class GamePriceQueue {
   constructor (
     private readonly config: ConfigService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  ) { }
 
   /**
    * Adds a job to the queue.
@@ -53,6 +53,10 @@ export class GamePriceQueue {
         host: this.config.getEnv('REDIS_HOST'),
         port: this.config.getEnv('REDIS_PORT'),
         password: this.config.getEnv('REDIS_PASSWORD'),
+        tls: {
+          host: this.config.getEnv('REDIS_HOST'),
+          port: this.config.getEnv('REDIS_PORT')
+        },
         enableOfflineQueue: false
       },
       defaultJobOptions: {

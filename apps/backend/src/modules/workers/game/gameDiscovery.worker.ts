@@ -22,7 +22,7 @@ export class GameDiscoveryWorker {
     private readonly processor: GameDiscoveryJobProcessor,
     private readonly config: ConfigService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  ) { }
 
   /**
    * Starts the game discovery worker.
@@ -43,7 +43,11 @@ export class GameDiscoveryWorker {
         connection: {
           host: this.config.getEnv('REDIS_HOST'),
           port: this.config.getEnv('REDIS_PORT'),
-          password: this.config.getEnv('REDIS_PASSWORD')
+          password: this.config.getEnv('REDIS_PASSWORD'),
+          tls: {
+            host: this.config.getEnv('REDIS_HOST'),
+            port: this.config.getEnv('REDIS_PORT')
+          }
         }
       }
     )

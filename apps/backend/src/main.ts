@@ -61,7 +61,7 @@ export default class Main {
     private readonly notificationWorker: NotificationWorker,
     private readonly cronService: CronService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  ) { }
 
   /**
    * Starts the application and all its modules.
@@ -135,7 +135,7 @@ export default class Main {
   }
 }
 
-;void (async () => {
+; void (async () => {
   await container.resolve(Main).start().then(() => {
     new PinoLogger().info('[Main] application started')
   })
