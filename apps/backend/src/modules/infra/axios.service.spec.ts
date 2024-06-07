@@ -4,7 +4,7 @@ import { PinoLogger } from './pino.logger'
 describe('AxiosService', () => {
   let axios: AxiosService
   let logger: PinoLogger
-  const url = 'https://api.gamedeal.cloudns.nz'
+  const url = 'https://catfact.ninja'
 
   beforeEach(async () => {
     logger = new PinoLogger()
@@ -12,7 +12,7 @@ describe('AxiosService', () => {
   })
 
   it('should make a GET http request', async () => {
-    const data = await axios.get<string>(`${url}/games`)
+    const data = await axios.get<string>(`${url}/fact`)
     expect(data).toBeDefined()
   })
 
