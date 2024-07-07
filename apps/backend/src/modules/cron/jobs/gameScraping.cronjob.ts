@@ -8,7 +8,7 @@ import { FindGameScraperDataRepository } from './repositories/findGameScraperDat
 
 @injectable()
 export class GameScrapingCronJob implements ApplicationCronJob {
-  public cronTime = '0 0 * * *' // At UTC-3 00:00
+  public cronTime = '15 0 * * *' // At UTC-3 00:15
 
   /**
    * Handles the game scraping cron job.
@@ -16,13 +16,13 @@ export class GameScrapingCronJob implements ApplicationCronJob {
    * @param gamePriceQueue - A game queue instance.
    * @param logger - An application logger.
    */
-  constructor (
+  constructor(
     private readonly findGameScraperDataRepository: FindGameScraperDataRepository,
     private readonly gamePriceQueue: GamePriceQueue,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  ) { }
 
-  public async jobFunction (): Promise<void> {
+  public async jobFunction(): Promise<void> {
     this.logger.info('[GameScrapingCronJob] running game scraping job')
 
     const games = await this.findGameScraperDataRepository.find()

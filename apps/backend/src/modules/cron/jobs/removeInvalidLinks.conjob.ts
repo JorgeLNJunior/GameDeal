@@ -9,16 +9,16 @@ import { RemoveStoreURLRepository } from './repositories/removeStoreUrl.reposito
 
 @injectable()
 export class RemoveInvalidLinksCronJob implements ApplicationCronJob {
-  public cronTime = '0 6 * * 0' // At UTC-3 06:00 on Sunday
+  public cronTime = '10 12 * * 0' // At UTC-3 12:10 on Sunday
 
-  constructor (
+  constructor(
     private readonly findNuuvemUrlsRepo: FindNuuvemURLsRepository,
     private readonly findGMGUrlsRepo: FindGMGURLsRepository,
     private readonly removeGameURLRepo: RemoveStoreURLRepository,
     private readonly axios: AxiosService
-  ) {}
+  ) { }
 
-  async jobFunction (): Promise<void> {
+  async jobFunction(): Promise<void> {
     const nuuvemURLs = await this.findNuuvemUrlsRepo.find()
 
     for (const url of nuuvemURLs) {
