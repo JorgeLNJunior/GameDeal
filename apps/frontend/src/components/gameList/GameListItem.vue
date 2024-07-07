@@ -37,7 +37,7 @@ const priceWithCurrency = computed(() => {
     price.value.nuuvem_price,
     price.value.green_man_gaming_price
   ].filter((price) => price != null)
-  const min = Math.min(...prices as number[])
+  const min = Math.min(...prices)
 
   return `R$ ${min.toFixed(2).replace('.', ',')}`
 })
@@ -47,7 +47,7 @@ const priceWithCurrency = computed(() => {
   <li v-if="price">
     <RouterLink class="flex content-end justify-between space-x-6 rounded-lg p-2 transition hover:bg-gray-100 hover:text-gray-800 md:px-4" :to="`/game/${props.id}`">
       <span class="w-full truncate" test-data="title">{{ props.title }}</span>
-      <span class="w-fit shrink-0 md:w-18" test-data="price">{{ priceWithCurrency }}</span>
+      <span class="md:w-18 w-fit shrink-0" test-data="price">{{ priceWithCurrency }}</span>
     </RouterLink>
   </li>
   <GameListItemSkeleton v-else test-data="skeleton" />

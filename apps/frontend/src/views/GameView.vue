@@ -35,7 +35,7 @@ const formatedLowestPrice = computed<{
     lowestPrice.nuuvem.price,
     lowestPrice.green_man_gaming.price
   ].filter((v) => v != null)
-  const min = Math.min(...prices as number[])
+  const min = Math.min(...prices)
 
   if (Number(lowestPrice.steam.price) === min) {
     return {

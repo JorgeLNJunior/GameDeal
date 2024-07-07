@@ -18,14 +18,14 @@ export class GameDiscoveryCronJob implements ApplicationCronJob {
    * @param queue - An instance of GameDiscoveryQueue
    * @param logger - An application logger.
    */
-  constructor(
+  constructor (
     private readonly database: DatabaseService,
     private readonly queue: GameDiscoveryQueue,
     private readonly steamDiscovery: SteamGameDiscoveryScraper,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) { }
 
-  public async jobFunction(): Promise<void> {
+  public async jobFunction (): Promise<void> {
     this.logger.info('[GameDiscoveryCronJob] running game discovery job')
 
     await this.steamDiscovery.discoveryGames()
