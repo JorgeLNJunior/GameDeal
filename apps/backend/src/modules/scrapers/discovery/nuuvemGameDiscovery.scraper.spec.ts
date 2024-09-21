@@ -17,8 +17,8 @@ describe('NuuvemGameDiscoveryScraper', () => {
       url: 'https://www.nuuvem.com/br-en/item/elden-ring'
     },
     {
-      title: 'UNCHARTED™: Legacy of Thieves Collection',
-      url: 'https://www.nuuvem.com/br-en/item/uncharted-legacy-of-thieves-collection'
+      title: 'Middle-earth: Shadow of Mordor - Game of the Year Edition',
+      url: 'https://www.nuuvem.com/br-en/item/2372-middle-earth-shadow-of-mordor-game-of-the-year-edition'
     },
     {
       title: 'DARK SOULS™ III',
