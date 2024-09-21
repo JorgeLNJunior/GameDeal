@@ -28,7 +28,7 @@ export function adaptRoute (controller: HttpController): RouteHandler {
     const response = await controller.handle(request)
 
     if (isRedirect(response)) {
-      return await res.redirect(response.statusCode, response.to)
+      return await res.redirect(response.to, response.statusCode)
     }
 
     return await res
