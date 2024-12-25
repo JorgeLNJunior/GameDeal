@@ -30,6 +30,11 @@ Game Deal consiste de um web scrapper que coleta o preço de mais de 3 mil jogos
 
 Os scrapers e notificador rodam em filas que usam Redis e BullMQ, enquanto a API é construída com Fastify e o Frontend com VueJS e TailwindCSS.
 
+## Screenshots
+
+![image1](./.github/screenshots/1.png)
+![image2](./.github/screenshots/2.png)
+
 ## Configuração
 
 ### Requisitos
