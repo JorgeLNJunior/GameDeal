@@ -27,7 +27,7 @@
     "test:cov": "turbo run test:cov",
     "test:backend:cov": "turbo run test:cov --filter=backend --log-prefix=none",
     "test:frontend:cov": "turbo run test:cov --filter=frontend --log-prefix=none",
-    "prepare": "husky"
+    "prepare": "husky && export DO_NOT_TRACK=1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",
