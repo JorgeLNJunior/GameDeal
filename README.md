@@ -35,8 +35,8 @@ Os scrapers e notificador rodam em filas que usam Redis e BullMQ, enquanto a API
 <details>
   <summary>Capturas de tela da aplicação.</summary>
   <br>
-  <img src="./.github/screenshots/2.png" />
-  <img src="./.github/screenshots/1.png" />
+  <img src="./.github/screenshots/2.png" width="800px" />
+  <img src="./.github/screenshots/1.png" width="800px" />
 </details>
 
 ## Configuração
