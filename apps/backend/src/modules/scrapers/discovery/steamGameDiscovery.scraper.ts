@@ -16,13 +16,13 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
     private readonly axios: AxiosService,
     private readonly notificationQueue: NotificationQueue,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  ) { }
 
   async discoveryGames (pages = 15): Promise<void> {
     try {
       const client = this.database.getClient()
       const games: InsertData[] = []
-      let gamesAdded = 0
+      let addedGamesCount = 0
 
       // global top sellers
       this.logger.info('[SteamGameDiscoveryScraper] searching by global top sellers')
@@ -77,11 +77,16 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
         }).execute()
 
         this.logger.info(`[SteamGameDiscovery] added "${game.title}"`)
-        gamesAdded = ++gamesAdded
+        addedGamesCount = ++addedGamesCount
       }
 
-      await this.notificationQueue.add(QueueJobName.NOTIFY_NEW_GAMES, { count: gamesAdded })
-      this.logger.info(`[SteamGameDiscovery] added "${gamesAdded}" new games`)
+      if (addedGamesCount < 1) {
+        this.logger.info('[SteamGameDiscovery] will not send a notification because no new games where discoved')
+        return
+      }
+
+      await this.notificationQueue.add(QueueJobName.NOTIFY_NEW_GAMES, { count: addedGamesCount })
+      this.logger.info(`[SteamGameDiscovery] added "${addedGamesCount}" new games`)
     } catch (error) {
       this.logger.error(error, '[SteamGameDiscovery] game discovery failed')
     }
