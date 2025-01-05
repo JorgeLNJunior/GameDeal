@@ -3,7 +3,7 @@
   "author": "JorgeLNJunior",
   "license": "MIT",
   "private": true,
-  "packageManager": "pnpm@9.15.1",
+  "packageManager": "pnpm@9.15.2",
   "scripts": {
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
@@ -42,7 +42,7 @@
     "eslint-plugin-vitest": "^0.4.1",
     "eslint-plugin-vue": "^9.26.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.2.11",
+    "lint-staged": "^15.3.0",
     "turbo": "^2.3.3"
   },
   "repository": {
