@@ -13,6 +13,7 @@ import { GetGamePriceHistoryController } from '@api/controllers/getGamePriceHist
 import { GetIgnoredGamesController } from '@api/controllers/getIgnoredGames/getIgnoredGames.controller'
 import { GetLowestPriceController } from '@api/controllers/getLowestPrice/getLowestPrice.controller'
 import { GetPriceDropsController } from '@api/controllers/getPriceDrops/getPriceDrop.controller'
+import { HealthController } from '@api/controllers/health/health.controller'
 import { LoginController } from '@api/controllers/login/login.controller'
 import { RedirectToDocsController } from '@api/controllers/redirectToDocs/redirectToDocs.controller'
 import { RemoveIgnoredGamesController } from '@api/controllers/removeIgnoredGames/removeIgnoredGames.controller'
@@ -61,7 +62,7 @@ export default class Main {
     private readonly notificationWorker: NotificationWorker,
     private readonly cronService: CronService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  ) { }
 
   /**
    * Starts the application and all its modules.
@@ -88,7 +89,8 @@ export default class Main {
         container.resolve(GetIgnoredGamesController),
         container.resolve(AddIgnoredGamesController),
         container.resolve(RemoveIgnoredGamesController),
-        container.resolve(RedirectToDocsController)
+        container.resolve(RedirectToDocsController),
+        container.resolve(HealthController)
       )
       this.cronService.registerJobs(
         container.resolve(GameScrapingCronJob),
@@ -135,7 +137,7 @@ export default class Main {
   }
 }
 
-;void (async () => {
+; void (async () => {
   await container.resolve(Main).start().then(() => {
     new PinoLogger().info('[Main] application started')
   })

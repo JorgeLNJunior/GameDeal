@@ -138,4 +138,22 @@ export class ResponseBuilder {
       }
     }
   }
+
+  /**
+   * Build a HTTP 503 response.
+   * @example
+   * ```
+   * return ResponseBuilder.serviceUnavailable ()
+   * ```
+   * @returns A `HttpResponse`.
+   */
+  static serviceUnavailable (): HttpResponse {
+    return {
+      statusCode: 503,
+      body: {
+        error: 'Service Unavailable',
+        message: 'the service is unavailable'
+      }
+    }
+  }
 }
