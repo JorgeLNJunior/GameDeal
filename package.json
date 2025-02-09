@@ -3,7 +3,7 @@
   "author": "JorgeLNJunior",
   "license": "MIT",
   "private": true,
-  "packageManager": "pnpm@9.15.2",
+  "packageManager": "pnpm@10.2.1",
   "scripts": {
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
@@ -30,20 +30,20 @@
     "prepare": "husky && export DO_NOT_TRACK=1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^19.6.1",
-    "@commitlint/config-conventional": "^19.6.0",
-    "@turbo/gen": "^2.3.3",
+    "@commitlint/cli": "^19.7.1",
+    "@commitlint/config-conventional": "^19.7.1",
+    "@turbo/gen": "^2.4.0",
     "@vue/eslint-config-standard-with-typescript": "^8.0.0",
     "eslint": "^8.57.0",
     "eslint-config-standard-with-typescript": "^37.0.0",
-    "eslint-plugin-jest": "^28.10.0",
+    "eslint-plugin-jest": "^28.11.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "eslint-plugin-tailwindcss": "^3.17.5",
+    "eslint-plugin-tailwindcss": "^3.18.0",
     "eslint-plugin-vitest": "^0.4.1",
     "eslint-plugin-vue": "^9.26.0",
     "husky": "^9.1.7",
-    "lint-staged": "^15.3.0",
-    "turbo": "^2.3.3"
+    "lint-staged": "^15.4.3",
+    "turbo": "^2.4.0"
   },
   "repository": {
     "type": "git",
