@@ -4,7 +4,7 @@ import { injectable } from 'tsyringe'
 
 @injectable()
 export class NuuvemGameDiscoveryScraper {
-  constructor (private readonly axios: AxiosService) {}
+  constructor (private readonly axios: AxiosService) { }
 
   async discoverUrl (title: string): Promise<string | undefined> {
     const normalizedTitle = this.normalizeTitle(title)
@@ -13,7 +13,7 @@ export class NuuvemGameDiscoveryScraper {
     )
 
     const wrapper = cheerio.load(body)
-    const data = wrapper('div.product-card--grid > div > a').toArray()
+    const data = wrapper('div.products-items > div.grid > div > a').toArray()
 
     for (const element of data) {
       const nuuvemTitle = this.normalizeTitle(element.attribs.title).toLowerCase()
