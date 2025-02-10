@@ -1,12 +1,14 @@
 import { GameBuilder, GamePriceDropBuilder } from '@packages/testing'
 import { flushPromises, mount, RouterLinkStub } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { ApiService } from '@/api/api.service'
 
 import PriceDropsListItem from './PriceDropsListItem.vue'
 
 describe('PriceDropListItem', () => {
+  beforeEach(() => vi.resetAllMocks())
+
   it('Should render the game title', async () => {
     const game = new GameBuilder().build()
     const drop = new GamePriceDropBuilder().withGame(game.id).build()

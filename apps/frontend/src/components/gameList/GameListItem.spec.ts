@@ -1,6 +1,6 @@
 import { GameBuilder, GamePriceBuilder } from '@packages/testing'
 import { flushPromises, mount } from '@vue/test-utils'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 import { ApiService } from '@/api/api.service'
 import router from '@/router'
@@ -8,6 +8,8 @@ import router from '@/router'
 import GameListItem from './GameListItem.vue'
 
 describe('GameListItem', () => {
+  beforeEach(() => vi.resetAllMocks())
+
   it('should render the title', async () => {
     const game = new GameBuilder().build()
     const price = new GamePriceBuilder().build()
