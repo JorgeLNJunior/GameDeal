@@ -4,6 +4,6 @@
   "types": "index.ts",
   "devDependencies": {
     "@packages/types": "workspace:*",
-    "@types/node": "^22.13.1"
+    "@types/node": "^22.13.5"
   }
 }
