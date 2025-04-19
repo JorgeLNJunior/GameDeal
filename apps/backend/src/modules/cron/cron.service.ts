@@ -12,7 +12,7 @@ export class CronService {
    * A service to handle cron jobs.
    * @param logger - An application logger.
    */
-  constructor (@inject(PINO_LOGGER) private readonly logger: ApplicationLogger) {}
+  constructor (@inject(PINO_LOGGER) private readonly logger: ApplicationLogger) { }
 
   /**
    * Registers a list of cron jobs.
@@ -54,6 +54,7 @@ export class CronService {
   stop (): void {
     this.logger.info('[CronService] stopping all jobs')
     this.jobs.forEach((job) => {
+      // eslint-disable-next-line @typescript-eslint/no-floating-promises
       job.stop()
     })
     this.logger.info('[CronService] all jobs are stopped')
