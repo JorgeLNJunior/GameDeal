@@ -13,7 +13,7 @@ export class NuuvemGameDiscoveryScraper {
     )
 
     const wrapper = cheerio.load(body)
-    const data = wrapper('div.products-items > div.grid > div > a').toArray()
+    const data = wrapper('div.products-items > div.nvm-grid > div > a').toArray()
 
     for (const element of data) {
       const nuuvemTitle = this.normalizeTitle(element.attribs.title).toLowerCase()

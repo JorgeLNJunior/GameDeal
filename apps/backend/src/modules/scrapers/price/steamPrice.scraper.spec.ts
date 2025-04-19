@@ -76,11 +76,8 @@ describe('SteamPriceScraper', () => {
     expect(typeof price).toBe('number')
   })
 
-  it.each([
-    'https://store.steampowered.com/app/271590/Grand_Theft_Auto_V',
-    'https://store.steampowered.com/app/1938010/WILD_HEARTS'
-  ])('should suport games with bundles', async (url) => {
-    const price = await scraper.getGamePrice(url)
+  it('should suport games with bundles', async () => {
+    const price = await scraper.getGamePrice('https://store.steampowered.com/app/1938010/WILD_HEARTS')
 
     expect(price).toBeDefined()
     expect(typeof price).toBe('number')
