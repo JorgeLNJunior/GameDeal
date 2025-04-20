@@ -113,7 +113,7 @@ export default class Main {
       await this.server.listen()
 
       // gracefull shutdown
-      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+       
       process.on('SIGINT', async () => {
         this.logger.info('Main] received SIGINT signal')
         await this.server.close()

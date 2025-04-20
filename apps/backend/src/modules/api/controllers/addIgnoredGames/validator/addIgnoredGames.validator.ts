@@ -10,7 +10,7 @@ export class AddIgnoredGamesValidator implements Validator {
       errors.push('"titles" should be an array')
     } else {
       for (const title of data.titles) {
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+         
         if (typeof title !== 'string') errors.push(`"${title}" should be a string`)
       }
     }

@@ -1,4 +1,3 @@
 node_modules
 compose
-apps/backend/dist
-apps/frontend/dist
+dist

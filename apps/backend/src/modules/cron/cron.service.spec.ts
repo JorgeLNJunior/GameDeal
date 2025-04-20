@@ -5,7 +5,7 @@ import { CronService } from './cron.service'
 
 class FakeJob implements ApplicationCronJob {
   public cronTime = '00 00 * * *'
-  async jobFunction (): Promise<void> {}
+  async jobFunction(): Promise<void> { return undefined }
 }
 
 describe('CronService', () => {

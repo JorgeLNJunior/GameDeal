@@ -17,7 +17,7 @@ export class CountGamesController implements HttpController {
   ) {}
 
   public method: HttpMethod = HttpMethod.GET
-  public url: string = '/games/count'
+  public url = '/games/count'
 
   async handle (request: HttpRequest): Promise<HttpResponse> {
     try {

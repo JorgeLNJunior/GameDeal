@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
+ 
 import { DatabaseService } from '@database/database.service'
 import { GameBuilder } from '@packages/testing'
 import { type Store } from '@packages/types'

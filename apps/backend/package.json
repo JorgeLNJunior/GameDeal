@@ -38,6 +38,7 @@
     "tsyringe": "^4.10.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.7.0",
     "@packages/testing": "workspace:*",
     "@packages/types": "workspace:*",
     "@types/jest": "^29.5.14",

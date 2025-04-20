@@ -15,7 +15,7 @@ export class HealthController implements HttpController {
   ) { }
 
   method: HttpMethod = HttpMethod.GET
-  url: string = '/healthz'
+  url = '/healthz'
   async handle (): Promise<HttpResponse> {
     try {
       await this.databaseService.getClient().selectFrom('game').select('id').limit(1).execute()

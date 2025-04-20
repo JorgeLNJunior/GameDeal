@@ -13,7 +13,7 @@ import { GetPriceDropsByGameRepository } from './repositories/getPriceDropsByGam
 @injectable()
 export class GetPriceDropsByGameController implements HttpController {
   public method: HttpMethod = HttpMethod.GET
-  public url: string = '/games/:id/drops'
+  public url = '/games/:id/drops'
 
   constructor (
     private readonly getPriceDropsRepo: GetPriceDropsByGameRepository,

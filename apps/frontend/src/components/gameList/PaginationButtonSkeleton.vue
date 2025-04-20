@@ -23,7 +23,7 @@
 
     <!-- Loader -->
     <div class="flex animate-pulse items-center">
-      <div class="h-3 w-10 rounded-full bg-gray-300"></div>
+      <div class="h-3 w-10 rounded-full bg-gray-300" />
     </div>
 
     <!-- Next page button -->
@@ -44,6 +44,5 @@
         />
       </svg>
     </button>
-
   </div>
 </template>

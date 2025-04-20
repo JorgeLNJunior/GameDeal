@@ -44,7 +44,7 @@ describe('GetLowestPriceController', () => {
     const request = new HttpRequestBuilder().withParams({ id: 'id' }).build()
     const response = await controller.handle(request)
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     expect(response.body).toEqual(price)
     expect(response.statusCode).toBe(200)
   })
@@ -65,7 +65,7 @@ describe('GetLowestPriceController', () => {
     const request = new HttpRequestBuilder().withParams({ id: 'id' }).build()
     const response = await controller.handle(request)
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     expect(response.body).toEqual(price)
     expect(response.statusCode).toBe(200)
     expect(cacheSpy).toHaveBeenCalled()
@@ -89,7 +89,7 @@ describe('GetLowestPriceController', () => {
       .build()
     const response = await controller.handle(request)
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+     
     expect(response.body).toEqual(price)
     expect(response.statusCode).toBe(200)
     expect(cacheSpy).not.toHaveBeenCalled()

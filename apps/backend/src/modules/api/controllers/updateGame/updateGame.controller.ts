@@ -13,7 +13,7 @@ import { UpdateGameValidator } from './validator/updateGame.validator'
 @injectable()
 export class UpdateGameController implements HttpController {
   public method: HttpMethod = HttpMethod.PATCH
-  public url: string = '/games/:id'
+  public url = '/games/:id'
 
   constructor (
     private readonly validator: UpdateGameValidator,

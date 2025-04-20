@@ -34,7 +34,7 @@ describe('UpdateGameController', () => {
 
   it('should return a OK response if it succeeds', async () => {
     const game = new GameBuilder().build()
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+     
     const { id, steam_url, nuuvem_url, green_man_gaming_url } = game
 
     jest.spyOn(isGameExistRepo, 'get').mockResolvedValueOnce(true)

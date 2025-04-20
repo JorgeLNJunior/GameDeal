@@ -14,7 +14,7 @@ export class TelegramNotifier implements Notifier {
     if (BOT_TOKEN === undefined) throw new Error('BOT_TOKEN is not defined')
 
     this.bot = new Telegraf(BOT_TOKEN)
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+     
     this.bot.launch()
   }
 

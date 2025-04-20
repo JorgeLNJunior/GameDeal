@@ -12,7 +12,7 @@ import { DeleteGameRepository } from './repositories/deleteGame.repository'
 @injectable()
 export class DeleteGameController implements HttpController {
   public method: HttpMethod = HttpMethod.DELETE
-  public url: string = '/games/:id'
+  public url = '/games/:id'
 
   constructor (
     private readonly authService: AuthService,

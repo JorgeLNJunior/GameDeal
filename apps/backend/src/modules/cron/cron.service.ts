@@ -27,7 +27,7 @@ export class CronService {
       this.jobs.push(
         new CronJob(
           job.cronTime,
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
+           
           async function () {
             await job.jobFunction()
           },
@@ -54,7 +54,7 @@ export class CronService {
   stop (): void {
     this.logger.info('[CronService] stopping all jobs')
     this.jobs.forEach((job) => {
-      // eslint-disable-next-line @typescript-eslint/no-floating-promises
+       
       job.stop()
     })
     this.logger.info('[CronService] all jobs are stopped')

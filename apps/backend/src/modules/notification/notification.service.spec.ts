@@ -71,11 +71,8 @@ describe('NotificationService', () => {
 })
 
 class FakeNotifier implements Notifier {
-  async notifyPriceDrop (): Promise<void> {}
-
-  async notifyNewGames (): Promise<void> {}
-
-  async start (): Promise<void> {}
-
-  async stop (): Promise<void> {}
+  async notifyPriceDrop(): Promise<void> { return undefined }
+  async notifyNewGames(): Promise<void> { return undefined }
+  async start(): Promise<void> { return undefined }
+  async stop(): Promise<void> { return undefined }
 }
