@@ -1,4 +1,3 @@
-import { PinoLogger } from '@infra/pino.logger'
 import { type Notifier, type NotifyNewGamesData, type NotifyPriceDropData } from '@localtypes/notifier.type'
 
 import { NotificationService } from './notification.service'
@@ -11,7 +10,6 @@ describe('NotificationService', () => {
     fakeNotifier = new FakeNotifier()
     notificationService = new NotificationService(
       [fakeNotifier],
-      new PinoLogger()
     )
   })
 
@@ -46,26 +44,6 @@ describe('NotificationService', () => {
 
       expect(fakeNotifierSpy).toHaveBeenCalled()
       expect(fakeNotifierSpy).toHaveBeenCalledWith(data)
-    })
-  })
-
-  describe('start', () => {
-    it('should call the "start" method from all notifiers', async () => {
-      const fakeNotifierSpy = jest.spyOn(fakeNotifier, 'start')
-
-      await notificationService.start()
-
-      expect(fakeNotifierSpy).toHaveBeenCalled()
-    })
-  })
-
-  describe('stop', () => {
-    it('should call the "stop" method from all notifiers', async () => {
-      const fakeNotifierSpy = jest.spyOn(fakeNotifier, 'stop')
-
-      await notificationService.stop()
-
-      expect(fakeNotifierSpy).toHaveBeenCalled()
     })
   })
 })
