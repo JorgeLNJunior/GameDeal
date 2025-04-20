@@ -51,7 +51,7 @@ export default class Main {
    * @param cronService - An instance of `CronService`.
    * @param logger - An instance of `ApplicationLogger`.
    */
-  constructor (
+  constructor(
     private readonly server: Server,
     private readonly dbService: DatabaseService,
     private readonly gamePriceQueue: GamePriceQueue,
@@ -71,7 +71,7 @@ export default class Main {
    * const main = new Main(...params).start()
    * ```
    */
-  async start (): Promise<void> {
+  async start(): Promise<void> {
     try {
       await this.server.registerPlugins()
       this.server.registerControllers(
@@ -113,7 +113,7 @@ export default class Main {
       await this.server.listen()
 
       // gracefull shutdown
-       
+
       process.on('SIGINT', async () => {
         this.logger.info('Main] received SIGINT signal')
         await this.server.close()

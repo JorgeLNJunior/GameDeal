@@ -17,11 +17,11 @@ export class NotificationWorker {
    * @param config - An instance of `ConfigService`.
    * @param logger - An instance of `ApplicationLogger`.
    */
-  constructor (
+  constructor(
     private readonly notificationService: NotificationService,
     private readonly config: ConfigService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
-  ) {}
+  ) { }
 
   /**
    * Starts the game worker.
@@ -30,9 +30,7 @@ export class NotificationWorker {
    * await worker.init()
    * ```
    */
-  async init (): Promise<void> {
-    await this.notificationService.start()
-
+  async init(): Promise<void> {
     this.worker = new Worker<NotificationData, void>(
       QueueName.NOTICATION,
       async (job) => {
@@ -78,10 +76,9 @@ export class NotificationWorker {
    * await worker.stop()
    * ```
    */
-  async stop (): Promise<void> {
+  async stop(): Promise<void> {
     this.logger.info('[NotificationWorker] stopping worker')
     await this.worker.close()
     this.logger.info('[NotificationWorker] worker stopped')
-    await this.notificationService.stop()
   }
 }

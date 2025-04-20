@@ -18,24 +18,6 @@ export interface Notifier {
    * ```
    */
   notifyNewGames: (data: NotifyNewGamesData) => Promise<void>
-
-  /**
-   * Starts the notifier.
-   *    @example
-   * ```
-   * await notifier.start()
-   * ```
-   */
-  start: () => Promise<void>
-
-  /**
-   * Stops the notifier.
-   * @example
-   * ```
-   * await notifier.stop()
-   * ```
-   */
-  stop: () => Promise<void>
 }
 
 export interface NotifyPriceDropData {
