@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import { HttpErrorType } from '@/types/httpError.type'
+import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,29 +8,17 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: async () => await import('@/views/HomeView.vue'),
-      meta: { title: 'Home | Game Deal' }
+      component: HomeView,
     },
     {
-      path: '/game/:id',
-      name: 'game',
-      component: async () => await import('@/views/GameView.vue')
+      path: '/about',
+      name: 'about',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/AboutView.vue'),
     },
-    {
-      path: '/error',
-      name: 'error',
-      component: async () => await import('@/views/HttpError.vue')
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'notFound',
-      redirect: { path: '/error', query: { error: HttpErrorType.NOT_FOUND } }
-    }
-  ]
-})
-
-router.afterEach((to) => {
-  document.title = to.meta.title ?? 'Game Deal'
+  ],
 })
 
 export default router
