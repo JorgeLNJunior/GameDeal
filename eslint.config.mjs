@@ -4,7 +4,6 @@ import tseslint from 'typescript-eslint';
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginJest from 'eslint-plugin-jest'
 import vitest from '@vitest/eslint-plugin'
-import tailwind from "eslint-plugin-tailwindcss";
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
 
@@ -45,7 +44,8 @@ export default tseslint.config(
     files: ['apps/frontend/src/**'],
     extends: [
       ...pluginVue.configs['flat/recommended'],
-      ...tailwind.configs['flat/recommended'],
+      // FIX: disabled until tailwind v4 support
+      // ...tailwind.configs['flat/recommended'],
     ],
     languageOptions: {
       sourceType: 'module',
