@@ -3,7 +3,7 @@ import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginJest from 'eslint-plugin-jest'
-import vitest from 'eslint-plugin-vitest'
+import vitest from '@vitest/eslint-plugin'
 import tailwind from "eslint-plugin-tailwindcss";
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
