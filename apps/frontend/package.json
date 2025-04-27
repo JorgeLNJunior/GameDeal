@@ -12,6 +12,13 @@
     "type-check": "vue-tsc --build"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.4",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^0.503.0",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^4.1.4",
+    "tw-animate-css": "^1.2.8",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
@@ -20,7 +27,7 @@
     "@packages/types": "workspace:*",
     "@tsconfig/node22": "^22.0.1",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.14.0",
+    "@types/node": "^22.14.1",
     "@vitejs/plugin-vue": "^5.2.3",
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.7.0",
