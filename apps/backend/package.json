@@ -8,8 +8,6 @@
     "start": "node .",
     "start:dev": "ts-node -r tsconfig-paths/register src/main.ts | pino-pretty",
     "start:watch": "tsnd -r tsconfig-paths/register --respawn --transpile-only src/main.ts | pino-pretty",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
     "test": "jest --runInBand",
     "test:cov": "jest --runInBand --coverage"
   },
