@@ -1,13 +1,17 @@
 // @ts-check
 import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import simpleImportSort from 'eslint-plugin-simple-import-sort'
-import pluginJest from 'eslint-plugin-jest'
 import vitest from '@vitest/eslint-plugin'
+import pluginJest from 'eslint-plugin-jest'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
+import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  {
+    name: 'ignores',
+    ignores: ['dist', 'compose']
+  },
   eslint.configs.recommended,
   tseslint.configs.strict,
   tseslint.configs.stylistic,
