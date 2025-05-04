@@ -16,7 +16,7 @@ const props = defineProps({
 
 <template>
   <RouterLink :to="props.to" class="text-sm font-medium transition-colors hover:text-primary"
-    :class="{ 'text-muted-foreground': route.path !== props.to }">
+    :class="{ 'text-muted-foreground': route.path !== props.to }" data-testid="title">
     {{ props.title }}
   </RouterLink>
 </template>
