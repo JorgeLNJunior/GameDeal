@@ -45,7 +45,8 @@ export default tseslint.config(
 
   // vue
   {
-    files: ['apps/frontend/src/**'],
+    files: ['apps/frontend/src/**/*.vue'],
+    ignores: ['apps/frontend/src/components/ui/**'], // shadcn/vue components
     extends: [
       ...pluginVue.configs['flat/recommended'],
       // FIX: disabled until tailwind v4 support
