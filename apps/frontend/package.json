@@ -9,10 +9,12 @@
     "preview": "vite preview",
     "test": "vitest run",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build"
+    "type-check": "vue-tsc --build",
+    "lint": "eslint . --fix"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
+    "@tanstack/vue-table": "^8.21.3",
     "@vueuse/core": "^13.1.0",
     "axios": "^1.8.4",
     "class-variance-authority": "^0.7.1",
