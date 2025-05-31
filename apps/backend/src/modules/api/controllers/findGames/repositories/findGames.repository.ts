@@ -1,13 +1,16 @@
+import { Database } from '@database/database.interface'
 import { DatabaseService } from '@database/database.service'
 import type { Game, QueryData } from '@packages/types'
-import { sql } from 'kysely'
+import { SelectExpression, sql } from 'kysely'
+import { ExpressionBuilder } from 'kysely/dist/cjs/expression/expression-builder'
+import { jsonObjectFrom } from 'kysely/helpers/mysql'
 import { injectable } from 'tsyringe'
 
 import { type FindGamesQuery } from '../query/findGames.query'
 
 @injectable()
 export class FindGamesRepository {
-  constructor (private readonly databaseService: DatabaseService) {}
+  constructor(private readonly databaseService: DatabaseService) { }
 
   /**
    * Gets a list of games.
@@ -20,7 +23,7 @@ export class FindGamesRepository {
    * ```
    * @returns A list of games.
    */
-  async find (query: FindGamesQuery): Promise<QueryData<Game[]>> {
+  async find(query: FindGamesQuery): Promise<QueryData<Game[]>> {
     const perPage = Number.isNaN(Number(query.limit)) ? 10 : Number(query.limit)
     const total = await this.getRegistriesCount(query.title)
     const pages = Math.ceil(total / perPage)
@@ -29,11 +32,12 @@ export class FindGamesRepository {
     let dbQuery = this.databaseService
       .getClient()
       .selectFrom('game')
-      .selectAll()
-      .where(({ selectFrom, exists }) => // if it has at least one registered price.
+      .select((eb) => this.buildSelectQuery(query, eb))
+      // .selectAll()
+      .where(({ selectFrom, exists }) => // select only if there's at least one price registered.
         exists(
           selectFrom('game_price')
-            .select('id')
+            .select('game_price.id')
             .whereRef('game.id', '=', 'game_price.game_id')
             .limit(1)
         )
@@ -51,6 +55,7 @@ export class FindGamesRepository {
       if (query.order === 'asc' || query.order == null) dbQuery = dbQuery.orderBy('title', 'asc')
       if (query.order === 'desc') dbQuery = dbQuery.orderBy('title', 'desc')
     }
+
     const results = await dbQuery.execute()
 
     return {
@@ -61,7 +66,37 @@ export class FindGamesRepository {
     }
   }
 
-  private async getRegistriesCount (title?: string): Promise<number> {
+  private buildSelectQuery(query: FindGamesQuery, eb: ExpressionBuilder<Database, 'game'>): SelectExpression<Database, 'game'>[] {
+    const selectExpression: SelectExpression<Database, 'game'>[] = [
+      'game.id',
+      'game.title',
+      'game.steam_url',
+      'game.green_man_gaming_url',
+      'game.nuuvem_url',
+      'game.created_at',
+      'game.updated_at'
+    ]
+
+    if (query.prices) {
+      const pricesQuery = jsonObjectFrom(eb
+        .selectFrom('game_price')
+        .select([
+          'game_price.id',
+          'game_price.game_id',
+          'game_price.steam_price',
+          'game_price.nuuvem_price',
+          'game_price.green_man_gaming_price',
+          'game_price.date'
+        ])
+        .whereRef('game.id', '=', 'game_price.game_id')
+      ).as('prices')
+      selectExpression.push(pricesQuery)
+    }
+
+    return selectExpression
+  }
+
+  private async getRegistriesCount(title?: string): Promise<number> {
     let query = this.databaseService.getClient()
       .selectFrom('game')
       .select(({ fn }) => [fn.count('id').as('total')])

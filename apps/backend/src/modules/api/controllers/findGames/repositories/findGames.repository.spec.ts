@@ -108,4 +108,15 @@ describe('FindGamesRepository', () => {
 
     expect(games.results[0].title).toBe(game2.title)
   })
+
+  it('should return a list of games and their current prices', async () => {
+    const game = new GameBuilder().build()
+    const price = new GamePriceBuilder().withGame(game.id).build()
+    await db.getClient().insertInto('game').values(game).execute()
+    await db.getClient().insertInto('game_price').values(price).execute()
+
+    const games = await repository.find({ prices: true })
+
+    expect(games.results[0].prices).toBeDefined()
+  })
 })
