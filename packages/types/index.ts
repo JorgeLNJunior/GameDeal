@@ -6,6 +6,7 @@ export interface Game {
   green_man_gaming_url: string | null
   created_at: Date
   updated_at: Date | null
+  prices?: GamePrice | null
 }
 
 export interface GamePrice {
