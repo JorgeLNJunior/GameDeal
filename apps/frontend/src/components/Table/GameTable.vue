@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type ColumnDef,FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
+import { type ColumnDef, FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
