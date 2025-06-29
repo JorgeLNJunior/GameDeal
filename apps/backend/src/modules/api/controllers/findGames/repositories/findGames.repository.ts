@@ -33,7 +33,6 @@ export class FindGamesRepository {
       .getClient()
       .selectFrom('game')
       .select((eb) => this.buildSelectQuery(query, eb))
-      // .selectAll()
       .where(({ selectFrom, exists }) => // select only if there's at least one price registered.
         exists(
           selectFrom('game_price')
@@ -89,6 +88,7 @@ export class FindGamesRepository {
           'game_price.date'
         ])
         .whereRef('game.id', '=', 'game_price.game_id')
+        .limit(1)
       ).as('prices')
       selectExpression.push(pricesQuery)
     }
