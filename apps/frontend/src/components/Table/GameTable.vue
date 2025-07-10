@@ -1,53 +1,19 @@
 <script setup lang="ts">
+import type { Game, GamePrice,QueryData } from '@packages/types';
 import { type ColumnDef, FlexRender, getCoreRowModel, useVueTable } from '@tanstack/vue-table';
-import { ref } from 'vue';
+import { type PropType} from 'vue'
 import { useRouter } from 'vue-router';
 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 const router = useRouter()
 
-interface Game {
-  id: string
-  title: string,
-  prices: Prices
-}
-
-interface Prices {
-  steam_price: number
-  nuuvem_price: number | null
-  green_man_gaming_price: number | null
-}
-
-const games = ref<Game[]>([
-  {
-    id: '1',
-    title: 'Resident Evil 4',
-    prices: { // FIX: needs API implementation
-      steam_price: 120.55,
-      nuuvem_price: 149.99,
-      green_man_gaming_price: null
-    }
-  },
-  {
-    id: '2',
-    title: 'Hollow Knight',
-    prices: {
-      steam_price: 12.45,
-      nuuvem_price: 10.68,
-      green_man_gaming_price: 19.99
-    }
-  },
-  {
-    id: '3',
-    title: 'Balatro',
-    prices: {
-      steam_price: 58.88,
-      nuuvem_price: null,
-      green_man_gaming_price: 15.94
-    }
-  },
-])
+const props = defineProps({
+  games: {
+  required: true,
+  type: Object as PropType<QueryData<Game[]>>
+  }
+})
 
 const columns: ColumnDef<Game>[] = [
   {
@@ -58,7 +24,8 @@ const columns: ColumnDef<Game>[] = [
     accessorKey: 'prices',
     header: 'Preço',
     cell: (row) => {
-      const prices: number[] = Object.values(row.getValue<Prices>()).
+      const rowValue = row.getValue<GamePrice>()
+      const prices: number[] = [rowValue.steam_price, rowValue.nuuvem_price, rowValue.green_man_gaming_price].
         filter(v => v != null)
       return Intl.NumberFormat('pt-BR', {
         style: 'currency',
@@ -69,7 +36,7 @@ const columns: ColumnDef<Game>[] = [
 ]
 
 const table = useVueTable({
-  data: games,
+  data: props.games.results,
   columns: columns,
   getCoreRowModel: getCoreRowModel(),
 })

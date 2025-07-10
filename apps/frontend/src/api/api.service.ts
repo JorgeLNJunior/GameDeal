@@ -7,7 +7,7 @@ export class ApiService {
   private readonly http = axios.create({ baseURL: API_SERVER_URL })
 
   async getGames(title?: string, page = 1, limit = 20): Promise<QueryData<Game[]>> {
-    let url = `/games?page=${page}&limit=${limit}`
+    let url = `/games?page=${page}&limit=${limit}&prices=true`
     if (title != null) url += `&title=${title}`
     const response = await this.http.get(url)
     return response.data as QueryData<Game[]>
