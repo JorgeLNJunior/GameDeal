@@ -3,4 +3,5 @@ export interface FindGamesQuery {
   page?: string
   limit?: string
   order?: 'asc' | 'desc'
+  prices?: boolean
 }

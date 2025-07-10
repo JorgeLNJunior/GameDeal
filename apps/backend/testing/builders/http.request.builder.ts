@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/prefer-readonly */
+ 
 import { type HttpRequest } from '@localtypes/http/http.type'
 
 export class HttpRequestBuilder {

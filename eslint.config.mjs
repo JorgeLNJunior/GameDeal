@@ -1,14 +1,17 @@
 // @ts-check
 import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import simpleImportSort from 'eslint-plugin-simple-import-sort'
+import vitest from '@vitest/eslint-plugin'
 import pluginJest from 'eslint-plugin-jest'
-import vitest from 'eslint-plugin-vitest'
-import tailwind from "eslint-plugin-tailwindcss";
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
+import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
+  {
+    name: 'ignores',
+    ignores: ['dist', 'compose']
+  },
   eslint.configs.recommended,
   tseslint.configs.strict,
   tseslint.configs.stylistic,
@@ -42,10 +45,12 @@ export default tseslint.config(
 
   // vue
   {
-    files: ['apps/frontend/src/**'],
+    files: ['apps/frontend/src/**/*.vue'],
+    ignores: ['apps/frontend/src/components/ui/**'], // shadcn/vue components
     extends: [
       ...pluginVue.configs['flat/recommended'],
-      ...tailwind.configs['flat/recommended'],
+      // FIX: disabled until tailwind v4 support
+      // ...tailwind.configs['flat/recommended'],
     ],
     languageOptions: {
       sourceType: 'module',

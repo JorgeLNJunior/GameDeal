@@ -1,18 +1,50 @@
 <script setup lang="ts">
-import GameCount from '@/components/gameCount/GameCount.vue'
-import GameList from '@/components/gameList/GameList.vue'
-import PriceDropsList from '@/components/priceDrops/PriceDropsList.vue'
+import type {Game, QueryData} from '@packages/types'
+import { onBeforeMount, ref } from 'vue';
 
+import { ApiService } from '@/api/api.service';
+import GameCountCard from '@/components/Card/GameCountCard.vue';
+import GamesOnSaleCard from '@/components/Card/GamesOnSaleCard.vue';
+import GameTable from '@/components/Table/GameTable.vue';
+
+const api = new ApiService()
+
+const data = ref({
+  isFetching: false,
+  games: {} as QueryData<Game[]>,
+  gameCount: 0,
+  todaySales: 0
+})
+
+onBeforeMount(async () => {
+  try {
+    data.value.isFetching = true
+    data.value.gameCount= await api.getGameCount()
+    data.value.games = await api.getGames()
+    data.value.todaySales = (await api.getTodayPriceDrops(1)).count
+  } catch (error) {
+    console.error(error)
+  } finally {
+    data.value.isFetching = false
+  }
+})
 </script>
 
 <template>
-  <main class="my-6 flex flex-col items-center md:mx-20 md:flex-row md:items-start md:justify-between md:space-x-5">
-    <div class="hidden w-11/12 flex-col space-y-5 md:flex md:w-1/3">
-      <GameCount />
-      <PriceDropsList />
-    </div>
-    <div class="w-11/12 md:w-2/3">
-      <GameList />
-    </div>
-  </main>
+  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <GameCountCard
+      :game-count="data.gameCount"
+      :games-since-last-week="15"
+    />
+    <GamesOnSaleCard
+      :sales-count="data.todaySales"
+      :sales-since-yesterday="12"
+    />
+  </div>
+  <div class="py-4">
+    <GameTable
+      v-if="!data.isFetching"
+      :games="data.games"
+    />
+  </div>
 </template>
