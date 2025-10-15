@@ -13,8 +13,8 @@ jobs:
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          cache: 'pnpm'
+          node-version: "20.x"
+          cache: "pnpm"
       - run: pnpm install
       - run: pnpm build:frontend
       - uses: actions/upload-artifact@v4
@@ -33,8 +33,8 @@ jobs:
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          cache: 'pnpm'
+          node-version: "20.x"
+          cache: "pnpm"
       - run: pnpm install
       - run: pnpm test:frontend:cov
         env:
@@ -55,8 +55,8 @@ jobs:
       - name: Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
-          cache: 'pnpm'
+          node-version: "20.x"
+          cache: "pnpm"
       - run: pnpm install
       - run: pnpm lint:frontend
 
@@ -68,11 +68,11 @@ jobs:
     permissions:
       deployments: write
     steps:
-      - uses: JorgeLNJunior/render-deploy@v1.4.5
+      - uses: JorgeLNJunior/render-deploy@v1.4.6
         with:
           service_id: ${{ secrets.FRONTEND_RENDER_SERVICE_ID }}
           api_key: ${{ secrets.RENDER_API_KEY }}
           wait_deploy: true
           github_deployment: true
-          deployment_environment: 'frontend'
+          deployment_environment: "frontend"
           github_token: ${{ secrets.GITHUB_TOKEN }}
