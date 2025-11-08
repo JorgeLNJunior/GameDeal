@@ -25,8 +25,7 @@ describe('GameListItem', () => {
       }
     })
 
-    expect(apiSpy).toHaveBeenCalledOnce()
-    expect(apiSpy).toHaveBeenCalledWith(game.id)
+    expect(apiSpy).toHaveBeenCalledExactlyOnceWith(game.id)
 
     await flushPromises()
 
@@ -50,8 +49,7 @@ describe('GameListItem', () => {
       }
     })
 
-    expect(apiSpy).toHaveBeenCalledOnce()
-    expect(apiSpy).toHaveBeenCalledWith(game.id)
+    expect(apiSpy).toHaveBeenCalledExactlyOnceWith(game.id)
 
     await flushPromises()
 
@@ -97,7 +95,6 @@ describe('GameListItem', () => {
 
     await flushPromises()
 
-    expect(routerSpy).toHaveBeenCalledOnce()
-    expect(routerSpy).toHaveBeenCalledWith('/error')
+    expect(routerSpy).toHaveBeenCalledExactlyOnceWith('/error')
   })
 })

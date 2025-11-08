@@ -60,17 +60,13 @@ describe('GameView', () => {
 
     await flushPromises()
 
-    expect(getGameSpy).toHaveBeenCalledOnce()
-    expect(getGameSpy).toHaveBeenCalledWith(game.id)
+    expect(getGameSpy).toHaveBeenCalledExactlyOnceWith(game.id)
 
-    expect(getPriceSpy).toHaveBeenCalledOnce()
-    expect(getPriceSpy).toHaveBeenCalledWith(game.id)
+    expect(getPriceSpy).toHaveBeenCalledExactlyOnceWith(game.id)
 
-    expect(getLowestPriceSpy).toHaveBeenCalledOnce()
-    expect(getLowestPriceSpy).toHaveBeenCalledWith(game.id)
+    expect(getLowestPriceSpy).toHaveBeenCalledExactlyOnceWith(game.id)
 
-    expect(getPriceHistorySpy).toHaveBeenCalledOnce()
-    expect(getPriceHistorySpy).toHaveBeenCalledWith(game.id)
+    expect(getPriceHistorySpy).toHaveBeenCalledExactlyOnceWith(game.id)
 
     const title = wrapper.get('[test-data="game-title"]').text()
 
@@ -138,8 +134,7 @@ describe('GameView', () => {
 
     await flushPromises()
 
-    expect(routerSpy).toHaveBeenCalledOnce()
-    expect(routerSpy).toHaveBeenCalledWith({
+    expect(routerSpy).toHaveBeenCalledExactlyOnceWith({
       path: '/error',
       query: { error: HttpErrorType.NOT_FOUND }
     })

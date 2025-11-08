@@ -28,8 +28,7 @@ describe('PriceDropListItem', () => {
 
     await flushPromises()
 
-    expect(apiSpy).toHaveBeenCalledOnce()
-    expect(apiSpy).toHaveBeenCalledWith(game.id)
+    expect(apiSpy).toHaveBeenCalledExactlyOnceWith(game.id)
 
     const title = wrapper.get('[test-data="title"]').text()
 
@@ -56,8 +55,7 @@ describe('PriceDropListItem', () => {
 
     await flushPromises()
 
-    expect(apiSpy).toHaveBeenCalledOnce()
-    expect(apiSpy).toHaveBeenCalledWith(game.id)
+    expect(apiSpy).toHaveBeenCalledExactlyOnceWith(game.id)
 
     const price = wrapper.get('[test-data="price"]').text()
 

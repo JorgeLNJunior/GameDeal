@@ -17,8 +17,7 @@ describe('redirectWithHttpError', () => {
 
     await redirectWithHttpError(router, error)
 
-    expect(routerSpy).toHaveBeenCalledOnce()
-    expect(routerSpy).toHaveBeenCalledWith({
+    expect(routerSpy).toHaveBeenCalledExactlyOnceWith({
       path: '/error',
       query: { error: HttpErrorType.NOT_FOUND }
     })
@@ -30,8 +29,7 @@ describe('redirectWithHttpError', () => {
 
     await redirectWithHttpError(router, error)
 
-    expect(routerSpy).toHaveBeenCalledOnce()
-    expect(routerSpy).toHaveBeenCalledWith({
+    expect(routerSpy).toHaveBeenCalledExactlyOnceWith({
       path: '/error',
       query: { error: HttpErrorType.TOO_MANY_REQUESTS }
     })
@@ -43,8 +41,7 @@ describe('redirectWithHttpError', () => {
 
     await redirectWithHttpError(router, error)
 
-    expect(routerSpy).toHaveBeenCalledOnce()
-    expect(routerSpy).toHaveBeenCalledWith({
+    expect(routerSpy).toHaveBeenCalledExactlyOnceWith({
       path: '/error',
       query: { error: HttpErrorType.INTERNAL }
     })
