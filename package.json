@@ -67,12 +67,8 @@
       "tar-fs@>=2.0.0 <2.1.2": ">=2.1.2"
     },
     "onlyBuiltDependencies": [
-      "@contrast/fn-inspect",
-      "@newrelic/native-metrics",
-      "core-js-pure",
       "esbuild",
-      "msgpackr-extract",
-      "protobufjs"
+      "vue-demi"
     ]
   }
 }
