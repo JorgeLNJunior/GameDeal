@@ -3,7 +3,7 @@
   "author": "JorgeLNJunior",
   "license": "MIT",
   "private": true,
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@11.10.0",
   "scripts": {
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
@@ -67,8 +67,12 @@
       "tar-fs@>=2.0.0 <2.1.2": ">=2.1.2"
     },
     "onlyBuiltDependencies": [
+      "@contrast/fn-inspect",
+      "@newrelic/native-metrics",
+      "core-js-pure",
       "esbuild",
-      "vue-demi"
+      "msgpackr-extract",
+      "protobufjs"
     ]
   }
 }
