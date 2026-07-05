@@ -58,21 +58,5 @@
   },
   "lint-staged": {
     "*.{ts,js,vue}": "eslint --cache --fix"
-  },
-  "pnpm": {
-    "overrides": {
-      "cookie@<0.7.0": ">=0.7.0",
-      "@babel/runtime-corejs3@<7.26.10": ">=7.26.10",
-      "@babel/helpers@<7.26.10": ">=7.26.10",
-      "tar-fs@>=2.0.0 <2.1.2": ">=2.1.2"
-    },
-    "onlyBuiltDependencies": [
-      "@contrast/fn-inspect",
-      "@newrelic/native-metrics",
-      "core-js-pure",
-      "esbuild",
-      "msgpackr-extract",
-      "protobufjs"
-    ]
   }
 }

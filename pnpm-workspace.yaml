@@ -1,5 +1,12 @@
 packages:
   - apps/*
   - packages/*
+allowBuilds:
+  '@contrast/fn-inspect': true
+  '@newrelic/native-metrics': true
+  core-js-pure: true
+  esbuild: true
+  msgpackr-extract: true
+  protobufjs: true
 onlyBuiltDependencies:
   - esbuild
