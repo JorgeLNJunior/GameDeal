@@ -20,12 +20,13 @@ export class GreenManGamingGameDiscoveryScraper {
       ]
     }
     const requestHeaders = {
-      'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/116.0',
-      origin: 'https://www.greenmangaming.com'
+      'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:155.0) Gecko/20100101 Firefox/155.0',
+      origin: 'https://www.greenmangaming.com',
+      refer: 'https://www.greenmangaming.com/'
     }
 
     const response = await this.axios.post<GmgResponse>(
-      'https://sczizsp09z-3.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20JavaScript%20(4.5.1)%3B%20Browser%20(lite)%3B%20instantsearch.js%20(4.8.3)%3B%20JS%20Helper%20(3.2.2)&x-algolia-api-key=3bc4cebab2aa8cddab9e9a3cfad5aef3&x-algolia-application-id=SCZIZSP09Z',
+      'https://sczizsp09z-1.algolianet.com/1/indexes/*/queries?x-algolia-agent=Algolia for JavaScript (4.5.1); Browser (lite); instantsearch.js (4.8.3); JS Helper (3.2.2)&x-algolia-api-key=5420d3ea58371da39dacf5a666ee94da&x-algolia-application-id=SCZIZSP09Z',
       requestBody,
       {
         headers: requestHeaders
