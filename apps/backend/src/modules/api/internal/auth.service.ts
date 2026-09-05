@@ -4,9 +4,13 @@ import { injectable } from 'tsyringe'
 
 @injectable()
 export class AuthService {
-  private readonly SECRET = this.config.getEnv<string>('JWT_SECRET') as string
+  private readonly SECRET
 
-  constructor (private readonly config: ConfigService) {}
+  constructor(private readonly config: ConfigService) {
+    const secret = config.getEnv<string>('JWT_SECRET')
+    if (secret == null) throw new Error('the enviroment variable JWT_SECRET is not set')
+    this.SECRET = secret
+  }
 
   /**
    * Generates a new JWT token.
