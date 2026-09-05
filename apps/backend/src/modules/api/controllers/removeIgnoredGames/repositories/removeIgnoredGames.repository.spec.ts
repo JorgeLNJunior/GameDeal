@@ -13,6 +13,7 @@ describe('RemoveIgnoredGamesRepository', () => {
     repository = new RemoveIgnoredGamesRepository(db)
 
     await db.connect()
+    await db.getClient().deleteFrom('game_ignore_list').execute()
   })
 
   afterEach(async () => {
