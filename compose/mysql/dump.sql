@@ -1,4 +1,5 @@
 CREATE DATABASE  IF NOT EXISTS `game_deal` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `game_deal_test`;
 USE `game_deal`;
 -- MySQL dump 10.13  Distrib 8.4.5, for Linux (x86_64)
 --
