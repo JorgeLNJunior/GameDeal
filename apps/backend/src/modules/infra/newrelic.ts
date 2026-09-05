@@ -1,5 +1,5 @@
-import dotenv from 'dotenv'
-dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
+import { resolve } from 'node:path'
+process.loadEnvFile(resolve(process.cwd(), process.env.NODE_ENV === 'test' ? '.env.test' : '.env'))
 
 import 'newrelic'
 import '@newrelic/mysql'
