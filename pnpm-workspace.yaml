@@ -3,11 +3,14 @@ packages:
   - packages/*
 allowBuilds:
   '@contrast/fn-inspect': true
+  '@newrelic/fn-inspect': true
   '@newrelic/native-metrics': true
+  '@parcel/watcher': true
   core-js-pure: true
   esbuild: true
   msgpackr-extract: true
   protobufjs: true
+  unrs-resolver: true
 minimumReleaseAgeExclude:
   - cookie@0.7.0
   - vite@6.3.4 || 6.3.6 || 6.4.1 || 6.4.2 || 6.4.3
@@ -48,8 +51,7 @@ minimumReleaseAgeExclude:
   - '@grpc/grpc-js@1.13.5'
   - '@babel/core@7.29.1'
   - '@opentelemetry/core@2.8.0'
-onlyBuiltDependencies:
-  - esbuild
+  - lint-staged@17.5.0
 overrides:
   '@babel/core@<=7.29.0': ^7.29.1
   '@fastify/static@>=8.0.0 <=9.1.0': ^9.1.1
