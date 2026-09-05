@@ -103,9 +103,17 @@ async function getGamePriceHistory (): Promise<void> {
     >
       <div class="flex flex-col items-center space-y-5 text-center">
         <!-- Title -->
-        <p class="text-2xl font-medium" test-data="game-title">{{ game.title }}</p>
+        <p
+          class="text-2xl font-medium"
+          test-data="game-title"
+        >
+          {{ game.title }}
+        </p>
         <!-- Current price -->
-        <StorePriceButtonGroup :game="game" :current-price="currentPrice" />
+        <StorePriceButtonGroup
+          :game="game"
+          :current-price="currentPrice"
+        />
       </div>
 
       <!-- Lowest price -->
@@ -118,6 +126,9 @@ async function getGamePriceHistory (): Promise<void> {
       <!-- Price history chart -->
       <PriceHistoryChart :price-history="priceHistory" />
     </div>
-    <GamePriceCardSkeleton v-else test-data="price-skeleton" />
+    <GamePriceCardSkeleton
+      v-else
+      test-data="price-skeleton"
+    />
   </div>
 </template>

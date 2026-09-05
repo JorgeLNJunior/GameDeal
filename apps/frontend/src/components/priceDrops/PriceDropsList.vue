@@ -30,16 +30,37 @@ const getPriceDrops = async (): Promise<void> => {
 
 <template>
   <div class="flex w-full flex-col justify-center space-y-4 divide-y rounded-md border border-t-4 border-gray-50 border-t-cyan-600 p-4 shadow-md">
-    <p class="text-center font-medium">Quedas de preço hoje</p>
+    <p class="text-center font-medium">
+      Quedas de preço hoje
+    </p>
     <div class="pt-3">
-      <div v-if="state.isDataFetched" test-data="items">
+      <div
+        v-if="state.isDataFetched"
+        test-data="items"
+      >
         <ul v-if="drops.length > 0">
-          <PriceDropsListItem v-for="drop in drops" :key="drop.id" :drop="drop" />
+          <PriceDropsListItem
+            v-for="drop in drops"
+            :key="drop.id"
+            :drop="drop"
+          />
         </ul>
-        <p class="text-center text-sm" v-else test-data="no-drops-msg">Não há nada por aqui hoje</p>
+        <p
+          v-else
+          class="text-center text-sm"
+          test-data="no-drops-msg"
+        >
+          Não há nada por aqui hoje
+        </p>
       </div>
-      <div v-else test-data="list-skeleton">
-        <PriceDropsListItemSkeleton v-for="index in 3" :key="index" />
+      <div
+        v-else
+        test-data="list-skeleton"
+      >
+        <PriceDropsListItemSkeleton
+          v-for="index in 3"
+          :key="index"
+        />
       </div>
     </div>
   </div>

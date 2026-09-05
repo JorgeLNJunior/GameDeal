@@ -29,13 +29,30 @@ const storeURL = (): string | undefined => {
 
 <template>
   <a
-    :href="storeURL() || ''" target="_blank" rel="noopener noreferrer"
+    :href="storeURL() || ''"
+    target="_blank"
+    rel="noopener noreferrer"
     class="group flex flex-row items-center space-x-1 rounded-md border border-slate-400 p-1.5 transition hover:border-transparent hover:bg-cyan-600"
     test-data="button"
   >
-      <SteamIcon class="h-3 fill-slate-900 transition group-hover:fill-white" v-if="props.store === 'Steam'" test-data="steam-icon" />
-      <NuuvemIcon class="h-3 fill-slate-900 transition group-hover:fill-white" v-if="props.store === 'Nuuvem'" test-data="nuuvem-icon" />
-      <GMGIcon class="h-3 fill-slate-900 transition group-hover:fill-white" v-if="props.store === 'Green Man Gaming'" test-data="gmg-icon" />
-      <p class="text-xs text-slate-900 transition group-hover:text-white" test-data="name">{{ storeName() }}</p>
+    <SteamIcon
+      v-if="props.store === 'Steam'"
+      class="h-3 fill-slate-900 transition group-hover:fill-white"
+      test-data="steam-icon"
+    />
+    <NuuvemIcon
+      v-if="props.store === 'Nuuvem'"
+      class="h-3 fill-slate-900 transition group-hover:fill-white"
+      test-data="nuuvem-icon"
+    />
+    <GMGIcon
+      v-if="props.store === 'Green Man Gaming'"
+      class="h-3 fill-slate-900 transition group-hover:fill-white"
+      test-data="gmg-icon"
+    />
+    <p
+      class="text-xs text-slate-900 transition group-hover:text-white"
+      test-data="name"
+    >{{ storeName() }}</p>
   </a>
 </template>

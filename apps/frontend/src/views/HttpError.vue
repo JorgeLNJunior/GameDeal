@@ -33,17 +33,28 @@ if (errorType === HttpErrorType.TOO_MANY_REQUESTS) {
 <template>
   <div class="grid bg-white px-4">
     <div class="pt-20 text-center">
-      <h1 class="text-9xl font-black text-gray-200" data-test="status">{{ status }}</h1>
+      <h1
+        class="text-9xl font-black text-gray-200"
+        data-test="status"
+      >
+        {{ status }}
+      </h1>
 
       <p class="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
         Ops!
       </p>
 
-      <p class="mt-4 text-gray-500 sm:whitespace-break-spaces" data-test="warn-message">
+      <p
+        class="mt-4 text-gray-500 sm:whitespace-break-spaces"
+        data-test="warn-message"
+      >
         {{ message }}
       </p>
 
-      <RouterLink to="/" data-test="redirect">
+      <RouterLink
+        to="/"
+        data-test="redirect"
+      >
         <a
           class="mt-6 inline-block rounded bg-cyan-600 px-5 py-3 text-sm font-medium text-white hover:bg-cyan-700 focus:outline-none focus:ring"
         >
@@ -52,5 +63,4 @@ if (errorType === HttpErrorType.TOO_MANY_REQUESTS) {
       </RouterLink>
     </div>
   </div>
-
 </template>

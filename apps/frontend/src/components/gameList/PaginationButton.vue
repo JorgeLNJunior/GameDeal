@@ -53,9 +53,9 @@ function scrollToTop (): void {
     <button
       href="#"
       class="inline-flex size-8 items-center justify-center rounded border border-slate-300 bg-white text-slate-900 transition hover:bg-slate-200 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-slate-200 rtl:rotate-180"
-      @click="previousPage()"
       :disabled="isFirstPage"
       test-data="previous-button"
+      @click="previousPage()"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,10 @@ function scrollToTop (): void {
     </button>
 
     <!-- Current page / Total pages -->
-    <p class="select-none text-sm text-slate-900" test-data="pages">
+    <p
+      class="select-none text-sm text-slate-900"
+      test-data="pages"
+    >
       {{ currentPage }}
       <span class="mx-1">/</span>
       {{ totalPages }}
@@ -82,9 +85,9 @@ function scrollToTop (): void {
     <button
       href="#"
       class="inline-flex size-8 items-center justify-center rounded border border-slate-300 bg-white text-slate-900 transition hover:bg-slate-200 focus:border-cyan-600 focus:ring-1 focus:ring-cyan-600 disabled:border-0 disabled:bg-slate-200 rtl:rotate-180"
-      @click="nextPage()"
       :disabled="isLastPage"
       test-data="next-button"
+      @click="nextPage()"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -99,6 +102,5 @@ function scrollToTop (): void {
         />
       </svg>
     </button>
-
   </div>
 </template>

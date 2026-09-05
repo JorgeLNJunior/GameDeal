@@ -18,7 +18,7 @@ const router = useRouter()
 // data
 let games = reactive<Game[]>([])
 const pages = reactive({
-  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+   
   current: Number(route.query.page) || 1,
   total: 1
 })
@@ -65,26 +65,40 @@ async function getGames (title?: string, page?: number): Promise<void> {
 
     <div class="flex flex-col justify-center space-y-4 pt-4">
       <!-- List -->
-      <ul v-if="uiState.isDataFetched" class="space-y-1" test-data="game-list">
+      <ul
+        v-if="uiState.isDataFetched"
+        class="space-y-1"
+        test-data="game-list"
+      >
         <GameListItem
           v-for="game in games"
+          :id="game.id"
           :key="game.id"
           :title="game.title"
-          :id="game.id"
         />
       </ul>
-      <ul class="space-y-1" v-else test-data="list-skeleton">
-        <GameListItemSkeleton v-for="index in 3" :key="index" />
+      <ul
+        v-else
+        class="space-y-1"
+        test-data="list-skeleton"
+      >
+        <GameListItemSkeleton
+          v-for="index in 3"
+          :key="index"
+        />
       </ul>
 
       <!-- Pagination -->
       <PaginationButton
         v-if="uiState.isDataFetched || uiState.isUpdating"
-        :currentPage="pages.current"
-        :totalPages="pages.total"
+        :current-page="pages.current"
+        :total-pages="pages.total"
         test-data="pagination-button"
       />
-      <PaginationButtonSkeleton v-else test-data="pagination-skeleton" />
+      <PaginationButtonSkeleton
+        v-else
+        test-data="pagination-skeleton"
+      />
     </div>
   </div>
 </template>

@@ -1,13 +1,15 @@
 // @ts-check
 import eslint from '@eslint/js';
 import vitest from '@vitest/eslint-plugin'
+import {defineConfig} from 'eslint/config'
 import pluginJest from 'eslint-plugin-jest'
 import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import pluginVue from 'eslint-plugin-vue'
 import globals from 'globals'
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+
+export default defineConfig(
   {
     name: 'ignores',
     ignores: ['dist', 'compose']
@@ -59,4 +61,4 @@ export default tseslint.config(
       }
     }
   },
-);
+)

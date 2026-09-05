@@ -91,6 +91,11 @@ if (props.priceHistory[0].green_man_gaming_price != null) {
 
 <template>
   <div class="h-120 w-full md:h-64">
-    <Line :key="chartKey" id="chart" :data="(chartData as any)" :options="(chartOptions as any)" />
+    <Line
+      id="chart"
+      :key="chartKey"
+      :data="(chartData as any)"
+      :options="(chartOptions as any)"
+    />
   </div>
 </template>
