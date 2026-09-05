@@ -17,6 +17,7 @@ describe('IsIgnoredGameExistsRepository', () => {
 
   afterEach(async () => {
     await db.getClient().deleteFrom('game_ignore_list').execute()
+    await db.getClient().deleteFrom('game').execute()
     await db.disconnect()
   })
 
