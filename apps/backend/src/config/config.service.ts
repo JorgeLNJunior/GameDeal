@@ -1,9 +1,8 @@
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { ApplicationLogger } from '@localtypes/logger.type'
-import dotenv from 'dotenv'
 import { inject, injectable } from 'tsyringe'
 
-dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
+process.loadEnvFile(process.env.NODE_ENV === 'test' ? '.env.test' : '.env')
 
 @injectable()
 export default class ConfigService {
