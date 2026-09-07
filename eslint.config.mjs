@@ -12,7 +12,7 @@ import tseslint from 'typescript-eslint';
 export default defineConfig(
   {
     name: 'ignores',
-    ignores: ['dist', 'compose']
+    ignores: ['compose', 'apps/backend/dist', 'apps/frontend/dist']
   },
   eslint.configs.recommended,
   tseslint.configs.strict,
@@ -50,8 +50,13 @@ export default defineConfig(
     files: ['apps/frontend/src/**'],
     extends: [
       ...pluginVue.configs['flat/recommended'],
-      // FIX: disabled until tailwind v4 support
-      // ...tailwind.configs['flat/recommended'],
+      {
+        settings: {
+          "better-tailwindcss": {
+            cwd: "./apps/frontend"
+          }
+        }
+      },
     ],
     languageOptions: {
       sourceType: 'module',
