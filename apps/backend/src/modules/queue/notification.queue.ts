@@ -6,7 +6,7 @@ import { type QueueJobName, QueueName } from "@localtypes/queue.type";
 import { Queue } from "bullmq";
 import { inject, singleton } from "tsyringe";
 
-import { ONE_DAY,ONE_MINUTE } from "./time/time";
+import { ONE_MINUTE } from "./time/time";
 
 @singleton()
 export class NotificationQueue {
@@ -59,10 +59,12 @@ export class NotificationQueue {
           delay: ONE_MINUTE * 5,
         },
         removeOnComplete: true,
-        removeOnFail: {
-          count: 50,
-          age: ONE_DAY,
-        },
+        removeOnFail: true,
+        // WARN: Keeping failed jobs is desired for debugging pourposes. I'm removing it now due to redis free tier limits.
+        // removeOnFail: {
+        //   count: 50,
+        //   age: ONE_DAY,
+        // },
       },
     });
 
