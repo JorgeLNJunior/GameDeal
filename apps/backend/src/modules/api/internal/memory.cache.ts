@@ -7,18 +7,18 @@ import { singleton } from 'tsyringe'
 export class MemoryCache implements ApplicationCache {
   private readonly cache = new NodeCache({ stdTTL: DEFAULT_CACHE_TTL })
 
-  async get (key: string): Promise<CacheData | undefined> {
+  async get(key: string): Promise<CacheData | undefined> {
     const value = await this.cache.get(key)
     if (value == null) return undefined
 
-    const exp = this.cache.getTtl(key)
+    const exp = this.cache.getTtl(key) ?? 0
     const NOW = Date.now()
 
-    const expires = Math.floor((exp as number - NOW) / 1000)
-    return { value, expires }
+    const expInSeconds = Math.floor((exp - NOW) / 1000)
+    return { value, expires: expInSeconds }
   }
 
-  async set (key: string, value: unknown, expire?: number): Promise<void> {
+  async set(key: string, value: unknown, expire?: number): Promise<void> {
     this.cache.set(key, value, expire ?? DEFAULT_CACHE_TTL)
   }
 }
