@@ -8,7 +8,7 @@ import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class HealthController implements HttpController {
-  constructor (
+  constructor(
     private readonly databaseService: DatabaseService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
 
@@ -16,9 +16,10 @@ export class HealthController implements HttpController {
 
   method: HttpMethod = HttpMethod.GET
   url = '/healthz'
-  async handle (): Promise<HttpResponse> {
+  async handle(): Promise<HttpResponse> {
     try {
       await this.databaseService.getClient().selectFrom('game').select('id').limit(1).execute()
+      // TODO: check redis availability
       return ResponseBuilder.ok({ status: 'ok' })
     } catch (error) {
       this.logger.error(error, '[HealthController] server is unhealthy')
