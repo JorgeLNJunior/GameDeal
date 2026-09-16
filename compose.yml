@@ -7,6 +7,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: game_deal
+    networks:
+      - gamedeal_network
     volumes:
       - ./compose/mysql:/docker-entrypoint-initdb.d
 
@@ -15,3 +17,10 @@ services:
     restart: always
     ports:
       - 6379:6379
+    networks:
+      - gamedeal_network
+
+networks:
+  gamedeal_network:
+    name: gamedeal
+    driver: bridge
