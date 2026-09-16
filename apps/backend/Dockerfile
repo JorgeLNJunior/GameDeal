@@ -26,10 +26,10 @@ WORKDIR /usr/app/gamedeal
 RUN pnpm install --prod --filter backend
 
 LABEL org.opencontainers.image.authors="JorgeLNJunior"
-LABEL org.opencontainers.image.url="https://github.com/JorgeLNJunior/mango/pkgs/container/gamedealbackend"
+LABEL org.opencontainers.image.url="https://github.com/JorgeLNJunior/GameDeal/pkgs/container/gamedealbackend"
 LABEL org.opencontainers.image.source="https://github.com/JorgeLNJunior/GameDeal"
 LABEL org.opencontainers.image.licenses="GPL-3.0"
-LABEL org.opencontainers.image.title="gamedealbackend"
+LABEL org.opencontainers.image.title="jorgelnjunior/gamedealbackend"
 LABEL org.opencontainers.image.base.name="alpine:3.24"
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 CMD [ "curl", "-f", "http://localhost:3000/healthz" ]

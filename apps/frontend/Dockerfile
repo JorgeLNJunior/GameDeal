@@ -30,10 +30,10 @@ WORKDIR /usr/app/gamedeal
 RUN pnpm install --prod --filter frontend
 
 LABEL org.opencontainers.image.authors="JorgeLNJunior"
-LABEL org.opencontainers.image.url="https://github.com/JorgeLNJunior/mango/pkgs/container/gamedealfrontend"
+LABEL org.opencontainers.image.url="https://github.com/JorgeLNJunior/GameDeal/pkgs/container/gamedealfrontend"
 LABEL org.opencontainers.image.source="https://github.com/JorgeLNJunior/GameDeal"
 LABEL org.opencontainers.image.licenses="GPL-3.0"
-LABEL org.opencontainers.image.title="gamedealfrontend"
+LABEL org.opencontainers.image.title="jorgelnjunior/gamedealfrontend"
 LABEL org.opencontainers.image.base.name="nginx:1.31-alpine"
 
 EXPOSE 3000
