@@ -1,12 +1,13 @@
 import { AxiosService } from '@infra/axios.service'
 import { PinoLogger } from '@infra/pino.logger'
+import { describeSkipIfGithubActions } from '@testing/helpers'
 
 import { CheerioParser } from '../parsers/cheerio.parser'
 import { NuuvemPriceScraper } from './nuuvemPrice.scraper'
 
 jest.setTimeout(30000)
 
-describe('NuuvemPriceScraper', () => {
+describeSkipIfGithubActions('NuuvemPriceScraper', () => {
   let scraper: NuuvemPriceScraper
   let parser: CheerioParser
   let logger: PinoLogger

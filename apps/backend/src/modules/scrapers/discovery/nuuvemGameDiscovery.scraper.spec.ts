@@ -1,9 +1,10 @@
 import { AxiosService } from '@infra/axios.service'
 import { PinoLogger } from '@infra/pino.logger'
+import { describeSkipIfGithubActions } from '@testing/helpers'
 
 import { NuuvemGameDiscoveryScraper } from './nuuvemGameDiscovery.scraper'
 
-describe('NuuvemGameDiscoveryScraper', () => {
+describeSkipIfGithubActions('NuuvemGameDiscoveryScraper', () => {
   let scraper: NuuvemGameDiscoveryScraper
 
   beforeEach(async () => {
