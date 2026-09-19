@@ -219,6 +219,7 @@ describe('GameJobProcessor', () => {
       .build()
 
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(currentSteamPrice)
+    jest.spyOn(nuuvemPriceScraper, 'getGamePrice').mockResolvedValueOnce(null)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
@@ -303,7 +304,7 @@ describe('GameJobProcessor', () => {
     })
   })
 
-  it('should notify if the current nuuvem price is lower than the latest registered (if there is steam and gmg price only)', async () => {
+  it('should notify if the current gmg price is lower than the latest registered (if there is steam and gmg price only)', async () => {
     const currentGMGPrice = 10
     const game = new GameBuilder().build()
     const price = new GamePriceBuilder()
@@ -321,6 +322,7 @@ describe('GameJobProcessor', () => {
 
     jest.spyOn(gmgScraper, 'getGamePrice').mockResolvedValueOnce(currentGMGPrice)
     jest.spyOn(steamScraper, 'getGamePrice').mockResolvedValueOnce(20)
+    jest.spyOn(nuuvemPriceScraper, 'getGamePrice').mockResolvedValueOnce(null)
     jest.spyOn(insertPriceRepo, 'insert').mockResolvedValueOnce(price)
     jest.spyOn(getPriceRepo, 'getPrice').mockResolvedValueOnce(price)
     jest.spyOn(findGameByIdRepo, 'find').mockResolvedValueOnce(game)
