@@ -64,6 +64,11 @@ jobs:
     name: 🐳 Build and Publish Docker Container
     runs-on: ubuntu-latest
     needs: [build, test, lint]
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
     steps:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v4
@@ -78,9 +83,8 @@ jobs:
         with:
           file: "./apps/frontend/Dockerfile"
           push: true
+          labels: ${{ steps.meta.outputs.labels }}
           tags: |
-              jorgelnjunior/gamedealfrontend:latest
-              jorgelnjunior/gamedealfrontend:${{ github.sha }}
               ghcr.io/jorgelnjunior/gamedealfrontend:latest
               ghcr.io/jorgelnjunior/gamedealfrontend:${{ github.sha }}
 
