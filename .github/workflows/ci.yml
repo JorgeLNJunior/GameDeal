@@ -5,28 +5,35 @@ on:
 
 jobs:
   backend:
-    name: Backend
+    name: Backend CI
     secrets: inherit
     uses: ./.github/workflows/backend.yml
 
   frontend:
-    name: Frontend
+    name: Frontend CI
     secrets: inherit
     needs: [backend]
     uses: ./.github/workflows/frontend.yml
 
+  docker:
+    name: Build and Publish Docker Container
+    needs: [backend, frontend]
+    secrets: inherit
+    uses: ./.github/workflows/docker.yml
+
   coverage:
+    name: Upload Coverage
     needs: [backend, frontend]
     runs-on: ubuntu-latest
     steps:
-      - name: download backend coverage
-        uses: actions/download-artifact@v7
+      - name: Download Backend Coverage
+        uses: actions/download-artifact@v8
         with:
           name: backend_coverage
           path: coverage/backend
           github-token: ${{ secrets.GH_PAT }}
-      - name: download frontend coverage
-        uses: actions/download-artifact@v7
+      - name: Download Frontend Coverage
+        uses: actions/download-artifact@v8
         with:
           name: frontend_coverage
           path: coverage/frontend
