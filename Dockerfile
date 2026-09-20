@@ -4,7 +4,7 @@ WORKDIR /usr/app/gamedeal
 
 COPY . .
 
-RUN npm i -g pnpm
+RUN npm i -g pnpm --frozen-lockfile
 
 RUN pnpm install
 
@@ -44,5 +44,7 @@ LABEL org.opencontainers.image.base.name="nginx:1.31-alpine"
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 CMD [ "curl", "-f", "http://localhost:3000/healthz" ]
 
 EXPOSE 5000
+
+SHELL ["/bin/bash", "-c"]
 
 CMD nginx -g "daemon off;"& node /usr/app/gamedeal/apps/backend/dist/main.js
