@@ -45,6 +45,9 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 CMD [ "c
 
 EXPOSE 80
 
+# Prevent the api server running at $PORT when specified.
+ENV APP_ENVIRONMENT="docker"
+
 SHELL ["/bin/sh", "-c"]
 
 CMD nginx -g "daemon off;"& node /usr/app/gamedeal/apps/backend/dist/main.js

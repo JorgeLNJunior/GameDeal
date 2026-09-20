@@ -12,7 +12,7 @@ import { adaptRoute } from './internal/route.adapter'
 export class Server {
   private readonly fastify: FastifyInstance
 
-  constructor (
+  constructor(
     private readonly config: ConfigService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) {
@@ -26,12 +26,12 @@ export class Server {
    * await server.listen()
    * ```
    */
-  public async listen (): Promise<void> {
+  public async listen(): Promise<void> {
     this.logger.info('[Server] starting the server')
     this.fastify.listen(
       {
         host: this.config.getEnv<string>('HOST') ?? '0.0.0.0',
-        port: this.config.getEnv<number>('PORT') ?? 3000
+        port: this.config.getEnv('APP_ENVIRONMENT') === 'docker' ? 3000 : (this.config.getEnv<number>('PORT') ?? 3000)
       },
       (error) => {
         if (error !== null) this.logger.fatal(error, '[Server] server startup error')
@@ -47,7 +47,7 @@ export class Server {
    * await server.close()
    * ```
    */
-  public async close (): Promise<void> {
+  public async close(): Promise<void> {
     this.logger.info('[Server] closing the server')
     await this.fastify.close()
     this.logger.info('[Server] the server has been closed')
@@ -61,7 +61,7 @@ export class Server {
    * ```
    * @returns A fastify instance.
    */
-  public getFastifyInstance (): FastifyInstance {
+  public getFastifyInstance(): FastifyInstance {
     return this.fastify
   }
 
@@ -76,7 +76,7 @@ export class Server {
    * ```
    * @param controllers - A list of `HttpController`.
    */
-  public registerControllers (...controllers: HttpController[]): void {
+  public registerControllers(...controllers: HttpController[]): void {
     this.logger.info('[Server] registering all controllers')
     controllers.forEach((controller) => {
       this.fastify.route({
@@ -96,7 +96,7 @@ export class Server {
    * await this.registerPlugins()
    * ```
    */
-  public async registerPlugins (): Promise<void> {
+  public async registerPlugins(): Promise<void> {
     this.logger.info('[Server] registering all plugins')
     await this.fastify.register(import('@fastify/compress'))
     await this.fastify.register(import('@fastify/cors'))

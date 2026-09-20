@@ -1,4 +1,4 @@
-import {configDotenv} from 'dotenv'
+import { configDotenv } from 'dotenv'
 configDotenv({
   path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
   quiet: true
@@ -14,7 +14,7 @@ export default class ConfigService {
    * Configuration class helper.
    * @param logger - An instance of `ApplicationLogger`.
    */
-  constructor (@inject(PINO_LOGGER) private readonly logger: ApplicationLogger) {}
+  constructor(@inject(PINO_LOGGER) private readonly logger: ApplicationLogger) { }
 
   /**
    * Gets a value of a environment variable.
@@ -54,4 +54,5 @@ type EnvironmentVariable =
   'REDIS_PASSWORD' |
   'TELEGRAM_BOT_TOKEN' |
   'TELEGRAM_CHAT_ID' |
-  'WEB_APP_HOST'
+  'WEB_APP_HOST' |
+  'APP_ENVIRONMENT'
