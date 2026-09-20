@@ -43,7 +43,7 @@ LABEL org.opencontainers.image.base.name="nginx:1.31-alpine"
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 CMD [ "curl", "-f", "http://localhost:3000/healthz" ]
 
-EXPOSE 80
+EXPOSE 5000
 
 # Prevent the api server running at $PORT when specified.
 ENV APP_ENVIRONMENT="docker"
