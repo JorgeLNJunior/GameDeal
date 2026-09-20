@@ -16,7 +16,7 @@ jobs:
     uses: ./.github/workflows/frontend.yml
 
   docker:
-    name: Build and Publish Docker Container
+    name: Docker
     needs: [backend, frontend]
     secrets: inherit
     uses: ./.github/workflows/docker.yml
