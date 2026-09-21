@@ -48,7 +48,7 @@ export class GameWorker {
           password: this.config.getEnv("REDIS_PASSWORD"),
         },
         limiter: {
-          max: 3,
+          max: 1,
           duration: 1000,
         },
       },

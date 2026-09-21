@@ -56,7 +56,7 @@ export class GameDiscoveryWorker {
         },
 
         limiter: {
-          max: 3,
+          max: 1,
           duration: 1000,
         },
       },
