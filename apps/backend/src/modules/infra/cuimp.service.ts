@@ -25,7 +25,11 @@ export class CuimpService implements HttpService {
     if (response.status >= 400) {
       throw createError(response.status, url)
     }
-    return response.rawBody.toString() as Response
+
+    if (typeof Response == 'string') {
+      return response.rawBody.toString() as Response
+    }
+    return response.data as Response
   }
 
   async post<Response>(url: string, body?: object, config?: RequestConfig): Promise<Response> {
@@ -37,6 +41,10 @@ export class CuimpService implements HttpService {
     if (response.status >= 400) {
       throw createError(response.status, url)
     }
-    return response.rawBody.toString() as Response
+
+    if (typeof Response == 'string') {
+      return response.rawBody.toString() as Response
+    }
+    return response.data as Response
   }
 }
