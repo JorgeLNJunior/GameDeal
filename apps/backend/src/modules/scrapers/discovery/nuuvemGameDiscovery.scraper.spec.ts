@@ -1,10 +1,9 @@
 import { CuimpService } from '@infra/cuimp.service'
 import { PinoLogger } from '@infra/pino.logger'
-import { describeSkipIfGithubActions } from '@testing/helpers'
 
 import { NuuvemGameDiscoveryScraper } from './nuuvemGameDiscovery.scraper'
 
-describeSkipIfGithubActions('NuuvemGameDiscoveryScraper', () => {
+describe('NuuvemGameDiscoveryScraper', () => {
   let scraper: NuuvemGameDiscoveryScraper
 
   beforeEach(async () => {

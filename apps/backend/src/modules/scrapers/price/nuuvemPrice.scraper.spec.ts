@@ -1,13 +1,12 @@
 import { CuimpService } from '@infra/cuimp.service'
 import { PinoLogger } from '@infra/pino.logger'
-import { describeSkipIfGithubActions } from '@testing/helpers'
 
 import { CheerioParser } from '../parsers/cheerio.parser'
 import { NuuvemPriceScraper } from './nuuvemPrice.scraper'
 
 jest.setTimeout(30000)
 
-describeSkipIfGithubActions('NuuvemPriceScraper', () => {
+describe('NuuvemPriceScraper', () => {
   let scraper: NuuvemPriceScraper
   let parser: CheerioParser
   let logger: PinoLogger
