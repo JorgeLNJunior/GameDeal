@@ -6,6 +6,7 @@ allowBuilds:
   '@newrelic/fn-inspect': true
   '@newrelic/native-metrics': true
   '@parcel/watcher': true
+  cuimp@https://codeload.github.com/F4RAN/cuimp-ts/tar.gz/653a15b6805383f8389f28031b609366556984ad: true
   core-js-pure: true
   esbuild: true
   msgpackr-extract: true
