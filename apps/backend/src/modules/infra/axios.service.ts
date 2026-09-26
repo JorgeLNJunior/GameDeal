@@ -1,13 +1,14 @@
 import axios, { type AxiosInstance, isAxiosError } from 'axios'
 import { injectable } from 'tsyringe'
 
+import { HttpService, RequestConfig } from './http.service'
 import { PinoLogger } from './pino.logger'
 
 @injectable()
-export class AxiosService {
+export class AxiosService implements HttpService {
   private readonly axiosInstance: AxiosInstance
 
-  constructor (private readonly logger: PinoLogger) {
+  constructor(private readonly logger: PinoLogger) {
     this.axiosInstance = axios.create()
     this.axiosInstance.interceptors.response.use(undefined, (error) => {
       if (isAxiosError(error)) {
@@ -19,17 +20,13 @@ export class AxiosService {
     })
   }
 
-  async get <Response>(url: string, config?: RequestConfig): Promise<Response> {
+  async get<Response>(url: string, config?: RequestConfig): Promise<Response> {
     const response = await this.axiosInstance.get(url, config)
     return response.data
   }
 
-  async post <Response>(url: string, body?: unknown, config?: RequestConfig): Promise<Response> {
+  async post<Response>(url: string, body?: unknown, config?: RequestConfig): Promise<Response> {
     const response = await this.axiosInstance.post(url, body, config)
     return response.data
   }
-}
-
-interface RequestConfig {
-  headers: Record<string, string>
 }
