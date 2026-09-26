@@ -1,4 +1,4 @@
-import { AxiosService } from '@infra/axios.service'
+import { CuimpService } from '@infra/cuimp.service'
 import { PinoLogger } from '@infra/pino.logger'
 
 import { CheerioParser } from '../parsers/cheerio.parser'
@@ -14,8 +14,8 @@ describe('GreenManGamingPriceScraper', () => {
   beforeEach(async () => {
     logger = new PinoLogger()
     parser = new CheerioParser()
-    const axios = new AxiosService(logger)
-    scraper = new GreenManGamingPriceScraper(parser, logger, axios)
+    const http = new CuimpService(logger)
+    scraper = new GreenManGamingPriceScraper(parser, logger, http)
   })
 
   it('should return a price', async () => {

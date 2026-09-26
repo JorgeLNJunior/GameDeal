@@ -1,5 +1,6 @@
 import { CHEERIO_PARSER, PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { AxiosService } from '@infra/axios.service'
+import { HttpService } from '@infra/http.service'
 import { HTMLParser } from '@localtypes/html.parser'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import type { GamePriceScraper } from '@localtypes/scraper.type'
@@ -11,17 +12,17 @@ import { PriceFormater } from '../formaters/price.formater'
 export class SteamPriceScraper implements GamePriceScraper {
   private readonly formater = new PriceFormater()
 
-  constructor (
+  constructor(
     @inject(CHEERIO_PARSER) private readonly parser: HTMLParser,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger,
-    private readonly axios: AxiosService
-  ) {}
+    @inject(AxiosService) private readonly http: HttpService
+  ) { }
 
-  async getGamePrice (gameUrl: string): Promise<number | null> {
+  async getGamePrice(gameUrl: string): Promise<number | null> {
     // makes steam show brazilian prices
     gameUrl += '?cc=br'
 
-    const data = await this.axios.get<string>(gameUrl, {
+    const data = await this.http.get<string>(gameUrl, {
       headers: {
         Cookie: 'birthtime=0' // bypass age check
       }
@@ -31,7 +32,7 @@ export class SteamPriceScraper implements GamePriceScraper {
     const removeSelectors = [
       'div.game_purchase_sub_dropdown',
       'div.master_sub_trial'
-    ] // remove subscription and bundles
+    ] // remove subscriptions and bundles
 
     let priceString = this.parser.getSelectorValue(data, priceSelector, removeSelectors)
     if (priceString != null) {

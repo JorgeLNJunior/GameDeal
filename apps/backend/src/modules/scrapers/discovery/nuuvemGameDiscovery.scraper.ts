@@ -1,38 +1,29 @@
-import { AxiosService } from '@infra/axios.service'
+import { CuimpService } from '@infra/cuimp.service'
+import { HttpService } from '@infra/http.service'
+import { normalizeTitle } from '@scrapers/formaters/title.formater'
 import * as cheerio from 'cheerio'
-import { injectable } from 'tsyringe'
+import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class NuuvemGameDiscoveryScraper {
-  constructor (private readonly axios: AxiosService) { }
+  constructor(@inject(CuimpService) private readonly http: HttpService) { }
 
-  async discoverUrl (title: string): Promise<string | undefined> {
-    const normalizedTitle = this.normalizeTitle(title)
-    const body = await this.axios.get<string>(
-      `https://www.nuuvem.com/br-en/catalog/drm/steam/platforms/pc/page/1/search/${normalizedTitle}`
+  async discoverUrl(title: string): Promise<string | undefined> {
+    const encodedTitle = encodeURIComponent(normalizeTitle(title))
+    const body = await this.http.get<string>(
+      `https://www.nuuvem.com/br-en/catalog/drm/steam/platforms/pc/page/1/search/${encodedTitle}`
     )
 
     const wrapper = cheerio.load(body)
     const data = wrapper('div.products-items > div.nvm-grid > div > a').toArray()
 
     for (const element of data) {
-      const nuuvemTitle = this.normalizeTitle(element.attribs.title).toLowerCase()
-      const steamTitle = normalizedTitle.toLocaleLowerCase()
+      const nuuvemTitle = normalizeTitle(element.attribs.title)
+      const steamTitle = normalizeTitle(title)
 
       if (nuuvemTitle === steamTitle) {
         return element.attribs.href
       }
     }
-  }
-
-  private normalizeTitle (title: string): string {
-    return title.replaceAll('™', '')
-      .replaceAll('®', '')
-      .replaceAll('.', ' ')
-      .replaceAll('/', '')
-      .replaceAll(':', '')
-      .replaceAll('-', '')
-      .replaceAll('!', '')
-      .replaceAll('%', '')
   }
 }

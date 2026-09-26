@@ -10,10 +10,10 @@ describe('SteamPriceScraper', () => {
   let logger: PinoLogger
 
   beforeEach(async () => {
-    const axios = new AxiosService(logger)
+    const http = new AxiosService(logger)
     logger = new PinoLogger()
     parser = new CheerioParser()
-    scraper = new SteamPriceScraper(parser, logger, axios)
+    scraper = new SteamPriceScraper(parser, logger, http)
   })
 
   it('should return a price', async () => {

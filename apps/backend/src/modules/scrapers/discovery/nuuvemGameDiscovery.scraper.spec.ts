@@ -1,4 +1,4 @@
-import { AxiosService } from '@infra/axios.service'
+import { CuimpService } from '@infra/cuimp.service'
 import { PinoLogger } from '@infra/pino.logger'
 import { describeSkipIfGithubActions } from '@testing/helpers'
 
@@ -8,8 +8,8 @@ describeSkipIfGithubActions('NuuvemGameDiscoveryScraper', () => {
   let scraper: NuuvemGameDiscoveryScraper
 
   beforeEach(async () => {
-    const axios = new AxiosService(new PinoLogger())
-    scraper = new NuuvemGameDiscoveryScraper(axios)
+    const http = new CuimpService(new PinoLogger())
+    scraper = new NuuvemGameDiscoveryScraper(http)
   })
 
   it.each([

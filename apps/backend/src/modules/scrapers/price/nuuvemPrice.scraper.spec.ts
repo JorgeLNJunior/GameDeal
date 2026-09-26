@@ -1,4 +1,4 @@
-import { AxiosService } from '@infra/axios.service'
+import { CuimpService } from '@infra/cuimp.service'
 import { PinoLogger } from '@infra/pino.logger'
 import { describeSkipIfGithubActions } from '@testing/helpers'
 
@@ -15,8 +15,8 @@ describeSkipIfGithubActions('NuuvemPriceScraper', () => {
   beforeEach(async () => {
     logger = new PinoLogger()
     parser = new CheerioParser()
-    const axios = new AxiosService(logger)
-    scraper = new NuuvemPriceScraper(parser, logger, axios)
+    const imp = new CuimpService(logger)
+    scraper = new NuuvemPriceScraper(parser, logger, imp)
   })
 
   it('should return a price', async () => {

@@ -1,4 +1,4 @@
-import { AxiosService } from '@infra/axios.service'
+import { CuimpService } from '@infra/cuimp.service'
 import { PinoLogger } from '@infra/pino.logger'
 
 import { GreenManGamingGameDiscoveryScraper } from './greenManGamingGameDiscovery.scraper'
@@ -7,8 +7,8 @@ describe('GreenManGamingGameDiscoveryScraper', () => {
   let scraper: GreenManGamingGameDiscoveryScraper
 
   beforeEach(async () => {
-    const axios = new AxiosService(new PinoLogger())
-    scraper = new GreenManGamingGameDiscoveryScraper(axios)
+    const http = new CuimpService(new PinoLogger())
+    scraper = new GreenManGamingGameDiscoveryScraper(http)
   })
 
   it.each([

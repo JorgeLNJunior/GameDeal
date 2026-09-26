@@ -1,6 +1,7 @@
 import { DatabaseService } from '@database/database.service'
 import { PINO_LOGGER } from '@dependencies/dependency.tokens'
 import { AxiosService } from '@infra/axios.service'
+import { HttpService } from '@infra/http.service'
 import { ApplicationLogger } from '@localtypes/logger.type'
 import { QueueJobName } from '@localtypes/queue.type'
 import type { GameDiscoveryScraper } from '@localtypes/scraper.type'
@@ -11,14 +12,14 @@ import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
-  constructor (
+  constructor(
     private readonly database: DatabaseService,
-    private readonly axios: AxiosService,
     private readonly notificationQueue: NotificationQueue,
+    @inject(AxiosService) private readonly http: HttpService,
     @inject(PINO_LOGGER) private readonly logger: ApplicationLogger
   ) { }
 
-  async discoveryGames (pages = 15): Promise<void> {
+  async discoveryGames(pages = 15): Promise<void> {
     try {
       const client = this.database.getClient()
       const games: InsertData[] = []
@@ -28,7 +29,7 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
       this.logger.info('[SteamGameDiscoveryScraper] searching by global top sellers')
       for (let page = 1; page <= pages; page++) {
         this.logger.info(`[SteamGameDiscoveryScraper] searching at page ${page}`)
-        const data = await this.axios.get<string>(`https://store.steampowered.com/search/?cc=br&filter=globaltopsellers&category1=998&hidef2p=1&ndl=1&page=${page}`)
+        const data = await this.http.get<string>(`https://store.steampowered.com/search/?cc=br&filter=globaltopsellers&category1=998&hidef2p=1&ndl=1&page=${page}`)
         const wrapper = cheerio.load(data)
 
         wrapper('a.search_result_row').each((_index, element) => {
@@ -43,7 +44,7 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
       this.logger.info('[SteamGameDiscoveryScraper] searching by most relevants')
       for (let page = 1; page <= pages; page++) {
         this.logger.info(`[SteamGameDiscoveryScraper] searching at page ${page}`)
-        const data = await this.axios.get<string>(`https://store.steampowered.com/search/?cc=br&category1=998&hidef2p=1&ndl=1&page=${page}`)
+        const data = await this.http.get<string>(`https://store.steampowered.com/search/?cc=br&category1=998&hidef2p=1&ndl=1&page=${page}`)
         const wrapper = cheerio.load(data)
 
         wrapper('a.search_result_row ').each((_index, element) => {
@@ -92,7 +93,7 @@ export class SteamGameDiscoveryScraper implements GameDiscoveryScraper {
     }
   }
 
-  private normalizeTitle (title: string): string {
+  private normalizeTitle(title: string): string {
     return title.replace('™', '').replace('®', '')
   }
 }

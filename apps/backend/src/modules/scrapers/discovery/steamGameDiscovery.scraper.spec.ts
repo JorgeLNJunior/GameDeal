@@ -13,12 +13,12 @@ describe('SteamGameDiscoveryScraper', () => {
   let notificationQueue: NotificationQueue
 
   beforeEach(async () => {
-    const axios = new AxiosService(new PinoLogger())
+    const http = new AxiosService(new PinoLogger())
     const logger = new PinoLogger()
     const config = new ConfigService(logger)
     notificationQueue = new NotificationQueue(config, logger)
     database = new DatabaseService(config, logger)
-    scraper = new SteamGameDiscoveryScraper(database, axios, notificationQueue, logger)
+    scraper = new SteamGameDiscoveryScraper(database, notificationQueue, http, logger)
 
     await database.connect()
     await sql`DELETE FROM game`.execute(database.getClient())
