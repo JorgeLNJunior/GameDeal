@@ -15,13 +15,13 @@ info:
     Alguns links úteis:
     - [Repositório do projeto](https://github.com/JorgeLNJunior/GameDeal)
     - [Canal de notificações no Telegram](https://t.me/s/GameDealApp)
-    - [Aplicação Web](https://app.gamedeal.cloudns.nz)
+    - [Aplicação Web](https://gamedeal.top)
 
   license:
-    name: MIT
+    name: GPL-3.0
     url: https://github.com/JorgeLNJunior/GameDeal/blob/main/LICENSE.md
 servers:
-  - url: https://api.gamedeal.cloudns.nz
+  - url: https://gamedeal.top/api
     description: Produção
   - url: http://localhost:3000
     description: Desenvolvimento
