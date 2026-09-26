@@ -1,4 +1,6 @@
-export const SERVER_URL = import.meta.env.VITE_SERVER_URL
+export const SERVER_URL = import.meta.env.DEV
+  ? (import.meta.env.VITE_SERVER_URL ?? 'http://localhost:5000/api/')
+  : '/api/';
 export const TELEGRAM_CHANNEL_URL = 'https://t.me/s/GameDealApp'
 export const GITHUB_URL = 'https://github.com/JorgeLNJunior/GameDeal'
 

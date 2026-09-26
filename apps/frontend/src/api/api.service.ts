@@ -10,7 +10,6 @@ export class ApiService {
     let url = `games?page=${page}&limit=${limit}`
     if (title != null) url += `&title=${title}`
     const response = await this.http.get(url)
-    console.debug('BASE: ', SERVER_URL, ' FINAL: ', response.config.url)
     return response.data as QueryData<Game[]>
   }
 
