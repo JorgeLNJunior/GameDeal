@@ -36,7 +36,7 @@ export class GamePriceQueue {
    * @param data - The data to add to the queue.
    */
   async add(data: GamePriceScraperData): Promise<void> {
-    await this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data);
+    await this.queue.add(QueueJobName.SCRAPE_GAME_PRICE, data, { jobId: data.gameId });
   }
 
   /**
@@ -65,7 +65,7 @@ export class GamePriceQueue {
           },
           removeOnComplete: true,
           removeOnFail: true,
-          // WARN: Keeping failed jobs is desired for debugging pourposes. I'm removing it now due to redis free tier limits.
+          // WARN: Keeping failed jobs is desired for debugging pourposes. I'm removing it for now due to redis free tier limits.
           // removeOnFail: {
           //   count: 50,
           //   age: ONE_DAY,

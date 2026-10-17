@@ -36,7 +36,7 @@ export class GameDiscoveryQueue {
    * @param data - The data to add to the queue.
    */
   async add(job: QueueJobName, data: GameDiscoveryScraperData): Promise<void> {
-    await this.queue.add(job, data);
+    await this.queue.add(job, data, { jobId: data.id });
   }
 
   /**
