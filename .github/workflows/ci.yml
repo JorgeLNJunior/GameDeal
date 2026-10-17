@@ -43,3 +43,14 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           base-path: coverage
+
+  deploy:
+      runs-on: ubuntu-latest
+      needs: [backend, frontend, docker]
+      steps:
+        - name: Push to dokku
+          uses: dokku/github-action@master
+          with:
+            git_remote_url: 'ssh://root@gamedeal.top:2223/gamedeal'
+            ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+            deploy_docker_image: ghcr.io/jorgelnjunior/gamedeal:${{ github.sha }}
