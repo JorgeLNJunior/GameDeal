@@ -1,6 +1,6 @@
 FROM node:24 AS builder
 
-WORKDIR /usr/app/gamedeal
+WORKDIR /usr/build/gamedeal
 
 COPY . .
 
@@ -13,15 +13,16 @@ RUN pnpm build
 
 FROM nginx:1.31-alpine
 
-COPY --from=builder /usr/app/gamedeal/apps/backend/dist /usr/app/gamedeal/apps/backend/dist
-COPY --from=builder /usr/app/gamedeal/apps/backend/package.json /usr/app/gamedeal/apps/backend/package.json
+COPY --from=builder /usr/build/gamedeal/apps/backend/dist /usr/app/gamedeal/apps/backend/dist
+COPY --from=builder /usr/build/gamedeal/apps/backend/package.json /usr/app/gamedeal/apps/backend/package.json
 
-COPY --from=builder /usr/app/gamedeal/apps/frontend/dist /usr/app/gamedeal/apps/frontend/dist
-COPY --from=builder /usr/app/gamedeal/apps/frontend/package.json /usr/app/gamedeal/apps/frontend/package.json
+COPY --from=builder /usr/build/gamedeal/apps/frontend/dist /usr/app/gamedeal/apps/frontend/dist
+COPY --from=builder /usr/build/gamedeal/apps/frontend/package.json /usr/app/gamedeal/apps/frontend/package.json
 
-COPY --from=builder /usr/app/gamedeal/pnpm* /usr/app/gamedeal/
+COPY --from=builder /usr/build/gamedeal/package.json /usr/app/gamedeal/package.json
+COPY --from=builder /usr/build/gamedeal/pnpm* /usr/app/gamedeal/
 
-COPY --from=builder /usr/app/gamedeal/setup/nginx.conf /etc/nginx/nginx.conf
+COPY --from=builder /usr/build/gamedeal/setup/nginx.conf /etc/nginx/nginx.conf
 
 RUN apk update && apk add "nodejs=~24" npm curl
 
@@ -48,7 +49,7 @@ EXPOSE 5000
 # Prevent the api server running at $PORT when specified.
 ENV APP_ENVIRONMENT="docker"
 
-ENV NODE_ENV=production
+ENV NODE_ENV="production"
 
 SHELL ["/bin/sh", "-c"]
 
