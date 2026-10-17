@@ -48,6 +48,8 @@ EXPOSE 5000
 # Prevent the api server running at $PORT when specified.
 ENV APP_ENVIRONMENT="docker"
 
+ENV NODE_ENV=production
+
 SHELL ["/bin/sh", "-c"]
 
 CMD nginx -g "daemon off;"& node /usr/app/gamedeal/apps/backend/dist/main.js
