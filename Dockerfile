@@ -4,9 +4,10 @@ WORKDIR /usr/app/gamedeal
 
 COPY . .
 
-RUN npm i -g pnpm --frozen-lockfile
+# Installing pnpm through npm due to the alpine package being outdated.
+RUN npm i -g pnpm
 
-RUN pnpm install
+RUN pnpm install --frozen-lockfile
 
 RUN pnpm build
 
@@ -27,7 +28,6 @@ RUN apk update && apk add "nodejs=~24" npm curl
 # test nginx config file.
 RUN nginx -t
 
-# Installing pnpm through npm due to the alpine package being outdated.
 RUN npm i -g pnpm
 
 WORKDIR /usr/app/gamedeal
