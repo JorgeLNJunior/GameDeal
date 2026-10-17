@@ -5,7 +5,7 @@ on:
 
 jobs:
   docker:
-    name: 🐳 Build and Publish Docker Container
+    name: 🐳 Build and Publish
     runs-on: ubuntu-latest
     permissions:
       contents: read
