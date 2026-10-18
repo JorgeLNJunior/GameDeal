@@ -4,55 +4,54 @@ on:
   push:
 
 jobs:
-#   backend:
-#     name: Backend CI
-#     secrets: inherit
-#     uses: ./.github/workflows/backend.yml
-#
-#   frontend:
-#     name: Frontend CI
-#     secrets: inherit
-#     needs: [backend]
-#     uses: ./.github/workflows/frontend.yml
-#
-#   docker:
-#     name: Docker
-#     needs: [backend, frontend]
-#     secrets: inherit
-#     uses: ./.github/workflows/docker.yml
-#
-#   coverage:
-#     name: Upload Coverage ☂️
-#     needs: [backend, frontend]
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Download Backend Coverage
-#         uses: actions/download-artifact@v8
-#         with:
-#           name: backend_coverage
-#           path: coverage/backend
-#           github-token: ${{ secrets.GH_PAT }}
-#       - name: Download Frontend Coverage
-#         uses: actions/download-artifact@v8
-#         with:
-#           name: frontend_coverage
-#           path: coverage/frontend
-#           github-token: ${{ secrets.GH_PAT }}
-#       - name: Coveralls
-#         uses: coverallsapp/github-action@v2
-#         with:
-#           github-token: ${{ secrets.GITHUB_TOKEN }}
-#           base-path: coverage
+  backend:
+    name: Backend CI
+    secrets: inherit
+    uses: ./.github/workflows/backend.yml
+
+  frontend:
+    name: Frontend CI
+    secrets: inherit
+    needs: [backend]
+    uses: ./.github/workflows/frontend.yml
+
+  docker:
+    name: Docker
+    needs: [backend, frontend]
+    secrets: inherit
+    uses: ./.github/workflows/docker.yml
+
+  coverage:
+    name: Upload Coverage ☂️
+    needs: [backend, frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Backend Coverage
+        uses: actions/download-artifact@v8
+        with:
+          name: backend_coverage
+          path: coverage/backend
+          github-token: ${{ secrets.GH_PAT }}
+      - name: Download Frontend Coverage
+        uses: actions/download-artifact@v8
+        with:
+          name: frontend_coverage
+          path: coverage/frontend
+          github-token: ${{ secrets.GH_PAT }}
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base-path: coverage
 
   deploy:
       name: Deploy 🚀
-      runs-on: ubuntu-26.04
-      # needs: [backend, frontend, docker]
+      runs-on: ubuntu-latest
+      needs: [backend, frontend, docker]
       steps:
         - name: Push to dokku
           uses: dokku/github-action@v1
           with:
             git_remote_url: 'ssh://dokku@gamedeal.top:2223/gamedeal'
             ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
-            # deploy_docker_image: ghcr.io/jorgelnjunior/gamedeal:${{ github.sha }}
-            deploy_docker_image: ghcr.io/jorgelnjunior/gamedeal:latest
+            deploy_docker_image: ghcr.io/jorgelnjunior/gamedeal:${{ github.sha }}
