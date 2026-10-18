@@ -22,9 +22,6 @@ COPY --from=builder /usr/build/gamedeal/apps/frontend/package.json /usr/app/game
 COPY --from=builder /usr/build/gamedeal/package.json /usr/app/gamedeal/package.json
 COPY --from=builder /usr/build/gamedeal/pnpm* /usr/app/gamedeal/
 
-# dokku healthcheck
-COPY --from=builder /usr/build/gamedeal/app.json /usr/app/gamedeal/app.json
-
 COPY --from=builder /usr/build/gamedeal/setup/nginx.conf /etc/nginx/nginx.conf
 
 RUN apk update && apk add "nodejs=~24" npm curl
