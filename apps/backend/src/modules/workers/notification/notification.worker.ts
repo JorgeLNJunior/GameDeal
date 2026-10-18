@@ -52,7 +52,7 @@ export class NotificationWorker {
         },
         limiter: {
           max: 3,
-          duration: 1500
+          duration: 2000
         }
       }
     )

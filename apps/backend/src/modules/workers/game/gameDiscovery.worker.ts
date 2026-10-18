@@ -54,10 +54,9 @@ export class GameDiscoveryWorker {
           port: this.config.getEnv("REDIS_PORT"),
           password: this.config.getEnv("REDIS_PASSWORD"),
         },
-
         limiter: {
           max: 1,
-          duration: 1000,
+          duration: 3000,
         },
       },
     );

@@ -49,7 +49,7 @@ export class GameWorker {
         },
         limiter: {
           max: 1,
-          duration: 1500,
+          duration: 3000,
         },
       },
     );
